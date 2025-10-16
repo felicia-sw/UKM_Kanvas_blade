@@ -1,46 +1,32 @@
 @extends('layouts.app')
 
-@section('title', 'Home')
-
 @section('content')
-<div class="hero">
-    <h1>Welcome to {{ config('app.name') }}</h1>
-    <p>A modern Laravel application with Blade templating</p>
-    <a href="{{ route('about') }}" class="btn">Learn More</a>
-</div>
+    <div class="container-fluid px-5 pe-0 min-vh-100 d-flex align-items-center">
+        <div class="center-me ps-2 pe-0 " style="width: 100%;">
 
-<div class="features">
-    <div class="card">
-        <h3>🚀 Laravel Framework</h3>
-        <p>Built with the latest Laravel framework for robust and scalable web applications.</p>
-    </div>
-    
-    <div class="card">
-        <h3>🎨 Blade Templates</h3>
-        <p>Beautiful and maintainable templates using Laravel's Blade templating engine.</p>
-    </div>
-    
-    <div class="card">
-        <h3>📱 Responsive Design</h3>
-        <p>Modern, responsive design that works perfectly on all devices and screen sizes.</p>
-    </div>
-</div>
+            <div class="row align-items-center" style="margin-right: 0;">
+                <div class="col-xl-7 col-12">
+                    <h1 class="text-start text-white fw-bold" style="font-size: 170px;">WELCOME <br>PEEPS</h1>
 
-<div class="stats">
-    <h2>Project Statistics</h2>
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px;">
-        <div class="card">
-            <h4>Laravel Version</h4>
-            <p>{{ app()->version() }}</p>
-        </div>
-        <div class="card">
-            <h4>PHP Version</h4>
-            <p>{{ PHP_VERSION }}</p>
-        </div>
-        <div class="card">
-            <h4>Environment</h4>
-            <p>{{ app()->environment() }}</p>
+                    <!-- desc -->
+                    <div class="text-white border-start border-4 border-white ps-3 mt-4">
+                        <h4 class="text-start">Apa itu kanvas</h4>
+                    </div>
+
+                    <br>
+                    <h4 class="text-start text-white">Kanvas adalah</h4>
+                    <h4 class="text-start text-white">Feli ⚔️</h4>
+
+                    <div class="mt-5 pt-3">
+                        <h2 class="text-black text-start fw-bold" style="font-size: clamp(32px, 4vw, 48px);">SLOGAN</h2>
+                    </div>
+                </div>
+
+                <div class="col-xl-5 col-12 d-flex justify-content-end align-items-center" style="padding-right: 0;">
+                    <img src="{{ asset('images/mascot.png') }}?v=2" alt="Mascot" style="width: 100%; height: auto; margin-right: -50px">
+                </div>
+
+            </div>
         </div>
     </div>
-</div>
 @endsection
