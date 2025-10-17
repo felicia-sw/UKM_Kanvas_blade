@@ -7,7 +7,7 @@
                     <span class="brand-gradient">UKM KANVAS</span>
                 </h4>
                 <p class="text-white-50 mb-4">
-                    Unit Kegiatan Mahasiswa yang berfokus pada pengembangan kreativitas seni dan desain. 
+                    Unit Kegiatan Mahasiswa yang berfokus pada pengembangan kreativitas seni dan desain.
                     Mari bergabung dan wujudkan potensi seni Anda bersama kami.
                 </p>
                 <div class="social-links d-flex gap-3">
@@ -146,43 +146,36 @@
 </footer>
 
 <style>
-.brand-gradient {
-    background: linear-gradient(135deg, #FFEC77 0%, #F8B803 50%, #FF750F 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
+    .footer-link {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        display: inline-block;
+    }
 
-.footer-link {
-    color: rgba(255, 255, 255, 0.7);
-    text-decoration: none;
-    transition: all 0.3s ease;
-    display: inline-block;
-}
+    .footer-link:hover {
+        color: #FFEC77;
+        transform: translateX(5px);
+    }
 
-.footer-link:hover {
-    color: #FFEC77;
-    transform: translateX(5px);
-}
+    .social-icon {
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        color: #fff;
+        font-size: 20px;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
 
-.social-icon {
-    width: 45px;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    color: #fff;
-    font-size: 20px;
-    transition: all 0.3s ease;
-    text-decoration: none;
-}
-
-.social-icon:hover {
-    background: linear-gradient(135deg, #FFEC77 0%, #F8B803 100%);
-    color: #1b1b18;
-    transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(255, 236, 119, 0.4);
-}
+    .social-icon:hover {
+        background: linear-gradient(135deg, #FFEC77 0%, #F8B803 100%);
+        color: #1b1b18;
+        transform: translateY(-5px);
+        box-shadow: 0 5px 15px rgba(255, 236, 119, 0.4);
+    }
 </style>

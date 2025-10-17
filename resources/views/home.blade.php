@@ -410,19 +410,6 @@
             font-size: clamp(28px, 4vw, 48px);
         }
 
-        .glass-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .glass-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
-            background: rgba(255, 255, 255, 0.15);
-        }
 
         /* Navbar scrolled effect */
         .nav-scrolled {
@@ -440,32 +427,6 @@
             transform: scale(1.05);
         }
 
-        .btn-gradient {
-            background: linear-gradient(135deg, #FFEC77 0%, #F8B803 50%, #FF750F 100%);
-            border: none;
-            color: #1b1b18;
-            font-weight: 600;
-            transition: all 0.3s;
-            box-shadow: 0 4px 15px rgba(255, 236, 119, 0.4);
-        }
-
-        .btn-gradient:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(255, 236, 119, 0.6);
-            color: #1b1b18;
-        }
-
-        .btn-outline-light {
-            border: 2px solid #fff;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .btn-outline-light:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-color: #fff;
-            transform: translateY(-2px);
-        }
 
         .guideline-num {
             width: 48px;

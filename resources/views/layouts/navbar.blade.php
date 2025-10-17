@@ -9,12 +9,15 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-glass rounded-4 shadow-lg p-3 p-lg-4">
             <div class="container-fluid">
                 <!-- Logo/Brand -->
-                <a class="navbar-brand fs-3 fs-lg-2 fw-bold text-white d-flex align-items-center" href="{{ route('home') }}">
+                <a class="navbar-brand fs-3 fs-lg-2 fw-bold text-white d-flex align-items-center"
+                    href="{{ route('home') }}">
                     <span class="brand-gradient">{{ config('app.name') }}</span>
                 </a>
 
                 <!-- Mobile Toggle -->
-                <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                    aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -22,32 +25,32 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto gap-2 gap-lg-3 mt-3 mt-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link text-white px-3 py-2 rounded-3 {{ request()->routeIs('home') ? 'active' : '' }}" 
-                               href="{{ route('home') }}">
+                            <a class="nav-link text-white px-3 py-2 rounded-3 {{ request()->routeIs('home') ? 'active' : '' }}"
+                                href="{{ route('home') }}">
                                 <i class="bi bi-house-door me-2"></i>Home
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white px-3 py-2 rounded-3 {{ request()->routeIs('event') ? 'active' : '' }}" 
-                               href="{{ route('event') }}">
+                            <a class="nav-link text-white px-3 py-2 rounded-3 {{ request()->routeIs('event') ? 'active' : '' }}"
+                                href="{{ route('event') }}">
                                 <i class="bi bi-calendar-event me-2"></i>Events
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white px-3 py-2 rounded-3 {{ request()->routeIs('art_gallery') ? 'active' : '' }}" 
-                               href="{{ route('art_gallery') }}">
+                            <a class="nav-link text-white px-3 py-2 rounded-3 {{ request()->routeIs('art_gallery') ? 'active' : '' }}"
+                                href="{{ route('art_gallery') }}">
                                 <i class="bi bi-palette me-2"></i>Art Gallery
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white px-3 py-2 rounded-3 {{ request()->routeIs('about') ? 'active' : '' }}" 
-                               href="{{ route('about') }}">
+                            <a class="nav-link text-white px-3 py-2 rounded-3 {{ request()->routeIs('about') ? 'active' : '' }}"
+                                href="{{ route('about') }}">
                                 <i class="bi bi-info-circle me-2"></i>About Us
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white px-3 py-2 rounded-3 {{ request()->routeIs('contact') ? 'active' : '' }}" 
-                               href="{{ route('contact') }}">
+                            <a class="nav-link text-white px-3 py-2 rounded-3 {{ request()->routeIs('contact') ? 'active' : '' }}"
+                                href="{{ route('contact') }}">
                                 <i class="bi bi-envelope me-2"></i>Contact
                             </a>
                         </li>
@@ -59,61 +62,55 @@
 </div>
 
 <style>
-.bg-glass {
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.brand-gradient {
-    background: linear-gradient(135deg, #FFEC77 0%, #F8B803 50%, #FF750F 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-}
-
-.nav-link {
-    font-size: 18px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    position: relative;
-}
-
-.nav-link i {
-    font-size: 16px;
-}
-
-.nav-link:hover {
-    background-color: rgba(255, 255, 255, 0.15) !important;
-    transform: translateY(-2px);
-}
-
-.nav-link.active {
-    background: linear-gradient(135deg, rgba(255, 236, 119, 0.3) 0%, rgba(248, 184, 3, 0.3) 100%);
-    border: 1px solid rgba(255, 236, 119, 0.5);
-    font-weight: 600;
-}
-
-.navbar-toggler:focus {
-    box-shadow: none;
-}
-
-.navbar-collapse {
-    transition: all 0.3s ease;
-}
-
-@media (max-width: 991px) {
-    .navbar-nav {
-        padding-top: 1rem;
+    .bg-glass {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.15);
     }
-    
-    .nav-item {
-        margin-bottom: 0.5rem;
-    }
-    
+
+
     .nav-link {
-        padding: 0.75rem 1rem !important;
+        font-size: 18px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        position: relative;
     }
-}
+
+    .nav-link i {
+        font-size: 16px;
+    }
+
+    .nav-link:hover {
+        background-color: rgba(255, 255, 255, 0.15) !important;
+        transform: translateY(-2px);
+    }
+
+    .nav-link.active {
+        background: linear-gradient(135deg, rgba(255, 236, 119, 0.3) 0%, rgba(248, 184, 3, 0.3) 100%);
+        border: 1px solid rgba(255, 236, 119, 0.5);
+        font-weight: 600;
+    }
+
+    .navbar-toggler:focus {
+        box-shadow: none;
+    }
+
+    .navbar-collapse {
+        transition: all 0.3s ease;
+    }
+
+    @media (max-width: 991px) {
+        .navbar-nav {
+            padding-top: 1rem;
+        }
+
+        .nav-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .nav-link {
+            padding: 0.75rem 1rem !important;
+        }
+    }
 </style>
