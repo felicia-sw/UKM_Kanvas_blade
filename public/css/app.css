@@ -16,6 +16,7 @@ body {
     /* background: linear-gradient(to top, #FFEC77 0%, #bfbe7d 15%,#8F4898 32%, #844191 55%, #68307E 69%, #3B1461 80%, #2A0A56 99%); */
      background: linear-gradient(to top, #FFEC77 0%, #8F4898 55%, #2A0A56 100%);
     min-height: 100vh;
+
 }
 
 .nav-link:hover {
