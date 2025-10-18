@@ -4,8 +4,8 @@
 
 @section('content')
     <div class="container-fluid px-5 pe-0 min-vh-100 d-flex align-items-center hero-section">
-        <div class="center-me ps-2 pe-0" style="width: 100%;">
-            <div class="row align-items-center" style="margin-right: 0;">
+        <div class="center-me " style="width: 100%;">
+            <div class="row align-items-center" style="transform: translateX(8%);">
                 <!-- Left Content Section -->
                 <div class="col-xl-7 col-12" data-aos="fade-right" data-aos-duration="1000">
                     <h1 class="text-start text-white fw-bold hero-title mb-4">
@@ -14,11 +14,11 @@
 
                     <!-- Description Section -->
                     <div class="text-white border-start border-4 border-white ps-3 mt-4 mb-4">
-                        <h4 class="text-start mb-0">Apa itu Kanvas?</h4>
+                        <h3 class="text-start mb-0 fs-3">Apa itu Kanvas?</h3>
                     </div>
 
                     <div class="description-text mb-4">
-                        <p class="text-white fs-5 lh-lg">
+                        <p class="text-white fs-4 lh-lg">
                             Kanvas adalah Unit Kegiatan Mahasiswa yang berfokus pada pengembangan
                             kreativitas seni dan desain. Kami adalah rumah bagi para seniman muda
                             yang ingin mengekspresikan diri melalui berbagai medium seni.
@@ -45,21 +45,32 @@
 
                 <!-- Right Image Section -->
                 <div class="col-xl-5 col-12 d-flex justify-content-end align-items-center mascot-container"
-                    style="padding-right: 0;" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                    data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
                     <img src="{{ asset('images/mascot.png') }}?v=2" alt="Kanvas Mascot" class="mascot-image"
-                        style="width: 100%; height: auto; margin-right: -50px">
+                        style="width: 100%; height: auto; max-width: 700px; transform: translateX(-28%);">
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- Section Divider -->
+    <div class="container">
+        <div class="section-divider" data-aos="fade-in">
+            <div class="divider-line"></div>
+            <div class="divider-icon">
+                <i class="bi bi-star-fill"></i>
+            </div>
+            <div class="divider-line"></div>
+        </div>
+    </div>
+
     <!-- Features Section -->
-    <section id="features" class="features-section py-5 mt-5 section-light">
+    <section id="features" class="features-section py-5">
         <div class="container">
             <div class="row text-center mb-5">
                 <div class="col-12">
-                    <h2 class="text-dark fw-bold mb-3" data-aos="fade-up">Kenapa Bergabung dengan Kanvas?</h2>
-                    <p class="text-muted fs-5" data-aos="fade-up" data-aos-delay="100">
+                    <h2 class="text-white fw-bold mb-4 display-5 text-shadow-md">Kenapa Bergabung dengan Kanvas?</h2>
+                    <p class="text-white-50 fs-4 text-shadow-sm" data-aos="fade-up" data-aos-delay="100">
                         Temukan alasan mengapa Kanvas adalah tempat yang tepat untuk mengembangkan bakat senimu
                     </p>
                 </div>
@@ -67,36 +78,36 @@
 
             <div class="row g-4">
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="feature-card glass-card p-4 h-100 text-center">
+                    <div class="feature-card p-4 h-100 text-center">
                         <div class="feature-icon mb-3">
-                            <i class="bi bi-brush fs-1 text-warning"></i>
+                            <i class="bi bi-brush text-warning"></i>
                         </div>
-                        <h4 class="text-dark mb-3">Workshop Rutin</h4>
-                        <p class="text-muted">
+                        <h4 class="text-white mb-3 fs-3 text-shadow-sm">Workshop Rutin</h4>
+                        <p class="text-white-50 fs-5 text-shadow-sm">
                             Ikuti workshop rutin dari seniman profesional dan tingkatkan skill senimu
                         </p>
                     </div>
                 </div>
 
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="feature-card glass-card p-4 h-100 text-center">
+                    <div class="feature-card p-4 h-100 text-center">
                         <div class="feature-icon mb-3">
-                            <i class="bi bi-people fs-1 text-warning"></i>
+                            <i class="bi bi-people text-warning"></i>
                         </div>
-                        <h4 class="text-dark mb-3">Komunitas Kreatif</h4>
-                        <p class="text-muted">
+                        <h4 class="text-white mb-3 fs-3 text-shadow-sm">Komunitas Kreatif</h4>
+                        <p class="text-white-50 fs-5 text-shadow-sm">
                             Bergabung dengan komunitas seniman muda yang penuh passion dan inspirasi
                         </p>
                     </div>
                 </div>
 
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                    <div class="feature-card glass-card p-4 h-100 text-center">
+                    <div class="feature-card p-4 h-100 text-center">
                         <div class="feature-icon mb-3">
-                            <i class="bi bi-trophy fs-1 text-warning"></i>
+                            <i class="bi bi-trophy text-warning"></i>
                         </div>
-                        <h4 class="text-dark mb-3">Pameran & Kompetisi</h4>
-                        <p class="text-muted">
+                        <h4 class="text-white mb-3 fs-3 text-shadow-sm">Pameran & Kompetisi</h4>
+                        <p class="text-white-50 fs-5 text-shadow-sm">
                             Kesempatan untuk memamerkan karyamu dan ikut kompetisi tingkat nasional
                         </p>
                     </div>
@@ -105,83 +116,88 @@
         </div>
     </section>
 
+    <!-- Section Divider -->
+    <div class="container">
+        <div class="section-divider section-divider-dark" data-aos="fade-in">
+            <div class="divider-line"></div>
+            <div class="divider-icon">
+                <i class="bi bi-heart-fill"></i>
+            </div>
+            <div class="divider-line"></div>
+        </div>
+    </div>
+
     <!-- Our Values Section -->
     <section class="py-5">
         <div class="container">
             <div class="row text-center mb-5">
                 <div class="col-12">
-                    <h2 class="text-white fw-bold mb-3" data-aos="fade-up">Our Values</h2>
+                    <h2 class="text-white fw-bold mb-4 display-5 text-shadow-md" data-aos="fade-up">Our Values</h2>
                 </div>
             </div>
 
             <div class="row g-4">
                 <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="50">
-                    <div class="glass-card p-4 h-100 rounded-4">
-                        <div class="d-inline-flex align-items-center justify-content-center rounded-4 mb-3"
-                            style="width: 54px; height: 54px; background: linear-gradient(135deg, rgba(255,236,119,.35), rgba(255,117,15,.35));">
+                    <div class="glass-card p-4 h-100">
+                        <div class="icon-bg mb-3">
                             <i class="bi bi-palette2 text-white fs-4"></i>
                         </div>
-                        <h5 class="text-white mb-2">Creativity First</h5>
-                        <p class="text-white-50 mb-0">We celebrate and nurture creative expression across mediums and
+                        <h5 class="text-white mb-3 fs-4 text-shadow-sm">Creativity First</h5>
+                        <p class="text-white-50 mb-0 fs-5 text-shadow-sm">We celebrate and nurture creative expression across mediums and
                             styles.</p>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="glass-card p-4 h-100 rounded-4">
-                        <div class="d-inline-flex align-items-center justify-content-center rounded-4 mb-3"
-                            style="width: 54px; height: 54px; background: linear-gradient(135deg, rgba(255,236,119,.35), rgba(255,117,15,.35));">
+                    <div class="glass-card p-4 h-100">
+                        <div class="icon-bg mb-3">
                             <i class="bi bi-people text-white fs-4"></i>
                         </div>
-                        <h5 class="text-white mb-2">Inclusive Community</h5>
-                        <p class="text-white-50 mb-0">Welcoming all skill levels, fostering a supportive environment to
+                        <h5 class="text-white mb-3 fs-4 text-shadow-sm">Inclusive Community</h5>
+                        <p class="text-white-50 mb-0 fs-5 text-shadow-sm">Welcoming all skill levels, fostering a supportive environment to
                             grow.</p>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="150">
-                    <div class="glass-card p-4 h-100 rounded-4">
-                        <div class="d-inline-flex align-items-center justify-content-center rounded-4 mb-3"
-                            style="width: 54px; height: 54px; background: linear-gradient(135deg, rgba(255,236,119,.35), rgba(255,117,15,.35));">
+                    <div class="glass-card p-4 h-100">
+                        <div class="icon-bg mb-3">
                             <i class="bi bi-trophy text-white fs-4"></i>
                         </div>
-                        <h5 class="text-white mb-2">Excellence</h5>
-                        <p class="text-white-50 mb-0">We strive for high standards while embracing experimentation.</p>
+                        <h5 class="text-white mb-3 fs-4 text-shadow-sm">Excellence</h5>
+                        <p class="text-white-50 mb-0 fs-5 text-shadow-sm">We strive for high standards while embracing experimentation.</p>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="glass-card p-4 h-100 rounded-4">
-                        <div class="d-inline-flex align-items-center justify-content-center rounded-4 mb-3"
-                            style="width: 54px; height: 54px; background: linear-gradient(135deg, rgba(255,236,119,.35), rgba(255,117,15,.35));">
+                    <div class="glass-card p-4 h-100">
+                        <div class="icon-bg mb-3">
                             <i class="bi bi-heart text-white fs-4"></i>
                         </div>
-                        <h5 class="text-white mb-2">Passion for Art</h5>
-                        <p class="text-white-50 mb-0">We share our enthusiasm through workshops, showcases, and
+                        <h5 class="text-white mb-3 fs-4 text-shadow-sm">Passion for Art</h5>
+                        <p class="text-white-50 mb-0 fs-5 text-shadow-sm">We share our enthusiasm through workshops, showcases, and
                             collaborations.</p>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="250">
-                    <div class="glass-card p-4 h-100 rounded-4">
-                        <div class="d-inline-flex align-items-center justify-content-center rounded-4 mb-3"
-                            style="width: 54px; height: 54px; background: linear-gradient(135deg, rgba(255,236,119,.35), rgba(255,117,15,.35));">
+                    <div class="glass-card p-4 h-100">
+                        <div class="icon-bg mb-3">
                             <i class="bi bi-lightbulb text-white fs-4"></i>
                         </div>
-                        <h5 class="text-white mb-2">Innovation</h5>
-                        <p class="text-white-50 mb-0">We explore new media and techniques to discover unique artistic
+                        <h5 class="text-white mb-3 fs-4 text-shadow-sm">Innovation</h5>
+                        <p class="text-white-50 mb-0 fs-5 text-shadow-sm">We explore new media and techniques to discover unique artistic
                             voices.</p>
                     </div>
                 </div>
 
                 <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
-                    <div class="glass-card p-4 h-100 rounded-4">
-                        <div class="d-inline-flex align-items-center justify-content-center rounded-4 mb-3"
-                            style="width: 54px; height: 54px; background: linear-gradient(135deg, rgba(255,236,119,.35), rgba(255,117,15,.35));">
+                    <div class="glass-card p-4 h-100">
+                        <div class="icon-bg mb-3">
                             <i class="bi bi-bullseye text-white fs-4"></i>
                         </div>
-                        <h5 class="text-white mb-2">Goal-Oriented</h5>
-                        <p class="text-white-50 mb-0">We set clear goals for growth, events, and meaningful achievements.
+                        <h5 class="text-white mb-3 fs-4 text-shadow-sm">Goal-Oriented</h5>
+                        <p class="text-white-50 mb-0 fs-5 text-shadow-sm">We set clear goals for growth, events, and meaningful achievements.
                         </p>
                     </div>
                 </div>
@@ -189,50 +205,61 @@
         </div>
     </section>
 
+    <!-- Section Divider -->
+    <div class="container">
+        <div class="section-divider section-divider-dark" data-aos="fade-in">
+            <div class="divider-line"></div>
+            <div class="divider-icon">
+                <i class="bi bi-bookmark-fill"></i>
+            </div>
+            <div class="divider-line"></div>
+        </div>
+    </div>
+
     <!-- Club Guidelines Section -->
     <section class="py-5">
         <div class="container">
             <div class="row text-center mb-5">
                 <div class="col-12">
-                    <h2 class="text-white fw-bold mb-3" data-aos="fade-up">Club Guidelines</h2>
+                    <h2 class="text-white fw-bold mb-4 display-5 text-shadow-md" data-aos="fade-up">Club Guidelines</h2>
                 </div>
             </div>
 
             <div class="vstack gap-3">
-                <div class="glass-card p-4 rounded-4" data-aos="fade-up" data-aos-delay="50">
+                <div class="glass-card p-4" data-aos="fade-up" data-aos-delay="50">
                     <div class="d-flex align-items-start gap-3">
-                        <div class="guideline-num">01</div>
+                        <div class="guideline-num fs-5">01</div>
                         <div>
-                            <h5 class="text-white mb-1">Respect & Support</h5>
-                            <p class="text-white-50 mb-0">Treat all members with respect and provide constructive feedback.
+                            <h5 class="text-white mb-2 fs-4 text-shadow-sm">Respect & Support</h5>
+                            <p class="text-white-50 mb-0 fs-5 text-shadow-sm">Treat all members with respect and provide constructive feedback.
                             </p>
                         </div>
                     </div>
                 </div>
-                <div class="glass-card p-4 rounded-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="glass-card p-4" data-aos="fade-up" data-aos-delay="100">
                     <div class="d-flex align-items-start gap-3">
-                        <div class="guideline-num">02</div>
+                        <div class="guideline-num fs-5">02</div>
                         <div>
-                            <h5 class="text-white mb-1">Active Participation</h5>
-                            <p class="text-white-50 mb-0">Aim to attend club activities and events regularly.</p>
+                            <h5 class="text-white mb-2 fs-4 text-shadow-sm">Active Participation</h5>
+                            <p class="text-white-50 mb-0 fs-5 text-shadow-sm">Aim to attend club activities and events regularly.</p>
                         </div>
                     </div>
                 </div>
-                <div class="glass-card p-4 rounded-4" data-aos="fade-up" data-aos-delay="150">
+                <div class="glass-card p-4" data-aos="fade-up" data-aos-delay="150">
                     <div class="d-flex align-items-start gap-3">
-                        <div class="guideline-num">03</div>
+                        <div class="guideline-num fs-5">03</div>
                         <div>
-                            <h5 class="text-white mb-1">Original Work</h5>
-                            <p class="text-white-50 mb-0">All submitted artworks must be original creations.</p>
+                            <h5 class="text-white mb-2 fs-4 text-shadow-sm">Original Work</h5>
+                            <p class="text-white-50 mb-0 fs-5 text-shadow-sm">All submitted artworks must be original creations.</p>
                         </div>
                     </div>
                 </div>
-                <div class="glass-card p-4 rounded-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="glass-card p-4" data-aos="fade-up" data-aos-delay="200">
                     <div class="d-flex align-items-start gap-3">
-                        <div class="guideline-num">04</div>
+                        <div class="guideline-num fs-5">04</div>
                         <div>
-                            <h5 class="text-white mb-1">Studio Care</h5>
-                            <p class="text-white-50 mb-0">Keep the studio clean and return all materials after use.</p>
+                            <h5 class="text-white mb-2 fs-4 text-shadow-sm">Studio Care</h5>
+                            <p class="text-white-50 mb-0 fs-5 text-shadow-sm">Keep the studio clean and return all materials after use.</p>
                         </div>
                     </div>
                 </div>
@@ -240,72 +267,94 @@
         </div>
     </section>
 
+    <!-- Section Divider -->
+    <div class="container">
+        <div class="section-divider section-divider-dark" data-aos="fade-in">
+            <div class="divider-line"></div>
+            <div class="divider-icon">
+                <i class="bi bi-bullseye"></i>
+            </div>
+            <div class="divider-line"></div>
+        </div>
+    </div>
+
     <!-- Mission Section -->
     <section class="py-5">
         <div class="container">
-            <div class="glass-card p-5 rounded-4" data-aos="zoom-in">
-                <h2 class="text-center text-white fw-bold mb-3">Our Mission</h2>
-                <p class="text-center text-white-50 mb-0 fs-5">To create an inclusive platform where students can explore,
+            <div class="glass-card p-5" data-aos="zoom-in">
+                <h2 class="text-center text-white fw-bold mb-4 display-5 text-shadow-md">Our Mission</h2>
+                <p class="text-center text-white-50 mb-0 fs-4 text-shadow-sm">To create an inclusive platform where students can explore,
                     develop, and showcase their artistic talents while fostering a supportive community that celebrates
                     creativity, innovation, and excellence.</p>
             </div>
         </div>
     </section>
 
+    <!-- Section Divider -->
+    <div class="container">
+        <div class="section-divider" data-aos="fade-in">
+            <div class="divider-line"></div>
+            <div class="divider-icon">
+                <i class="bi bi-calendar-event-fill"></i>
+            </div>
+            <div class="divider-line"></div>
+        </div>
+    </div>
+
     <!-- Upcoming Events Section -->
-    <section id="events" class="py-5 section-light">
+    <section id="events" class="py-5">
         <div class="container">
             <div class="row align-items-end mb-4">
                 <div class="col">
-                    <h2 class="text-dark fw-bold" data-aos="fade-up">Upcoming Events</h2>
-                    <p class="text-muted mb-0" data-aos="fade-up" data-aos-delay="100">Ikuti kegiatan Kanvas terbaru dan
+                    <h2 class="text-white fw-bold display-5 text-shadow-md" data-aos="fade-up">Upcoming Events</h2>
+                    <p class="text-white-50 mb-0 fs-4 text-shadow-sm" data-aos="fade-up" data-aos-delay="100">Ikuti kegiatan Kanvas terbaru dan
                         tingkatkan jaringan kreatifmu</p>
                 </div>
                 <div class="col-auto">
-                    <a href="{{ route('events') }}" class="btn btn-outline-dark">Lihat Semua</a>
+                    <a href="{{ route('events') }}" class="btn btn-outline-light">Lihat Semua</a>
                 </div>
             </div>
 
             <div class="row g-4">
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="card bg-transparent border-0 h-100 glass-card">
+                    <div class="card border-0 h-100 event-card">
                         <div class="card-body p-4">
                             <div class="d-flex align-items-center mb-3">
-                                <span class="badge bg-warning text-dark me-2">Workshop</span>
-                                <small class="text-muted">Sab, 26 Okt</small>
+                                <span class="badge bg-warning text-dark me-2 event-badge">Workshop</span>
+                                <small class="text-white-50 event-badge text-shadow-sm">Sab, 26 Okt</small>
                             </div>
-                            <h5 class="card-title text-dark">Dasar Ilustrasi Digital</h5>
-                            <p class="card-text text-muted">Belajar workflow ilustrasi dari sketsa hingga final render.
+                            <h5 class="card-title text-white fs-3 text-shadow-sm">Dasar Ilustrasi Digital</h5>
+                            <p class="card-text text-white-50 fs-5 text-shadow-sm">Belajar workflow ilustrasi dari sketsa hingga final render.
                             </p>
-                            <a href="{{ route('events') }}" class="link-dark text-decoration-none">Detail event →</a>
+                            <a href="{{ route('events') }}" class="link-light text-decoration-none fs-5 text-shadow-sm">Detail event →</a>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="card bg-transparent border-0 h-100 glass-card">
+                    <div class="card border-0 h-100 event-card">
                         <div class="card-body p-4">
                             <div class="d-flex align-items-center mb-3">
-                                <span class="badge bg-warning text-dark me-2">Talkshow</span>
-                                <small class="text-muted">Min, 3 Nov</small>
+                                <span class="badge bg-warning text-dark me-2 event-badge">Talkshow</span>
+                                <small class="text-white-50 event-badge text-shadow-sm">Min, 3 Nov</small>
                             </div>
-                            <h5 class="card-title text-dark">Career in Creative Industry</h5>
-                            <p class="card-text text-muted">Ngobrol bareng praktisi industri desain dan ilustrasi.</p>
-                            <a href="{{ route('events') }}" class="link-dark text-decoration-none">Detail event →</a>
+                            <h5 class="card-title text-white fs-3 text-shadow-sm">Career in Creative Industry</h5>
+                            <p class="card-text text-white-50 fs-5 text-shadow-sm">Ngobrol bareng praktisi industri desain dan ilustrasi.</p>
+                            <a href="{{ route('events') }}" class="link-light text-decoration-none fs-5 text-shadow-sm">Detail event →</a>
                         </div>
                     </div>
                 </div>
 
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                    <div class="card bg-transparent border-0 h-100 glass-card">
+                    <div class="card border-0 h-100 event-card">
                         <div class="card-body p-4">
                             <div class="d-flex align-items-center mb-3">
-                                <span class="badge bg-warning text-dark me-2">Exhibition</span>
-                                <small class="text-muted">Sab, 16 Nov</small>
+                                <span class="badge bg-warning text-dark me-2 event-badge">Exhibition</span>
+                                <small class="text-white-50 event-badge text-shadow-sm">Sab, 16 Nov</small>
                             </div>
-                            <h5 class="card-title text-dark">Kanvas Art Showcase</h5>
-                            <p class="card-text text-muted">Pameran karya anggota Kanvas terbaik bulan ini.</p>
-                            <a href="{{ route('events') }}" class="link-dark text-decoration-none">Detail event →</a>
+                            <h5 class="card-title text-white fs-3 text-shadow-sm">Kanvas Art Showcase</h5>
+                            <p class="card-text text-white-50 fs-5 text-shadow-sm">Pameran karya anggota Kanvas terbaik bulan ini.</p>
+                            <a href="{{ route('events') }}" class="link-light text-decoration-none fs-5 text-shadow-sm">Detail event →</a>
                         </div>
                     </div>
                 </div>
@@ -314,13 +363,22 @@
 
     </section>
 
+    <!-- Section Divider -->
+    <div class="section-divider section-divider-dark" data-aos="fade-in">
+        <div class="divider-line"></div>
+        <div class="divider-icon">
+            <i class="bi bi-palette-fill"></i>
+        </div>
+        <div class="divider-line"></div>
+    </div>
+
     <!-- Gallery Preview Section -->
     <section id="gallery" class="py-5">
         <div class="container">
             <div class="d-flex align-items-end justify-content-between mb-4">
                 <div>
-                    <h2 class="text-white fw-bold" data-aos="fade-up">Galeri Karya</h2>
-                    <p class="text-white-50 mb-0" data-aos="fade-up" data-aos-delay="100">Karya terbaru dari anggota
+                    <h2 class="text-white fw-bold display-5 text-shadow-md" data-aos="fade-up">Galeri Karya</h2>
+                    <p class="text-white-50 mb-0 fs-4 text-shadow-sm" data-aos="fade-up" data-aos-delay="100">Karya terbaru dari anggota
                         Kanvas</p>
                 </div>
                 <a href="{{ route('art_gallery') }}" class="btn btn-outline-light">Lihat Galeri</a>
@@ -328,22 +386,22 @@
 
             <div class="row g-3">
                 <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="50">
-                    <div class="ratio ratio-1x1 rounded-4 overflow-hidden glass-card">
+                    <div class="ratio ratio-1x1 overflow-hidden glass-card">
                         <img src="{{ asset('images/mascot.png') }}" alt="Karya 1" class="w-100 h-100 object-fit-cover">
                     </div>
                 </div>
                 <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="ratio ratio-1x1 rounded-4 overflow-hidden glass-card">
+                    <div class="ratio ratio-1x1 overflow-hidden glass-card">
                         <img src="{{ asset('images/mascot.png') }}" alt="Karya 2" class="w-100 h-100 object-fit-cover">
                     </div>
                 </div>
                 <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="150">
-                    <div class="ratio ratio-1x1 rounded-4 overflow-hidden glass-card">
+                    <div class="ratio ratio-1x1 overflow-hidden glass-card">
                         <img src="{{ asset('images/mascot.png') }}" alt="Karya 3" class="w-100 h-100 object-fit-cover">
                     </div>
                 </div>
                 <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="ratio ratio-1x1 rounded-4 overflow-hidden glass-card">
+                    <div class="ratio ratio-1x1 overflow-hidden glass-card">
                         <img src="{{ asset('images/mascot.png') }}" alt="Karya 4" class="w-100 h-100 object-fit-cover">
                     </div>
                 </div>
@@ -351,27 +409,38 @@
         </div>
     </section>
 
+    <!-- Section Divider -->
+    <div class="section-divider" data-aos="fade-in">
+        <div class="divider-line"></div>
+        <div class="divider-icon">
+            <i class="bi bi-info-circle-fill"></i>
+        </div>
+        <div class="divider-line"></div>
+    </div>
+
     <!-- About Section -->
-    <section id="about" class="py-5 section-light">
+    <section id="about" class="py-5">
         <div class="container">
             <div class="row align-items-center g-4">
                 <div class="col-lg-6" data-aos="fade-right">
-                    <h2 class="text-dark fw-bold mb-3">Tentang Kanvas</h2>
-                    <p class="text-muted fs-5 mb-4">Kanvas adalah komunitas kreatif di lingkungan kampus yang mendorong
-                        eksplorasi seni visual, desain, dan media kreatif lainnya. Kami rutin mengadakan workshop, pameran,
-                        serta kolaborasi lintas disiplin untuk memperluas wawasan dan jejaring.</p>
-                    <ul class="text-muted mb-4 list-unstyled">
-                        <li class="mb-2"><i class="bi bi-check-circle text-warning me-2"></i>Mentoring dari praktisi
-                        </li>
-                        <li class="mb-2"><i class="bi bi-check-circle text-warning me-2"></i>Fasilitas studio dan
-                            perangkat</li>
-                        <li class="mb-2"><i class="bi bi-check-circle text-warning me-2"></i>Proyek kolaborasi nyata
-                        </li>
-                    </ul>
-                    <a href="{{ route('about') }}" class="btn btn-gradient px-4 py-2">Pelajari lebih lanjut</a>
+                    <div class="glass-card p-4">
+                        <h2 class="text-white fw-bold mb-4 display-5 text-shadow-md">Tentang Kanvas</h2>
+                        <p class="text-white-50 fs-4 mb-4 text-shadow-sm">Kanvas adalah komunitas kreatif di lingkungan kampus yang mendorong
+                            eksplorasi seni visual, desain, dan media kreatif lainnya. Kami rutin mengadakan workshop, pameran,
+                            serta kolaborasi lintas disiplin untuk memperluas wawasan dan jejaring.</p>
+                        <ul class="text-white-50 mb-4 list-unstyled fs-5 text-shadow-sm">
+                            <li class="mb-2"><i class="bi bi-check-circle text-warning me-2"></i>Mentoring dari praktisi
+                            </li>
+                            <li class="mb-2"><i class="bi bi-check-circle text-warning me-2"></i>Fasilitas studio dan
+                                perangkat</li>
+                            <li class="mb-2"><i class="bi bi-check-circle text-warning me-2"></i>Proyek kolaborasi nyata
+                            </li>
+                        </ul>
+                        <a href="{{ route('about') }}" class="btn btn-gradient px-4 py-2">Pelajari lebih lanjut</a>
+                    </div>
                 </div>
                 <div class="col-lg-6" data-aos="fade-left">
-                    <div class="ratio ratio-16x9 rounded-4 overflow-hidden glass-card">
+                    <div class="ratio ratio-16x9 overflow-hidden glass-card">
                         <img src="{{ asset('images/mascot.png') }}" alt="Tentang Kanvas"
                             class="w-100 h-100 object-fit-cover">
                     </div>
@@ -380,18 +449,27 @@
         </div>
     </section>
 
+    <!-- Section Divider -->
+    <div class="section-divider" data-aos="fade-in">
+        <div class="divider-line"></div>
+        <div class="divider-icon">
+            <i class="bi bi-envelope-fill"></i>
+        </div>
+        <div class="divider-line"></div>
+    </div>
+
     <!-- CTA Join Section -->
-    <section id="contact" class="py-5 section-light">
+    <section id="contact" class="py-5">
         <div class="container">
-            <div class="glass-card p-5 rounded-4" data-aos="zoom-in">
+            <div class="glass-card p-5" data-aos="zoom-in">
                 <div class="row align-items-center g-4">
                     <div class="col-lg-8">
-                        <h3 class="text-dark fw-bold mb-2">Siap bergabung dengan Kanvas?</h3>
-                        <p class="text-muted mb-0">Mari kembangkan potensi kreatifmu bersama komunitas yang suportif.
+                        <h3 class="text-white fw-bold mb-3 display-6 text-shadow-md">Siap bergabung dengan Kanvas?</h3>
+                        <p class="text-white-50 mb-0 fs-4 text-shadow-sm">Mari kembangkan potensi kreatifmu bersama komunitas yang suportif.
                         </p>
                     </div>
                     <div class="col-lg-4 d-flex gap-3 justify-content-lg-end">
-                        <a href="{{ route('contact') }}" class="btn btn-outline-dark btn-lg">Hubungi Kami</a>
+                        <a href="{{ route('contact') }}" class="btn btn-outline-light btn-lg">Hubungi Kami</a>
                         <a href="{{ route('events') }}" class="btn btn-gradient btn-lg">Lihat Kegiatan</a>
                     </div>
                 </div>
@@ -481,8 +559,8 @@
 
 
         .guideline-num {
-            width: 48px;
-            height: 48px;
+            width: 56px;
+            height: 56px;
             border-radius: 12px;
             display: inline-flex;
             align-items: center;
@@ -490,6 +568,62 @@
             background: linear-gradient(135deg, rgba(255, 236, 119, .35), rgba(255, 117, 15, .35));
             color: #fff;
             font-weight: 700;
+        }
+
+        /* Section Dividers */
+        .section-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding: 2rem 0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section-divider-dark {
+            /* For dark background sections */
+        }
+
+        .divider-line {
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+        }
+
+        .section-light .divider-line {
+            background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.2), transparent);
+        }
+
+        .divider-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, rgba(255, 236, 119, 0.3), rgba(255, 117, 15, 0.3));
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .section-divider-dark .divider-icon {
+            background: linear-gradient(135deg, rgba(255, 236, 119, 0.25), rgba(255, 117, 15, 0.25));
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .section-light .divider-icon {
+            background: linear-gradient(135deg, rgba(255, 236, 119, 0.5), rgba(255, 117, 15, 0.5));
+            border: 2px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .divider-icon i {
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        .section-light .divider-icon i {
+            color: #333;
         }
 
         /* Light section styles to blend with the same palette */
@@ -510,6 +644,11 @@
 
         .btn-outline-dark:hover {
             transform: translateY(-2px);
+        }
+
+        /* Override text-white-50 to be lighter and closer to white */
+        .text-white-50 {
+            color: rgb(229, 229, 229) !important;
         }
 
         @media (max-width: 1199px) {
