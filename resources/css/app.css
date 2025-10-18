@@ -1,41 +1,132 @@
-/* @import 'tailwindcss';
-
- :root {
+/* Global Styles */
+:root {
     --site-font: 'Judson', serif;
     --page-padding: 20px;
-    --accent-start: #667eea;
-    --accent-end: #764ba2;
+    --accent-start: #FFEC77;
+    --accent-end: #FF750F;
 }
 
-html, body {
+html,
+body {
     height: 100%;
     width: 100%;
+    scroll-behavior: smooth;
 }
+
 body {
-    font-family: var(--site-font), serif;background: 
-    linear-gradient(to bottom, #FFEC77 0%, #8F4898 42%, #844191 45%, #68307E 50%, #3B1461 57%, #2A0A56 59%);
+    font-family: var(--site-font), serif;
+    background: linear-gradient(to bottom, #FFEC77 0%, #8F4898 42%, #844191 45%, #68307E 50%, #3B1461 57%, #2A0A56 59%, #2A0A56 100%);
+    background-attachment: fixed;
     min-height: 100vh;
-
+    overflow-x: hidden;
 }
 
-.nav-link:hover {
-    background-color: rgba(255, 255, 255, 0.2) !important;
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 700;
 }
 
-/* .content{
+/* Glass Card Effect */
+.glass-card {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
 
-} */
+.glass-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    background: rgba(255, 255, 255, 0.15);
+}
 
+/* Button Styles */
 .btn-gradient {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, #FFEC77 0%, #F8B803 50%, #FF750F 100%);
     border: none;
-    color: white;
-    transition: transform 0.3s;
+    color: #1b1b18;
+    font-weight: 600;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(255, 236, 119, 0.4);
 }
 
 .btn-gradient:hover {
     transform: translateY(-2px);
-    color: white;
-} 
+    box-shadow: 0 8px 25px rgba(255, 236, 119, 0.6);
+    color: #1b1b18;
+}
 
-*/ {}
+.btn-outline-light {
+    border: 2px solid #fff;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-outline-light:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #fff;
+    transform: translateY(-2px);
+}
+
+/* Brand Gradient */
+.brand-gradient {
+    background: linear-gradient(135deg, #FFEC77 0%, #F8B803 50%, #FF750F 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Navigation */
+.nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Utility Classes */
+.text-white-50 {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: #2A0A56;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #FFEC77 0%, #F8B803 100%);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #F8B803 0%, #FF750F 100%);
+}
+
+/* Loading Animation */
+.loading {
+    opacity: 0;
+    animation: fadeIn 0.5s ease-in forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767px) {
+    body {
+        font-size: 14px;
+    }
+}
