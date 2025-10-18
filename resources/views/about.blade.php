@@ -3,28 +3,27 @@
 @section('title', 'About Us')
 
 @section('content')
-<div class="about-page">
-    <!-- Page Header -->
-    <div class="page-header py-5 mb-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 text-center" data-aos="fade-down">
-                    <h1 class="text-white fw-bold display-3 mb-3">ABOUT US</h1>
-                    <p class="text-white-50 fs-5">Mengenal lebih dekat UKM Kanvas</p>
-                </div>
+<div class="about-page text-white min-vh-100 py-5">
+    <div class="container-fluid">
+        
+        <!-- Page Header -->
+        <div class="row justify-content-center text-center mb-5 mt-5 pt-5">
+            <div class="col-12">
+                <h1 class="page-title display-1 fw-bold text-uppercase mb-4" data-aos="fade-down">ABOUT US</h1>
+                <p class="page-subtitle text-white fs-5 mx-auto" style="max-width: 600px;" data-aos="fade-up" data-aos-delay="100">
+                    Mengenal lebih dekat UKM Kanvas dan perjalanan kami dalam dunia seni
+                </p>
             </div>
         </div>
-    </div>
 
-    <!-- About Content -->
-    <div class="container py-5">
+        <!-- About Content -->
+        <div class="container py-5">
         <!-- Introduction -->
         <div class="row mb-5 align-items-center">
             <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
-                <div class="about-image-container">
-                    <img src="{{ asset('images/about/team.jpg') }}" 
-                         alt="Kanvas Team" 
-                         class="img-fluid rounded-4 shadow-lg">
+                <div class="about-image-container ">
+                    <img src="{{ asset('images/mascot2.png') }}" 
+                         alt="Kanvas mascot2" >
                 </div>
             </div>
             <div class="col-lg-6" data-aos="fade-left">
@@ -45,11 +44,11 @@
         <!-- Vision & Mission -->
         <div class="row g-4 mb-5">
             <div class="col-lg-6" data-aos="fade-up">
-                <div class="glass-card p-5 h-100">
+                <div class="glass-card p-5 h-100" style="background: rgba(50, 30, 80, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);">
                     <div class="icon-box mb-4">
                         <i class="bi bi-eye fs-1 text-warning"></i>
                     </div>
-                    <h3 class="text-white fw-bold mb-3">Visi Kami</h3>
+                    <h3 class="text-white display-4 fw-bold mb-3">Visi Kami</h3>
                     <p class="text-white-50 fs-5 lh-lg">
                         Menjadi wadah utama pengembangan bakat seni mahasiswa dan menghasilkan 
                         karya-karya berkualitas yang dapat menginspirasi dan memberikan dampak 
@@ -58,11 +57,11 @@
                 </div>
             </div>
             <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-                <div class="glass-card p-5 h-100">
+                <div class="glass-card p-5 h-100" style="background: rgba(50, 30, 80, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);">
                     <div class="icon-box mb-4">
                         <i class="bi bi-bullseye fs-1 text-warning"></i>
                     </div>
-                    <h3 class="text-white fw-bold mb-3">Misi Kami</h3>
+                    <h3 class="text-white display-4 fw-bold mb-3">Misi Kami</h3>
                     <ul class="text-white-50 fs-5 lh-lg">
                         <li class="mb-2">Mengembangkan kreativitas dan bakat seni mahasiswa</li>
                         <li class="mb-2">Menyelenggarakan workshop dan pelatihan berkualitas</li>
@@ -81,7 +80,7 @@
 
         <div class="row g-4 mb-5">
             <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                <div class="value-card glass-card p-4 text-center h-100">
+                <div class="value-card glass-card p-4 text-center h-100" style="background: rgba(125, 107, 48, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);">
                     <div class="value-icon mb-3">
                         <i class="bi bi-lightbulb fs-1 text-warning"></i>
                     </div>
@@ -93,7 +92,7 @@
             </div>
 
             <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                <div class="value-card glass-card p-4 text-center h-100">
+                <div class="value-card glass-card p-4 text-center h-100" style="background: rgba(125, 107, 48, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);">
                     <div class="value-icon mb-3">
                         <i class="bi bi-people fs-1 text-warning"></i>
                     </div>
@@ -105,7 +104,7 @@
             </div>
 
             <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                <div class="value-card glass-card p-4 text-center h-100">
+                <div class="value-card glass-card p-4 text-center h-100" style="background: rgba(125, 107, 48, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);">
                     <div class="value-icon mb-3">
                         <i class="bi bi-award fs-1 text-warning"></i>
                     </div>
@@ -117,7 +116,7 @@
             </div>
 
             <div class="col-lg-3 col-md-6" data-aos="fade-up" data-aos-delay="400">
-                <div class="value-card glass-card p-4 text-center h-100">
+                <div class="value-card glass-card p-4 text-center h-100" style="background: rgba(125, 107, 48, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);">
                     <div class="value-icon mb-3">
                         <i class="bi bi-heart fs-1 text-warning"></i>
                     </div>
@@ -130,7 +129,7 @@
         </div>
 
         <!-- Statistics -->
-        <div class="stats-section glass-card p-5 mb-5" data-aos="fade-up">
+        <div class="stats-section glass-card p-5 mb-5" style="background: rgba(129, 121, 43, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);" data-aos="fade-up">
             <div class="row text-center g-4">
                 <div class="col-lg-3 col-6">
                     <div class="stat-item">
@@ -160,7 +159,7 @@
         </div>
 
         <!-- CTA Section -->
-        <div class="text-center" data-aos="fade-up">
+        <div class="glass-card p-5 rounded-4 text-center" style="background: rgba(50, 30, 80, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);" data-aos="fade-up">
             <h2 class="text-white fw-bold mb-4">Siap Bergabung dengan Kami?</h2>
             <p class="text-white-50 fs-5 mb-4">
                 Jangan lewatkan kesempatan untuk mengembangkan bakat senimu bersama komunitas terbaik!
@@ -180,6 +179,50 @@
 <style>
 .about-page {
     min-height: 100vh;
+    background-image: url('{{ asset("images/bg1.jpg") }}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
+}
+
+.about-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top, 
+        rgba(255, 236, 119, 0.85) 0%, 
+        rgba(255, 217, 107, 0.85) 15%,
+        rgba(255, 192, 95, 0.85) 25%,
+        rgba(232, 160, 85, 0.85) 35%,
+        rgba(199, 130, 78, 0.85) 45%,
+        rgba(143, 72, 152, 0.85) 60%,
+        rgba(106, 53, 116, 0.85) 75%,
+        rgba(71, 35, 96, 0.85) 85%,
+        rgba(42, 10, 86, 0.9) 100%);
+    z-index: 0;
+}
+
+.about-page > * {
+    position: relative;
+    z-index: 1;
+}
+
+.page-title {
+    letter-spacing: 5px;
+    line-height: 1.1;
+    color: #ddd;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.8);
+}
+
+/* Override text-white-50 to be lighter */
+.text-white-50 {
+    color: rgba(255, 255, 255, 0.85) !important;
 }
 
 .about-image-container img {
