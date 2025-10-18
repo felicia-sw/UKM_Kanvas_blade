@@ -166,7 +166,7 @@
                 Jangan lewatkan kesempatan untuk mengembangkan bakat senimu bersama komunitas terbaik!
             </p>
             <div class="d-flex gap-3 justify-content-center flex-wrap">
-                <a href="{{ route('event') }}" class="btn btn-gradient btn-lg px-4 py-3">
+                <a href="{{ route('events') }}" class="btn btn-gradient btn-lg px-4 py-3">
                     <i class="bi bi-calendar-event me-2"></i>Lihat Event
                 </a>
                 <a href="{{ route('contact') }}" class="btn btn-outline-light btn-lg px-4 py-3">

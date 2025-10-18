@@ -96,14 +96,14 @@
           @foreach($activeEvents as $index => $event)
           <div class="row event-item mb-5 pb-5 position-relative" data-index="{{ $index }}">
             <!-- Image Circle (Left Side) -->
-            <div class="col-12 col-md-3 col-lg-2 d-flex justify-content-center justify-content-md-start mb-4 mb-md-0">
-              <div class="event-circle rounded-circle  border-3 border-white position-relative">
+            <div class="col-12 col-md-3 col-lg-2 d-flex justify-content-center justify-content-md-start align-items-center mb-4 mb-md-0">
+              <div class="event-rect border-3 border-white position-relative d-flex align-items-center overflow-hidden">
                 @if($event['poster_image'])
                   <img src="{{ asset('images/events/' . $event['poster_image']) }}" 
                        alt="{{ $event['title'] }}" 
-                       class="w-100 h-100 rounded-circle object-fit-cover">
+                       class="event-img object-fit-cover">
                 @else
-                  <div class="placeholder-image bg-secondary d-flex align-items-center justify-content-center w-100 h-100 rounded-circle">
+                  <div class="placeholder-image bg-secondary d-flex align-items-center justify-content-center w-100 h-100">
                     <i class="bi bi-calendar-event text-muted"></i>
                   </div>
                 @endif
@@ -111,7 +111,7 @@
             </div>
 
             <!-- Event Content (Right Side) -->
-            <div class="col-12 col-md-9 col-lg-10">
+            <div class="col-12 col-md-9 col-lg-10 d-flex flex-column justify-content-center">
               <!-- Date at Top -->
               <div class="event-date mb-3">
                 <span class="display-4 fw-bold">{{ date('d', strtotime($event['start_date'])) }}</span>
@@ -220,16 +220,23 @@
   -webkit-text-stroke: 1px rgba(255, 255, 255, 0.8);
 }
 
-/* Fly-in animation */
+/* Fly-in animation with zoom effect */
 .event-item {
   opacity: 0;
-  transform: translateY(50px);
-  transition: transform 0.7s ease-out, opacity 0.7s ease-out;
+  transform: translateY(50px) scale(0.85);
+  transition: transform 0.5s ease-out, opacity 0.5s ease-out;
+  transform-origin: 100px center; /* Align with red line position (100px from left edge) */
 }
 
 .event-item.fly-in {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
+}
+
+/* Scale effect when in viewport center */
+.event-item.zoom-active {
+  transform: translateY(0) scale(1.25);
+  transition: transform 0.6s ease-out;
 }
 
 /* Responsive timeline line positioning */
@@ -261,8 +268,55 @@
 }
 </style>
 
+<style>
+/* Updated image rectangle layout */
+.event-rect {
+  /* make a 3:4 rectangle: width 200px, height ~267px (200 * 4/3) */
+  width: 200px;
+  aspect-ratio: 3 / 4; /* width / height = 3:4 -> modern browsers */
+  max-width: 100%;
+  background-color: #333;
+  border-radius: 0.75rem;
+  box-shadow: 0 0 60px rgba(255,255,255,0.06);
+}
+
+.event-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Add small gap between image block and text on larger screens */
+@media (min-width: 768px) {
+  .col-md-3 + .col-md-9 {
+    padding-left: 1rem; /* small space between image and text */
+  }
+}
+
+/* Ensure vertical centering for event rows */
+.event-item {
+  display: flex;
+  align-items: center;
+}
+
+/* For smaller screens, keep previous stacked layout */
+@media (max-width: 767px) {
+  .event-item {
+    display: block;
+  }
+  .event-rect {
+    width: 150px;
+    aspect-ratio: 3 / 4;
+    margin: 0 auto;
+  }
+}
+</style>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+  const eventItems = document.querySelectorAll('.event-item');
+  
   // Intersection Observer for fly-in animation
   const observer = new IntersectionObserver(
     (entries) => {
@@ -280,10 +334,53 @@ document.addEventListener('DOMContentLoaded', function() {
   );
 
   // Observe all event items
-  const eventItems = document.querySelectorAll('.event-item');
   eventItems.forEach((item) => {
     observer.observe(item);
   });
+
+  // Scroll-based zoom effect: scale up when element is in center of viewport
+  function updateZoomEffect() {
+    const viewportCenter = window.innerHeight / 2;
+    
+    eventItems.forEach((item) => {
+      const rect = item.getBoundingClientRect();
+      const itemCenter = rect.top + rect.height / 2;
+      
+      // Calculate distance from viewport center
+      const distanceFromCenter = Math.abs(viewportCenter - itemCenter);
+      const maxDistance = window.innerHeight / 2;
+      
+      // If item is close to center (within a threshold), apply zoom
+      if (distanceFromCenter < maxDistance * 0.6 && rect.top < window.innerHeight && rect.bottom > 0) {
+        // Calculate scale based on proximity to center (closer = larger)
+        const proximityRatio = 1 - (distanceFromCenter / (maxDistance * 0.6));
+        
+        // Only add zoom-active class if it's very close to center
+        if (proximityRatio > 0.5) {
+          item.classList.add('zoom-active');
+        } else {
+          item.classList.remove('zoom-active');
+        }
+      } else {
+        item.classList.remove('zoom-active');
+      }
+    });
+  }
+  
+  // Run on scroll with throttling for performance
+  let ticking = false;
+  window.addEventListener('scroll', function() {
+    if (!ticking) {
+      window.requestAnimationFrame(function() {
+        updateZoomEffect();
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+  
+  // Initial check
+  updateZoomEffect();
 });
 </script>
 @endsection

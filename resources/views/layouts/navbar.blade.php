@@ -31,7 +31,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white px-3 py-2 rounded-3 {{ request()->routeIs('event') ? 'active' : '' }}"
+                            <a class="nav-link text-white px-3 py-2 rounded-3 {{ request()->routeIs('events') ? 'active' : '' }}"
                                 href="{{ route('events') }}">
                                 <i class="bi bi-calendar-event me-2"></i>Events
                             </a>
