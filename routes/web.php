@@ -1,18 +1,17 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\ArtworkController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/event', function () {
-    return view('event');
-})->name('event');
+Route::get('/events', [EventController::class, 'index'])->name('event');
+Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show');
 
-Route::get('/art_gallery', function () {
-    return view('art_gallery');
-})->name('art_gallery');
+Route::get('/art-gallery', [ArtworkController::class, 'index'])->name('art_gallery');
+Route::get('/artworks/{id}', [ArtworkController::class, 'show'])->name('artworks.show');
 
 Route::get('/about', function () {
     return view('about');
