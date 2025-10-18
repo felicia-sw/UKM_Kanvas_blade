@@ -420,7 +420,7 @@
         .hero-section {
 
             position: relative;
-            background-image: url('{{ asset("images/bg_placeholder.jpg") }}');
+            background-image: url('{{ asset("images/bg1.jpg") }}');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
