@@ -6,9 +6,9 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('/event', function () {
-    return view('event');
-})->name('event');
+Route::get('/events', function () {
+    return view('events');
+})->name('events');
 
 Route::get('/art_gallery', function () {
     return view('art_gallery');

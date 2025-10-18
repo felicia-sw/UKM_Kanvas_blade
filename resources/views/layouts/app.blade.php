@@ -43,8 +43,9 @@
 
         body {
             font-family: 'Judson', serif;
-            background: linear-gradient(to bottom, #FFEC77 0%, #8F4898 42%, #844191 45%, #68307E 50%, #3B1461 57%, #2A0A56 59%, #2A0A56 100%);
-            background-attachment: fixed;
+            /* Smoother vertical gradient with spread-out color stops */
+            background: linear-gradient(to bottom, #FFEC77 0%, #F7D86A 15%, #D88FC6 40%, #9A4CA0 60%, #5B2066 80%, #2A0A56 100%);
+            background-attachment: scroll; /* allow the gradient to scroll smoothly across the document */
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -98,13 +99,4 @@
     @stack('scripts')
 </body>
 
-</html>track {
-background: #2A0A56;
-}
-
-::-webkit-scrollbar-thumb {
-background: linear-gradient(135deg, #FFEC77 0%, #F8B803 100%);
-border-radius: 10px;
-}
-
-::-webkit-scrollbar-
+</html>
