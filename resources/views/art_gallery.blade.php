@@ -17,7 +17,7 @@
         </div>
 
         <!-- Filter Section -->
-        <div class="container mb-5">
+        <div class="container mb-4">
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="filter-buttons d-flex flex-wrap justify-content-center gap-3" data-aos="fade-up">
@@ -31,7 +31,6 @@
             </div>
         </div>
     </div>
-
     <!-- Gallery Grid -->
     <div class="container pb-5">
         <div class="row g-4 gallery-grid">
@@ -74,8 +73,12 @@
         <!-- Pagination -->
         @if($artworks->hasPages())
         <div class="row mt-5">
-            <div class="col-12 d-flex justify-content-center">
-                {{ $artworks->links('pagination::bootstrap-5') }}
+            <div class="col-12">
+                <div class="pagination-wrapper" data-aos="fade-up">
+                    <div class="pagination-container">
+                        {{ $artworks->links('pagination::bootstrap-5') }}
+                    </div>
+                </div>
             </div>
         </div>
         @endif
@@ -192,9 +195,39 @@
     -webkit-text-stroke: 1px rgba(255, 255, 255, 0.8);
 }
 
-/* Override text-white-50 to be lighter */
+/* Consistent Text Styling */
 .text-white-50 {
     color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.page-subtitle {
+    color: rgba(255, 255, 255, 0.9) !important;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Consistent artwork text */
+.artwork-info h4,
+.artwork-info .text-white {
+    color: #ffffff !important;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.artwork-info .text-white-50 {
+    color: rgba(255, 255, 255, 0.85) !important;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Modal text consistency */
+.modal-details .text-white {
+    color: #ffffff !important;
+}
+
+.modal-details .text-white-50 {
+    color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.modal-details .text-warning {
+    color: #FFEC77 !important;
 }
 
 .btn-filter {
@@ -497,12 +530,231 @@
 .modal-footer .btn-outline-light:hover {
     background: rgba(255, 255, 255, 0.1);
 }
+
+/* Results Display Styling */
+.results-info-card {
+    background: linear-gradient(135deg, rgba(42, 10, 86, 0.8) 0%, rgba(68, 30, 126, 0.8) 100%);
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(255, 236, 119, 0.3);
+    border-radius: 1.25rem;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.results-info-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(255, 236, 119, 0.2);
+    border-color: rgba(255, 236, 119, 0.5);
+}
+
+.results-content-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    flex-wrap: wrap;
+}
+
+.results-icon {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #FFEC77 0%, #FF750F 100%);
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2A0A56;
+    font-size: 1.5rem;
+    box-shadow: 0 5px 15px rgba(255, 236, 119, 0.3);
+}
+
+.results-text-wrapper {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.results-label {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.results-number {
+    color: #FFEC77;
+    font-size: 1.75rem;
+    font-weight: 700;
+    text-shadow: 0 2px 8px rgba(255, 236, 119, 0.4);
+}
+
+.results-category-badge {
+    padding: 0.5rem 1.25rem;
+    background: rgba(255, 236, 119, 0.15);
+    border: 2px solid rgba(255, 236, 119, 0.3);
+    border-radius: 50px;
+    color: #FFEC77;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.results-category-badge:hover {
+    background: rgba(255, 236, 119, 0.25);
+    border-color: rgba(255, 236, 119, 0.5);
+}
+
+/* Pagination Styling */
+.pagination-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination-container {
+    background: linear-gradient(135deg, rgba(42, 10, 86, 0.8) 0%, rgba(68, 30, 126, 0.8) 100%);
+    backdrop-filter: blur(15px);
+    border: 2px solid rgba(255, 236, 119, 0.3);
+    border-radius: 1.25rem;
+    padding: 1.25rem 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Override Bootstrap Pagination Styles */
+.pagination-container .pagination {
+    margin: 0;
+    gap: 0.5rem;
+}
+
+.pagination-container .page-item .page-link {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 236, 119, 0.2);
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    min-width: 45px;
+    text-align: center;
+}
+
+.pagination-container .page-item .page-link:hover {
+    background: rgba(255, 236, 119, 0.2);
+    border-color: rgba(255, 236, 119, 0.5);
+    color: #FFEC77;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 236, 119, 0.2);
+}
+
+.pagination-container .page-item.active .page-link {
+    background: linear-gradient(135deg, #FFEC77 0%, #FF750F 100%);
+    border-color: #FFEC77;
+    color: #2A0A56;
+    box-shadow: 0 5px 20px rgba(255, 236, 119, 0.4);
+}
+
+.pagination-container .page-item.disabled .page-link {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.3);
+    cursor: not-allowed;
+}
+
+/* Responsive Styles */
+@media (max-width: 991px) {
+    .results-info-card {
+        padding: 1.25rem 1.5rem;
+    }
+    
+    .results-content-wrapper {
+        gap: 1rem;
+    }
+    
+    .results-icon {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+    }
+    
+    .results-number {
+        font-size: 1.5rem;
+    }
+    
+    .results-label {
+        font-size: 1rem;
+    }
+    
+    .pagination-container {
+        padding: 1rem 1.5rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .results-info-card {
+        padding: 1rem 1.25rem;
+    }
+    
+    .results-content-wrapper {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    
+    .results-text-wrapper {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.25rem;
+    }
+    
+    .results-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+    
+    .results-number {
+        font-size: 1.4rem;
+    }
+    
+    .results-label {
+        font-size: 0.95rem;
+    }
+    
+    .results-category-badge {
+        padding: 0.4rem 1rem;
+        font-size: 0.85rem;
+    }
+    
+    .pagination-container {
+        padding: 1rem;
+    }
+    
+    .pagination-container .page-item .page-link {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.9rem;
+        min-width: 40px;
+    }
+}
+
+@media (max-width: 575px) {
+    .pagination-container .pagination {
+        gap: 0.25rem;
+    }
+    
+    .pagination-container .page-item .page-link {
+        padding: 0.35rem 0.6rem;
+        font-size: 0.85rem;
+        min-width: 35px;
+    }
+}
 </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const filterButtons = document.querySelectorAll('.btn-filter');
     const galleryItems = document.querySelectorAll('.gallery-item');
+    const visibleCountElement = document.getElementById('visibleCount');
+    const categoryLabelElement = document.getElementById('categoryLabel');
     
     filterButtons.forEach(button => {
         button.addEventListener('click', function() {
@@ -512,14 +764,34 @@ document.addEventListener('DOMContentLoaded', function() {
             this.classList.add('active');
             
             const filter = this.getAttribute('data-filter');
+            const categoryName = this.textContent.trim();
+            let visibleCount = 0;
             
             galleryItems.forEach(item => {
                 if (filter === 'all' || item.getAttribute('data-category') === filter) {
                     item.classList.remove('hidden');
+                    visibleCount++;
                 } else {
                     item.classList.add('hidden');
                 }
             });
+            
+            // Update visible count with animation
+            visibleCountElement.style.transform = 'scale(1.2)';
+            visibleCountElement.style.color = '#FF750F';
+            setTimeout(() => {
+                visibleCountElement.textContent = visibleCount;
+                visibleCountElement.style.transform = 'scale(1)';
+                visibleCountElement.style.color = '#FFEC77';
+            }, 150);
+            
+            // Update category label
+            const displayName = filter === 'all' ? 'All Categories' : categoryName;
+            categoryLabelElement.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                categoryLabelElement.textContent = displayName;
+                categoryLabelElement.style.transform = 'scale(1)';
+            }, 150);
         });
     });
 });
