@@ -12,8 +12,8 @@ class EventFactory extends Factory
     public function definition(): array
     {
         $startDate = $this->faker->dateTimeBetween('now', '+6 months');
-$endDate = (clone $startDate)->modify('+'.rand(1, 14).' days');
-
+        $endDate = (clone $startDate)->modify('+'.rand(1, 14).' days');
+        $registrationDeadline = (clone $startDate)->modify('-'.rand(3, 10).' days');
         
         return [
             'title' => $this->faker->sentence(4),
@@ -25,7 +25,20 @@ $endDate = (clone $startDate)->modify('+'.rand(1, 14).' days');
             ]),
             'start_date' => $startDate,
             'end_date' => $endDate,
-            'location' => $this->faker->optional()->address(),
+            'registration_deadline' => $registrationDeadline,
+            'price' => $this->faker->optional(0.6)->randomElement([
+                100000, 150000, 200000, 250000, null
+            ]),
+            'location' => $this->faker->optional()->randomElement([
+                'Jakarta Convention Center',
+                'Bali International Convention Center',
+                'Bandung Tech Hub',
+                'Surabaya Creative Space',
+                'Yogyakarta Convention Hall'
+            ]),
+            'max_participants' => $this->faker->optional()->randomElement([
+                50, 80, 100, 150, 200, 500
+            ]),
             'is_active' => $this->faker->boolean(90), // 90% active
         ];
     }

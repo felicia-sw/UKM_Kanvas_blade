@@ -186,7 +186,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to top left,
+    background: linear-gradient(to top,
         rgba(255, 236, 119, 0.85) 0%,
         rgba(255, 217, 107, 0.85) 15%,
         rgba(255, 192, 95, 0.85) 25%,
