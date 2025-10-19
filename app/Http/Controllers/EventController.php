@@ -14,7 +14,7 @@ class EventController extends Controller
                        ->orderBy('start_date', 'desc')
                        ->paginate(12);
         
-        return view('event', compact('events'));
+        return view('events', compact('events'));
     }
     
     // Display single event with documentation
