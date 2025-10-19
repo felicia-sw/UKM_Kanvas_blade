@@ -19,26 +19,24 @@
 
                     <div class="description-text mb-4">
                         <p class="text-white fs-4 lh-lg">
-                            Kanvas adalah Unit Kegiatan Mahasiswa yang berfokus pada pengembangan
-                            kreativitas seni dan desain. Kami adalah rumah bagi para seniman muda
-                            yang ingin mengekspresikan diri melalui berbagai medium seni.
+                            Kanvas is a Unit Kegiatan Mahasiswa﻿ (Student Activity Unit) dedicated to nurturing artistic creativity and design. We are a home for young artists eager to express themselves through various art mediums.
                         </p>
                     </div>
 
                     <!-- Slogan Section -->
                     <div class="mt-5 pt-3">
                         <h2 class="text-white text-start fw-bold slogan-text">
-                            "Ekspresikan. Ciptakan. Inspirasi."
+                            "Express. Create. Inspire."
                         </h2>
                     </div>
 
                     <!-- CTA Buttons -->
                     <div class="mt-5 d-flex gap-3 flex-wrap">
                         <a href="{{ route('events') }}" class="btn btn-gradient btn-lg px-4 py-3">
-                            <i class="bi bi-calendar-event me-2"></i>Lihat Event
+                            <i class="bi bi-calendar-event me-2"></i>View Events
                         </a>
                         <a href="{{ route('art_gallery') }}" class="btn btn-outline-light btn-lg px-4 py-3">
-                            <i class="bi bi-palette me-2"></i>Galeri Karya
+                            <i class="bi bi-palette me-2"></i>Art Gallery
                         </a>
                     </div>
                 </div>
@@ -69,9 +67,9 @@
         <div class="container">
             <div class="row text-center mb-5">
                 <div class="col-12">
-                    <h2 class="text-white fw-bold mb-4 display-5 text-shadow-md">Kenapa Bergabung dengan Kanvas?</h2>
+                    <h2 class="text-white fw-bold mb-4 display-5 text-shadow-md">Why Join Kanvas?</h2>
                     <p class="text-white-50 fs-4 text-shadow-sm" data-aos="fade-up" data-aos-delay="100">
-                        Temukan alasan mengapa Kanvas adalah tempat yang tepat untuk mengembangkan bakat senimu
+                        Discover why Kanvas is the perfect place to develop your artistic talents.
                     </p>
                 </div>
             </div>
@@ -82,9 +80,9 @@
                         <div class="feature-icon mb-3">
                             <i class="bi bi-brush text-warning"></i>
                         </div>
-                        <h4 class="text-white mb-3 fs-3 text-shadow-sm">Workshop Rutin</h4>
+                        <h4 class="text-white mb-3 fs-3 text-shadow-sm">Regular Workshops</h4>
                         <p class="text-white-50 fs-5 text-shadow-sm">
-                            Ikuti workshop rutin dari seniman profesional dan tingkatkan skill senimu
+                            Join recurring workshops led by professional artists to enhance your skills.
                         </p>
                     </div>
                 </div>
@@ -94,9 +92,9 @@
                         <div class="feature-icon mb-3">
                             <i class="bi bi-people text-warning"></i>
                         </div>
-                        <h4 class="text-white mb-3 fs-3 text-shadow-sm">Komunitas Kreatif</h4>
+                        <h4 class="text-white mb-3 fs-3 text-shadow-sm">Creative Community</h4>
                         <p class="text-white-50 fs-5 text-shadow-sm">
-                            Bergabung dengan komunitas seniman muda yang penuh passion dan inspirasi
+                            Be part of a passionate and inspiring community of young artists.
                         </p>
                     </div>
                 </div>
@@ -106,9 +104,9 @@
                         <div class="feature-icon mb-3">
                             <i class="bi bi-trophy text-warning"></i>
                         </div>
-                        <h4 class="text-white mb-3 fs-3 text-shadow-sm">Pameran & Kompetisi</h4>
+                        <h4 class="text-white mb-3 fs-3 text-shadow-sm">Exhibitions & Competitions</h4>
                         <p class="text-white-50 fs-5 text-shadow-sm">
-                            Kesempatan untuk memamerkan karyamu dan ikut kompetisi tingkat nasional
+                            Showcase your work on an international/national scale and participate in national to international-level competitions.
                         </p>
                     </div>
                 </div>
