@@ -382,28 +382,165 @@
                 <a href="{{ route('art_gallery') }}" class="btn btn-outline-light">Lihat Galeri</a>
             </div>
 
-            <div class="row g-3">
-                <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="50">
-                    <div class="ratio ratio-1x1 overflow-hidden glass-card">
-                        <img src="{{ asset('images/mascot.png') }}" alt="Karya 1" class="w-100 h-100 object-fit-cover">
+            <div class="row g-4">
+                @forelse($featuredArtworks->take(4) as $index => $artwork)
+                <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="{{ ($index + 1) * 50 }}">
+                    <div class="artwork-card-home" style="cursor: pointer; position: relative;">
+                        <div class="artwork-image-container-home">
+                            <img src="{{ asset($artwork->image_path) }}" 
+                                 alt="{{ $artwork->title }}" 
+                                 class="artwork-image-home">
+                            <div class="artwork-overlay-home">
+                                <div class="artwork-info-home">
+                                    <h6 class="text-white fw-bold mb-1">{{ $artwork->title }}</h6>
+                                    <p class="text-white-50 small mb-0">By: {{ $artwork->artist_name }}</p>
+                                    <button class="btn btn-sm btn-gradient mt-2" 
+                                            onclick="togglePopupHome(event, {{ $artwork->id }})">
+                                        <i class="bi bi-eye me-1"></i>View Details
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Compact Popup -->
+                        <div class="artwork-popup-home" id="popup-home-{{ $artwork->id }}">
+                            <div class="popup-header">
+                                <h6 class="text-white mb-0 fw-bold">{{ $artwork->title }}</h6>
+                                <button type="button" class="popup-close" onclick="closePopupHome({{ $artwork->id }})">
+                                    <i class="bi bi-x-lg"></i>
+                                </button>
+                            </div>
+                            <div class="popup-body">
+                                <div class="popup-item">
+                                    <i class="bi bi-person-fill text-warning"></i>
+                                    <div>
+                                        <small class="text-white-50 d-block">Artist</small>
+                                        <strong class="text-white">{{ $artwork->artist_name }}</strong>
+                                    </div>
+                                </div>
+                                <div class="popup-item">
+                                    <i class="bi bi-tag-fill text-warning"></i>
+                                    <div>
+                                        <small class="text-white-50 d-block">Category</small>
+                                        <strong class="text-white">{{ $artwork->category->name }}</strong>
+                                    </div>
+                                </div>
+                                <div class="popup-item">
+                                    <i class="bi bi-calendar-fill text-warning"></i>
+                                    <div>
+                                        <small class="text-white-50 d-block">Created</small>
+                                        <strong class="text-white">{{ $artwork->created_date->format('M d, Y') }}</strong>
+                                    </div>
+                                </div>
+                                @if($artwork->description)
+                                <div class="popup-item">
+                                    <i class="bi bi-file-text-fill text-warning"></i>
+                                    <div>
+                                        <small class="text-white-50 d-block">Description</small>
+                                        <p class="text-white mb-0 popup-description">{{ Str::limit($artwork->description, 150) }}</p>
+                                    </div>
+                                </div>
+                                @endif
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="100">
-                    <div class="ratio ratio-1x1 overflow-hidden glass-card">
-                        <img src="{{ asset('images/mascot.png') }}" alt="Karya 2" class="w-100 h-100 object-fit-cover">
-                    </div>
+                @empty
+                <div class="col-12 text-center">
+                    <p class="text-white-50">Belum ada karya yang ditampilkan</p>
                 </div>
-                <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="150">
-                    <div class="ratio ratio-1x1 overflow-hidden glass-card">
-                        <img src="{{ asset('images/mascot.png') }}" alt="Karya 3" class="w-100 h-100 object-fit-cover">
-                    </div>
-                </div>
-                <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="ratio ratio-1x1 overflow-hidden glass-card">
-                        <img src="{{ asset('images/mascot.png') }}" alt="Karya 4" class="w-100 h-100 object-fit-cover">
-                    </div>
-                </div>
+                @endforelse
             </div>
+            
+            <style>
+            .artwork-card-home {
+                height: 300px;
+                overflow: hidden;
+                border-radius: 1rem;
+                transition: all 0.3s ease;
+                position: relative;
+            }
+
+            .artwork-image-container-home {
+                position: relative;
+                height: 100%;
+                overflow: hidden;
+                border-radius: 1rem;
+            }
+
+            .artwork-image-home {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.5s ease;
+            }
+
+            .artwork-card-home:hover .artwork-image-home {
+                transform: scale(1.1);
+            }
+
+            .artwork-overlay-home {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(to top, rgba(42, 10, 86, 0.95) 0%, transparent 100%);
+                opacity: 0;
+                transition: opacity 0.3s ease;
+                display: flex;
+                align-items: flex-end;
+                padding: 1.5rem;
+            }
+
+            .artwork-card-home:hover .artwork-overlay-home {
+                opacity: 1;
+            }
+
+            .artwork-info-home {
+                transform: translateY(20px);
+                transition: transform 0.3s ease;
+            }
+
+            .artwork-card-home:hover .artwork-info-home {
+                transform: translateY(0);
+            }
+
+            /* Popup Styles for Home Gallery */
+            .artwork-popup-home {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) scale(0);
+                width: 320px;
+                max-width: 90%;
+                background: rgba(42, 10, 86, 0.98);
+                backdrop-filter: blur(20px);
+                border: 2px solid rgba(255, 236, 119, 0.5);
+                border-radius: 1rem;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+                z-index: 100;
+                opacity: 0;
+                transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                pointer-events: none;
+            }
+
+            .artwork-popup-home.active {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            @media (max-width: 767px) {
+                .artwork-card-home {
+                    height: 250px;
+                }
+                
+                .artwork-popup-home {
+                    width: 280px;
+                }
+            }
+            </style>
         </div>
     </section>
 
@@ -491,173 +628,38 @@
 <script async src="//www.instagram.com/embed.js"></script>
     </section> --}}
 
-    <style> 
-        /* Hero Section with Background and Gradient Overlay */
-        .hero-section {
-
-            position: relative;
-            background-image: url('{{ asset("images/bg1.jpg") }}');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
+    <script>
+        // Popup functions for home gallery
+        function togglePopupHome(event, artworkId) {
+            event.stopPropagation();
+            const popup = document.getElementById(`popup-home-${artworkId}`);
+            const allPopups = document.querySelectorAll('.artwork-popup-home');
+            
+            // Close all other popups
+            allPopups.forEach(p => {
+                if (p.id !== `popup-home-${artworkId}`) {
+                    p.classList.remove('active');
+                }
+            });
+            
+            // Toggle current popup
+            popup.classList.toggle('active');
         }
 
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to top, 
-                rgba(255, 236, 119, 0.85) 0%, 
-                rgba(255, 217, 107, 0.85) 15%,
-                rgba(255, 192, 95, 0.85) 25%,
-                rgba(232, 160, 85, 0.85) 35%,
-                rgba(199, 130, 78, 0.85) 45%,
-                rgba(143, 72, 152, 0.85) 60%,
-                rgba(106, 53, 116, 0.85) 75%,
-                rgba(71, 35, 96, 0.85) 85%,
-                rgba(42, 10, 86, 0.9) 100%);
-            z-index: 1;
+        function closePopupHome(artworkId) {
+            const popup = document.getElementById(`popup-home-${artworkId}`);
+            popup.classList.remove('active');
         }
 
-        .hero-section > * {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-title {
-            font-size: clamp(64px, 10vw, 170px);
-            line-height: 1.1;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .slogan-text {
-            font-size: clamp(28px, 4vw, 48px);
-        }
-
-
-        /* Navbar scrolled effect */
-        .nav-scrolled {
-            backdrop-filter: blur(12px);
-            background: rgba(0, 0, 0, 0.35) !important;
-            transition: background 0.3s ease;
-        }
-
-        .mascot-image {
-            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
-            transition: transform 0.3s ease;
-        }
-
-        .mascot-image:hover {
-            transform: scale(1.05);
-        }
-
-
-        .guideline-num {
-            width: 56px;
-            height: 56px;
-            border-radius: 12px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, rgba(255, 236, 119, .35), rgba(255, 117, 15, .35));
-            color: #fff;
-            font-weight: 700;
-        }
-
-        /* Section Dividers */
-        .section-divider {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            padding: 2rem 0;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .section-divider-dark {
-            /* For dark background sections */
-        }
-
-        .divider-line {
-            flex: 1;
-            height: 2px;
-            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
-        }
-
-        .section-light .divider-line {
-            background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.2), transparent);
-        }
-
-        .divider-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, rgba(255, 236, 119, 0.3), rgba(255, 117, 15, 0.3));
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .section-divider-dark .divider-icon {
-            background: linear-gradient(135deg, rgba(255, 236, 119, 0.25), rgba(255, 117, 15, 0.25));
-            border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .section-light .divider-icon {
-            background: linear-gradient(135deg, rgba(255, 236, 119, 0.5), rgba(255, 117, 15, 0.5));
-            border: 2px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .divider-icon i {
-            font-size: 1.2rem;
-            color: #fff;
-        }
-
-        .section-light .divider-icon i {
-            color: #333;
-        }
-
-        /* Light section styles to blend with the same palette */
-        .section-light {
-            background: #F9FAFB;
-        }
-
-        .section-light .glass-card {
-            background: rgba(0, 0, 0, 0.02);
-            border: 1px solid rgba(0, 0, 0, 0.08);
-        }
-
-        .btn-outline-dark {
-            border-width: 2px;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .btn-outline-dark:hover {
-            transform: translateY(-2px);
-        }
-
-        /* Override text-white-50 to be lighter and closer to white */
-        .text-white-50 {
-            color: rgb(229, 229, 229) !important;
-        }
-
-        @media (max-width: 1199px) {
-            .mascot-container {
-                margin-top: 3rem;
-                padding-right: 15px !important;
+        // Close popup when clicking outside
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.artwork-card-home') && !event.target.closest('.btn-gradient')) {
+                document.querySelectorAll('.artwork-popup-home').forEach(popup => {
+                    popup.classList.remove('active');
+                });
             }
+        });
+    </script>
 
-            .mascot-image {
-                margin-right: 0 !important;
-            }
-        }
-    </style>
+    
 @endsection
