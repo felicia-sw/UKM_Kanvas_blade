@@ -21,97 +21,8 @@
       <div class="col-12 col-xl-10 col-xxl-8 px-2 px-md-3" style="overflow: visible;">
         <div class="timeline-container position-relative overflow-visible">
 
-          @forelse($events as $index => $event)
-          <div class="row event-item mb-5 pb-5 position-relative overflow-visible" data-index="{{ $index }}">
-            <!-- Image Rectangle (Left Side) -->
-            <div class="col-12 col-md-3 col-lg-3 col-xl-2 d-flex justify-content-center justify-content-md-start align-items-center mb-4 mb-md-0">
-              <div class="event-rect border-3 border-white position-relative d-flex align-items-center justify-content-center overflow-hidden rounded-3 shadow-sm">
-                @if($event->poster_image)
-                  <img src="{{ asset('storage/' . $event->poster_image) }}" 
-                       alt="{{ $event->title }}" 
-                       class="event-img">
-                @else
-                  <div class="placeholder-image bg-secondary d-flex align-items-center justify-content-center w-100 h-100">
-                    <i class="bi bi-calendar-event text-muted"></i>
-                  </div>
-                @endif
-              </div>
-            </div>
-
-            <!-- Event Content (Right Side) -->
-            <div class="col-12 col-md-9 col-lg-9 col-xl-10 d-flex flex-column justify-content-center ps-md-2 ps-xl-4">
-              <!-- Date at Top -->
-              <div class="d-flex align-items-baseline mb-3">
-                <span class="display-4 fw-bold">{{ date('d', strtotime($event->start_date)) }}</span>
-                <span class="fs-4 text-uppercase ms-2">{{ strtoupper(date('M', strtotime($event->start_date))) }}</span>
-              </div>
-
-              <!-- Event Info -->
-              <div class="event-content">
-                <h2 class="h2 fw-bold mb-3">{{ $event->title }}</h2>
-                <p class="text-white fs-5 mb-4 lh-base">{{ $event->description }}</p>
-
-                <!-- Event Details -->
-                <div class="event-details">
-                  <div class="d-flex align-items-start mb-2">
-                    <i class="bi bi-clock text-accent fs-5 me-2 flex-shrink-0"></i>
-                    <div class="flex-grow-1">
-                      <strong class="me-2">Time:</strong>
-                      <span>{{ date('d M Y, H:i', strtotime($event->start_date)) }} - {{ date('d M Y, H:i', strtotime($event->end_date)) }}</span>
-                    </div>
-                  </div>
-
-                  @if($event->location)
-                  <div class="d-flex align-items-start mb-2">
-                    <i class="bi bi-geo-alt text-accent fs-5 me-2 flex-shrink-0"></i>
-                    <div class="flex-grow-1">
-                      <strong class="me-2">Location:</strong>
-                      <span>{{ $event->location }}</span>
-                    </div>
-                  </div>
-                  @endif
-
-                  @if($event->price)
-                  <div class="d-flex align-items-start mb-2">
-                    <i class="bi bi-tag text-accent fs-5 me-2 flex-shrink-0"></i>
-                    <div class="flex-grow-1">
-                      <strong class="me-2">Price:</strong>
-                      <span>Rp {{ number_format($event->price, 0, ',', '.') }}</span>
-                    </div>
-                  </div>
-                  @else
-                  <div class="d-flex align-items-start mb-2">
-                    <i class="bi bi-tag text-accent fs-5 me-2 flex-shrink-0"></i>
-                    <div class="flex-grow-1">
-                      <strong class="me-2">Price:</strong>
-                      <span>Free</span>
-                    </div>
-                  </div>
-                  @endif
-
-                  @if($event->max_participants)
-                  <div class="d-flex align-items-start mb-2">
-                    <i class="bi bi-people text-accent fs-5 me-2 flex-shrink-0"></i>
-                    <div class="flex-grow-1">
-                      <strong class="me-2">Max Participants:</strong>
-                      <span>{{ $event->max_participants }}</span>
-                    </div>
-                  </div>
-                  @endif
-
-                  @if($event->registration_deadline)
-                  <div class="d-flex align-items-start mb-2">
-                    <i class="bi bi-calendar-check text-accent fs-5 me-2 flex-shrink-0"></i>
-                    <div class="flex-grow-1">
-                      <strong class="me-2">Registration Deadline:</strong>
-                      <span>{{ date('d M Y', strtotime($event->registration_deadline)) }}</span>
-                    </div>
-                  </div>
-                  @endif
-                </div>
-              </div>
-            </div>
-          </div>
+          @forelse($events as $event)
+            <x-event-card :event="$event" layout="timeline" />
           @empty
           <div class="row justify-content-center">
             <div class="col-12 text-center py-5">
@@ -130,12 +41,49 @@
 <style>
 /* Event-specific styles - extends app.css */
 
+/* Override body gradient for this page */
+body {
+  background: #2A0A56 !important;
+}
+
 /* Ensure background covers full width on all devices */
 .page-bg-image {
   width: 100%;
   overflow-x: hidden;
-  background: linear-gradient(to bottom, #1a1a2e, #16213e, #0f3460);
   min-height: 100vh;
+  padding-bottom: 0 !important;
+  margin-bottom: 0 !important;
+  background-image: url('{{ asset("images/bg1.jpg") }}');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  position: relative;
+}
+
+.page-bg-image::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, 
+    rgba(255, 236, 119, 0.85) 0%, 
+    rgba(255, 217, 107, 0.85) 15%,
+    rgba(255, 192, 95, 0.85) 25%,
+    rgba(232, 160, 85, 0.85) 35%,
+    rgba(199, 130, 78, 0.85) 45%,
+    rgba(143, 72, 152, 0.85) 60%,
+    rgba(106, 53, 116, 0.85) 75%,
+    rgba(71, 35, 96, 0.85) 85%,
+    rgba(42, 10, 86, 0.9) 100%);
+  z-index: 0;
+}
+
+.page-bg-image > * {
+  position: relative;
+  z-index: 1;
 }
 
 /* Timeline container - allow content to scale without clipping */

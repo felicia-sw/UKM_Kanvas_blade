@@ -173,8 +173,15 @@
 //...
 
 <style>
+    /* Override body gradient for this page */
+    body {
+        background: #2A0A56 !important;
+    }
+
     .contact-page {
         min-height: 100vh;
+        padding-bottom: 0 !important;
+        margin-bottom: 0 !important;
         background-image: url('{{ asset('images/bg1.jpg') }}');
         background-size: cover;
         background-position: center;
@@ -186,7 +193,10 @@
     .contact-page::before {
         content: '';
         position: absolute;
-        inset: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
         background: linear-gradient(to top,
           rgba(255, 236, 119, 0.85) 0%,
           rgba(255, 217, 107, 0.85) 15%,

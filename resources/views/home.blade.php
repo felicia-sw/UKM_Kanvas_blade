@@ -438,8 +438,17 @@
     </div>
 
     <!-- Features Section -->
-    <section id="features" class="features-section py-5">
-        <div class="container">
+    <section id="features" class="features-section py-5 position-relative">
+        <!-- Floating clouds for Features Section -->
+        <div class="floating-clouds position-absolute w-100" style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
+            <img src="{{ asset('images/cloud1.png') }}" alt="" class="cloud"
+                style="position: absolute; left: 10%; top: 15%; width: 300px; opacity: 0.6; animation: float 22s ease-in-out infinite;">
+            <img src="{{ asset('images/cloud3.png') }}" alt="" class="cloud"
+                style="position: absolute; right: 5%; top: 40%; width: 250px; opacity: 0.5; animation: float 26s ease-in-out infinite reverse;">
+            <img src="{{ asset('images/cloud5.png') }}" alt="" class="cloud"
+                style="position: absolute; left: 60%; top: 70%; width: 200px; opacity: 0.4; animation: float 28s ease-in-out infinite 1s;">
+        </div>
+        <div class="container position-relative" style="z-index: 2;">
             <div class="row text-center mb-5">
                 <div class="col-12">
                     <h2 class="text-white fw-bold mb-4 display-5 text-shadow-md">Why Join Kanvas?</h2>
@@ -502,8 +511,17 @@
     </div>
 
     <!-- Our Values Section -->
-    <section class="py-5">
-        <div class="container">
+    <section class="py-5 position-relative">
+        <!-- Floating clouds for Values Section -->
+        <div class="floating-clouds position-absolute w-100" style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
+            <img src="{{ asset('images/cloud2.png') }}" alt="" class="cloud"
+                style="position: absolute; right: 15%; top: 10%; width: 350px; opacity: 0.5; animation: float 24s ease-in-out infinite;">
+            <img src="{{ asset('images/cloud4.png') }}" alt="" class="cloud"
+                style="position: absolute; left: 8%; top: 50%; width: 280px; opacity: 0.45; animation: float 30s ease-in-out infinite reverse;">
+            <img src="{{ asset('images/cloud1.png') }}" alt="" class="cloud"
+                style="position: absolute; right: 40%; top: 75%; width: 220px; opacity: 0.4; animation: float 27s ease-in-out infinite 2s;">
+        </div>
+        <div class="container position-relative" style="z-index: 2;">
             <div class="row text-center mb-5">
                 <div class="col-12">
                     <h2 class="text-white fw-bold mb-4 display-5 text-shadow-md" data-aos="fade-up">Our Values</h2>
@@ -597,8 +615,15 @@
     </div>
 
     <!-- Club Guidelines Section -->
-    <section class="py-5">
-        <div class="container">
+    <section class="py-5 position-relative">
+        <!-- Floating clouds for Guidelines Section -->
+        <div class="floating-clouds position-absolute w-100" style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
+            <img src="{{ asset('images/cloud5.png') }}" alt="" class="cloud"
+                style="position: absolute; left: 5%; top: 20%; width: 260px; opacity: 0.5; animation: float 25s ease-in-out infinite;">
+            <img src="{{ asset('images/cloud3.png') }}" alt="" class="cloud"
+                style="position: absolute; right: 10%; top: 60%; width: 300px; opacity: 0.45; animation: float 29s ease-in-out infinite reverse;">
+        </div>
+        <div class="container position-relative" style="z-index: 2;">
             <div class="row text-center mb-5">
                 <div class="col-12">
                     <h2 class="text-white fw-bold mb-4 display-5 text-shadow-md" data-aos="fade-up">Club Guidelines</h2>
@@ -663,8 +688,15 @@
     </div>
 
     <!-- Mission Section -->
-    <section class="py-5">
-        <div class="container">
+    <section class="py-5 position-relative">
+        <!-- Floating clouds for Mission Section -->
+        <div class="floating-clouds position-absolute w-100" style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
+            <img src="{{ asset('images/cloud2.png') }}" alt="" class="cloud"
+                style="position: absolute; left: 20%; top: 25%; width: 320px; opacity: 0.55; animation: float 23s ease-in-out infinite;">
+            <img src="{{ asset('images/cloud4.png') }}" alt="" class="cloud"
+                style="position: absolute; right: 25%; top: 50%; width: 240px; opacity: 0.5; animation: float 31s ease-in-out infinite reverse;">
+        </div>
+        <div class="container position-relative" style="z-index: 2;">
             <div class="glass-card p-5" data-aos="zoom-in">
                 <h2 class="text-center text-white fw-bold mb-4 display-5 text-shadow-md">Our Mission</h2>
                 <p class="text-center text-white-50 mb-0 fs-4 text-shadow-sm">To create an inclusive platform where
@@ -687,8 +719,17 @@
     </div>
 
     <!-- Upcoming Events Section -->
-    <section id="events" class="py-5">
-        <div class="container">
+    <section id="events" class="py-5 position-relative">
+        <!-- Floating clouds for Events Section -->
+        <div class="floating-clouds position-absolute w-100" style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
+            <img src="{{ asset('images/cloud1.png') }}" alt="" class="cloud"
+                style="position: absolute; right: 12%; top: 8%; width: 290px; opacity: 0.6; animation: float 26s ease-in-out infinite;">
+            <img src="{{ asset('images/cloud3.png') }}" alt="" class="cloud"
+                style="position: absolute; left: 15%; top: 35%; width: 260px; opacity: 0.5; animation: float 28s ease-in-out infinite reverse;">
+            <img src="{{ asset('images/cloud5.png') }}" alt="" class="cloud"
+                style="position: absolute; right: 35%; top: 70%; width: 230px; opacity: 0.45; animation: float 24s ease-in-out infinite 1.5s;">
+        </div>
+        <div class="container position-relative" style="z-index: 2;">
             <div class="row align-items-end mb-4">
                 <div class="col">
                     <h2 class="text-white fw-bold display-5 text-shadow-md" data-aos="fade-up">Upcoming Events</h2>
@@ -702,54 +743,16 @@
             </div>
 
             <div class="row g-4">
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-                    <div class="card border-0 h-100 event-card">
-                        <div class="card-body p-4">
-                            <div class="d-flex align-items-center mb-3">
-                                <span class="badge bg-warning text-dark me-2 event-badge">Workshop</span>
-                                <small class="text-white-50 event-badge text-shadow-sm">Sab, 26 Okt</small>
-                            </div>
-                            <h5 class="card-title text-white fs-3 text-shadow-sm">Dasar Ilustrasi Digital</h5>
-                            <p class="card-text text-white-50 fs-5 text-shadow-sm">Belajar workflow ilustrasi dari sketsa
-                                hingga final render.
-                            </p>
-                            <a href="{{ route('events') }}"
-                                class="link-light text-decoration-none fs-5 text-shadow-sm">Detail event →</a>
-                        </div>
+                @forelse($upcomingEvents as $index => $event)
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="{{ 100 + ($index * 100) }}">
+                        <x-event-card :event="$event" layout="home" />
                     </div>
-                </div>
-
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-                    <div class="card border-0 h-100 event-card">
-                        <div class="card-body p-4">
-                            <div class="d-flex align-items-center mb-3">
-                                <span class="badge bg-warning text-dark me-2 event-badge">Talkshow</span>
-                                <small class="text-white-50 event-badge text-shadow-sm">Min, 3 Nov</small>
-                            </div>
-                            <h5 class="card-title text-white fs-3 text-shadow-sm">Career in Creative Industry</h5>
-                            <p class="card-text text-white-50 fs-5 text-shadow-sm">Ngobrol bareng praktisi industri desain
-                                dan ilustrasi.</p>
-                            <a href="{{ route('events') }}"
-                                class="link-light text-decoration-none fs-5 text-shadow-sm">Detail event →</a>
-                        </div>
+                @empty
+                    <div class="col-12 text-center py-5">
+                        <i class="bi bi-calendar-x display-3 text-white-50 mb-3"></i>
+                        <p class="text-white-50 fs-5">No upcoming events at the moment. Check back soon!</p>
                     </div>
-                </div>
-
-                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
-                    <div class="card border-0 h-100 event-card">
-                        <div class="card-body p-4">
-                            <div class="d-flex align-items-center mb-3">
-                                <span class="badge bg-warning text-dark me-2 event-badge">Exhibition</span>
-                                <small class="text-white-50 event-badge text-shadow-sm">Sab, 16 Nov</small>
-                            </div>
-                            <h5 class="card-title text-white fs-3 text-shadow-sm">Kanvas Art Showcase</h5>
-                            <p class="card-text text-white-50 fs-5 text-shadow-sm">Pameran karya anggota Kanvas terbaik
-                                bulan ini.</p>
-                            <a href="{{ route('events') }}"
-                                class="link-light text-decoration-none fs-5 text-shadow-sm">Detail event →</a>
-                        </div>
-                    </div>
-                </div>
+                @endforelse
             </div>
         </div>
 
@@ -765,8 +768,17 @@
     </div>
 
     <!-- Gallery Preview Section -->
-    <section id="gallery" class="py-5">
-        <div class="container">
+    <section id="gallery" class="py-5 position-relative">
+        <!-- Floating clouds for Gallery Section -->
+        <div class="floating-clouds position-absolute w-100" style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
+            <img src="{{ asset('images/cloud4.png') }}" alt="" class="cloud"
+                style="position: absolute; left: 8%; top: 12%; width: 310px; opacity: 0.55; animation: float 27s ease-in-out infinite;">
+            <img src="{{ asset('images/cloud2.png') }}" alt="" class="cloud"
+                style="position: absolute; right: 10%; top: 45%; width: 270px; opacity: 0.5; animation: float 25s ease-in-out infinite reverse;">
+            <img src="{{ asset('images/cloud1.png') }}" alt="" class="cloud"
+                style="position: absolute; left: 50%; top: 75%; width: 240px; opacity: 0.45; animation: float 30s ease-in-out infinite 2s;">
+        </div>
+        <div class="container position-relative" style="z-index: 2;">
             <div class="d-flex align-items-end justify-content-between mb-4">
                 <div>
                     <h2 class="text-white fw-bold display-5 text-shadow-md" data-aos="fade-up">Galeri Karya</h2>
@@ -788,10 +800,9 @@
                                     <div class="artwork-info-home">
                                         <h6 class="text-white fw-bold mb-1">{{ $artwork->title }}</h6>
                                         <p class="text-white-50 small mb-0">By: {{ $artwork->artist_name }}</p>
-                                        <button class="btn btn-sm btn-gradient mt-2"
-                                            onclick="togglePopupHome(event, {{ $artwork->id }})">
+                                        <a href="{{ route('art_gallery') }}" class="btn btn-sm btn-gradient mt-2">
                                             <i class="bi bi-eye me-1"></i>View Details
-                                        </button>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -952,8 +963,15 @@
 
 
     <!-- About Section -->
-    <section id="about" class="py-5">
-        <div class="container">
+    <section id="about" class="py-5 position-relative">
+        <!-- Floating clouds for About Section -->
+        <div class="floating-clouds position-absolute w-100" style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
+            <img src="{{ asset('images/cloud5.png') }}" alt="" class="cloud"
+                style="position: absolute; right: 18%; top: 18%; width: 280px; opacity: 0.55; animation: float 29s ease-in-out infinite;">
+            <img src="{{ asset('images/cloud3.png') }}" alt="" class="cloud"
+                style="position: absolute; left: 12%; top: 55%; width: 250px; opacity: 0.5; animation: float 26s ease-in-out infinite reverse;">
+        </div>
+        <div class="container position-relative" style="z-index: 2;">
             <div class="row align-items-center g-4">
                 <div class="col-lg-6" data-aos="fade-right">
                     <div class="about-card-enhanced p-4">
@@ -969,7 +987,7 @@
                 </div>
                 <div class="col-lg-6" data-aos="fade-left">
                     <div class="ratio ratio-16x9 overflow-hidden about-image-container">
-                        <img src="{{ asset('images/mascot.png') }}" alt="Tentang Kanvas" class="w-100 h-100 object-fit-cover about-image">
+                        <img src="{{ asset('images/bg2.jpg') }}" alt="Tentang Kanvas" class="w-100 h-100 object-fit-cover about-image">
                     </div>
                 </div>
             </div>
@@ -978,15 +996,15 @@
 
     <style>
         .about-card-enhanced {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(93, 64, 97, 0.8) !important;
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 236, 119, 0.4);
             border-radius: 1.5rem;
             transition: all 0.3s ease;
         }
 
         .about-card-enhanced:hover {
-            border-color: rgba(255, 236, 119, 0.3);
+            border-color: rgba(255, 236, 119, 0.6);
             box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
         }
 
@@ -1016,18 +1034,6 @@
         .about-image-container:hover .about-image {
             transform: scale(1.05);
         }
-    </style>
-
-    <!-- Section Divider -->
-    <div class="section-divider" data-aos="fade-in">
-        <div class="divider-line"></div>
-        <div class="divider-icon">
-            <i class="bi bi-envelope-fill"></i>
-        </div>
-        <div class="divider-line"></div>
-    </div>
-
-    <style>
         .about-card-enhanced {
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(20px);
