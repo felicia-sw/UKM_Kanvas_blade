@@ -11,7 +11,7 @@
             <div class="col-12">
                 <h1 class="page-title display-1 fw-bold text-uppercase mb-4" data-aos="fade-down">ART GALLERY</h1>
                 <p class="page-subtitle text-white fs-5 mx-auto" style="max-width: 600px;" data-aos="fade-up" data-aos-delay="100">
-                    Eksplorasi karya-karya luar biasa dari talenta terbaik Kanvas
+                    Explore extraordinary artworks from Kanvas's finest talents
                 </p>
             </div>
         </div>
@@ -21,9 +21,9 @@
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="filter-buttons d-flex flex-wrap justify-content-center gap-3" data-aos="fade-up">
-                    <button class="btn btn-filter active" data-filter="all">Semua</button>
+                    <button class="btn btn-filter active" data-filter="all">All</button>
                     @foreach($categories as $category)
-                    <button class="btn btn-filter" data-filter="{{ strtolower($category->name) }}">
+                    <button class="btn btn-filter" data-filter="{{ strtolower(trim($category->name)) }}">
                         {{ $category->name }}
                     </button>
                     @endforeach
@@ -36,8 +36,11 @@
     <div class="container pb-5">
         <div class="row g-4 gallery-grid">
             @forelse($artworks as $index => $artwork)
+            @php
+                $categoryName = $artwork->category ? strtolower(trim($artwork->category->name)) : 'uncategorized';
+            @endphp
             <div class="col-lg-4 col-md-6 gallery-item" 
-                 data-category="{{ strtolower($artwork->category->name ?? 'other') }}" 
+                 data-category="{{ $categoryName }}" 
                  data-aos="fade-up" 
                  data-aos-delay="{{ ($index % 3) * 100 }}">
                 <div class="artwork-card">
@@ -49,6 +52,7 @@
                             <div class="artwork-info">
                                 <h4 class="text-white fw-bold mb-2">{{ $artwork->title }}</h4>
                                 <p class="text-white-50 mb-3">By: {{ $artwork->artist_name }}</p>
+                                <span class="badge bg-info mb-2">{{ $artwork->category->name ?? 'No Category' }}</span>
                                 <button class="btn btn-sm btn-gradient view-details-btn" 
                                         onclick="togglePopup(event, {{ $artwork->id }})">
                                     <i class="bi bi-eye me-2"></i>View Details
@@ -71,14 +75,21 @@
             @endforelse
         </div>
 
-        <!-- Pagination -->
-        @if($artworks->hasPages())
+        <!-- Results and Pagination -->
         <div class="row mt-5">
-            <div class="col-12 d-flex justify-content-center">
-                {{ $artworks->links('pagination::bootstrap-5') }}
+            <div class="col-12">
+                <div class="bottom-section" data-aos="fade-up">
+                    <div class="bottom-card">
+                        <!-- Pagination -->
+                        @if($artworks->hasPages())
+                        <div class="pagination-content">
+                            {{ $artworks->links('pagination::bootstrap-5') }}
+                        </div>
+                        @endif
+                    </div>
+                </div>
             </div>
         </div>
-        @endif
     </div>
 </div>
 
@@ -149,8 +160,15 @@
 @endforeach
 
 <style>
+/* Override body gradient for this page */
+body {
+    background: #2A0A56 !important;
+}
+
 .art-gallery-page {
     min-height: 100vh;
+    padding-bottom: 0 !important;
+    margin-bottom: 0 !important;
     background-image: url('{{ asset("images/bg1.jpg") }}');
     background-size: cover;
     background-position: center;
@@ -194,7 +212,7 @@
 
 /* Override text-white-50 to be lighter */
 .text-white-50 {
-    color: rgba(255, 255, 255, 0.85) !important;
+    color: #ffffff !important;
 }
 
 .btn-filter {
@@ -444,10 +462,7 @@
 }
 
 .gallery-item.hidden {
-    opacity: 0;
-    transform: scale(0.8);
-    position: absolute;
-    pointer-events: none;
+    display: none !important;
 }
 
 @media (max-width: 767px) {
@@ -497,12 +512,347 @@
 .modal-footer .btn-outline-light:hover {
     background: rgba(255, 255, 255, 0.1);
 }
+
+/* ========================================
+   BOTTOM SECTION (RESULTS + PAGINATION)
+   ======================================== */
+.bottom-section {
+    display: flex;
+    justify-content: center;
+}
+
+.bottom-card {
+    background: linear-gradient(135deg, rgba(42, 10, 86, 0.85) 0%, rgba(68, 30, 126, 0.85) 100%);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 236, 119, 0.4);
+    border-radius: 1.5rem;
+    padding: 2rem 2.5rem;
+    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.4), 
+                0 0 40px rgba(255, 236, 119, 0.15);
+    transition: all 0.4s ease;
+    max-width: 1200px;
+    width: 100%;
+}
+
+.bottom-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 
+                0 0 50px rgba(255, 236, 119, 0.25);
+    border-color: rgba(255, 236, 119, 0.6);
+}
+
+/* Results Info at Bottom */
+.results-info-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.results-icon-badge {
+    width: 50px;
+    height: 50px;
+    background: linear-gradient(135deg, #FFEC77 0%, #FF750F 100%);
+    border-radius: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #2A0A56;
+    font-size: 1.5rem;
+    box-shadow: 0 8px 25px rgba(255, 236, 119, 0.4);
+    animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes pulse-glow {
+    0%, 100% {
+        box-shadow: 0 8px 25px rgba(255, 236, 119, 0.4);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 12px 35px rgba(255, 236, 119, 0.6);
+        transform: scale(1.05);
+    }
+}
+
+.results-text-wrapper {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.results-text {
+    color: #ffffff;
+    font-size: 1.15rem;
+    font-weight: 500;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.results-number {
+    font-size: 1.75rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.results-number.highlight {
+    color: #FFEC77;
+    text-shadow: 0 3px 15px rgba(255, 236, 119, 0.5);
+}
+
+.results-number.total {
+    color: #F8B803;
+    text-shadow: 0 3px 15px rgba(248, 184, 3, 0.4);
+}
+
+.results-category-badge {
+    padding: 0.6rem 1.5rem;
+    background: rgba(255, 236, 119, 0.15);
+    border: 2px solid rgba(255, 236, 119, 0.35);
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: #FFEC77;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 236, 119, 0.15);
+}
+
+.results-category-badge:hover {
+    background: rgba(255, 236, 119, 0.25);
+    border-color: rgba(255, 236, 119, 0.5);
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 236, 119, 0.25);
+}
+
+.pill-dot {
+    width: 8px;
+    height: 8px;
+    background: #FF750F;
+    border-radius: 50%;
+    animation: blink-dot 2s ease-in-out infinite;
+}
+
+@keyframes blink-dot {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.4;
+        transform: scale(0.8);
+    }
+}
+
+/* Results Info Text */
+.results-info-text {
+    padding: 1rem 0;
+}
+
+.results-info-text p {
+    font-weight: 500;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.results-info-text .text-warning {
+    color: #FFEC77 !important;
+    font-size: 1.2em;
+}
+
+/* Divider between results and pagination */
+.pagination-divider {
+    height: 2px;
+    background: linear-gradient(to right, transparent, rgba(255, 236, 119, 0.3), transparent);
+    margin: 1.5rem 0;
+}
+
+/* Pagination Content */
+.pagination-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* Pagination info text (Showing X to Y of Z results) - STYLED */
+.pagination-content > p,
+.pagination-content > .d-none,
+.pagination-content > .d-md-flex,
+.pagination-content p,
+.pagination-content .d-flex {
+    color: #ffffff !important;
+    font-size: 1.15rem !important;
+    font-weight: 500 !important;
+    text-align: center !important;
+    margin: 0 auto 0 auto !important;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+    width: 100%;
+}
+
+.pagination-content .pagination {
+    margin: 0;
+    gap: 0.5rem;
+}
+
+.pagination-content .page-item {
+    margin: 0;
+}
+
+.pagination-content .page-link {
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 236, 119, 0.25);
+    color: #fff;
+    padding: 0.6rem 1.1rem;
+    border-radius: 0.75rem;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    min-width: 48px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.pagination-content .page-link:hover {
+    background: rgba(255, 236, 119, 0.25);
+    border-color: rgba(255, 236, 119, 0.5);
+    color: #FFEC77;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 236, 119, 0.3);
+}
+
+.pagination-content .page-item.active .page-link {
+    background: linear-gradient(135deg, #FFEC77 0%, #FF750F 100%);
+    border-color: #FFEC77;
+    color: #2A0A56;
+    box-shadow: 0 6px 25px rgba(255, 236, 119, 0.5);
+    transform: scale(1.1);
+}
+
+.pagination-content .page-item.disabled .page-link {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.3);
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+/* Responsive Styles */
+@media (max-width: 991px) {
+    .bottom-card {
+        padding: 1.5rem 2rem;
+    }
+    
+    .results-info-bottom {
+        gap: 1.25rem;
+        margin-bottom: 1.25rem;
+    }
+    
+    .results-icon-badge {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+    }
+    
+    .results-number {
+        font-size: 1.5rem;
+    }
+    
+    .results-text {
+        font-size: 1.05rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .bottom-card {
+        padding: 1.5rem 1.5rem;
+    }
+    
+    .results-info-bottom {
+        flex-direction: column;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .results-icon-badge {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+    }
+    
+    .results-text-wrapper {
+        flex-direction: column;
+        text-align: center;
+        gap: 0.3rem;
+    }
+    
+    .results-number {
+        font-size: 1.6rem;
+    }
+    
+    .results-text {
+        font-size: 1rem;
+    }
+    
+    .results-category-badge {
+        padding: 0.5rem 1.25rem;
+        font-size: 0.9rem;
+    }
+    
+    .results-info-text p {
+        font-size: 1rem;
+    }
+    
+    .results-info-text .text-warning {
+        font-size: 1.1em;
+    }
+    
+    .pagination-divider {
+        margin: 1rem 0;
+    }
+    
+    .pagination-content .page-link {
+        padding: 0.5rem 0.9rem;
+        font-size: 0.9rem;
+        min-width: 42px;
+    }
+}
+
+@media (max-width: 575px) {
+    .bottom-card {
+        padding: 1.25rem 1rem;
+    }
+    
+    .pagination-content .pagination {
+        gap: 0.3rem;
+    }
+    
+    .pagination-content .page-link {
+        padding: 0.4rem 0.7rem;
+        font-size: 0.85rem;
+        min-width: 38px;
+    }
+}
 </style>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const filterButtons = document.querySelectorAll('.btn-filter');
     const galleryItems = document.querySelectorAll('.gallery-item');
+    const visibleCountElement = document.getElementById('visibleCount');
+    const categoryNameElement = document.getElementById('categoryName');
+    
+    // Debug: Log all items and their categories
+    console.log('=== Gallery Items Debug ===');
+    galleryItems.forEach((item, index) => {
+        const category = item.getAttribute('data-category');
+        const title = item.querySelector('.text-white.fw-bold')?.textContent || 'Unknown';
+        console.log(`Item ${index + 1}: "${title}" - Category: "${category}"`);
+    });
     
     filterButtons.forEach(button => {
         button.addEventListener('click', function() {
@@ -511,16 +861,64 @@ document.addEventListener('DOMContentLoaded', function() {
             // Add active class to clicked button
             this.classList.add('active');
             
-            const filter = this.getAttribute('data-filter');
+            const filter = this.getAttribute('data-filter').toLowerCase().trim();
+            const categoryName = this.textContent.trim();
+            let visibleCount = 0;
             
-            galleryItems.forEach(item => {
-                if (filter === 'all' || item.getAttribute('data-category') === filter) {
+            console.log(`\n=== Filtering by: "${filter}" ===`);
+            
+            galleryItems.forEach((item, index) => {
+                const itemCategory = item.getAttribute('data-category').toLowerCase().trim();
+                const title = item.querySelector('.text-white.fw-bold')?.textContent || 'Unknown';
+                
+                const shouldShow = filter === 'all' || itemCategory === filter;
+                
+                console.log(`Item ${index + 1} "${title}": category="${itemCategory}", filter="${filter}", show=${shouldShow}`);
+                
+                if (shouldShow) {
                     item.classList.remove('hidden');
+                    item.style.display = '';
+                    visibleCount++;
                 } else {
                     item.classList.add('hidden');
+                    item.style.display = 'none';
                 }
             });
+            
+            console.log(`Visible items: ${visibleCount}`);
+            
+            // Update visible count with animation
+            if (visibleCountElement) {
+                visibleCountElement.style.transform = 'scale(1.2)';
+                visibleCountElement.style.color = '#FF750F';
+                setTimeout(() => {
+                    visibleCountElement.textContent = visibleCount;
+                    visibleCountElement.style.transform = 'scale(1)';
+                    visibleCountElement.style.color = '#FFEC77';
+                }, 200);
+            }
+            
+            // Update category name
+            if (categoryNameElement) {
+                const displayName = filter === 'all' ? 'All Categories' : categoryName;
+                categoryNameElement.style.transform = 'scale(1.1)';
+                setTimeout(() => {
+                    categoryNameElement.textContent = displayName;
+                    categoryNameElement.style.transform = 'scale(1)';
+                }, 200);
+            }
+            
+            // Trigger AOS refresh to re-animate visible items
+            if (typeof AOS !== 'undefined') {
+                AOS.refresh();
+            }
         });
+    });
+    
+    // Show all items initially
+    galleryItems.forEach(item => {
+        item.classList.remove('hidden');
+        item.style.display = '';
     });
 });
 
