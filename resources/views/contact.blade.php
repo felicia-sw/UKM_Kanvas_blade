@@ -17,6 +17,8 @@
         </div>
 
         <!-- Contact Content -->
+        <div class="container py-5">
+      
         <div class="row justify-content-center gy-5">
 
             <!-- Contact Form -->
@@ -131,7 +133,7 @@
                 <div class="social-media-card glass-card p-5 rounded-4"
                      style="background: rgba(50, 30, 80, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);">
                     <h3 class="fw-bold mb-4">Follow Us</h3>
-                    <div class="d-flex gap-3 justify-content-center">
+                    <div class="d-flex gap-3 justify-content-start">
                         <a href="https://www.instagram.com/uc_kanvas?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
                            target="_blank"
                            class="social-btn btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center"
@@ -160,9 +162,7 @@
             <div class="col-12" data-aos="fade-up">
                 <div class="map-card glass-card rounded-4 overflow-hidden"
                      style="background: rgba(50, 30, 80, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); height: 400px;">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.2847856265947!2d112.63073631477526!3d-7.321416894716374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fb5e7e9a4e63%3A0x57ae2dfe7e9a1b7a!2sUniversitas%20Ciputra%20Surabaya!5e0!3m2!1sen!2sid!4v1645234567890!5m2!1sen!2sid"
-                            width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                </div>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.606021064612!2d112.6316016!3d-7.2855872!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fde455555555%3A0xd7e2611ae591f046!2sUniversitas%20Ciputra%20Surabaya!5e0!3m2!1sen!2sid!4v1760877723978!5m2!1sen!2sid" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> </div>
             </div>
         </div>
     </div>
@@ -296,3 +296,5 @@
         });
     });
 </script>
+
+@endsection
