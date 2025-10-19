@@ -1,9 +1,8 @@
 <?php
 
-namespace Database\Factories;
-
-use App\Models\ArtworkCategory;
-use Illuminate\Database\Eloquent\Factories\Factory;
+namespace Database\Factories; // puts factory in the Database\Factories namespace so that it can be autodiscovered by laravel
+use App\Models\ArtworkCategory; // import artworkcategory model
+use Illuminate\Database\Eloquent\Factories\Factory; // imports related 
 
 class ArtworkCategoryFactory extends Factory
 {
