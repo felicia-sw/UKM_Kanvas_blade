@@ -26,48 +26,7 @@
     <!-- Custom CSS -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <style>
-        /* Global Styles */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            min-height: 100%;
-            width: 100%;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Judson', serif;
-            /* Gradient spans entire page height */
-            background: linear-gradient(to bottom, #FFEC77 0%, #F7D86A 15%, #D88FC6 40%, #9A4CA0 60%, #5B2066 80%, #2A0A56 100%);
-            background-attachment: scroll;
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* Typography */
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-weight: 700;
-        }
-
-
-        /* Page Header */
-        .page-header {
-            background: rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
-        }
-    </style>
+    
 
     @stack('styles')
 </head>
@@ -107,15 +66,35 @@
                 html.scrollHeight,
                 html.offsetHeight
             );
-            body.style.backgroundSize = `100% ${height}px`;
+                body.style.backgroundSize = `100% ${height}px`;
         }
 
         // Update on load and resize
-        window.addEventListener('load', updateGradientHeight);
+        window.addEventListener('load', () => {
+            updateGradientHeight();
+            // Update again after a longer delay to ensure all content is loaded
+            setTimeout(updateGradientHeight, 500);
+            setTimeout(updateGradientHeight, 1000);
+        });
+        
         window.addEventListener('resize', updateGradientHeight);
         
-        // Also update after a short delay to catch dynamic content
-        setTimeout(updateGradientHeight, 100);
+        // Update when content changes (for dynamic pages)
+        const observer = new MutationObserver(() => {
+            setTimeout(updateGradientHeight, 100);
+        });
+        observer.observe(document.body, { 
+            childList: true, 
+            subtree: true,
+            attributes: true 
+        });
+        
+        // Force update on scroll events (for lazy-loaded content)
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(updateGradientHeight, 200);
+        }, { passive: true });
     </script>
 
     @stack('scripts')
