@@ -201,10 +201,11 @@
                         </div>
 
                         <!-- Main mascot -->
-                        <div class="mascot-wrapper position-relative" style="z-index: 2; margin-left: -50px;">
+                        <div class="mascot-wrapper position-relative" style="z-index: 1; margin-left: 0;">
                             <img src="{{ asset('images/mascot.png') }}?v=2" alt="Kanvas Mascot" class="mascot-image"
-                                style="width: 100%; height: auto; max-width: 550px; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3)); animation: float 6s ease-in-out infinite;">
+                                style="width: 135%; height: 135%; max-width: 800px; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3)); animation: float 6s ease-in-out infinite;">
                         </div>
+                        
 
                         <!-- Decorative elements around mascot -->
                         <div class="position-absolute" style="bottom: 10%; left: 5%; z-index: 1;">
@@ -949,38 +950,73 @@
         <div class="divider-line"></div>
     </div>
 
+
     <!-- About Section -->
     <section id="about" class="py-5">
         <div class="container">
             <div class="row align-items-center g-4">
                 <div class="col-lg-6" data-aos="fade-right">
-                    <div class="glass-card p-4">
+                    <div class="about-card-enhanced p-4">
                         <h2 class="text-white fw-bold mb-4 display-5 text-shadow-md">Tentang Kanvas</h2>
-                        <p class="text-white-50 fs-4 mb-4 text-shadow-sm">Kanvas adalah komunitas kreatif di lingkungan
-                            kampus yang mendorong
-                            eksplorasi seni visual, desain, dan media kreatif lainnya. Kami rutin mengadakan workshop,
-                            pameran,
-                            serta kolaborasi lintas disiplin untuk memperluas wawasan dan jejaring.</p>
+                        <p class="text-white-50 fs-4 mb-4 text-shadow-sm">Kanvas adalah komunitas kreatif di lingkungan kampus yang mendorong eksplorasi seni visual, desain, dan media kreatif lainnya. Kami rutin mengadakan workshop, pameran, serta kolaborasi lintas disiplin untuk memperluas wawasan dan jejaring.</p>
                         <ul class="text-white-50 mb-4 list-unstyled fs-5 text-shadow-sm">
-                            <li class="mb-2"><i class="bi bi-check-circle text-warning me-2"></i>Mentoring dari praktisi
-                            </li>
-                            <li class="mb-2"><i class="bi bi-check-circle text-warning me-2"></i>Fasilitas studio dan
-                                perangkat</li>
-                            <li class="mb-2"><i class="bi bi-check-circle text-warning me-2"></i>Proyek kolaborasi nyata
-                            </li>
+                            <li class="mb-2 feature-list-item"><i class="bi bi-check-circle text-warning me-2"></i>Mentoring dari praktisi</li>
+                            <li class="mb-2 feature-list-item"><i class="bi bi-check-circle text-warning me-2"></i>Fasilitas studio dan perangkat</li>
+                            <li class="mb-2 feature-list-item"><i class="bi bi-check-circle text-warning me-2"></i>Proyek kolaborasi nyata</li>
                         </ul>
                         <a href="{{ route('about') }}" class="btn btn-gradient px-4 py-2">Pelajari lebih lanjut</a>
                     </div>
                 </div>
                 <div class="col-lg-6" data-aos="fade-left">
-                    <div class="ratio ratio-16x9 overflow-hidden glass-card">
-                        <img src="{{ asset('images/mascot.png') }}" alt="Tentang Kanvas"
-                            class="w-100 h-100 object-fit-cover">
+                    <div class="ratio ratio-16x9 overflow-hidden about-image-container">
+                        <img src="{{ asset('images/mascot.png') }}" alt="Tentang Kanvas" class="w-100 h-100 object-fit-cover about-image">
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <style>
+        .about-card-enhanced {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .about-card-enhanced:hover {
+            border-color: rgba(255, 236, 119, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-list-item {
+            transition: all 0.3s ease;
+            padding-left: 0.5rem;
+        }
+
+        .feature-list-item:hover {
+            transform: translateX(10px);
+            color: #fff !important;
+        }
+
+        .about-image-container {
+            border-radius: 1.5rem;
+            overflow: hidden;
+            border: 2px solid rgba(255, 236, 119, 0.3);
+            box-shadow: 0 15px 40px rgba(255, 117, 15, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+        }
+
+        .about-image {
+            transition: transform 0.5s ease;
+        }
+
+        .about-image-container:hover .about-image {
+            transform: scale(1.05);
+        }
+    </style>
 
     <!-- Section Divider -->
     <div class="section-divider" data-aos="fade-in">
@@ -991,25 +1027,47 @@
         <div class="divider-line"></div>
     </div>
 
-    <!-- CTA Join Section -->
-    <section id="contact" class="py-5">
-        <div class="container">
-            <div class="glass-card p-5" data-aos="zoom-in">
-                <div class="row align-items-center g-4">
-                    <div class="col-lg-8">
-                        <h3 class="text-white fw-bold mb-3 display-6 text-shadow-md">Siap bergabung dengan Kanvas?</h3>
-                        <p class="text-white-50 mb-0 fs-4 text-shadow-sm">Mari kembangkan potensi kreatifmu bersama
-                            komunitas yang suportif.
-                        </p>
-                    </div>
-                    <div class="col-lg-4 d-flex gap-3 justify-content-lg-end">
-                        <a href="{{ route('contact') }}" class="btn btn-outline-light btn-lg">Hubungi Kami</a>
-                        <a href="{{ route('events') }}" class="btn btn-gradient btn-lg">Lihat Kegiatan</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <style>
+        .about-card-enhanced {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .about-card-enhanced:hover {
+            border-color: rgba(255, 236, 119, 0.3);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-list-item {
+            transition: all 0.3s ease;
+            padding-left: 0.5rem;
+        }
+
+        .feature-list-item:hover {
+            transform: translateX(10px);
+            color: #fff !important;
+        }
+
+        .about-image-container {
+            border-radius: 1.5rem;
+            overflow: hidden;
+            border: 2px solid rgba(255, 236, 119, 0.3);
+            box-shadow: 0 15px 40px rgba(255, 117, 15, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+        }
+
+        .about-image {
+            transition: transform 0.5s ease;
+        }
+
+        .about-image-container:hover .about-image {
+            transform: scale(1.05);
+        }
+    </style>
 
 
 
