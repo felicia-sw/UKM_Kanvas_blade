@@ -3,192 +3,427 @@
 @section('title', 'Home - UKM Kanvas')
 
 @section('content')
-<div class="hero-wrapper position-relative overflow-hidden">
-    <!-- Background cityscape -->
-    <div class="cityscape-bg position-absolute w-100" style="bottom: 0; z-index: 1;">
-        <img src="{{ asset('images/buildings_blue.png') }}" alt="City Background" class="w-100" style="opacity: 0.4;">
-    </div>
+    <div class="hero-wrapper position-relative overflow-hidden">
+        <!-- Background cityscape -->
+        <div class="cityscape-bg position-absolute w-100" style="bottom: 0; z-index: 1;">
+            <img src="{{ asset('images/buildings_blue.png') }}" alt="City Background" class="w-100" style="opacity: 0.4;">
+        </div>
 
-    <!-- Decorative clouds -->
-    <div class="floating-clouds position-absolute w-100" style="top: 10%; z-index: 2;">
-        <img src="{{ asset('images/cloud1.png') }}" alt="" class="cloud cloud-1" style="position: absolute; left: 10%; width: 300px; animation: float 20s ease-in-out infinite;">
-        <img src="{{ asset('images/cloud2.png') }}" alt="" class="cloud cloud-2" style="position: absolute; right: 15%; width: 250px; animation: float 25s ease-in-out infinite reverse;">
-        <img src="{{ asset('images/cloud3.png') }}" alt="" class="cloud cloud-3" style="position: absolute; left: 40%; top: 30%; width: 200px; animation: float 30s ease-in-out infinite;">
-    </div>
+        <!-- Decorative clouds - Enhanced -->
+        <div class="floating-clouds position-absolute w-100" style="top: 5%; z-index: 2; pointer-events: none;">
+            <img src="{{ asset('images/cloud1.png') }}" alt="" class="cloud cloud-1"
+                style="position: absolute; left: 5%; width: 450px; opacity: 0.8; animation: float 20s ease-in-out infinite; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));">
+            <img src="{{ asset('images/cloud2.png') }}" alt="" class="cloud cloud-2"
+                style="position: absolute; right: 8%; width: 400px; opacity: 0.75; animation: float 25s ease-in-out infinite reverse; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));">
+            <img src="{{ asset('images/cloud3.png') }}" alt="" class="cloud cloud-3"
+                style="position: absolute; left: 35%; top: 25%; width: 350px; opacity: 0.7; animation: float 30s ease-in-out infinite; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));">
+            <img src="{{ asset('images/cloud4.png') }}" alt="" class="cloud cloud-4"
+                style="position: absolute; right: 30%; top: 40%; width: 300px; opacity: 0.65; animation: float 28s ease-in-out infinite 2s; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));">
+            <img src="{{ asset('images/cloud5.png') }}" alt="" class="cloud cloud-5"
+                style="position: absolute; left: 20%; top: 50%; width: 280px; opacity: 0.6; animation: float 32s ease-in-out infinite 1s; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));">
+        </div>
 
-    <!-- Decorative hills/mountains at bottom -->
-    <div class="hills-bg position-absolute w-100" style="bottom: 0; z-index: 3;">
-        <img src="{{ asset('images/buildings_purple.png') }}" alt="" class="w-100" style="opacity: 0.5;">
-    </div>
+        <!-- Decorative hills/mountains at bottom -->
+        <div class="hills-bg position-absolute w-100" style="bottom: 0; z-index: 3;">
+            <img src="{{ asset('images/buildings_purple.png') }}" alt="" class="w-100" style="opacity: 0.5;">
+        </div>
 
-    <div class="container-fluid px-5 pe-0 min-vh-100 d-flex align-items-center hero-section position-relative" style="z-index: 4;">
-        <div class="center-me w-100">
-            <div class="row align-items-center" style="transform: translateX(8%);">
-                <!-- Left Content Section -->
-                <div class="col-xl-7 col-12 position-relative" data-aos="fade-right" data-aos-duration="1000">
-                    <!-- Decorative street lamp -->
-                    <img src="{{ asset('images/streetlamp.png') }}" alt="" class="position-absolute streetlamp" style="left: -100px; top: -50px; width: 120px; opacity: 0.7; z-index: -1;">
-
-                    <!-- Title with enhanced styling -->
-                    <div class="title-container position-relative mb-4">
-                        <h1 class="text-start text-white fw-bold hero-title display-1 mb-0" style="text-shadow: 4px 4px 8px rgba(0,0,0,0.3), 0 0 40px rgba(255,236,119,0.4);">
-                            WELCOME
-                        </h1>
-                        <h1 class="text-start fw-bold hero-title display-1" style="background: linear-gradient(135deg, #FFEC77 0%, #FF750F 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: none; margin-top: -10px;">
-                            PEEPS
-                        </h1>
-                    </div>
-
-                    <!-- Description Section with enhanced card -->
-                    <div class="glass-info-card p-4 rounded-4 mb-4" style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(20px); border: 2px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px rgba(0,0,0,0.2);">
-                        <div class="d-flex align-items-center mb-3">
-                            <div class="icon-box me-3" style="background: linear-gradient(135deg, #FFEC77, #FF750F); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
-                                <i class="bi bi-palette-fill text-white fs-4"></i>
+        <div class="container-fluid px-5 min-vh-100 d-flex align-items-center hero-section position-relative"
+            style="z-index: 4;">
+            <div class="center-me w-100">
+                <div class="row align-items-center justify-content-center g-0">
+                    <!-- Left Content Section -->
+                    <div class="col-lg-6 col-12 position-relative pe-0" data-aos="fade-right" data-aos-duration="1000">
+                        <!-- Enhanced Street Lamp with Light Beam -->
+                        <div class="streetlamp-container position-absolute"
+                            style="left: -150px; top: -100px; width: 300px; height: 600px; z-index: 5;">
+                            <!-- Light beam emanating from lamp -->
+                            <div class="light-beam position-absolute"
+                                style="
+                            top: 50px; 
+                            left: 150px; 
+                            width: 600px; 
+                            height: 400px; 
+                            background: radial-gradient(ellipse at 0% 0%, 
+                                rgba(255, 236, 119, 0.4) 0%, 
+                                rgba(255, 236, 119, 0.25) 30%, 
+                                rgba(255, 236, 119, 0.1) 50%,
+                                transparent 70%);
+                            transform: rotate(-15deg);
+                            transform-origin: top left;
+                            filter: blur(15px);
+                            animation: lightPulse 3s ease-in-out infinite;
+                            pointer-events: none;
+                        ">
                             </div>
-                            <h3 class="text-white mb-0 fs-3 fw-bold">Apa itu Kanvas?</h3>
+
+                            <!-- Light glow at lamp head -->
+                            <div class="lamp-glow position-absolute"
+                                style="
+                            top: 30px;
+                            left: 230px;
+                            width: 80px;
+                            height: 80px;
+                            background: radial-gradient(circle, 
+                                rgba(255, 236, 119, 0.8) 0%, 
+                                rgba(255, 236, 119, 0.4) 40%, 
+                                transparent 70%);
+                            border-radius: 50%;
+                            filter: blur(10px);
+                            animation: glowPulse 2s ease-in-out infinite;
+                        ">
+                            </div>
+
+                            {{-- <!-- Actual streetlamp image -->
+                            <img src="{{ asset('images/streetlamp.png') }}" alt="" class="streetlamp"
+                                style="
+                            width: 280px; 
+                            height: auto; 
+                            position: relative;
+                            z-index: 6;
+                            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.3));
+                        "> --}}
                         </div>
-                        
-                        <p class="text-white fs-5 lh-lg mb-0" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.3);">
-                            Kanvas is a Unit Kegiatan Mahasiswa﻿ (Student Activity Unit) dedicated to nurturing artistic creativity and design. We are a home for young artists eager to express themselves through various art mediums.
-                        </p>
+
+                        <!-- Title with enhanced styling and lighting effect -->
+                        <div class="title-container position-relative mb-4" style="z-index: 10;">
+                            <!-- Light overlay on text -->
+                            <div class="text-light-overlay position-absolute"
+                                style="
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            background: radial-gradient(ellipse at 20% 30%, 
+                                rgba(255, 236, 119, 0.2) 0%, 
+                                transparent 50%);
+                            pointer-events: none;
+                            z-index: 1;
+                        ">
+                            </div>
+
+                            <h1 class="text-start text-white fw-bold hero-title display-1 mb-0 position-relative"
+                                style="
+                            font-size: 8rem; 
+                            text-shadow: 
+                                4px 4px 8px rgba(0,0,0,0.4), 
+                                0 0 60px rgba(255,236,119,0.3),
+                                -2px -2px 10px rgba(255,236,119,0.2);
+                            letter-spacing: 0.05em;
+                            line-height: 1.1;
+                            z-index: 2;
+                        ">
+                                WELCOME
+                            </h1>
+                            <h1 class="text-start fw-bold hero-title display-1 position-relative"
+                                style="
+                            font-size: 8rem;
+                            background: linear-gradient(135deg, #FFEC77 0%, #FF750F 100%); 
+                            -webkit-background-clip: text; 
+                            -webkit-text-fill-color: transparent; 
+                            margin-top: -10px;
+                            letter-spacing: 0.05em;
+                            line-height: 1.1;
+                            filter: drop-shadow(4px 4px 8px rgba(0,0,0,0.3)) drop-shadow(0 0 30px rgba(255,236,119,0.4));
+                            z-index: 2;
+                        ">
+                                PEEPS
+                            </h1>
+                        </div>
+
+                        <!-- Description Section with enhanced card -->
+                        <div class="glass-info-card p-4 rounded-4 mb-4"
+                            style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(20px); border: 2px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px rgba(0,0,0,0.2);">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="icon-box me-3"
+                                    style="background: linear-gradient(135deg, #FFEC77, #FF750F); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                                    <i class="bi bi-palette-fill text-white fs-4"></i>
+                                </div>
+                                <h3 class="text-white mb-0 fs-3 fw-bold">Apa itu Kanvas?</h3>
+                            </div>
+
+                            <p class="text-white fs-5 lh-lg mb-0" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.3);">
+                                Kanvas is a Unit Kegiatan Mahasiswa﻿ (Student Activity Unit) dedicated to nurturing artistic
+                                creativity and design. We are a home for young artists eager to express themselves through
+                                various art mediums.
+                            </p>
+                        </div>
+
+                        <!-- Slogan with decorative elements -->
+                        <div class="slogan-container position-relative mt-5 pt-3 mb-4">
+                            <div class="quote-mark position-absolute"
+                                style="left: -30px; top: -20px; font-size: 80px; color: rgba(255,236,119,0.3); font-family: Georgia, serif;">
+                                "</div>
+                            <h2 class="text-white text-start fw-bold slogan-text fs-2 fst-italic"
+                                style="text-shadow: 2px 2px 4px rgba(0,0,0,0.4);">
+                                Express. Create. Inspire.
+                            </h2>
+                            <div class="underline-decoration mt-2"
+                                style="width: 200px; height: 4px; background: linear-gradient(90deg, #FFEC77, transparent); border-radius: 2px;">
+                            </div>
+                        </div>
+
+                        <!-- Enhanced CTA Buttons -->
+                        <div class="mt-5 d-flex gap-3 flex-wrap">
+                            <a href="{{ route('events') }}"
+                                class="btn btn-gradient btn-lg px-5 py-3 position-relative overflow-hidden"
+                                style="box-shadow: 0 8px 24px rgba(255,236,119,0.4); border-radius: 50px; font-weight: 600;">
+                                <span class="position-relative" style="z-index: 2;">
+                                    <i class="bi bi-calendar-event me-2"></i>View Events
+                                </span>
+                                <span class="button-shine position-absolute"
+                                    style="top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); animation: shine 3s infinite;"></span>
+                            </a>
+                            <a href="{{ route('art_gallery') }}" class="btn btn-outline-light btn-lg px-5 py-3"
+                                style="border-width: 2px; border-radius: 50px; font-weight: 600; backdrop-filter: blur(10px); background: rgba(255,255,255,0.1); box-shadow: 0 4px 16px rgba(0,0,0,0.2);">
+                                <i class="bi bi-palette me-2"></i>Art Gallery
+                            </a>
+                        </div>
+
+                        <!-- Floating decorative elements -->
+                        <div class="floating-stars position-absolute" style="right: 10%; top: 20%;">
+                            <i class="bi bi-star-fill text-warning"
+                                style="font-size: 20px; opacity: 0.7; animation: twinkle 2s ease-in-out infinite;"></i>
+                        </div>
+                        <div class="floating-stars position-absolute" style="right: 5%; top: 50%;">
+                            <i class="bi bi-star-fill text-warning"
+                                style="font-size: 15px; opacity: 0.5; animation: twinkle 3s ease-in-out infinite 0.5s;"></i>
+                        </div>
                     </div>
 
-                    <!-- Slogan with decorative elements -->
-                    <div class="slogan-container position-relative mt-5 pt-3 mb-4">
-                        <div class="quote-mark position-absolute" style="left: -30px; top: -20px; font-size: 80px; color: rgba(255,236,119,0.3); font-family: Georgia, serif;">"</div>
-                        <h2 class="text-white text-start fw-bold slogan-text fs-2 fst-italic" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.4);">
-                            Express. Create. Inspire.
-                        </h2>
-                        <div class="underline-decoration mt-2" style="width: 200px; height: 4px; background: linear-gradient(90deg, #FFEC77, transparent); border-radius: 2px;"></div>
-                    </div>
+                    <!-- Right Image Section with enhanced presentation -->
+                    <div class="col-lg-5 col-12 d-flex justify-content-start align-items-center mascot-container position-relative ps-lg-0"
+                        data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
 
-                    <!-- Enhanced CTA Buttons -->
-                    <div class="mt-5 d-flex gap-3 flex-wrap">
-                        <a href="{{ route('events') }}" class="btn btn-gradient btn-lg px-5 py-3 position-relative overflow-hidden" style="box-shadow: 0 8px 24px rgba(255,236,119,0.4); border-radius: 50px; font-weight: 600;">
-                            <span class="position-relative" style="z-index: 2;">
-                                <i class="bi bi-calendar-event me-2"></i>View Events
-                            </span>
-                            <span class="button-shine position-absolute" style="top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); animation: shine 3s infinite;"></span>
-                        </a>
-                        <a href="{{ route('art_gallery') }}" class="btn btn-outline-light btn-lg px-5 py-3" style="border-width: 2px; border-radius: 50px; font-weight: 600; backdrop-filter: blur(10px); background: rgba(255,255,255,0.1); box-shadow: 0 4px 16px rgba(0,0,0,0.2);">
-                            <i class="bi bi-palette me-2"></i>Art Gallery
-                        </a>
-                    </div>
+                        <!-- Glow effect behind mascot -->
+                        <div class="mascot-glow position-absolute"
+                            style="width: 600px; height: 600px; background: radial-gradient(circle, rgba(255,236,119,0.25) 0%, transparent 70%); filter: blur(50px); z-index: 0; left: 50%; transform: translateX(-50%);">
+                        </div>
 
-                    <!-- Floating decorative elements -->
-                    <div class="floating-stars position-absolute" style="right: 10%; top: 20%;">
-                        <i class="bi bi-star-fill text-warning" style="font-size: 20px; opacity: 0.7; animation: twinkle 2s ease-in-out infinite;"></i>
-                    </div>
-                    <div class="floating-stars position-absolute" style="right: 5%; top: 50%;">
-                        <i class="bi bi-star-fill text-warning" style="font-size: 15px; opacity: 0.5; animation: twinkle 3s ease-in-out infinite 0.5s;"></i>
-                    </div>
-                </div>
+                        <!-- Main mascot -->
+                        <div class="mascot-wrapper position-relative" style="z-index: 2; margin-left: -50px;">
+                            <img src="{{ asset('images/mascot.png') }}?v=2" alt="Kanvas Mascot" class="mascot-image"
+                                style="width: 100%; height: auto; max-width: 550px; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3)); animation: float 6s ease-in-out infinite;">
+                        </div>
 
-                <!-- Right Image Section with enhanced presentation -->
-                <div class="col-xl-5 col-12 d-flex justify-content-end align-items-center mascot-container position-relative"
-                    data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
-                    
-                    <!-- Glow effect behind mascot -->
-                    <div class="mascot-glow position-absolute" style="width: 500px; height: 500px; background: radial-gradient(circle, rgba(255,236,119,0.3) 0%, transparent 70%); filter: blur(40px); z-index: 0;"></div>
-                    
-                    <!-- Main mascot -->
-                    <div class="mascot-wrapper position-relative" style="z-index: 2;">
-                        <img src="{{ asset('images/mascot.png') }}?v=2" alt="Kanvas Mascot" class="mascot-image"
-                            style="width: 100%; height: auto; max-width: 700px; transform: translateX(-28%); filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3)); animation: float 6s ease-in-out infinite;">
-                    </div>
+                        <!-- Decorative elements around mascot -->
+                        <div class="position-absolute" style="bottom: 10%; left: 5%; z-index: 1;">
+                            <i class="bi bi-brush-fill text-warning"
+                                style="font-size: 40px; opacity: 0.6; animation: rotate 10s linear infinite;"></i>
+                        </div>
+                        <div class="position-absolute" style="top: 15%; right: 10%; z-index: 1;">
+                            <i class="bi bi-palette2 text-warning"
+                                style="font-size: 35px; opacity: 0.6; animation: rotate 12s linear infinite reverse;"></i>
+                        </div>
 
-                    <!-- Decorative elements around mascot -->
-                    <div class="position-absolute" style="bottom: 10%; left: 5%; z-index: 1;">
-                        <i class="bi bi-brush-fill text-warning" style="font-size: 40px; opacity: 0.6; animation: rotate 10s linear infinite;"></i>
-                    </div>
-                    <div class="position-absolute" style="top: 15%; right: 10%; z-index: 1;">
-                        <i class="bi bi-palette2 text-warning" style="font-size: 35px; opacity: 0.6; animation: rotate 12s linear infinite reverse;"></i>
+                        <!-- More stars around mascot -->
+                        <div class="floating-stars position-absolute" style="left: 15%; top: 25%;">
+                            <i class="bi bi-star-fill text-warning"
+                                style="font-size: 16px; opacity: 0.7; animation: twinkle 2.6s ease-in-out infinite 0.8s;"></i>
+                        </div>
+                        <div class="floating-stars position-absolute" style="right: 25%; top: 10%;">
+                            <i class="bi bi-star-fill text-warning"
+                                style="font-size: 14px; opacity: 0.6; animation: twinkle 3.1s ease-in-out infinite 1.2s;"></i>
+                        </div>
+                        <div class="floating-stars position-absolute" style="left: 8%; top: 60%;">
+                            <i class="bi bi-star-fill text-warning"
+                                style="font-size: 18px; opacity: 0.75; animation: twinkle 2.4s ease-in-out infinite 0.5s;"></i>
+                        </div>
+                        <div class="floating-stars position-absolute" style="right: 15%; top: 70%;">
+                            <i class="bi bi-star-fill text-warning"
+                                style="font-size: 13px; opacity: 0.65; animation: twinkle 2.9s ease-in-out infinite 1.5s;"></i>
+                        </div>
+                        <div class="floating-stars position-absolute" style="left: 25%; top: 45%;">
+                            <i class="bi bi-star-fill text-warning"
+                                style="font-size: 15px; opacity: 0.7; animation: twinkle 2.7s ease-in-out infinite 1s;"></i>
+                        </div>
+                        <div class="floating-stars position-absolute" style="right: 30%; top: 85%;">
+                            <i class="bi bi-star-fill text-warning"
+                                style="font-size: 12px; opacity: 0.6; animation: twinkle 3.2s ease-in-out infinite 0.3s;"></i>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<style>
-/* Enhanced animations */
-@keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-}
+    <style>
+        /* Enhanced animations */
+        @keyframes float {
 
-@keyframes twinkle {
-    0%, 100% { opacity: 0.3; transform: scale(1); }
-    50% { opacity: 1; transform: scale(1.2); }
-}
+            0%,
+            100% {
+                transform: translateY(0px) translateX(0px);
+            }
 
-@keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
+            33% {
+                transform: translateY(-25px) translateX(10px);
+            }
 
-@keyframes shine {
-    0% { left: -100%; }
-    100% { left: 200%; }
-}
+            66% {
+                transform: translateY(-15px) translateX(-10px);
+            }
+        }
 
-/* Cloud floating animation */
-.cloud {
-    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
-}
+        @keyframes lightPulse {
 
-/* Responsive adjustments */
-@media (max-width: 1200px) {
-    
-    .mascot-image {
-        transform: translateX(0) !important;
-        max-width: 500px !important;
-    }
-}
+            0%,
+            100% {
+                opacity: 1;
+            }
 
-@media (max-width: 768px) {
-    .hero-title {
-        font-size: 3rem !important;
-    }
-    
-    .glass-info-card {
-        margin-top: 2rem;
-    }
-    
-    .floating-clouds img {
-        width: 150px !important;
-    }
-    
-    .mascot-wrapper {
-        margin-top: 3rem;
-    }
-}
+            50% {
+                opacity: 0.7;
+            }
+        }
 
-/* Button hover effects */
-.btn-gradient {
-    transition: all 0.3s ease;
-}
+        @keyframes glowPulse {
 
-.btn-gradient:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 32px rgba(255,236,119,0.6) !important;
-}
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
 
-.btn-outline-light:hover {
-    transform: translateY(-3px);
-    background: rgba(255,255,255,0.2) !important;
-}
+            50% {
+                opacity: 0.6;
+                transform: scale(1.1);
+            }
+        }
 
-/* Glass card hover effect */
-.glass-info-card {
-    transition: all 0.3s ease;
-}
+        @keyframes twinkle {
 
-.glass-info-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 48px rgba(0,0,0,0.3);
-}
-</style>
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes shine {
+            0% {
+                left: -100%;
+            }
+
+            100% {
+                left: 200%;
+            }
+        }
+
+        /* Cloud floating animation with depth */
+        .cloud {
+            filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.2));
+            will-change: transform;
+        }
+
+        .cloud-1 {
+            animation-duration: 20s !important;
+        }
+
+        .cloud-2 {
+            animation-duration: 25s !important;
+        }
+
+        .cloud-3 {
+            animation-duration: 30s !important;
+        }
+
+        .cloud-4 {
+            animation-duration: 28s !important;
+        }
+
+        .cloud-5 {
+            animation-duration: 32s !important;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 1200px) {
+            .hero-title {
+                font-size: 6rem !important;
+            }
+
+            .mascot-image {
+                max-width: 450px !important;
+            }
+
+            .mascot-wrapper {
+                margin-left: 0 !important;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .mascot-container {
+                justify-content: center !important;
+                margin-top: 3rem;
+            }
+
+            .mascot-wrapper {
+                margin-left: 0 !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 3.5rem !important;
+            }
+
+            .glass-info-card {
+                margin-top: 2rem;
+            }
+
+            .floating-clouds img {
+                width: 200px !important;
+            }
+
+            .mascot-wrapper {
+                margin-top: 2rem;
+            }
+
+            .mascot-image {
+                max-width: 350px !important;
+            }
+        }
+
+        /* Button hover effects */
+        .btn-gradient {
+            transition: all 0.3s ease;
+        }
+
+        .btn-gradient:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(255, 236, 119, 0.6) !important;
+        }
+
+        .btn-outline-light:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.2) !important;
+        }
+
+        /* Glass card hover effect */
+        .glass-info-card {
+            transition: all 0.3s ease;
+        }
+
+        .glass-info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+        }
+    </style>
 
     <!-- Section Divider -->
     <div class="container">
@@ -245,7 +480,8 @@
                         </div>
                         <h4 class="text-white mb-3 fs-3 text-shadow-sm">Exhibitions & Competitions</h4>
                         <p class="text-white-50 fs-5 text-shadow-sm">
-                            Showcase your work on an international/national scale and participate in national to international-level competitions.
+                            Showcase your work on an international/national scale and participate in national to
+                            international-level competitions.
                         </p>
                     </div>
                 </div>
@@ -280,7 +516,8 @@
                             <i class="bi bi-palette2 text-white fs-4"></i>
                         </div>
                         <h5 class="text-white mb-3 fs-4 text-shadow-sm">Creativity First</h5>
-                        <p class="text-white-50 mb-0 fs-5 text-shadow-sm">We celebrate and nurture creative expression across mediums and
+                        <p class="text-white-50 mb-0 fs-5 text-shadow-sm">We celebrate and nurture creative expression
+                            across mediums and
                             styles.</p>
                     </div>
                 </div>
@@ -291,7 +528,8 @@
                             <i class="bi bi-people text-white fs-4"></i>
                         </div>
                         <h5 class="text-white mb-3 fs-4 text-shadow-sm">Inclusive Community</h5>
-                        <p class="text-white-50 mb-0 fs-5 text-shadow-sm">Welcoming all skill levels, fostering a supportive environment to
+                        <p class="text-white-50 mb-0 fs-5 text-shadow-sm">Welcoming all skill levels, fostering a
+                            supportive environment to
                             grow.</p>
                     </div>
                 </div>
@@ -302,7 +540,8 @@
                             <i class="bi bi-trophy text-white fs-4"></i>
                         </div>
                         <h5 class="text-white mb-3 fs-4 text-shadow-sm">Excellence</h5>
-                        <p class="text-white-50 mb-0 fs-5 text-shadow-sm">We strive for high standards while embracing experimentation.</p>
+                        <p class="text-white-50 mb-0 fs-5 text-shadow-sm">We strive for high standards while embracing
+                            experimentation.</p>
                     </div>
                 </div>
 
@@ -312,7 +551,8 @@
                             <i class="bi bi-heart text-white fs-4"></i>
                         </div>
                         <h5 class="text-white mb-3 fs-4 text-shadow-sm">Passion for Art</h5>
-                        <p class="text-white-50 mb-0 fs-5 text-shadow-sm">We share our enthusiasm through workshops, showcases, and
+                        <p class="text-white-50 mb-0 fs-5 text-shadow-sm">We share our enthusiasm through workshops,
+                            showcases, and
                             collaborations.</p>
                     </div>
                 </div>
@@ -323,7 +563,8 @@
                             <i class="bi bi-lightbulb text-white fs-4"></i>
                         </div>
                         <h5 class="text-white mb-3 fs-4 text-shadow-sm">Innovation</h5>
-                        <p class="text-white-50 mb-0 fs-5 text-shadow-sm">We explore new media and techniques to discover unique artistic
+                        <p class="text-white-50 mb-0 fs-5 text-shadow-sm">We explore new media and techniques to discover
+                            unique artistic
                             voices.</p>
                     </div>
                 </div>
@@ -334,7 +575,8 @@
                             <i class="bi bi-bullseye text-white fs-4"></i>
                         </div>
                         <h5 class="text-white mb-3 fs-4 text-shadow-sm">Goal-Oriented</h5>
-                        <p class="text-white-50 mb-0 fs-5 text-shadow-sm">We set clear goals for growth, events, and meaningful achievements.
+                        <p class="text-white-50 mb-0 fs-5 text-shadow-sm">We set clear goals for growth, events, and
+                            meaningful achievements.
                         </p>
                     </div>
                 </div>
@@ -368,7 +610,8 @@
                         <div class="guideline-num fs-5">01</div>
                         <div>
                             <h5 class="text-white mb-2 fs-4 text-shadow-sm">Respect & Support</h5>
-                            <p class="text-white-50 mb-0 fs-5 text-shadow-sm">Treat all members with respect and provide constructive feedback.
+                            <p class="text-white-50 mb-0 fs-5 text-shadow-sm">Treat all members with respect and provide
+                                constructive feedback.
                             </p>
                         </div>
                     </div>
@@ -378,7 +621,8 @@
                         <div class="guideline-num fs-5">02</div>
                         <div>
                             <h5 class="text-white mb-2 fs-4 text-shadow-sm">Active Participation</h5>
-                            <p class="text-white-50 mb-0 fs-5 text-shadow-sm">Aim to attend club activities and events regularly.</p>
+                            <p class="text-white-50 mb-0 fs-5 text-shadow-sm">Aim to attend club activities and events
+                                regularly.</p>
                         </div>
                     </div>
                 </div>
@@ -387,7 +631,8 @@
                         <div class="guideline-num fs-5">03</div>
                         <div>
                             <h5 class="text-white mb-2 fs-4 text-shadow-sm">Original Work</h5>
-                            <p class="text-white-50 mb-0 fs-5 text-shadow-sm">All submitted artworks must be original creations.</p>
+                            <p class="text-white-50 mb-0 fs-5 text-shadow-sm">All submitted artworks must be original
+                                creations.</p>
                         </div>
                     </div>
                 </div>
@@ -396,7 +641,8 @@
                         <div class="guideline-num fs-5">04</div>
                         <div>
                             <h5 class="text-white mb-2 fs-4 text-shadow-sm">Studio Care</h5>
-                            <p class="text-white-50 mb-0 fs-5 text-shadow-sm">Keep the studio clean and return all materials after use.</p>
+                            <p class="text-white-50 mb-0 fs-5 text-shadow-sm">Keep the studio clean and return all
+                                materials after use.</p>
                         </div>
                     </div>
                 </div>
@@ -420,7 +666,8 @@
         <div class="container">
             <div class="glass-card p-5" data-aos="zoom-in">
                 <h2 class="text-center text-white fw-bold mb-4 display-5 text-shadow-md">Our Mission</h2>
-                <p class="text-center text-white-50 mb-0 fs-4 text-shadow-sm">To create an inclusive platform where students can explore,
+                <p class="text-center text-white-50 mb-0 fs-4 text-shadow-sm">To create an inclusive platform where
+                    students can explore,
                     develop, and showcase their artistic talents while fostering a supportive community that celebrates
                     creativity, innovation, and excellence.</p>
             </div>
@@ -444,7 +691,8 @@
             <div class="row align-items-end mb-4">
                 <div class="col">
                     <h2 class="text-white fw-bold display-5 text-shadow-md" data-aos="fade-up">Upcoming Events</h2>
-                    <p class="text-white-50 mb-0 fs-4 text-shadow-sm" data-aos="fade-up" data-aos-delay="100">Ikuti kegiatan Kanvas terbaru dan
+                    <p class="text-white-50 mb-0 fs-4 text-shadow-sm" data-aos="fade-up" data-aos-delay="100">Ikuti
+                        kegiatan Kanvas terbaru dan
                         tingkatkan jaringan kreatifmu</p>
                 </div>
                 <div class="col-auto">
@@ -461,9 +709,11 @@
                                 <small class="text-white-50 event-badge text-shadow-sm">Sab, 26 Okt</small>
                             </div>
                             <h5 class="card-title text-white fs-3 text-shadow-sm">Dasar Ilustrasi Digital</h5>
-                            <p class="card-text text-white-50 fs-5 text-shadow-sm">Belajar workflow ilustrasi dari sketsa hingga final render.
+                            <p class="card-text text-white-50 fs-5 text-shadow-sm">Belajar workflow ilustrasi dari sketsa
+                                hingga final render.
                             </p>
-                            <a href="{{ route('events') }}" class="link-light text-decoration-none fs-5 text-shadow-sm">Detail event →</a>
+                            <a href="{{ route('events') }}"
+                                class="link-light text-decoration-none fs-5 text-shadow-sm">Detail event →</a>
                         </div>
                     </div>
                 </div>
@@ -476,8 +726,10 @@
                                 <small class="text-white-50 event-badge text-shadow-sm">Min, 3 Nov</small>
                             </div>
                             <h5 class="card-title text-white fs-3 text-shadow-sm">Career in Creative Industry</h5>
-                            <p class="card-text text-white-50 fs-5 text-shadow-sm">Ngobrol bareng praktisi industri desain dan ilustrasi.</p>
-                            <a href="{{ route('events') }}" class="link-light text-decoration-none fs-5 text-shadow-sm">Detail event →</a>
+                            <p class="card-text text-white-50 fs-5 text-shadow-sm">Ngobrol bareng praktisi industri desain
+                                dan ilustrasi.</p>
+                            <a href="{{ route('events') }}"
+                                class="link-light text-decoration-none fs-5 text-shadow-sm">Detail event →</a>
                         </div>
                     </div>
                 </div>
@@ -490,8 +742,10 @@
                                 <small class="text-white-50 event-badge text-shadow-sm">Sab, 16 Nov</small>
                             </div>
                             <h5 class="card-title text-white fs-3 text-shadow-sm">Kanvas Art Showcase</h5>
-                            <p class="card-text text-white-50 fs-5 text-shadow-sm">Pameran karya anggota Kanvas terbaik bulan ini.</p>
-                            <a href="{{ route('events') }}" class="link-light text-decoration-none fs-5 text-shadow-sm">Detail event →</a>
+                            <p class="card-text text-white-50 fs-5 text-shadow-sm">Pameran karya anggota Kanvas terbaik
+                                bulan ini.</p>
+                            <a href="{{ route('events') }}"
+                                class="link-light text-decoration-none fs-5 text-shadow-sm">Detail event →</a>
                         </div>
                     </div>
                 </div>
@@ -515,7 +769,8 @@
             <div class="d-flex align-items-end justify-content-between mb-4">
                 <div>
                     <h2 class="text-white fw-bold display-5 text-shadow-md" data-aos="fade-up">Galeri Karya</h2>
-                    <p class="text-white-50 mb-0 fs-4 text-shadow-sm" data-aos="fade-up" data-aos-delay="100">Karya terbaru dari anggota
+                    <p class="text-white-50 mb-0 fs-4 text-shadow-sm" data-aos="fade-up" data-aos-delay="100">Karya
+                        terbaru dari anggota
                         Kanvas</p>
                 </div>
                 <a href="{{ route('art_gallery') }}" class="btn btn-outline-light">Lihat Galeri</a>
@@ -523,162 +778,164 @@
 
             <div class="row g-4">
                 @forelse($featuredArtworks->take(4) as $index => $artwork)
-                <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="{{ ($index + 1) * 50 }}">
-                    <div class="artwork-card-home" style="cursor: pointer; position: relative;">
-                        <div class="artwork-image-container-home">
-                            <img src="{{ asset($artwork->image_path) }}" 
-                                 alt="{{ $artwork->title }}" 
-                                 class="artwork-image-home">
-                            <div class="artwork-overlay-home">
-                                <div class="artwork-info-home">
-                                    <h6 class="text-white fw-bold mb-1">{{ $artwork->title }}</h6>
-                                    <p class="text-white-50 small mb-0">By: {{ $artwork->artist_name }}</p>
-                                    <button class="btn btn-sm btn-gradient mt-2" 
+                    <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="{{ ($index + 1) * 50 }}">
+                        <div class="artwork-card-home" style="cursor: pointer; position: relative;">
+                            <div class="artwork-image-container-home">
+                                <img src="{{ asset($artwork->image_path) }}" alt="{{ $artwork->title }}"
+                                    class="artwork-image-home">
+                                <div class="artwork-overlay-home">
+                                    <div class="artwork-info-home">
+                                        <h6 class="text-white fw-bold mb-1">{{ $artwork->title }}</h6>
+                                        <p class="text-white-50 small mb-0">By: {{ $artwork->artist_name }}</p>
+                                        <button class="btn btn-sm btn-gradient mt-2"
                                             onclick="togglePopupHome(event, {{ $artwork->id }})">
-                                        <i class="bi bi-eye me-1"></i>View Details
+                                            <i class="bi bi-eye me-1"></i>View Details
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Compact Popup -->
+                            <div class="artwork-popup-home" id="popup-home-{{ $artwork->id }}">
+                                <div class="popup-header">
+                                    <h6 class="text-white mb-0 fw-bold">{{ $artwork->title }}</h6>
+                                    <button type="button" class="popup-close"
+                                        onclick="closePopupHome({{ $artwork->id }})">
+                                        <i class="bi bi-x-lg"></i>
                                     </button>
                                 </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Compact Popup -->
-                        <div class="artwork-popup-home" id="popup-home-{{ $artwork->id }}">
-                            <div class="popup-header">
-                                <h6 class="text-white mb-0 fw-bold">{{ $artwork->title }}</h6>
-                                <button type="button" class="popup-close" onclick="closePopupHome({{ $artwork->id }})">
-                                    <i class="bi bi-x-lg"></i>
-                                </button>
-                            </div>
-                            <div class="popup-body">
-                                <div class="popup-item">
-                                    <i class="bi bi-person-fill text-warning"></i>
-                                    <div>
-                                        <small class="text-white-50 d-block">Artist</small>
-                                        <strong class="text-white">{{ $artwork->artist_name }}</strong>
+                                <div class="popup-body">
+                                    <div class="popup-item">
+                                        <i class="bi bi-person-fill text-warning"></i>
+                                        <div>
+                                            <small class="text-white-50 d-block">Artist</small>
+                                            <strong class="text-white">{{ $artwork->artist_name }}</strong>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="popup-item">
-                                    <i class="bi bi-tag-fill text-warning"></i>
-                                    <div>
-                                        <small class="text-white-50 d-block">Category</small>
-                                        <strong class="text-white">{{ $artwork->category->name }}</strong>
+                                    <div class="popup-item">
+                                        <i class="bi bi-tag-fill text-warning"></i>
+                                        <div>
+                                            <small class="text-white-50 d-block">Category</small>
+                                            <strong class="text-white">{{ $artwork->category->name }}</strong>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="popup-item">
-                                    <i class="bi bi-calendar-fill text-warning"></i>
-                                    <div>
-                                        <small class="text-white-50 d-block">Created</small>
-                                        <strong class="text-white">{{ $artwork->created_date->format('M d, Y') }}</strong>
+                                    <div class="popup-item">
+                                        <i class="bi bi-calendar-fill text-warning"></i>
+                                        <div>
+                                            <small class="text-white-50 d-block">Created</small>
+                                            <strong
+                                                class="text-white">{{ $artwork->created_date->format('M d, Y') }}</strong>
+                                        </div>
                                     </div>
+                                    @if ($artwork->description)
+                                        <div class="popup-item">
+                                            <i class="bi bi-file-text-fill text-warning"></i>
+                                            <div>
+                                                <small class="text-white-50 d-block">Description</small>
+                                                <p class="text-white mb-0 popup-description">
+                                                    {{ Str::limit($artwork->description, 150) }}</p>
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
-                                @if($artwork->description)
-                                <div class="popup-item">
-                                    <i class="bi bi-file-text-fill text-warning"></i>
-                                    <div>
-                                        <small class="text-white-50 d-block">Description</small>
-                                        <p class="text-white mb-0 popup-description">{{ Str::limit($artwork->description, 150) }}</p>
-                                    </div>
-                                </div>
-                                @endif
                             </div>
                         </div>
                     </div>
-                </div>
                 @empty
-                <div class="col-12 text-center">
-                    <p class="text-white-50">Belum ada karya yang ditampilkan</p>
-                </div>
+                    <div class="col-12 text-center">
+                        <p class="text-white-50">Belum ada karya yang ditampilkan</p>
+                    </div>
                 @endforelse
             </div>
-            
+
             <style>
-            .artwork-card-home {
-                height: 300px;
-                overflow: hidden;
-                border-radius: 1rem;
-                transition: all 0.3s ease;
-                position: relative;
-            }
-
-            .artwork-image-container-home {
-                position: relative;
-                height: 100%;
-                overflow: hidden;
-                border-radius: 1rem;
-            }
-
-            .artwork-image-home {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-                transition: transform 0.5s ease;
-            }
-
-            .artwork-card-home:hover .artwork-image-home {
-                transform: scale(1.1);
-            }
-
-            .artwork-overlay-home {
-                position: absolute;
-                top: 0;
-                left: 0;
-                right: 0;
-                bottom: 0;
-                background: linear-gradient(to top, rgba(42, 10, 86, 0.95) 0%, transparent 100%);
-                opacity: 0;
-                transition: opacity 0.3s ease;
-                display: flex;
-                align-items: flex-end;
-                padding: 1.5rem;
-            }
-
-            .artwork-card-home:hover .artwork-overlay-home {
-                opacity: 1;
-            }
-
-            .artwork-info-home {
-                transform: translateY(20px);
-                transition: transform 0.3s ease;
-            }
-
-            .artwork-card-home:hover .artwork-info-home {
-                transform: translateY(0);
-            }
-
-            /* Popup Styles for Home Gallery */
-            .artwork-popup-home {
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%) scale(0);
-                width: 320px;
-                max-width: 90%;
-                background: rgba(42, 10, 86, 0.98);
-                backdrop-filter: blur(20px);
-                border: 2px solid rgba(255, 236, 119, 0.5);
-                border-radius: 1rem;
-                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-                z-index: 100;
-                opacity: 0;
-                transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-                pointer-events: none;
-            }
-
-            .artwork-popup-home.active {
-                transform: translate(-50%, -50%) scale(1);
-                opacity: 1;
-                pointer-events: auto;
-            }
-
-            @media (max-width: 767px) {
                 .artwork-card-home {
-                    height: 250px;
+                    height: 300px;
+                    overflow: hidden;
+                    border-radius: 1rem;
+                    transition: all 0.3s ease;
+                    position: relative;
                 }
-                
+
+                .artwork-image-container-home {
+                    position: relative;
+                    height: 100%;
+                    overflow: hidden;
+                    border-radius: 1rem;
+                }
+
+                .artwork-image-home {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    transition: transform 0.5s ease;
+                }
+
+                .artwork-card-home:hover .artwork-image-home {
+                    transform: scale(1.1);
+                }
+
+                .artwork-overlay-home {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: linear-gradient(to top, rgba(42, 10, 86, 0.95) 0%, transparent 100%);
+                    opacity: 0;
+                    transition: opacity 0.3s ease;
+                    display: flex;
+                    align-items: flex-end;
+                    padding: 1.5rem;
+                }
+
+                .artwork-card-home:hover .artwork-overlay-home {
+                    opacity: 1;
+                }
+
+                .artwork-info-home {
+                    transform: translateY(20px);
+                    transition: transform 0.3s ease;
+                }
+
+                .artwork-card-home:hover .artwork-info-home {
+                    transform: translateY(0);
+                }
+
+                /* Popup Styles for Home Gallery */
                 .artwork-popup-home {
-                    width: 280px;
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%) scale(0);
+                    width: 320px;
+                    max-width: 90%;
+                    background: rgba(42, 10, 86, 0.98);
+                    backdrop-filter: blur(20px);
+                    border: 2px solid rgba(255, 236, 119, 0.5);
+                    border-radius: 1rem;
+                    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+                    z-index: 100;
+                    opacity: 0;
+                    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                    pointer-events: none;
                 }
-            }
+
+                .artwork-popup-home.active {
+                    transform: translate(-50%, -50%) scale(1);
+                    opacity: 1;
+                    pointer-events: auto;
+                }
+
+                @media (max-width: 767px) {
+                    .artwork-card-home {
+                        height: 250px;
+                    }
+
+                    .artwork-popup-home {
+                        width: 280px;
+                    }
+                }
             </style>
         </div>
     </section>
@@ -699,8 +956,10 @@
                 <div class="col-lg-6" data-aos="fade-right">
                     <div class="glass-card p-4">
                         <h2 class="text-white fw-bold mb-4 display-5 text-shadow-md">Tentang Kanvas</h2>
-                        <p class="text-white-50 fs-4 mb-4 text-shadow-sm">Kanvas adalah komunitas kreatif di lingkungan kampus yang mendorong
-                            eksplorasi seni visual, desain, dan media kreatif lainnya. Kami rutin mengadakan workshop, pameran,
+                        <p class="text-white-50 fs-4 mb-4 text-shadow-sm">Kanvas adalah komunitas kreatif di lingkungan
+                            kampus yang mendorong
+                            eksplorasi seni visual, desain, dan media kreatif lainnya. Kami rutin mengadakan workshop,
+                            pameran,
                             serta kolaborasi lintas disiplin untuk memperluas wawasan dan jejaring.</p>
                         <ul class="text-white-50 mb-4 list-unstyled fs-5 text-shadow-sm">
                             <li class="mb-2"><i class="bi bi-check-circle text-warning me-2"></i>Mentoring dari praktisi
@@ -739,7 +998,8 @@
                 <div class="row align-items-center g-4">
                     <div class="col-lg-8">
                         <h3 class="text-white fw-bold mb-3 display-6 text-shadow-md">Siap bergabung dengan Kanvas?</h3>
-                        <p class="text-white-50 mb-0 fs-4 text-shadow-sm">Mari kembangkan potensi kreatifmu bersama komunitas yang suportif.
+                        <p class="text-white-50 mb-0 fs-4 text-shadow-sm">Mari kembangkan potensi kreatifmu bersama
+                            komunitas yang suportif.
                         </p>
                     </div>
                     <div class="col-lg-4 d-flex gap-3 justify-content-lg-end">
@@ -773,14 +1033,14 @@
             event.stopPropagation();
             const popup = document.getElementById(`popup-home-${artworkId}`);
             const allPopups = document.querySelectorAll('.artwork-popup-home');
-            
+
             // Close all other popups
             allPopups.forEach(p => {
                 if (p.id !== `popup-home-${artworkId}`) {
                     p.classList.remove('active');
                 }
             });
-            
+
             // Toggle current popup
             popup.classList.toggle('active');
         }
@@ -800,5 +1060,5 @@
         });
     </script>
 
-    
+
 @endsection
