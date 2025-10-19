@@ -3,14 +3,14 @@
 namespace Database\Factories;
 
 use App\Models\Artwork;
-use App\Models\ArtworkCategory;
-use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\ArtworkCategory; // related to artwork
+use Illuminate\Database\Eloquent\Factories\Factory; //base factory class
 
-class ArtworkFactory extends Factory
+class ArtworkFactory extends Factory // extends the factory base
 {
-    protected $model = Artwork::class;
+    protected $model = Artwork::class; // $model tells laravel: this factory creates artwork records 
 
-    public function definition(): array
+    public function definition(): array // laravel calls definition() whenever you generate or seed an artwork; returns an array mapping each column name to a fake value
     {
         // Sample artwork titles that sound more artistic
         $artworkPrefixes = [

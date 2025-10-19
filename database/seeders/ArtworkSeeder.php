@@ -1,4 +1,5 @@
 <?php
+
 namespace Database\Seeders;
 
 use App\Models\Artwork;
@@ -10,7 +11,7 @@ class ArtworkSeeder extends Seeder
     public function run(): void
     {
         $categories = ArtworkCategory::all();
-        
+
         // Create 30 artworks with random categories
         foreach (range(1, 30) as $index) {
             Artwork::factory()->create([
