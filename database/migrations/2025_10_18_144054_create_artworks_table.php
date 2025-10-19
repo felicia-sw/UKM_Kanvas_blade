@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('artist_name');
             $table->foreignId('category_id')->nullable()->constrained('artwork_categories')->onDelete('set null');
             $table->date('created_date');
-            // $table->timestamps();
+            $table->timestamps();
         });
     }
 

@@ -12,7 +12,8 @@ class EventFactory extends Factory
     public function definition(): array
     {
         $startDate = $this->faker->dateTimeBetween('now', '+6 months');
-        $endDate = $this->faker->dateTimeBetween($startDate, '+2 weeks');
+$endDate = (clone $startDate)->modify('+'.rand(1, 14).' days');
+
         
         return [
             'title' => $this->faker->sentence(4),

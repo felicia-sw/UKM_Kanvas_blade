@@ -7,13 +7,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/event', function () {
-    return view('event');
-})->name('event');
+// Events routes - USE THE CONTROLLER!
+Route::get('/events', [EventController::class, 'index'])->name('events');
+Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show');
 
+// Art Gallery routes
 Route::get('/art-gallery', [ArtworkController::class, 'index'])->name('art_gallery');
 Route::get('/artworks/{id}', [ArtworkController::class, 'show'])->name('artworks.show');
 
+// Static pages
 Route::get('/about', function () {
     return view('about');
 })->name('about');
