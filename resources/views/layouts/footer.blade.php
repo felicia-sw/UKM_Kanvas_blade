@@ -1,4 +1,4 @@
-<footer class="footer-section mt-5 py-5" style="background: rgba(42, 10, 86, 0.95); backdrop-filter: blur(10px);">
+<footer class="footer-section mt-5 py-5">
     <div class="container">
         <div class="row g-4">
             <!-- About Section -->
@@ -144,38 +144,3 @@
         </div>
     </div>
 </footer>
-
-<style>
-    .footer-link {
-        color: rgba(255, 255, 255, 0.7);
-        text-decoration: none;
-        transition: all 0.3s ease;
-        display: inline-block;
-    }
-
-    .footer-link:hover {
-        color: #FFEC77;
-        transform: translateX(5px);
-    }
-
-    .social-icon {
-        width: 45px;
-        height: 45px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 50%;
-        color: #fff;
-        font-size: 20px;
-        transition: all 0.3s ease;
-        text-decoration: none;
-    }
-
-    .social-icon:hover {
-        background: linear-gradient(135deg, #FFEC77 0%, #F8B803 100%);
-        color: #1b1b18;
-        transform: translateY(-5px);
-        box-shadow: 0 5px 15px rgba(255, 236, 119, 0.4);
-    }
-</style>

@@ -3,9 +3,9 @@
 @section('title', 'Home - UKM Kanvas')
 
 @section('content')
-    <div class="container-fluid px-5 pe-0 min-vh-100 d-flex align-items-center hero-section">
-        <div class="center-me " style="width: 100%;">
-            <div class="row align-items-center" style="transform: translateX(8%);">
+    <div class="container-fluid px-5 pe-0 min-vh-100 d-flex align-items-center hero-section page-bg-image">
+        <div class="center-me">
+            <div class="row align-items-center px-5 mx-5">
                 <!-- Left Content Section -->
                 <div class="col-xl-7 col-12" data-aos="fade-right" data-aos-duration="1000">
                     <h1 class="text-start text-white fw-bold hero-title mb-4">
@@ -46,8 +46,7 @@
                 <!-- Right Image Section -->
                 <div class="col-xl-5 col-12 d-flex justify-content-end align-items-center mascot-container"
                     data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
-                    <img src="{{ asset('images/mascot.png') }}?v=2" alt="Kanvas Mascot" class="mascot-image"
-                        style="width: 100%; height: auto; max-width: 700px; transform: translateX(-28%);">
+                    <img src="{{ asset('images/mascot.png') }}?v=2" alt="Kanvas Mascot" class="mascot-image w-100 h-auto mascot-max">
                 </div>
             </div>
         </div>
@@ -387,22 +386,22 @@
             <div class="row g-3">
                 <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="50">
                     <div class="ratio ratio-1x1 overflow-hidden glass-card">
-                        <img src="{{ asset('images/mascot.png') }}" alt="Karya 1" class="w-100 h-100 object-fit-cover">
+                        <img src="{{ asset('images/gallery/artwork1.jpg') }}" alt="Karya 1" class="w-100 h-100 object-fit-cover">
                     </div>
                 </div>
                 <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="100">
                     <div class="ratio ratio-1x1 overflow-hidden glass-card">
-                        <img src="{{ asset('images/mascot.png') }}" alt="Karya 2" class="w-100 h-100 object-fit-cover">
+                        <img src="{{ asset('images/gallery/artwork2.jpg') }}" alt="Karya 2" class="w-100 h-100 object-fit-cover">
                     </div>
                 </div>
                 <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="150">
                     <div class="ratio ratio-1x1 overflow-hidden glass-card">
-                        <img src="{{ asset('images/mascot.png') }}" alt="Karya 3" class="w-100 h-100 object-fit-cover">
+                        <img src="{{ asset('images/gallery/artwork3.jpg') }}" alt="Karya 3" class="w-100 h-100 object-fit-cover">
                     </div>
                 </div>
                 <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="200">
                     <div class="ratio ratio-1x1 overflow-hidden glass-card">
-                        <img src="{{ asset('images/mascot.png') }}" alt="Karya 4" class="w-100 h-100 object-fit-cover">
+                        <img src="{{ asset('images/gallery/artwork4.jpg') }}" alt="Karya 4" class="w-100 h-100 object-fit-cover">
                     </div>
                 </div>
             </div>
@@ -441,7 +440,7 @@
                 </div>
                 <div class="col-lg-6" data-aos="fade-left">
                     <div class="ratio ratio-16x9 overflow-hidden glass-card">
-                        <img src="{{ asset('images/mascot.png') }}" alt="Tentang Kanvas"
+                        <img src="{{ asset('images/bg2.jpg') }}" alt="Tentang Kanvas"
                             class="w-100 h-100 object-fit-cover">
                     </div>
                 </div>
@@ -485,7 +484,8 @@
     {{-- <section>
         
 <br><br>
-<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1CPZ5BxNNd0n0nF4Orb9JS?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
+</iframe>
+<iframe data-testid="embed-iframe" class="embed-rounded" src="https://open.spotify.com/embed/track/1CPZ5BxNNd0n0nF4Orb9JS?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
 </iframe>
 <iframe width="2033" height="937" src="https://www.youtube.com/embed/SdSSPF1S-Uc" title="Live NOW: Victoria&#39;s Secret Fashion Show 2025" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
@@ -493,173 +493,5 @@
 <script async src="//www.instagram.com/embed.js"></script>
     </section> --}}
 
-    <style> 
-        /* Hero Section with Background and Gradient Overlay */
-        .hero-section {
-
-            position: relative;
-            background-image: url('{{ asset("images/bg1.jpg") }}');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-        }
-
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(to top, 
-                rgba(255, 236, 119, 0.85) 0%, 
-                rgba(255, 217, 107, 0.85) 15%,
-                rgba(255, 192, 95, 0.85) 25%,
-                rgba(232, 160, 85, 0.85) 35%,
-                rgba(199, 130, 78, 0.85) 45%,
-                rgba(143, 72, 152, 0.85) 60%,
-                rgba(106, 53, 116, 0.85) 75%,
-                rgba(71, 35, 96, 0.85) 85%,
-                rgba(42, 10, 86, 0.9) 100%);
-            z-index: 1;
-        }
-
-        .hero-section > * {
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-title {
-            font-size: clamp(64px, 10vw, 170px);
-            line-height: 1.1;
-            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .slogan-text {
-            font-size: clamp(28px, 4vw, 48px);
-        }
-
-
-        /* Navbar scrolled effect */
-        .nav-scrolled {
-            backdrop-filter: blur(12px);
-            background: rgba(0, 0, 0, 0.35) !important;
-            transition: background 0.3s ease;
-        }
-
-        .mascot-image {
-            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
-            transition: transform 0.3s ease;
-        }
-
-        .mascot-image:hover {
-            transform: scale(1.05);
-        }
-
-
-        .guideline-num {
-            width: 56px;
-            height: 56px;
-            border-radius: 12px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, rgba(255, 236, 119, .35), rgba(255, 117, 15, .35));
-            color: #fff;
-            font-weight: 700;
-        }
-
-        /* Section Dividers */
-        .section-divider {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            padding: 2rem 0;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .section-divider-dark {
-            /* For dark background sections */
-        }
-
-        .divider-line {
-            flex: 1;
-            height: 2px;
-            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
-        }
-
-        .section-light .divider-line {
-            background: linear-gradient(to right, transparent, rgba(0, 0, 0, 0.2), transparent);
-        }
-
-        .divider-icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, rgba(255, 236, 119, 0.3), rgba(255, 117, 15, 0.3));
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .section-divider-dark .divider-icon {
-            background: linear-gradient(135deg, rgba(255, 236, 119, 0.25), rgba(255, 117, 15, 0.25));
-            border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .section-light .divider-icon {
-            background: linear-gradient(135deg, rgba(255, 236, 119, 0.5), rgba(255, 117, 15, 0.5));
-            border: 2px solid rgba(0, 0, 0, 0.1);
-        }
-
-        .divider-icon i {
-            font-size: 1.2rem;
-            color: #fff;
-        }
-
-        .section-light .divider-icon i {
-            color: #333;
-        }
-
-        /* Light section styles to blend with the same palette */
-        .section-light {
-            background: #F9FAFB;
-        }
-
-        .section-light .glass-card {
-            background: rgba(0, 0, 0, 0.02);
-            border: 1px solid rgba(0, 0, 0, 0.08);
-        }
-
-        .btn-outline-dark {
-            border-width: 2px;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-
-        .btn-outline-dark:hover {
-            transform: translateY(-2px);
-        }
-
-        /* Override text-white-50 to be lighter and closer to white */
-        .text-white-50 {
-            color: rgb(229, 229, 229) !important;
-        }
-
-        @media (max-width: 1199px) {
-            .mascot-container {
-                margin-top: 3rem;
-                padding-right: 15px !important;
-            }
-
-            .mascot-image {
-                margin-right: 0 !important;
-            }
-        }
-    </style>
+    
 @endsection
