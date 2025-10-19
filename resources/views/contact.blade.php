@@ -3,15 +3,15 @@
 @section('title', 'Contact')
 
 @section('content')
-<div class="contact-page text-white min-vh-100 py-5 page-bg-image">
-    <div class="container-fluid">
-        
+<div class="contact-page text-white min-vh-100 py-5">
+    <div class="container">
+
         <!-- Page Header -->
         <div class="row justify-content-center text-center mb-5 mt-5 pt-5">
             <div class="col-12 col-md-8">
                 <h1 class="page-title display-1 fw-bold text-uppercase mb-4" data-aos="fade-down">CONTACT US</h1>
-                <p class="page-subtitle text-white fs-5 mx-auto" data-aos="fade-up" data-aos-delay="100">
-                    Mari terhubung dengan kami. Kami siap mendengar dan menjawab pertanyaanmu
+                <p class="page-subtitle fs-5 mx-auto" style="max-width: 600px;" data-aos="fade-up" data-aos-delay="100">
+                    Let's get in touch!
                 </p>
             </div>
         </div>
@@ -168,7 +168,117 @@
     </div>
 </div>
 
+
+
+//...
+
 <style>
+    .contact-page {
+        min-height: 100vh;
+        background-image: url('{{ asset('images/bg1.jpg') }}');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        position: relative;
+    }
+
+    .contact-page::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to top,
+          rgba(255, 236, 119, 0.85) 0%,
+          rgba(255, 217, 107, 0.85) 15%,
+          rgba(255, 192, 95, 0.85) 25%,
+          rgba(232, 160, 85, 0.85) 35%,
+          rgba(199, 130, 78, 0.85) 45%,
+          rgba(143, 72, 152, 0.85) 60%,
+          rgba(106, 53, 116, 0.85) 75%,
+          rgba(71, 35, 96, 0.85) 85%,
+          rgba(42, 10, 86, 0.9) 100%);
+        z-index: 0;
+    }
+
+    .contact-page>* {
+        position: relative;
+        z-index: 1;
+    }
+
+    .page-title {
+        letter-spacing: 5px;
+        line-height: 1.1;
+        color: #ddd;
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+        -webkit-text-stroke: 1px rgba(255, 255, 255, 0.8);
+    }
+
+    .text-white-50 {
+        color: rgba(255, 255, 255, 0.85) !important;
+    }
+
+    .contact-input {
+        background: rgba(255, 255, 255, 0.1) !important;
+        border: 2px solid rgba(255, 255, 255, 0.2) !important;
+        color: #fff !important;
+        transition: all 0.3s ease;
+    }
+
+    .contact-input::placeholder {
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    .contact-input:focus {
+        background: rgba(255, 255, 255, 0.15) !important;
+        border-color: rgba(255, 236, 119, 0.5) !important;
+        box-shadow: 0 0 0 0.25rem rgba(255, 236, 119, 0.15) !important;
+        color: #fff !important;
+    }
+
+    .contact-input option {
+        background: #2a0a56;
+        color: #fff;
+    }
+
+    .contact-item {
+        transition: transform 0.3s ease;
+    }
+
+    .contact-item:hover {
+        transform: translateX(10px);
+    }
+
+    .social-btn {
+        transition: all 0.3s ease;
+        border-width: 2px;
+    }
+
+    .social-btn:hover {
+        background: linear-gradient(135deg, #FFEC77 0%, #F8B803 100%);
+        border-color: transparent;
+        color: #1b1b18;
+        transform: translateY(-5px);
+    }
+
+    @keyframes submitSuccess {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.05);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .submit-success {
+        animation: submitSuccess 0.5s ease;
+    }
+
+
+//...
+
   .contact-page {
     min-height: 100vh;
     background-image: url('{{ asset("images/bg1.jpg") }}');
@@ -258,6 +368,9 @@
 .submit-success {
     animation: submitSuccess 0.5s ease;
 }
+
+//...
+
 </style>
 
 <script>

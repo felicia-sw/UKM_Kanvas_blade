@@ -10,7 +10,7 @@
         <div class="row justify-content-center text-center mb-5 mt-5 pt-5">
             <div class="col-12">
                 <h1 class="page-title display-1 fw-bold text-uppercase mb-4" data-aos="fade-down">ART GALLERY</h1>
-                <p class="page-subtitle text-white fs-5 mx-auto" data-aos="fade-up" data-aos-delay="100">
+                <p class="page-subtitle text-white fs-5 mx-auto" style="max-width: 600px;" data-aos="fade-up" data-aos-delay="100">
                     Eksplorasi karya-karya luar biasa dari talenta terbaik Kanvas
                 </p>
             </div>
@@ -166,8 +166,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to top,
-        rgba(255, 236, 119, 0.85) 0%,
+    background: linear-gradient(to top, 
+        rgba(255, 236, 119, 0.85) 0%, 
         rgba(255, 217, 107, 0.85) 15%,
         rgba(255, 192, 95, 0.85) 25%,
         rgba(232, 160, 85, 0.85) 35%,
@@ -184,6 +184,15 @@
     z-index: 1;
 }
 
+.page-title {
+    letter-spacing: 5px;
+    line-height: 1.1;
+    color: #ddd;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.8);
+}
+
+/* Override text-white-50 to be lighter */
 .text-white-50 {
     color: rgba(255, 255, 255, 0.85) !important;
 }
