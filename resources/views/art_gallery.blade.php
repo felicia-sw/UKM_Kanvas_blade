@@ -57,47 +57,7 @@
                         </div>
                     </div>
                     
-                    <!-- Small Popup Card -->
-                    <div class="artwork-popup" id="popup-{{ $artwork->id }}">
-                        <div class="popup-header">
-                            <h5 class="text-white fw-bold mb-0">{{ $artwork->title }}</h5>
-                            <button class="popup-close" onclick="closePopup({{ $artwork->id }})">
-                                <i class="bi bi-x-lg"></i>
-                            </button>
-                        </div>
-                        <div class="popup-body">
-                            <div class="popup-item">
-                                <i class="bi bi-person-circle text-warning me-2"></i>
-                                <div>
-                                    <small class="text-white-50 d-block">Artist</small>
-                                    <span class="text-white">{{ $artwork->artist_name }}</span>
-                                </div>
-                            </div>
-                            <div class="popup-item">
-                                <i class="bi bi-tag text-warning me-2"></i>
-                                <div>
-                                    <small class="text-white-50 d-block">Category</small>
-                                    <span class="badge bg-warning text-dark">{{ $artwork->category->name ?? 'Uncategorized' }}</span>
-                                </div>
-                            </div>
-                            <div class="popup-item">
-                                <i class="bi bi-calendar text-warning me-2"></i>
-                                <div>
-                                    <small class="text-white-50 d-block">Created</small>
-                                    <span class="text-white">{{ $artwork->created_date->format('M d, Y') }}</span>
-                                </div>
-                            </div>
-                            @if($artwork->description)
-                            <div class="popup-item">
-                                <i class="bi bi-journal-text text-warning me-2"></i>
-                                <div>
-                                    <small class="text-white-50 d-block">Description</small>
-                                    <p class="text-white-50 small mb-0 popup-description">{{ Str::limit($artwork->description, 120) }}</p>
-                                </div>
-                            </div>
-                            @endif
-                        </div>
-                    </div>
+
                 </div>
             </div>
             @empty
@@ -121,6 +81,72 @@
         @endif
     </div>
 </div>
+
+<!-- Modal-style Popup for Artwork Details -->
+@foreach($artworks as $artwork)
+<div class="artwork-modal-overlay" id="popup-{{ $artwork->id }}" onclick="closePopup({{ $artwork->id }})">
+    <div class="artwork-modal-container" onclick="event.stopPropagation()">
+        <!-- Close Button -->
+        <button class="modal-close-btn" onclick="closePopup({{ $artwork->id }})">
+            <i class="bi bi-x-lg"></i>
+        </button>
+        
+        <div class="row g-4 align-items-center">
+            <!-- Image Box -->
+            <div class="col-lg-7">
+                <div class="modal-image-box">
+                    <img src="{{ asset($artwork->image_path) }}" 
+                         alt="{{ $artwork->title }}" 
+                         class="modal-artwork-image">
+                </div>
+            </div>
+            
+            <!-- Description Outside Box -->
+            <div class="col-lg-5">
+                <div class="modal-details">
+                    <h2 class="text-white fw-bold mb-4">{{ $artwork->title }}</h2>
+                    
+                    <div class="detail-item mb-3">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i class="bi bi-person-circle text-warning fs-5"></i>
+                            <span class="text-warning fw-semibold">Artist</span>
+                        </div>
+                        <p class="text-white mb-0 ps-4">{{ $artwork->artist_name }}</p>
+                    </div>
+                    
+                    <div class="detail-item mb-3">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i class="bi bi-tag-fill text-warning fs-5"></i>
+                            <span class="text-warning fw-semibold">Category</span>
+                        </div>
+                        <p class="mb-0 ps-4">
+                            <span class="badge bg-warning text-dark">{{ $artwork->category->name ?? 'Uncategorized' }}</span>
+                        </p>
+                    </div>
+                    
+                    <div class="detail-item mb-3">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i class="bi bi-calendar-fill text-warning fs-5"></i>
+                            <span class="text-warning fw-semibold">Created Date</span>
+                        </div>
+                        <p class="text-white mb-0 ps-4">{{ $artwork->created_date->format('F d, Y') }}</p>
+                    </div>
+                    
+                    @if($artwork->description)
+                    <div class="detail-item">
+                        <div class="d-flex align-items-center gap-2 mb-2">
+                            <i class="bi bi-journal-text-fill text-warning fs-5"></i>
+                            <span class="text-warning fw-semibold">Description</span>
+                        </div>
+                        <p class="text-white-50 mb-0 ps-4 lh-lg">{{ $artwork->description }}</p>
+                    </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@endforeach
 
 <style>
 .art-gallery-page {
@@ -247,104 +273,170 @@
     transform: translateY(0);
 }
 
-/* Popup Styles */
-.artwork-popup {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    width: 320px;
-    max-width: 90%;
-    background: rgba(42, 10, 86, 0.98);
-    backdrop-filter: blur(20px);
-    border: 2px solid rgba(255, 236, 119, 0.5);
-    border-radius: 1rem;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-    z-index: 100;
-    opacity: 0;
-    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    pointer-events: none;
-}
-
-.artwork-popup.active {
-    transform: translate(-50%, -50%) scale(1);
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.popup-header {
-    display: flex;
-    justify-content: space-between;
+/* Modal-style Popup */
+.artwork-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
+    z-index: 9999;
+    display: none;
     align-items: center;
-    padding: 1rem 1.25rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
-.popup-close {
-    background: transparent;
-    border: none;
+.artwork-modal-overlay.active {
+    display: flex;
+    opacity: 1;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.artwork-modal-container {
+    background: rgba(42, 10, 86, 0.95);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 236, 119, 0.3);
+    border-radius: 1.5rem;
+    padding: 2.5rem;
+    max-width: 1200px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    animation: slideUp 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-close-btn {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 2px solid rgba(255, 255, 255, 0.2);
     color: #fff;
-    font-size: 1.2rem;
-    cursor: pointer;
-    padding: 0;
-    width: 30px;
-    height: 30px;
+    width: 45px;
+    height: 45px;
     border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.modal-close-btn:hover {
+    background: rgba(255, 236, 119, 0.2);
+    border-color: #FFEC77;
+    color: #FFEC77;
+    transform: rotate(90deg);
+}
+
+.modal-image-box {
+    background: rgba(0, 0, 0, 0.3);
+    border: 3px solid rgba(255, 236, 119, 0.4);
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
     transition: all 0.3s ease;
 }
 
-.popup-close:hover {
-    background: rgba(255, 255, 255, 0.1);
-    color: #FFEC77;
+.modal-image-box:hover {
+    border-color: rgba(255, 236, 119, 0.7);
+    box-shadow: 0 20px 45px rgba(255, 236, 119, 0.2);
 }
 
-.popup-body {
-    padding: 1rem 1.25rem;
-    max-height: 400px;
-    overflow-y: auto;
+.modal-artwork-image {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
 }
 
-.popup-item {
-    display: flex;
-    gap: 0.75rem;
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+.modal-details {
+    padding: 1rem;
 }
 
-.popup-item:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
+.detail-item {
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0.75rem;
+    border-left: 3px solid rgba(255, 236, 119, 0.5);
+    transition: all 0.3s ease;
 }
 
-.popup-item i {
-    font-size: 1.2rem;
-    margin-top: 0.25rem;
+.detail-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-left-color: #FFEC77;
+    transform: translateX(5px);
 }
 
-.popup-description {
-    line-height: 1.5;
-    margin-top: 0.25rem;
+/* Scrollbar for modal */
+.artwork-modal-container::-webkit-scrollbar {
+    width: 8px;
 }
 
-/* Scrollbar for popup */
-.popup-body::-webkit-scrollbar {
-    width: 6px;
-}
-
-.popup-body::-webkit-scrollbar-track {
+.artwork-modal-container::-webkit-scrollbar-track {
     background: rgba(255, 255, 255, 0.05);
     border-radius: 10px;
 }
 
-.popup-body::-webkit-scrollbar-thumb {
+.artwork-modal-container::-webkit-scrollbar-thumb {
     background: rgba(255, 236, 119, 0.5);
     border-radius: 10px;
 }
 
-.popup-body::-webkit-scrollbar-thumb:hover {
+.artwork-modal-container::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 236, 119, 0.8);
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+    .artwork-modal-container {
+        padding: 2rem 1.5rem;
+    }
+    
+    .modal-details {
+        margin-top: 1rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .artwork-modal-overlay {
+        padding: 1rem;
+    }
+    
+    .artwork-modal-container {
+        padding: 1.5rem 1rem;
+    }
+    
+    .modal-close-btn {
+        width: 40px;
+        height: 40px;
+        top: 1rem;
+        right: 1rem;
+    }
 }
 
 .gallery-item {
@@ -432,34 +524,34 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Popup functions
+// Modal popup functions
 function togglePopup(event, artworkId) {
     event.stopPropagation();
-    const popup = document.getElementById(`popup-${artworkId}`);
-    const allPopups = document.querySelectorAll('.artwork-popup');
+    const modal = document.getElementById(`popup-${artworkId}`);
     
-    // Close all other popups
-    allPopups.forEach(p => {
-        if (p.id !== `popup-${artworkId}`) {
-            p.classList.remove('active');
-        }
+    // Close all other modals
+    document.querySelectorAll('.artwork-modal-overlay').forEach(m => {
+        m.classList.remove('active');
     });
     
-    // Toggle current popup
-    popup.classList.toggle('active');
+    // Open current modal
+    modal.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
 }
 
 function closePopup(artworkId) {
-    const popup = document.getElementById(`popup-${artworkId}`);
-    popup.classList.remove('active');
+    const modal = document.getElementById(`popup-${artworkId}`);
+    modal.classList.remove('active');
+    document.body.style.overflow = ''; // Restore scrolling
 }
 
-// Close popup when clicking outside
-document.addEventListener('click', function(event) {
-    if (!event.target.closest('.artwork-card') && !event.target.closest('.view-details-btn')) {
-        document.querySelectorAll('.artwork-popup').forEach(popup => {
-            popup.classList.remove('active');
+// Close modal when pressing ESC key
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        document.querySelectorAll('.artwork-modal-overlay').forEach(modal => {
+            modal.classList.remove('active');
         });
+        document.body.style.overflow = '';
     }
 });
 

@@ -168,6 +168,10 @@
     </div>
 </div>
 
+
+
+//...
+
 <style>
     .contact-page {
         min-height: 100vh;
@@ -271,6 +275,102 @@
     .submit-success {
         animation: submitSuccess 0.5s ease;
     }
+
+
+//...
+
+  .contact-page {
+    min-height: 100vh;
+    background-image: url('{{ asset("images/bg1.jpg") }}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    position: relative;
+}
+
+.contact-page::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top,
+        rgba(255, 236, 119, 0.85) 0%,
+        rgba(255, 217, 107, 0.85) 15%,
+        rgba(255, 192, 95, 0.85) 25%,
+        rgba(232, 160, 85, 0.85) 35%,
+        rgba(199, 130, 78, 0.85) 45%,
+        rgba(143, 72, 152, 0.85) 60%,
+        rgba(106, 53, 116, 0.85) 75%,
+        rgba(71, 35, 96, 0.85) 85%,
+        rgba(42, 10, 86, 0.9) 100%);
+    z-index: 0;
+}
+
+.contact-input {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    color: #fff !important;
+    transition: all 0.3s ease;
+}
+
+.contact-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.contact-input:focus {
+    background: rgba(255, 255, 255, 0.15) !important;
+    border-color: rgba(255, 236, 119, 0.5) !important;
+    box-shadow: 0 0 0 0.25rem rgba(255, 236, 119, 0.15) !important;
+    color: #fff !important;
+}
+
+.contact-input option {
+    background: #2a0a56;
+    color: #fff;
+}
+
+.contact-item {
+    transition: transform 0.3s ease;
+}
+
+.contact-item:hover {
+    transform: translateX(10px);
+}
+
+.social-btn {
+    transition: all 0.3s ease;
+    border-width: 2px;
+}
+
+.social-btn:hover {
+    background: linear-gradient(135deg, #FFEC77 0%, #F8B803 100%);
+    border-color: transparent;
+    color: #1b1b18;
+    transform: translateY(-5px);
+}
+
+/* Ensure page content sits above the gradient overlay */
+.contact-page > * {
+    position: relative;
+    z-index: 1;
+}
+
+/* Form submission animation */
+@keyframes submitSuccess {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.submit-success {
+    animation: submitSuccess 0.5s ease;
+}
+
+//...
+
 </style>
 
 <script>

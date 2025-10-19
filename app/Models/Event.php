@@ -16,13 +16,18 @@ class Event extends Model
         'poster_image',
         'start_date',
         'end_date',
+        'registration_deadline',
+        'price',
         'location',
+        'max_participants',
         'is_active'
     ];
 
     protected $casts = [
-        'start_date' => 'date',
-        'end_date' => 'date',
+        'start_date' => 'datetime',
+        'end_date' => 'datetime',
+        'registration_deadline' => 'date',
+        'price' => 'decimal:2',
         'is_active' => 'boolean',
     ];
 
