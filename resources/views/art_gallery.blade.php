@@ -22,11 +22,11 @@
             <div class="col-lg-8">
                 <div class="filter-buttons d-flex flex-wrap justify-content-center gap-3" data-aos="fade-up">
                     <button class="btn btn-filter active" data-filter="all">Semua</button>
-                    <button class="btn btn-filter" data-filter="digital">Digital Art</button>
-                    <button class="btn btn-filter" data-filter="traditional">Traditional</button>
-                    <button class="btn btn-filter" data-filter="photography">Photography</button>
-                    <button class="btn btn-filter" data-filter="3d">3D Art</button>
-                    <button class="btn btn-filter" data-filter="illustration">Illustration</button>
+                    @foreach($categories as $category)
+                    <button class="btn btn-filter" data-filter="{{ strtolower($category->name) }}">
+                        {{ $category->name }}
+                    </button>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -35,257 +35,90 @@
     <!-- Gallery Grid -->
     <div class="container pb-5">
         <div class="row g-4 gallery-grid">
-            <!-- Artwork 1 -->
-            <div class="col-lg-4 col-md-6 gallery-item" data-category="digital" data-aos="fade-up">
+            @forelse($artworks as $index => $artwork)
+            <div class="col-lg-4 col-md-6 gallery-item" 
+                 data-category="{{ strtolower($artwork->category->name ?? 'other') }}" 
+                 data-aos="fade-up" 
+                 data-aos-delay="{{ ($index % 3) * 100 }}">
                 <div class="artwork-card">
                     <div class="artwork-image-container">
-                        <img src="{{ asset('images/gallery/artwork1.jpg') }}" 
-                             alt="Digital Portrait" 
+                        <img src="{{ asset($artwork->image_path) }}" 
+                             alt="{{ $artwork->title }}" 
                              class="artwork-image">
                         <div class="artwork-overlay">
                             <div class="artwork-info">
-                                <h4 class="text-white fw-bold mb-2">Digital Portrait</h4>
-                                <p class="text-white-50 mb-3">By: Sarah Johnson</p>
-                                <button class="btn btn-sm btn-gradient" data-bs-toggle="modal" data-bs-target="#artModal1">
+                                <h4 class="text-white fw-bold mb-2">{{ $artwork->title }}</h4>
+                                <p class="text-white-50 mb-3">By: {{ $artwork->artist_name }}</p>
+                                <button class="btn btn-sm btn-gradient view-details-btn" 
+                                        onclick="togglePopup(event, {{ $artwork->id }})">
                                     <i class="bi bi-eye me-2"></i>View Details
                                 </button>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <!-- Artwork 2 -->
-            <div class="col-lg-4 col-md-6 gallery-item" data-category="traditional" data-aos="fade-up" data-aos-delay="100">
-                <div class="artwork-card">
-                    <div class="artwork-image-container">
-                        <img src="{{ asset('images/gallery/artwork2.jpg') }}" 
-                             alt="Watercolor Landscape" 
-                             class="artwork-image">
-                        <div class="artwork-overlay">
-                            <div class="artwork-info">
-                                <h4 class="text-white fw-bold mb-2">Watercolor Landscape</h4>
-                                <p class="text-white-50 mb-3">By: Michael Chen</p>
-                                <button class="btn btn-sm btn-gradient" data-bs-toggle="modal" data-bs-target="#artModal2">
-                                    <i class="bi bi-eye me-2"></i>View Details
-                                </button>
-                            </div>
+                    
+                    <!-- Small Popup Card -->
+                    <div class="artwork-popup" id="popup-{{ $artwork->id }}">
+                        <div class="popup-header">
+                            <h5 class="text-white fw-bold mb-0">{{ $artwork->title }}</h5>
+                            <button class="popup-close" onclick="closePopup({{ $artwork->id }})">
+                                <i class="bi bi-x-lg"></i>
+                            </button>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Artwork 3 -->
-            <div class="col-lg-4 col-md-6 gallery-item" data-category="photography" data-aos="fade-up" data-aos-delay="200">
-                <div class="artwork-card">
-                    <div class="artwork-image-container">
-                        <img src="{{ asset('images/gallery/artwork3.jpg') }}" 
-                             alt="Urban Photography" 
-                             class="artwork-image">
-                        <div class="artwork-overlay">
-                            <div class="artwork-info">
-                                <h4 class="text-white fw-bold mb-2">Urban Photography</h4>
-                                <p class="text-white-50 mb-3">By: Emma Davis</p>
-                                <button class="btn btn-sm btn-gradient">
-                                    <i class="bi bi-eye me-2"></i>View Details
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Artwork 4 -->
-            <div class="col-lg-4 col-md-6 gallery-item" data-category="3d" data-aos="fade-up">
-                <div class="artwork-card">
-                    <div class="artwork-image-container">
-                        <img src="{{ asset('images/gallery/artwork4.jpg') }}" 
-                             alt="3D Character Design" 
-                             class="artwork-image">
-                        <div class="artwork-overlay">
-                            <div class="artwork-info">
-                                <h4 class="text-white fw-bold mb-2">3D Character Design</h4>
-                                <p class="text-white-50 mb-3">By: Alex Rodriguez</p>
-                                <button class="btn btn-sm btn-gradient">
-                                    <i class="bi bi-eye me-2"></i>View Details
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Artwork 5 -->
-            <div class="col-lg-4 col-md-6 gallery-item" data-category="illustration" data-aos="fade-up" data-aos-delay="100">
-                <div class="artwork-card">
-                    <div class="artwork-image-container">
-                        <img src="{{ asset('images/gallery/artwork5.jpg') }}" 
-                             alt="Fantasy Illustration" 
-                             class="artwork-image">
-                        <div class="artwork-overlay">
-                            <div class="artwork-info">
-                                <h4 class="text-white fw-bold mb-2">Fantasy Illustration</h4>
-                                <p class="text-white-50 mb-3">By: Lisa Wang</p>
-                                <button class="btn btn-sm btn-gradient">
-                                    <i class="bi bi-eye me-2"></i>View Details
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Artwork 6 -->
-            <div class="col-lg-4 col-md-6 gallery-item" data-category="digital" data-aos="fade-up" data-aos-delay="200">
-                <div class="artwork-card">
-                    <div class="artwork-image-container">
-                        <img src="{{ asset('images/gallery/artwork6.png') }}" 
-                             alt="Concept Art" 
-                             class="artwork-image">
-                        <div class="artwork-overlay">
-                            <div class="artwork-info">
-                                <h4 class="text-white fw-bold mb-2">Concept Art</h4>
-                                <p class="text-white-50 mb-3">By: David Kim</p>
-                                <button class="btn btn-sm btn-gradient">
-                                    <i class="bi bi-eye me-2"></i>View Details
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Artwork 7 -->
-            <div class="col-lg-4 col-md-6 gallery-item" data-category="traditional" data-aos="fade-up">
-                <div class="artwork-card">
-                    <div class="artwork-image-container">
-                        <img src="{{ asset('images/gallery/art7.jpg') }}" 
-                             alt="Oil Painting" 
-                             class="artwork-image">
-                        <div class="artwork-overlay">
-                            <div class="artwork-info">
-                                <h4 class="text-white fw-bold mb-2">Oil Painting</h4>
-                                <p class="text-white-50 mb-3">By: Anna Martinez</p>
-                                <button class="btn btn-sm btn-gradient">
-                                    <i class="bi bi-eye me-2"></i>View Details
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Artwork 8 -->
-            <div class="col-lg-4 col-md-6 gallery-item" data-category="photography" data-aos="fade-up" data-aos-delay="100">
-                <div class="artwork-card">
-                    <div class="artwork-image-container">
-                        <img src="{{ asset('images/gallery/art8.jpg') }}" 
-                             alt="Nature Photography" 
-                             class="artwork-image">
-                        <div class="artwork-overlay">
-                            <div class="artwork-info">
-                                <h4 class="text-white fw-bold mb-2">Nature Photography</h4>
-                                <p class="text-white-50 mb-3">By: James Wilson</p>
-                                <button class="btn btn-sm btn-gradient">
-                                    <i class="bi bi-eye me-2"></i>View Details
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Artwork 9 -->
-            <div class="col-lg-4 col-md-6 gallery-item" data-category="illustration" data-aos="fade-up" data-aos-delay="200">
-                <div class="artwork-card">
-                    <div class="artwork-image-container">
-                        <img src="{{ asset('images/gallery/art9.jpg') }}" 
-                             alt="Comic Illustration" 
-                             class="artwork-image">
-                        <div class="artwork-overlay">
-                            <div class="artwork-info">
-                                <h4 class="text-white fw-bold mb-2">Comic Illustration</h4>
-                                <p class="text-white-50 mb-3">By: Tom Anderson</p>
-                                <button class="btn btn-sm btn-gradient">
-                                    <i class="bi bi-eye me-2"></i>View Details
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Artwork Detail Modal Example -->
-<div class="modal fade" id="artModal1" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-xl modal-dialog-centered">
-        <div class="modal-content glass-card border-0">
-            <div class="modal-header border-0">
-                <h3 class="modal-title text-white fw-bold">Digital Portrait</h3>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <img src="{{ asset('images/gallery/art1.jpg') }}" 
-                             alt="Digital Portrait" 
-                             class="w-100 rounded-3">
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="artwork-details text-white mt-3 mt-lg-0">
-                            <h5 class="text-warning mb-3">Informasi Karya</h5>
-                            
-                            <div class="mb-3">
-                                <p class="text-white-50 mb-1">Artist</p>
-                                <p class="fw-bold">Sarah Johnson</p>
-                            </div>
-
-                            <div class="mb-3">
-                                <p class="text-white-50 mb-1">Medium</p>
-                                <p class="fw-bold">Digital Art (Procreate)</p>
-                            </div>
-
-                            <div class="mb-3">
-                                <p class="text-white-50 mb-1">Year</p>
-                                <p class="fw-bold">2024</p>
-                            </div>
-
-                            <div class="mb-3">
-                                <p class="text-white-50 mb-1">Category</p>
-                                <p class="fw-bold">Portrait</p>
-                            </div>
-
-                            <h5 class="text-warning mb-3 mt-4">Deskripsi</h5>
-                            <p class="text-white-50">
-                                Karya ini menggambarkan eksplorasi emosi manusia melalui warna dan 
-                                komposisi. Dibuat menggunakan teknik digital painting dengan fokus 
-                                pada pencahayaan dramatis dan detail wajah.
-                            </p>
-
-                            <div class="social-share mt-4">
-                                <h6 class="text-warning mb-3">Share</h6>
-                                <div class="d-flex gap-2">
-                                    <button class="btn btn-outline-light btn-sm">
-                                        <i class="bi bi-facebook"></i>
-                                    </button>
-                                    <button class="btn btn-outline-light btn-sm">
-                                        <i class="bi bi-twitter"></i>
-                                    </button>
-                                    <button class="btn btn-outline-light btn-sm">
-                                        <i class="bi bi-instagram"></i>
-                                    </button>
-                                    <button class="btn btn-outline-light btn-sm">
-                                        <i class="bi bi-link-45deg"></i>
-                                    </button>
+                        <div class="popup-body">
+                            <div class="popup-item">
+                                <i class="bi bi-person-circle text-warning me-2"></i>
+                                <div>
+                                    <small class="text-white-50 d-block">Artist</small>
+                                    <span class="text-white">{{ $artwork->artist_name }}</span>
                                 </div>
                             </div>
+                            <div class="popup-item">
+                                <i class="bi bi-tag text-warning me-2"></i>
+                                <div>
+                                    <small class="text-white-50 d-block">Category</small>
+                                    <span class="badge bg-warning text-dark">{{ $artwork->category->name ?? 'Uncategorized' }}</span>
+                                </div>
+                            </div>
+                            <div class="popup-item">
+                                <i class="bi bi-calendar text-warning me-2"></i>
+                                <div>
+                                    <small class="text-white-50 d-block">Created</small>
+                                    <span class="text-white">{{ $artwork->created_date->format('M d, Y') }}</span>
+                                </div>
+                            </div>
+                            @if($artwork->description)
+                            <div class="popup-item">
+                                <i class="bi bi-journal-text text-warning me-2"></i>
+                                <div>
+                                    <small class="text-white-50 d-block">Description</small>
+                                    <p class="text-white-50 small mb-0 popup-description">{{ Str::limit($artwork->description, 120) }}</p>
+                                </div>
+                            </div>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
+            @empty
+            <div class="col-12 text-center py-5">
+                <div class="glass-card p-5">
+                    <i class="bi bi-palette fs-1 text-white-50 mb-3 d-block"></i>
+                    <h4 class="text-white mb-3">No Artworks Yet</h4>
+                    <p class="text-white-50">Check back later for amazing artworks from our talented members!</p>
+                </div>
+            </div>
+            @endforelse
         </div>
+
+        <!-- Pagination -->
+        @if($artworks->hasPages())
+        <div class="row mt-5">
+            <div class="col-12 d-flex justify-content-center">
+                {{ $artworks->links('pagination::bootstrap-5') }}
+            </div>
+        </div>
+        @endif
     </div>
 </div>
 
@@ -358,6 +191,7 @@
     overflow: hidden;
     border-radius: 1rem;
     transition: all 0.3s ease;
+    position: relative;
 }
 
 .artwork-image-container {
@@ -404,6 +238,106 @@
     transform: translateY(0);
 }
 
+/* Popup Styles */
+.artwork-popup {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    width: 320px;
+    max-width: 90%;
+    background: rgba(42, 10, 86, 0.98);
+    backdrop-filter: blur(20px);
+    border: 2px solid rgba(255, 236, 119, 0.5);
+    border-radius: 1rem;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    pointer-events: none;
+}
+
+.artwork-popup.active {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.popup-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.popup-close {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.popup-close:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #FFEC77;
+}
+
+.popup-body {
+    padding: 1rem 1.25rem;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.popup-item {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.popup-item:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.popup-item i {
+    font-size: 1.2rem;
+    margin-top: 0.25rem;
+}
+
+.popup-description {
+    line-height: 1.5;
+    margin-top: 0.25rem;
+}
+
+/* Scrollbar for popup */
+.popup-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.popup-body::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+}
+
+.popup-body::-webkit-scrollbar-thumb {
+    background: rgba(255, 236, 119, 0.5);
+    border-radius: 10px;
+}
+
+.popup-body::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 236, 119, 0.8);
+}
+
 .gallery-item {
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
@@ -429,6 +363,38 @@
     .btn-filter {
         white-space: nowrap;
     }
+}
+
+/* Modal Styles */
+.modal-content {
+    border-radius: 1rem;
+}
+
+.artwork-image-wrapper {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+.artwork-image-wrapper img {
+    transition: transform 0.3s ease;
+}
+
+.artwork-image-wrapper:hover img {
+    transform: scale(1.02);
+}
+
+.detail-section {
+    border-left: 3px solid rgba(255, 236, 119, 0.5);
+    padding-left: 1rem;
+    transition: all 0.3s ease;
+}
+
+.detail-section:hover {
+    border-color: #FFEC77;
+    transform: translateX(5px);
+}
+
+.modal-footer .btn-outline-light:hover {
+    background: rgba(255, 255, 255, 0.1);
 }
 </style>
 
@@ -456,5 +422,67 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// Popup functions
+function togglePopup(event, artworkId) {
+    event.stopPropagation();
+    const popup = document.getElementById(`popup-${artworkId}`);
+    const allPopups = document.querySelectorAll('.artwork-popup');
+    
+    // Close all other popups
+    allPopups.forEach(p => {
+        if (p.id !== `popup-${artworkId}`) {
+            p.classList.remove('active');
+        }
+    });
+    
+    // Toggle current popup
+    popup.classList.toggle('active');
+}
+
+function closePopup(artworkId) {
+    const popup = document.getElementById(`popup-${artworkId}`);
+    popup.classList.remove('active');
+}
+
+// Close popup when clicking outside
+document.addEventListener('click', function(event) {
+    if (!event.target.closest('.artwork-card') && !event.target.closest('.view-details-btn')) {
+        document.querySelectorAll('.artwork-popup').forEach(popup => {
+            popup.classList.remove('active');
+        });
+    }
+});
+
+// Share functions
+function shareArtwork(platform) {
+    const url = window.location.href;
+    let shareUrl = '';
+    
+    switch(platform) {
+        case 'facebook':
+            shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+            break;
+        case 'twitter':
+            shareUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=Check out this amazing artwork!`;
+            break;
+        case 'instagram':
+            alert('Please share via Instagram app');
+            return;
+    }
+    
+    if (shareUrl) {
+        window.open(shareUrl, '_blank', 'width=600,height=400');
+    }
+}
+
+function copyLink() {
+    const url = window.location.href;
+    navigator.clipboard.writeText(url).then(() => {
+        alert('Link copied to clipboard!');
+    }).catch(err => {
+        console.error('Failed to copy: ', err);
+    });
+}
 </script>
 @endsection

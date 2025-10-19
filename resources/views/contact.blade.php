@@ -18,70 +18,7 @@
 
         <!-- Contact Content -->
         <div class="container py-5">
-            <div class="row justify-content-center align-items-stretch">
-                
-                <!-- Contact Form -->
-                <div class="col-lg-7 mb-5 mb-lg-0 d-flex" data-aos="fade-right">
-                    <div class="contact-form-card glass-card p-5 mb-3 rounded-4 card-overlay flex-fill">
-                        <h2 class="text-white fw-bold mb-4">Kirim Pesan</h2>
-                        <p class="text-white-50 mb-4">Isi form di bawah dan kami akan segera menghubungimu kembali</p>
-                        
-                        <form id="contactForm">
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <label for="name" class="form-label text-white fw-500">Nama Lengkap</label>
-                                    <input type="text" class="form-control form-control-lg contact-input" id="name" name="name" required 
-                                           placeholder="Masukkan nama Anda">
-                                </div>
-                                
-                                <div class="col-md-6">
-                                    <label for="email" class="form-label text-white fw-500">Email</label>
-                                    <input type="email" class="form-control form-control-lg contact-input" id="email" name="email" required 
-                                           placeholder="email@example.com">
-                                </div>
-                                
-                                <div class="col-md-6">
-                                    <label for="phone" class="form-label text-white fw-500">No. Telepon</label>
-                                    <input type="tel" class="form-control form-control-lg contact-input" id="phone" name="phone" 
-                                           placeholder="+62 xxx xxxx xxxx">
-                                </div>
-                                
-                                <div class="col-md-6">
-                                    <label for="subject" class="form-label text-white fw-500">Subjek</label>
-                                    <select class="form-select form-select-lg contact-input" id="subject" name="subject" required>
-                                        <option value="">Pilih subjek</option>
-                                        <option value="membership">Informasi Keanggotaan</option>
-                                        <option value="event">Pertanyaan Event</option>
-                                        <option value="collaboration">Kolaborasi</option>
-                                        <option value="other">Lainnya</option>
-                                    </select>
-                                </div>
-                                
-                                <div class="col-12">
-                                    <label for="message" class="form-label text-white fw-500">Pesan</label>
-                                    <textarea class="form-control form-control-lg contact-input" id="message" name="message" rows="5" required 
-                                              placeholder="Tulis pesan Anda di sini..."></textarea>
-                                </div>
-                                
-                                <div class="col-12 mt-4">
-                                    <button type="submit" class="btn btn-gradient btn-lg w-100 py-3">
-                                        <i class="bi bi-send me-2"></i>Kirim Pesan
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-
-                <!-- Contact Information -->
-                <div class="col-lg-5 d-flex flex-column gap-3" data-aos="fade-left">
-                    <div class="contact-info-card glass-card p-5 rounded-4 mb-0 card-overlay flex-fill">
-                        <h3 class="text-white fw-bold mb-4">Informasi Kontak</h3>
-                        
-                        <div class="contact-item d-flex align-items-start mb-4">
-                            <div class="contact-icon me-3">
-                                <i class="bi bi-geo-alt-fill fs-3 text-warning"></i>
-<-- mulai sinij -->
+      
         <div class="row justify-content-center gy-5">
 
             <!-- Contact Form -->
@@ -192,24 +129,11 @@
                     </div>
                 </div>
 
-            <!-- Map Section (Optional) -->
-            <div class="row justify-content-center mt-5">
-                <div class="col-12" data-aos="fade-up">
-                    <div class="map-card glass-card rounded-4 overflow-hidden card-overlay">
-                        {{-- <iframe 
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.2847856265947!2d112.63073631477526!3d-7.321416894716374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fb5e7e9a4e63%3A0x57ae2dfe7e9a1b7a!2sUniversitas%20Ciputra%20Surabaya!5e0!3m2!1sen!2sid!4v1645234567890!5m2!1sen!2sid" 
-                            width="100%" 
-                            height="400" 
-                            allowfullscreen="" 
-                            loading="lazy">
-                        </iframe> --}}
-
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.6060211288845!2d112.62902667651552!3d-7.2855871927217395!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fde455555555%3A0xd7e2611ae591f046!2sUniversitas%20Ciputra%20Surabaya!5e0!3m2!1sen!2sid!4v1760866168374!5m2!1sen!2sid" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 <!-- Social Media -->
                 <div class="social-media-card glass-card p-5 rounded-4"
                      style="background: rgba(50, 30, 80, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);">
                     <h3 class="fw-bold mb-4">Follow Us</h3>
-                    <div class="d-flex gap-3 justify-content-center">
+                    <div class="d-flex gap-3 justify-content-start">
                         <a href="https://www.instagram.com/uc_kanvas?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
                            target="_blank"
                            class="social-btn btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center"
@@ -238,9 +162,7 @@
             <div class="col-12" data-aos="fade-up">
                 <div class="map-card glass-card rounded-4 overflow-hidden"
                      style="background: rgba(50, 30, 80, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); height: 400px;">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.2847856265947!2d112.63073631477526!3d-7.321416894716374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fb5e7e9a4e63%3A0x57ae2dfe7e9a1b7a!2sUniversitas%20Ciputra%20Surabaya!5e0!3m2!1sen!2sid!4v1645234567890!5m2!1sen!2sid"
-                            width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                </div>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.606021064612!2d112.6316016!3d-7.2855872!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fde455555555%3A0xd7e2611ae591f046!2sUniversitas%20Ciputra%20Surabaya!5e0!3m2!1sen!2sid!4v1760877723978!5m2!1sen!2sid" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> </div>
             </div>
         </div>
     </div>
@@ -361,3 +283,5 @@
         });
     });
 </script>
+
+@endsection
