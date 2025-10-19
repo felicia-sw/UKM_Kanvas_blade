@@ -16,7 +16,6 @@ body {
 body {
     font-family: var(--site-font), serif;
     background: linear-gradient(to bottom, #FFEC77 0%, #8F4898 42%, #844191 45%, #68307E 50%, #3B1461 57%, #2A0A56 59%, #2A0A56 100%);
-    background-attachment: fixed;
     min-height: 100vh;
     overflow-x: hidden;
 }
