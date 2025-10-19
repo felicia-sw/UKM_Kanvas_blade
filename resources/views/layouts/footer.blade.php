@@ -5,8 +5,7 @@
             <div class="col-lg-4 col-md-6">
                 <h4 class="fw-bold mb-3 text-gradient">UKM KANVAS</h4>
                 <p class="text-white-50 mb-4">
-                    Unit Kegiatan Mahasiswa yang berfokus pada pengembangan kreativitas seni dan desain. 
-                    Bergabunglah dan wujudkan potensi seni Anda bersama kami.
+                    Kanvas is a Unit Kegiatan Mahasiswa﻿ (Student Activity Unit) dedicated to nurturing artistic creativity and design. We are a home for young artists eager to express themselves through various art mediums.
                 </p>
                 <div class="social-links d-flex gap-3">
                     <a href="https://www.instagram.com/uc_kanvas?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" 
