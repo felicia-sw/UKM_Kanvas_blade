@@ -8,7 +8,7 @@
         
         <!-- Page Header -->
         <div class="row justify-content-center text-center mb-5 mt-5 pt-5">
-            <div class="col-12">
+            <div class="col-12 col-md-8">
                 <h1 class="page-title display-1 fw-bold text-uppercase mb-4" data-aos="fade-down">CONTACT US</h1>
                 <p class="page-subtitle text-white fs-5 mx-auto" data-aos="fade-up" data-aos-delay="100">
                     Mari terhubung dengan kami. Kami siap mendengar dan menjawab pertanyaanmu
@@ -81,74 +81,116 @@
                         <div class="contact-item d-flex align-items-start mb-4">
                             <div class="contact-icon me-3">
                                 <i class="bi bi-geo-alt-fill fs-3 text-warning"></i>
+<-- mulai sinij -->
+        <div class="row justify-content-center gy-5">
+
+            <!-- Contact Form -->
+            <div class="col-lg-7" data-aos="fade-right">
+                <div class="contact-form-card glass-card p-5 rounded-4"
+                     style="background: rgba(50, 30, 80, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);">
+                    <h2 class="fw-bold mb-4">Send a Message</h2>
+                    <p class="text-white-50 mb-4">Fill in this form and we'll get back to you as soon as possible!</p>
+
+                    <form id="contactForm" novalidate>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="name" class="form-label fw-500">Full Name</label>
+                                <input type="text" class="form-control form-control-lg contact-input"
+                                       id="name" name="name" required placeholder="Enter Your Full Name" autocomplete="name">
                             </div>
-                            <div>
-                                <h5 class="text-white fw-bold mb-2">Alamat</h5>
-                                <p class="text-white-50 mb-0">
-                                    UC Town, Citraland<br>
-                                    Surabaya, Jawa Timur 60219
-                                </p>
+
+                            <div class="col-md-6">
+                                <label for="email" class="form-label fw-500">Email</label>
+                                <input type="email" class="form-control form-control-lg contact-input"
+                                       id="email" name="email" required placeholder="email@example.com" autocomplete="email">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="phone" class="form-label fw-500">Telephone Number</label>
+                                <input type="tel" class="form-control form-control-lg contact-input"
+                                       id="phone" name="phone" placeholder="+62 xxx xxxx xxxx" autocomplete="tel">
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="subject" class="form-label fw-500">Subject</label>
+                                <select class="form-select form-select-lg contact-input" id="subject" name="subject" required>
+                                    <option value="" disabled selected>Choose a subject</option>
+                                    <option value="membership">Informasi Keanggotaan</option>
+                                    <option value="event">Pertanyaan Event</option>
+                                    <option value="collaboration">Kolaborasi</option>
+                                    <option value="other">Lainnya</option>
+                                </select>
+                            </div>
+
+                            <div class="col-12">
+                                <label for="message" class="form-label fw-500">Pesan</label>
+                                <textarea class="form-control form-control-lg contact-input" id="message" name="message" rows="5" required placeholder="Your message here"></textarea>
+                            </div>
+
+                            <div class="col-12 mt-4">
+                                <button type="submit" class="btn btn-gradient btn-lg w-100 py-3">
+                                    <i class="bi bi-send me-2"></i>Send a message
+                                </button>
                             </div>
                         </div>
+                    </form>
+                </div>
+            </div>
 
-                        <div class="contact-item d-flex align-items-start mb-4">
-                            <div class="contact-icon me-3">
-                                <i class="bi bi-envelope-fill fs-3 text-warning"></i>
-                            </div>
-                            <div>
-                                <h5 class="text-white fw-bold mb-2">Email</h5>
-                                <a href="mailto:kanvas@uc.ac.id" class="text-white-50 text-decoration-none">kanvas@uc.ac.id</a>
-                            </div>
+            <!-- Contact Information -->
+            <div class="col-lg-5" data-aos="fade-left">
+                <div class="contact-info-card glass-card p-5 rounded-4 mb-4"
+                     style="background: rgba(50, 30, 80, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);">
+
+                    <h3 class="fw-bold mb-4">General Information</h3>
+
+                    <div class="contact-item d-flex align-items-start mb-4">
+                        <div class="contact-icon me-3">
+                            <i class="bi bi-geo-alt-fill fs-3 text-warning"></i>
                         </div>
-
-                        <div class="contact-item d-flex align-items-start mb-4">
-                            <div class="contact-icon me-3">
-                                <i class="bi bi-telephone-fill fs-3 text-warning"></i>
-                            </div>
-                            <div>
-                                <h5 class="text-white fw-bold mb-2">Telepon</h5>
-                                <a href="tel:+6231234567" class="text-white-50 text-decoration-none">+62 31 234 567</a>
-                            </div>
-                        </div>
-
-                        <div class="contact-item d-flex align-items-start">
-                            <div class="contact-icon me-3">
-                                <i class="bi bi-clock-fill fs-3 text-warning"></i>
-                            </div>
-                            <div>
-                                <h5 class="text-white fw-bold mb-2">Jam Operasional</h5>
-                                <p class="text-white-50 mb-0">
-                                    Senin - Jumat: 09:00 - 17:00<br>
-                                    Sabtu: 10:00 - 14:00<br>
-                                    Minggu: Tutup
-                                </p>
-                            </div>
+                        <div>
+                            <h5 class="fw-bold mb-2">Address</h5>
+                            <p class="text-white-50 mb-0">
+                                Universitas Ciputra Surabaya<br>
+                                UC Town, Citraland, Surabaya 60219
+                            </p>
                         </div>
                     </div>
 
-                    <!-- Social Media -->
-                    <div class="social-media-card glass-card p-5 rounded-4 card-overlay flex-fill">
-                        <h3 class="text-white fw-bold mb-3 ">Ikuti Kami</h3>
-                        <div class="d-flex gap-3">
-                            <a href="#" class="social-btn btn btn-outline-light rounded-circle">
-                                <i class="bi bi-instagram fs-5"></i>
+                    <div class="contact-item d-flex align-items-start mb-4">
+                        <div class="contact-icon me-3">
+                            <i class="bi bi-envelope-fill fs-3 text-warning"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-2">Email</h5>
+                            <a href="mailto:ukm.kanvas@ciputra.ac.id" class="text-white-50 text-decoration-none">
+                                ukm.kanvas@ciputra.ac.id
                             </a>
-                            <a href="#" class="social-btn btn btn-outline-light rounded-circle">
-                                <i class="bi bi-facebook fs-5"></i>
+                        </div>
+                    </div>
+
+                    <div class="contact-item d-flex align-items-start mb-4">
+                        <div class="contact-icon me-3">
+                            <i class="bi bi-telephone-fill fs-3 text-warning"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-2">WhatsApp</h5>
+                            <a href="https://wa.me/6281337241083" target="_blank" class="text-white-50 text-decoration-none">
+                                +62 813 3724 1083
                             </a>
-                            <a href="#" class="social-btn btn btn-outline-light rounded-circle">
-                                <i class="bi bi-twitter-x fs-5"></i>
-                            </a>
-                            <a href="#" class="social-btn btn btn-outline-light rounded-circle">
-                                <i class="bi bi-linkedin fs-5"></i>
-                            </a>
-                            <a href="#" class="social-btn btn btn-outline-light rounded-circle">
-                                <i class="bi bi-youtube fs-5"></i>
-                            </a>
+                        </div>
+                    </div>
+
+                    <div class="contact-item d-flex align-items-start">
+                        <div class="contact-icon me-3">
+                            <i class="bi bi-clock-fill fs-3 text-warning"></i>
+                        </div>
+                        <div>
+                            <h5 class="fw-bold mb-2">Weekly Meeting</h5>
+                            <p class="text-white-50 mb-0">Selasa, 17:00 - 19:00</p>
                         </div>
                     </div>
                 </div>
-            </div>
 
             <!-- Map Section (Optional) -->
             <div class="row justify-content-center mt-5">
@@ -163,7 +205,41 @@
                         </iframe> --}}
 
                         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.6060211288845!2d112.62902667651552!3d-7.2855871927217395!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fde455555555%3A0xd7e2611ae591f046!2sUniversitas%20Ciputra%20Surabaya!5e0!3m2!1sen!2sid!4v1760866168374!5m2!1sen!2sid" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <!-- Social Media -->
+                <div class="social-media-card glass-card p-5 rounded-4"
+                     style="background: rgba(50, 30, 80, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);">
+                    <h3 class="fw-bold mb-4">Follow Us</h3>
+                    <div class="d-flex gap-3 justify-content-center">
+                        <a href="https://www.instagram.com/uc_kanvas?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                           target="_blank"
+                           class="social-btn btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center"
+                           style="width: 55px; height: 55px;">
+                            <i class="bi bi-instagram fs-4"></i>
+                        </a>
+
+                        <a href="mailto:ukm.kanvas@ciputra.ac.id"
+                           class="social-btn btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center"
+                           style="width: 55px; height: 55px;">
+                            <i class="bi bi-envelope-fill fs-4"></i>
+                        </a>
+
+                        <a href="https://wa.me/6281337241083" target="_blank"
+                           class="social-btn btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center"
+                           style="width: 55px; height: 55px;">
+                            <i class="bi bi-whatsapp fs-4"></i>
+                        </a>
                     </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Map Section (Optional) -->
+        <div class="row justify-content-center mt-5">
+            <div class="col-12" data-aos="fade-up">
+                <div class="map-card glass-card rounded-4 overflow-hidden"
+                     style="background: rgba(50, 30, 80, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); height: 400px;">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.2847856265947!2d112.63073631477526!3d-7.321416894716374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fb5e7e9a4e63%3A0x57ae2dfe7e9a1b7a!2sUniversitas%20Ciputra%20Surabaya!5e0!3m2!1sen!2sid!4v1645234567890!5m2!1sen!2sid"
+                            width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                 </div>
             </div>
         </div>
@@ -171,7 +247,7 @@
 </div>
 
 <style>
-.contact-page {
+  .contact-page {
     min-height: 100vh;
     background-image: url('{{ asset("images/bg1.jpg") }}');
     background-size: cover;
@@ -263,26 +339,25 @@
 </style>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('contactForm');
-    
-    form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        // Add success animation
-        form.classList.add('submit-success');
-        
-        // Show success message (you can replace this with actual form submission)
-        alert('Terima kasih! Pesan Anda telah terkirim. Kami akan segera menghubungi Anda.');
-        
-        // Reset form
-        form.reset();
-        
-        // Remove animation class
-        setTimeout(() => {
-            form.classList.remove('submit-success');
-        }, 500);
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('contactForm');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Add success animation
+            form.classList.add('submit-success');
+
+            // Show success message
+            alert('Terima kasih! Pesan Anda telah terkirim. Kami akan segera menghubungi Anda.');
+
+            // Reset form
+            form.reset();
+
+            // Remove animation class
+            setTimeout(() => {
+                form.classList.remove('submit-success');
+            }, 500);
+        });
     });
-});
 </script>
-@endsection
