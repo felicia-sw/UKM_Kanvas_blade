@@ -11,7 +11,7 @@
             <div class="col-12 col-md-8">
                 <h1 class="page-title display-1 fw-bold text-uppercase mb-4" data-aos="fade-down">CONTACT US</h1>
                 <p class="page-subtitle fs-5 mx-auto" style="max-width: 600px;" data-aos="fade-up" data-aos-delay="100">
-                    Mari terhubung dengan kami. Kami siap mendengar dan menjawab pertanyaanmu
+                    Let's get in touch!
                 </p>
             </div>
         </div>
