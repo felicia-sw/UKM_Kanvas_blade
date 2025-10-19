@@ -15,10 +15,10 @@ class HomeController extends Controller
                                ->limit(3)
                                ->get();
         
-        // Get featured artworks (you can add is_featured field later)
+        // Get featured artworks for home gallery (limit 4)
         $featuredArtworks = Artwork::with('category')
                                    ->orderBy('created_date', 'desc')
-                                   ->limit(6)
+                                   ->limit(4)
                                    ->get();
         
         return view('home', compact('upcomingEvents', 'featuredArtworks'));
