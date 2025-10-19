@@ -123,14 +123,14 @@
                             <i class="bi bi-star-fill floating-star star-4"></i>
                         </div>
                     </div>
-                @empty
+                {{-- @empty
                     <div class="col-12 text-center">
                         <p class="text-white-50">Belum ada karya yang ditampilkan</p>
                     </div>
                 @endforelse
             </div>
         </div>
-    </section>
+    </section> --}}
 
     <style>
         .artwork-card-enhanced {
@@ -1729,5 +1729,6 @@
                 </div>
             </div>
         </div>
-    </div>
-</div>
+    </section>
+
+@endsection
