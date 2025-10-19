@@ -3,53 +3,192 @@
 @section('title', 'Home - UKM Kanvas')
 
 @section('content')
-    <div class="container-fluid px-5 pe-0 min-vh-100 d-flex align-items-center hero-section">
-        <div class="center-me " style="width: 100%;">
+<div class="hero-wrapper position-relative overflow-hidden">
+    <!-- Background cityscape -->
+    <div class="cityscape-bg position-absolute w-100" style="bottom: 0; z-index: 1;">
+        <img src="{{ asset('images/buildings_blue.png') }}" alt="City Background" class="w-100" style="opacity: 0.4;">
+    </div>
+
+    <!-- Decorative clouds -->
+    <div class="floating-clouds position-absolute w-100" style="top: 10%; z-index: 2;">
+        <img src="{{ asset('images/cloud1.png') }}" alt="" class="cloud cloud-1" style="position: absolute; left: 10%; width: 300px; animation: float 20s ease-in-out infinite;">
+        <img src="{{ asset('images/cloud2.png') }}" alt="" class="cloud cloud-2" style="position: absolute; right: 15%; width: 250px; animation: float 25s ease-in-out infinite reverse;">
+        <img src="{{ asset('images/cloud3.png') }}" alt="" class="cloud cloud-3" style="position: absolute; left: 40%; top: 30%; width: 200px; animation: float 30s ease-in-out infinite;">
+    </div>
+
+    <!-- Decorative hills/mountains at bottom -->
+    <div class="hills-bg position-absolute w-100" style="bottom: 0; z-index: 3;">
+        <img src="{{ asset('images/buildings_purple.png') }}" alt="" class="w-100" style="opacity: 0.5;">
+    </div>
+
+    <div class="container-fluid px-5 pe-0 min-vh-100 d-flex align-items-center hero-section position-relative" style="z-index: 4;">
+        <div class="center-me w-100">
             <div class="row align-items-center" style="transform: translateX(8%);">
                 <!-- Left Content Section -->
-                <div class="col-xl-7 col-12" data-aos="fade-right" data-aos-duration="1000">
-                    <h1 class="text-start text-white fw-bold hero-title mb-4">
-                        WELCOME<br>PEEPS
-                    </h1>
+                <div class="col-xl-7 col-12 position-relative" data-aos="fade-right" data-aos-duration="1000">
+                    <!-- Decorative street lamp -->
+                    <img src="{{ asset('images/streetlamp.png') }}" alt="" class="position-absolute streetlamp" style="left: -100px; top: -50px; width: 120px; opacity: 0.7; z-index: -1;">
 
-                    <!-- Description Section -->
-                    <div class="text-white border-start border-4 border-white ps-3 mt-4 mb-4">
-                        <h3 class="text-start mb-0 fs-3">Apa itu Kanvas?</h3>
+                    <!-- Title with enhanced styling -->
+                    <div class="title-container position-relative mb-4">
+                        <h1 class="text-start text-white fw-bold hero-title display-1 mb-0" style="text-shadow: 4px 4px 8px rgba(0,0,0,0.3), 0 0 40px rgba(255,236,119,0.4);">
+                            WELCOME
+                        </h1>
+                        <h1 class="text-start fw-bold hero-title display-1" style="background: linear-gradient(135deg, #FFEC77 0%, #FF750F 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; text-shadow: none; margin-top: -10px;">
+                            PEEPS
+                        </h1>
                     </div>
 
-                    <div class="description-text mb-4">
-                        <p class="text-white fs-4 lh-lg">
+                    <!-- Description Section with enhanced card -->
+                    <div class="glass-info-card p-4 rounded-4 mb-4" style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(20px); border: 2px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px rgba(0,0,0,0.2);">
+                        <div class="d-flex align-items-center mb-3">
+                            <div class="icon-box me-3" style="background: linear-gradient(135deg, #FFEC77, #FF750F); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
+                                <i class="bi bi-palette-fill text-white fs-4"></i>
+                            </div>
+                            <h3 class="text-white mb-0 fs-3 fw-bold">Apa itu Kanvas?</h3>
+                        </div>
+                        
+                        <p class="text-white fs-5 lh-lg mb-0" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.3);">
                             Kanvas is a Unit Kegiatan Mahasiswa﻿ (Student Activity Unit) dedicated to nurturing artistic creativity and design. We are a home for young artists eager to express themselves through various art mediums.
                         </p>
                     </div>
 
-                    <!-- Slogan Section -->
-                    <div class="mt-5 pt-3">
-                        <h2 class="text-white text-start fw-bold slogan-text">
-                            "Express. Create. Inspire."
+                    <!-- Slogan with decorative elements -->
+                    <div class="slogan-container position-relative mt-5 pt-3 mb-4">
+                        <div class="quote-mark position-absolute" style="left: -30px; top: -20px; font-size: 80px; color: rgba(255,236,119,0.3); font-family: Georgia, serif;">"</div>
+                        <h2 class="text-white text-start fw-bold slogan-text fs-2 fst-italic" style="text-shadow: 2px 2px 4px rgba(0,0,0,0.4);">
+                            Express. Create. Inspire.
                         </h2>
+                        <div class="underline-decoration mt-2" style="width: 200px; height: 4px; background: linear-gradient(90deg, #FFEC77, transparent); border-radius: 2px;"></div>
                     </div>
 
-                    <!-- CTA Buttons -->
+                    <!-- Enhanced CTA Buttons -->
                     <div class="mt-5 d-flex gap-3 flex-wrap">
-                        <a href="{{ route('events') }}" class="btn btn-gradient btn-lg px-4 py-3">
-                            <i class="bi bi-calendar-event me-2"></i>View Events
+                        <a href="{{ route('events') }}" class="btn btn-gradient btn-lg px-5 py-3 position-relative overflow-hidden" style="box-shadow: 0 8px 24px rgba(255,236,119,0.4); border-radius: 50px; font-weight: 600;">
+                            <span class="position-relative" style="z-index: 2;">
+                                <i class="bi bi-calendar-event me-2"></i>View Events
+                            </span>
+                            <span class="button-shine position-absolute" style="top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent); animation: shine 3s infinite;"></span>
                         </a>
-                        <a href="{{ route('art_gallery') }}" class="btn btn-outline-light btn-lg px-4 py-3">
+                        <a href="{{ route('art_gallery') }}" class="btn btn-outline-light btn-lg px-5 py-3" style="border-width: 2px; border-radius: 50px; font-weight: 600; backdrop-filter: blur(10px); background: rgba(255,255,255,0.1); box-shadow: 0 4px 16px rgba(0,0,0,0.2);">
                             <i class="bi bi-palette me-2"></i>Art Gallery
                         </a>
                     </div>
+
+                    <!-- Floating decorative elements -->
+                    <div class="floating-stars position-absolute" style="right: 10%; top: 20%;">
+                        <i class="bi bi-star-fill text-warning" style="font-size: 20px; opacity: 0.7; animation: twinkle 2s ease-in-out infinite;"></i>
+                    </div>
+                    <div class="floating-stars position-absolute" style="right: 5%; top: 50%;">
+                        <i class="bi bi-star-fill text-warning" style="font-size: 15px; opacity: 0.5; animation: twinkle 3s ease-in-out infinite 0.5s;"></i>
+                    </div>
                 </div>
 
-                <!-- Right Image Section -->
-                <div class="col-xl-5 col-12 d-flex justify-content-end align-items-center mascot-container"
+                <!-- Right Image Section with enhanced presentation -->
+                <div class="col-xl-5 col-12 d-flex justify-content-end align-items-center mascot-container position-relative"
                     data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
-                    <img src="{{ asset('images/mascot.png') }}?v=2" alt="Kanvas Mascot" class="mascot-image"
-                        style="width: 100%; height: auto; max-width: 700px; transform: translateX(-28%);">
+                    
+                    <!-- Glow effect behind mascot -->
+                    <div class="mascot-glow position-absolute" style="width: 500px; height: 500px; background: radial-gradient(circle, rgba(255,236,119,0.3) 0%, transparent 70%); filter: blur(40px); z-index: 0;"></div>
+                    
+                    <!-- Main mascot -->
+                    <div class="mascot-wrapper position-relative" style="z-index: 2;">
+                        <img src="{{ asset('images/mascot.png') }}?v=2" alt="Kanvas Mascot" class="mascot-image"
+                            style="width: 100%; height: auto; max-width: 700px; transform: translateX(-28%); filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3)); animation: float 6s ease-in-out infinite;">
+                    </div>
+
+                    <!-- Decorative elements around mascot -->
+                    <div class="position-absolute" style="bottom: 10%; left: 5%; z-index: 1;">
+                        <i class="bi bi-brush-fill text-warning" style="font-size: 40px; opacity: 0.6; animation: rotate 10s linear infinite;"></i>
+                    </div>
+                    <div class="position-absolute" style="top: 15%; right: 10%; z-index: 1;">
+                        <i class="bi bi-palette2 text-warning" style="font-size: 35px; opacity: 0.6; animation: rotate 12s linear infinite reverse;"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+
+<style>
+/* Enhanced animations */
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes shine {
+    0% { left: -100%; }
+    100% { left: 200%; }
+}
+
+/* Cloud floating animation */
+.cloud {
+    filter: drop-shadow(0 5px 10px rgba(0,0,0,0.1));
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    
+    .mascot-image {
+        transform: translateX(0) !important;
+        max-width: 500px !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 3rem !important;
+    }
+    
+    .glass-info-card {
+        margin-top: 2rem;
+    }
+    
+    .floating-clouds img {
+        width: 150px !important;
+    }
+    
+    .mascot-wrapper {
+        margin-top: 3rem;
+    }
+}
+
+/* Button hover effects */
+.btn-gradient {
+    transition: all 0.3s ease;
+}
+
+.btn-gradient:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(255,236,119,0.6) !important;
+}
+
+.btn-outline-light:hover {
+    transform: translateY(-3px);
+    background: rgba(255,255,255,0.2) !important;
+}
+
+/* Glass card hover effect */
+.glass-info-card {
+    transition: all 0.3s ease;
+}
+
+.glass-info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 48px rgba(0,0,0,0.3);
+}
+</style>
 
     <!-- Section Divider -->
     <div class="container">
