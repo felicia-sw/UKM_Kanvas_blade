@@ -16,11 +16,11 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('poster_image')->nullable();
-            $table->dateTime('start_date');
-            $table->dateTime('end_date')->nullable();
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
             $table->string('location')->nullable();
             $table->boolean('is_active')->default(true);
-            $table->timestamps();
+            // $table->timestamps();
         });
     }
 
