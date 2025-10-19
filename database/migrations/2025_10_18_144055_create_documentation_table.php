@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('documentation', function (Blueprint $table) {
+        Schema::create('documentations', function (Blueprint $table) {
             $table->id();
             $table->string('title')->nullable();
             $table->string('image_path');
