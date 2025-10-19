@@ -1,5 +1,3 @@
-// maps to the artworks table populated by ArtworkSeeder
-
 <?php
 
 namespace App\Models;
