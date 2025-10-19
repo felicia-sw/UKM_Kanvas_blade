@@ -6,7 +6,7 @@
 
 <div class="container-fluid px-4 px-lg-5 py-3">
     <header class="mb-4">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-glass rounded-4 shadow-lg p-3 p-lg-4">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-glass rounded-4 shadow-lg p-3 p-lg-4 site-navbar-fixed">
             <div class="container-fluid">
                 <!-- Logo/Brand -->
                 <a class="navbar-brand fs-3 fs-lg-2 fw-bold text-white d-flex align-items-center"
@@ -31,8 +31,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-white px-3 py-2 rounded-3 {{ request()->routeIs('event') ? 'active' : '' }}"
-                                href="{{ route('event') }}">
+                            <a class="nav-link text-white px-3 py-2 rounded-3 {{ request()->routeIs('events') ? 'active' : '' }}"
+                                href="{{ route('events') }}">
                                 <i class="bi bi-calendar-event me-2"></i>Events
                             </a>
                         </li>
@@ -67,6 +67,19 @@
         backdrop-filter: blur(15px);
         -webkit-backdrop-filter: blur(15px);
         border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    /* Make the navbar fixed to the top of the viewport */
+    .site-navbar-fixed {
+        position: fixed;
+        inset: 0 0 auto 0; /* top:0; left:0; right:0 */
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        z-index: 1080; /* Above most content but below modals (Bootstrap modal 1050+); set high to ensure visibility */
+        margin: 0 auto;
+        border-radius: 0; /* remove rounded corners when fixed to avoid gaps */
     }
 
 

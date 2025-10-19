@@ -39,7 +39,7 @@
                         </a>
                     </li>
                     <li class="mb-2">
-                        <a href="{{ route('event') }}" class="footer-link">
+                        <a href="{{ route('events') }}" class="footer-link">
                             <i class="bi bi-chevron-right me-2"></i>Events
                         </a>
                     </li>

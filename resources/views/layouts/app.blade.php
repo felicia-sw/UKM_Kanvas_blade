@@ -34,17 +34,19 @@
             box-sizing: border-box;
         }
 
-        html,
-        body {
-            height: 100%;
+        html {
+            min-height: 100%;
             width: 100%;
             scroll-behavior: smooth;
         }
 
         body {
             font-family: 'Judson', serif;
-            background: linear-gradient(to bottom, #FFEC77 0%, #8F4898 42%, #844191 45%, #68307E 50%, #3B1461 57%, #2A0A56 59%, #2A0A56 100%);
-            background-attachment: fixed;
+            /* Gradient spans entire page height */
+            background: linear-gradient(to bottom, #FFEC77 0%, #F7D86A 15%, #D88FC6 40%, #9A4CA0 60%, #5B2066 80%, #2A0A56 100%);
+            background-attachment: scroll;
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
             min-height: 100vh;
             overflow-x: hidden;
         }
@@ -93,18 +95,30 @@
             once: true,
             offset: 100
         });
+
+        // Make gradient span entire page height
+        function updateGradientHeight() {
+            const body = document.body;
+            const html = document.documentElement;
+            const height = Math.max(
+                body.scrollHeight,
+                body.offsetHeight,
+                html.clientHeight,
+                html.scrollHeight,
+                html.offsetHeight
+            );
+            body.style.backgroundSize = `100% ${height}px`;
+        }
+
+        // Update on load and resize
+        window.addEventListener('load', updateGradientHeight);
+        window.addEventListener('resize', updateGradientHeight);
+        
+        // Also update after a short delay to catch dynamic content
+        setTimeout(updateGradientHeight, 100);
     </script>
 
     @stack('scripts')
 </body>
 
-</html>track {
-background: #2A0A56;
-}
-
-::-webkit-scrollbar-thumb {
-background: linear-gradient(135deg, #FFEC77 0%, #F8B803 100%);
-border-radius: 10px;
-}
-
-::-webkit-scrollbar-
+</html>
