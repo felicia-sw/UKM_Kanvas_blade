@@ -3,14 +3,14 @@
 @section('title', 'Contact')
 
 @section('content')
-<div class="contact-page text-white min-vh-100 py-5">
+<div class="contact-page text-white min-vh-100 py-5 page-bg-image">
     <div class="container-fluid">
         
         <!-- Page Header -->
         <div class="row justify-content-center text-center mb-5 mt-5 pt-5">
             <div class="col-12">
                 <h1 class="page-title display-1 fw-bold text-uppercase mb-4" data-aos="fade-down">CONTACT US</h1>
-                <p class="page-subtitle text-white fs-5 mx-auto" style="max-width: 600px;" data-aos="fade-up" data-aos-delay="100">
+                <p class="page-subtitle text-white fs-5 mx-auto" data-aos="fade-up" data-aos-delay="100">
                     Mari terhubung dengan kami. Kami siap mendengar dan menjawab pertanyaanmu
                 </p>
             </div>
@@ -18,11 +18,11 @@
 
         <!-- Contact Content -->
         <div class="container py-5">
-            <div class="row justify-content-center">
+            <div class="row justify-content-center align-items-stretch">
                 
                 <!-- Contact Form -->
-                <div class="col-lg-7 mb-5 mb-lg-0" data-aos="fade-right">
-                    <div class="contact-form-card glass-card p-5 rounded-4" style="background: rgba(50, 30, 80, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);">
+                <div class="col-lg-7 mb-5 mb-lg-0 d-flex" data-aos="fade-right">
+                    <div class="contact-form-card glass-card p-5 mb-3 rounded-4 card-overlay flex-fill">
                         <h2 class="text-white fw-bold mb-4">Kirim Pesan</h2>
                         <p class="text-white-50 mb-4">Isi form di bawah dan kami akan segera menghubungimu kembali</p>
                         
@@ -74,8 +74,8 @@
                 </div>
 
                 <!-- Contact Information -->
-                <div class="col-lg-5" data-aos="fade-left">
-                    <div class="contact-info-card glass-card p-5 rounded-4 mb-4" style="background: rgba(50, 30, 80, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);">
+                <div class="col-lg-5 d-flex flex-column gap-3" data-aos="fade-left">
+                    <div class="contact-info-card glass-card p-5 rounded-4 mb-0 card-overlay flex-fill">
                         <h3 class="text-white fw-bold mb-4">Informasi Kontak</h3>
                         
                         <div class="contact-item d-flex align-items-start mb-4">
@@ -127,22 +127,22 @@
                     </div>
 
                     <!-- Social Media -->
-                    <div class="social-media-card glass-card p-5 rounded-4" style="background: rgba(50, 30, 80, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);">
-                        <h3 class="text-white fw-bold mb-4">Ikuti Kami</h3>
+                    <div class="social-media-card glass-card p-5 rounded-4 card-overlay flex-fill">
+                        <h3 class="text-white fw-bold mb-3 ">Ikuti Kami</h3>
                         <div class="d-flex gap-3">
-                            <a href="#" class="social-btn btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                            <a href="#" class="social-btn btn btn-outline-light rounded-circle">
                                 <i class="bi bi-instagram fs-5"></i>
                             </a>
-                            <a href="#" class="social-btn btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                            <a href="#" class="social-btn btn btn-outline-light rounded-circle">
                                 <i class="bi bi-facebook fs-5"></i>
                             </a>
-                            <a href="#" class="social-btn btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                            <a href="#" class="social-btn btn btn-outline-light rounded-circle">
                                 <i class="bi bi-twitter-x fs-5"></i>
                             </a>
-                            <a href="#" class="social-btn btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                            <a href="#" class="social-btn btn btn-outline-light rounded-circle">
                                 <i class="bi bi-linkedin fs-5"></i>
                             </a>
-                            <a href="#" class="social-btn btn btn-outline-light rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                            <a href="#" class="social-btn btn btn-outline-light rounded-circle">
                                 <i class="bi bi-youtube fs-5"></i>
                             </a>
                         </div>
@@ -153,15 +153,16 @@
             <!-- Map Section (Optional) -->
             <div class="row justify-content-center mt-5">
                 <div class="col-12" data-aos="fade-up">
-                    <div class="map-card glass-card rounded-4 overflow-hidden" style="background: rgba(50, 30, 80, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); height: 400px;">
-                        <iframe 
+                    <div class="map-card glass-card rounded-4 overflow-hidden card-overlay">
+                        {{-- <iframe 
                             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.2847856265947!2d112.63073631477526!3d-7.321416894716374!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fb5e7e9a4e63%3A0x57ae2dfe7e9a1b7a!2sUniversitas%20Ciputra%20Surabaya!5e0!3m2!1sen!2sid!4v1645234567890!5m2!1sen!2sid" 
                             width="100%" 
                             height="400" 
-                            style="border:0;" 
                             allowfullscreen="" 
                             loading="lazy">
-                        </iframe>
+                        </iframe> --}}
+
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3957.6060211288845!2d112.62902667651552!3d-7.2855871927217395!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fde455555555%3A0xd7e2611ae591f046!2sUniversitas%20Ciputra%20Surabaya!5e0!3m2!1sen!2sid!4v1760866168374!5m2!1sen!2sid" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                     </div>
                 </div>
             </div>
@@ -187,8 +188,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to top, 
-        rgba(255, 236, 119, 0.85) 0%, 
+    background: linear-gradient(to top left,
+        rgba(255, 236, 119, 0.85) 0%,
         rgba(255, 217, 107, 0.85) 15%,
         rgba(255, 192, 95, 0.85) 25%,
         rgba(232, 160, 85, 0.85) 35%,
@@ -198,24 +199,6 @@
         rgba(71, 35, 96, 0.85) 85%,
         rgba(42, 10, 86, 0.9) 100%);
     z-index: 0;
-}
-
-.contact-page > * {
-    position: relative;
-    z-index: 1;
-}
-
-.page-title {
-    letter-spacing: 5px;
-    line-height: 1.1;
-    color: #ddd;
-    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
-    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.8);
-}
-
-/* Override text-white-50 to be lighter */
-.text-white-50 {
-    color: rgba(255, 255, 255, 0.85) !important;
 }
 
 .contact-input {
@@ -259,6 +242,12 @@
     border-color: transparent;
     color: #1b1b18;
     transform: translateY(-5px);
+}
+
+/* Ensure page content sits above the gradient overlay */
+.contact-page > * {
+    position: relative;
+    z-index: 1;
 }
 
 /* Form submission animation */
