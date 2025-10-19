@@ -17,7 +17,7 @@
         </div>
 
         <!-- Filter Section -->
-        <div class="container mb-5">
+        <div class="container mb-4">
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <div class="filter-buttons d-flex flex-wrap justify-content-center gap-3" data-aos="fade-up">
@@ -31,7 +31,6 @@
             </div>
         </div>
     </div>
-
     <!-- Gallery Grid -->
     <div class="container pb-5">
         <div class="row g-4 gallery-grid">
@@ -210,7 +209,7 @@ body {
     -webkit-text-stroke: 1px rgba(255, 255, 255, 0.8);
 }
 
-/* Override text-white-50 to be lighter */
+/* Consistent Text Styling */
 .text-white-50 {
     color: #ffffff !important;
 }
