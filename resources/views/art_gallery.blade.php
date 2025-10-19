@@ -10,7 +10,7 @@
         <div class="row justify-content-center text-center mb-5 mt-5 pt-5">
             <div class="col-12">
                 <h1 class="page-title display-1 fw-bold text-uppercase mb-4" data-aos="fade-down">ART GALLERY</h1>
-                <p class="page-subtitle text-white fs-5 mx-auto" data-aos="fade-up" data-aos-delay="100">
+                <p class="page-subtitle text-white fs-5 mx-auto" style="max-width: 600px;" data-aos="fade-up" data-aos-delay="100">
                     Eksplorasi karya-karya luar biasa dari talenta terbaik Kanvas
                 </p>
             </div>
@@ -39,7 +39,7 @@
             <div class="col-lg-4 col-md-6 gallery-item" data-category="digital" data-aos="fade-up">
                 <div class="artwork-card">
                     <div class="artwork-image-container">
-                        <img src="{{ asset('images/gallery/artwork1.jpg') }}" 
+                        <img src="{{ asset('images/gallery/art1.jpg') }}" 
                              alt="Digital Portrait" 
                              class="artwork-image">
                         <div class="artwork-overlay">
@@ -59,7 +59,7 @@
             <div class="col-lg-4 col-md-6 gallery-item" data-category="traditional" data-aos="fade-up" data-aos-delay="100">
                 <div class="artwork-card">
                     <div class="artwork-image-container">
-                        <img src="{{ asset('images/gallery/artwork2.jpg') }}" 
+                        <img src="{{ asset('images/gallery/art2.jpg') }}" 
                              alt="Watercolor Landscape" 
                              class="artwork-image">
                         <div class="artwork-overlay">
@@ -79,7 +79,7 @@
             <div class="col-lg-4 col-md-6 gallery-item" data-category="photography" data-aos="fade-up" data-aos-delay="200">
                 <div class="artwork-card">
                     <div class="artwork-image-container">
-                        <img src="{{ asset('images/gallery/artwork3.jpg') }}" 
+                        <img src="{{ asset('images/gallery/art3.jpg') }}" 
                              alt="Urban Photography" 
                              class="artwork-image">
                         <div class="artwork-overlay">
@@ -99,7 +99,7 @@
             <div class="col-lg-4 col-md-6 gallery-item" data-category="3d" data-aos="fade-up">
                 <div class="artwork-card">
                     <div class="artwork-image-container">
-                        <img src="{{ asset('images/gallery/artwork4.jpg') }}" 
+                        <img src="{{ asset('images/gallery/art4.jpg') }}" 
                              alt="3D Character Design" 
                              class="artwork-image">
                         <div class="artwork-overlay">
@@ -119,7 +119,7 @@
             <div class="col-lg-4 col-md-6 gallery-item" data-category="illustration" data-aos="fade-up" data-aos-delay="100">
                 <div class="artwork-card">
                     <div class="artwork-image-container">
-                        <img src="{{ asset('images/gallery/artwork5.jpg') }}" 
+                        <img src="{{ asset('images/gallery/art5.jpg') }}" 
                              alt="Fantasy Illustration" 
                              class="artwork-image">
                         <div class="artwork-overlay">
@@ -139,7 +139,7 @@
             <div class="col-lg-4 col-md-6 gallery-item" data-category="digital" data-aos="fade-up" data-aos-delay="200">
                 <div class="artwork-card">
                     <div class="artwork-image-container">
-                        <img src="{{ asset('images/gallery/artwork6.png') }}" 
+                        <img src="{{ asset('images/gallery/art6.jpg') }}" 
                              alt="Concept Art" 
                              class="artwork-image">
                         <div class="artwork-overlay">
@@ -307,8 +307,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: linear-gradient(to top left,
-        rgba(255, 236, 119, 0.85) 0%,
+    background: linear-gradient(to top, 
+        rgba(255, 236, 119, 0.85) 0%, 
         rgba(255, 217, 107, 0.85) 15%,
         rgba(255, 192, 95, 0.85) 25%,
         rgba(232, 160, 85, 0.85) 35%,
@@ -325,6 +325,15 @@
     z-index: 1;
 }
 
+.page-title {
+    letter-spacing: 5px;
+    line-height: 1.1;
+    color: #ddd;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.8);
+}
+
+/* Override text-white-50 to be lighter */
 .text-white-50 {
     color: rgba(255, 255, 255, 0.85) !important;
 }
