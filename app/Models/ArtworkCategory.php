@@ -11,7 +11,7 @@ class ArtworkCategory extends Model
     
     public $timestamps = false;
     
-    protected $fillable = ['name'];
+    protected $fillable = ['name']; // only name can be mass assigned
 
     // One-to-Many: One category has many artworks
     public function artworks()
