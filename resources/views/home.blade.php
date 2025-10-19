@@ -3,9 +3,9 @@
 @section('title', 'Home - UKM Kanvas')
 
 @section('content')
-    <div class="container-fluid px-5 pe-0 min-vh-100 d-flex align-items-center hero-section page-bg-image">
-        <div class="center-me">
-            <div class="row align-items-center px-5 mx-5">
+    <div class="container-fluid px-5 pe-0 min-vh-100 d-flex align-items-center hero-section">
+        <div class="center-me " style="width: 100%;">
+            <div class="row align-items-center" style="transform: translateX(8%);">
                 <!-- Left Content Section -->
                 <div class="col-xl-7 col-12" data-aos="fade-right" data-aos-duration="1000">
                     <h1 class="text-start text-white fw-bold hero-title mb-4">
@@ -44,7 +44,8 @@
                 <!-- Right Image Section -->
                 <div class="col-xl-5 col-12 d-flex justify-content-end align-items-center mascot-container"
                     data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
-                    <img src="{{ asset('images/mascot.png') }}?v=2" alt="Kanvas Mascot" class="mascot-image w-100 h-auto mascot-max">
+                    <img src="{{ asset('images/mascot.png') }}?v=2" alt="Kanvas Mascot" class="mascot-image"
+                        style="width: 100%; height: auto; max-width: 700px; transform: translateX(-28%);">
                 </div>
             </div>
         </div>
@@ -575,7 +576,7 @@
                 </div>
                 <div class="col-lg-6" data-aos="fade-left">
                     <div class="ratio ratio-16x9 overflow-hidden glass-card">
-                        <img src="{{ asset('images/bg2.jpg') }}" alt="Tentang Kanvas"
+                        <img src="{{ asset('images/mascot.png') }}" alt="Tentang Kanvas"
                             class="w-100 h-100 object-fit-cover">
                     </div>
                 </div>
@@ -619,8 +620,7 @@
     {{-- <section>
         
 <br><br>
-</iframe>
-<iframe data-testid="embed-iframe" class="embed-rounded" src="https://open.spotify.com/embed/track/1CPZ5BxNNd0n0nF4Orb9JS?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
+<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/1CPZ5BxNNd0n0nF4Orb9JS?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy">
 </iframe>
 <iframe width="2033" height="937" src="https://www.youtube.com/embed/SdSSPF1S-Uc" title="Live NOW: Victoria&#39;s Secret Fashion Show 2025" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
