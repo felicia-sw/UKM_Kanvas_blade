@@ -409,7 +409,6 @@ body {
     transform: translateX(5px);
 }
 
-/* Scrollbar for modal */
 .artwork-modal-container::-webkit-scrollbar {
     width: 8px;
 }
@@ -428,7 +427,6 @@ body {
     background: rgba(255, 236, 119, 0.8);
 }
 
-/* Responsive */
 @media (max-width: 991px) {
     .artwork-modal-container {
         padding: 2rem 1.5rem;

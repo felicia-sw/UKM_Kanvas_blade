@@ -6,9 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+  
     public function up()
     {
         Schema::create('artwork_categories', function (Blueprint $table) {
@@ -18,9 +16,7 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
+    
     public function down()
     {
         Schema::dropIfExists('artwork_categories');

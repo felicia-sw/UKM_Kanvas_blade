@@ -6,7 +6,6 @@
 <div class="contact-page text-white min-vh-100 py-5">
     <div class="container">
 
-        <!-- Page Header -->
         <div class="row justify-content-center text-center mb-5 mt-5 pt-5">
             <div class="col-12 col-md-8">
                 <h1 class="page-title display-1 fw-bold text-uppercase mb-4" data-aos="fade-down">CONTACT US</h1>
@@ -16,12 +15,10 @@
             </div>
         </div>
 
-        <!-- Contact Content -->
         <div class="container py-5">
       
         <div class="row justify-content-center gy-5">
 
-            <!-- Contact Form -->
             <div class="col-lg-7" data-aos="fade-right">
                 <div class="contact-form-card glass-card p-5 rounded-4"
                      style="background: rgba(50, 30, 80, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);">
@@ -74,7 +71,7 @@
                 </div>
             </div>
 
-            <!-- Contact Information -->
+            <!-- contact  -->
             <div class="col-lg-5" data-aos="fade-left">
                 <div class="contact-info-card glass-card p-5 rounded-4 mb-4"
                      style="background: rgba(50, 30, 80, 0.7); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2);">
@@ -157,7 +154,6 @@
             </div>
         </div>
 
-        <!-- Map Section (Optional) -->
         <div class="row justify-content-center mt-5">
             <div class="col-12" data-aos="fade-up">
                 <div class="map-card glass-card rounded-4 overflow-hidden"
@@ -173,7 +169,6 @@
 //...
 
 <style>
-    /* Override body gradient for this page */
     body {
         background: #2A0A56 !important;
     }
@@ -287,7 +282,6 @@
     }
 
 
-//...
 
   .contact-page {
     min-height: 100vh;
@@ -362,13 +356,11 @@
     transform: translateY(-5px);
 }
 
-/* Ensure page content sits above the gradient overlay */
 .contact-page > * {
     position: relative;
     z-index: 1;
 }
 
-/* Form submission animation */
 @keyframes submitSuccess {
     0% { transform: scale(1); }
     50% { transform: scale(1.05); }
@@ -379,7 +371,6 @@
     animation: submitSuccess 0.5s ease;
 }
 
-//...
 
 </style>
 

@@ -13,7 +13,7 @@ class DocumentationSeeder extends Seeder
         $events = Event::all();
         
         foreach ($events as $event) {
-            // Create 3-8 documentation photos per event
+            //create 3-8 documentation photos per event
             Documentation::factory()
                         ->count(rand(3, 8))
                         ->create(['event_id' => $event->id]);
