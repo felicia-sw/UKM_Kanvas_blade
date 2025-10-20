@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-    // Display all events
     public function index()
     {
         $events = Event::active()
@@ -17,7 +16,6 @@ class EventController extends Controller
         return view('events', compact('events'));
     }
     
-    // Display single event with documentation
     public function show($id)
     {
         $event = Event::with('documentation')->findOrFail($id);

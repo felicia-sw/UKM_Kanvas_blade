@@ -12,7 +12,6 @@ class ArtworkFactory extends Factory // extends the factory base
 
     public function definition(): array // laravel calls definition() whenever you generate or seed an artwork; returns an array mapping each column name to a fake value
     {
-        // Sample artwork titles that sound more artistic
         $artworkPrefixes = [
             'Abstract', 'Modern', 'Sunset', 'Urban', 'Dreams of', 'Whispers of',
             'The Beauty of', 'Reflections on', 'Colors of', 'Essence of',

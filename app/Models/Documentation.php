@@ -24,7 +24,7 @@ class Documentation extends Model
         'created_at' => 'datetime',
     ];
 
-    // Many-to-One: Each documentation belongs to one event
+    // many to one 
     public function event()
     {
         return $this->belongsTo(Event::class, 'event_id');

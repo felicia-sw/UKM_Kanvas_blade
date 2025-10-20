@@ -13,7 +13,7 @@ class ArtworkCategory extends Model
     
     protected $fillable = ['name']; // only name can be mass assigned
 
-    // One-to-Many: One category has many artworks
+    // one to many
     public function artworks()
     {
         return $this->hasMany(Artwork::class, 'category_id');
