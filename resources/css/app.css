@@ -129,3 +129,72 @@ h6 {
         font-size: 14px;
     }
 }
+
+
+/* ===========================
+   CUSTOM MODAL STYLES (Glassmorphism & Theme Match)
+   =========================== */
+
+/* 1. Backdrop: Darken and apply blur */
+.modal-backdrop.show {
+    /* Use a darker, slightly transparent color for the backdrop */
+    background-color: rgba(16, 0, 32, 0.9) !important;
+    /* Apply a deep blur effect */
+    backdrop-filter: blur(8px) !important;
+}
+
+/* 2. Modal Content: The main glass card styling */
+.modal-glass-content {
+    /* Dark, semi-transparent purple background (from your app styles) */
+    background: rgba(42, 10, 86, 0.95) !important; 
+    /* The backdrop-filter on the modal is a nice touch for layering, but the main blur is on the backdrop */
+    backdrop-filter: blur(20px) !important;
+    
+    /* Yellow accent border (matching your theme accents) */
+    border: 2px solid rgba(255, 236, 119, 0.6) !important; 
+    
+    border-radius: 1.5rem !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* 3. Modal Body/Header Aesthetics */
+.modal-header {
+    border-color: rgba(255, 255, 255, 0.15) !important; /* Lighter separator */
+    padding-bottom: 0.5rem !important;
+}
+
+.modal-body {
+    padding-top: 1rem !important;
+}
+
+/* 4. Close Button: Make it visible against the dark background */
+.btn-close-white {
+    /* Invert colors for visibility on dark background */
+    filter: invert(1);
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.btn-close-white:hover {
+    opacity: 1;
+}
+
+/* 5. Form Input: Ensure your custom contact-input style is applied and looks good inside the modal */
+.contact-input {
+    background: rgba(255, 255, 255, 0.1) !important;
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    color: #fff !important; /* Ensures text is white inside the field */
+}
+
+/* 6. Form Input Focus: Add a themed focus glow */
+.contact-input:focus {
+    border-color: rgba(255, 236, 119, 0.7) !important;
+    box-shadow: 0 0 0 0.25rem rgba(255, 236, 119, 0.3) !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* 7. Links/Text */
+.modal-body .text-warning {
+    color: #FFEC77 !important; /* Ensure the link color matches your accent color */
+    font-weight: 700;
+}

@@ -54,6 +54,16 @@
                             </a>
                         </li>
                     </ul>
+                    {{-- login and register here --}}
+                    <div class="d-flex flex-colum flex-lg-row ms-auto ms-lg-0 gap-2 mt-3 mt-lg-0">
+                        {{-- login button to trigger login modal --}}
+                        <button class="btn btn-sm btn-outline-light px-4 py-2" data-bs-toggle="modal" data-bs-target="#loginModal">
+                            <i class="bi bi-box-arrow-in-right me-1"></i>Login
+                        </button>
+                        <button class="btn btn-sm btn-gradient px-4 py-2" data-bs-toggle="modal" data-bs-target="#registerModal">
+                            <i class="bi bi-person-plus-fill me-1"></i>Register
+                        </button>
+                    </div>
                 </div>
             </div>
         </nav>
