@@ -4,12 +4,10 @@
 
 @section('content')
     <div class="hero-wrapper position-relative overflow-hidden home-page-content">
-        <!-- Background cityscape -->
+
         <div class="cityscape-bg position-absolute w-100" style="bottom: 0; z-index: 1;">
             <img src="{{ asset('images/buildings_blue.png') }}" alt="City Background" class="w-100" style="opacity: 0.4;">
         </div>
-
-        <!-- Decorative clouds - Enhanced -->
         <div class="floating-clouds position-absolute w-100" style="top: 5%; z-index: 2; pointer-events: none;">
             <img src="{{ asset('images/cloud1.png') }}" alt="" class="cloud cloud-1"
                 style="position: absolute; left: 5%; width: 450px; opacity: 0.8; animation: float 20s ease-in-out infinite; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));">
@@ -23,7 +21,6 @@
                 style="position: absolute; left: 20%; top: 50%; width: 280px; opacity: 0.6; animation: float 32s ease-in-out infinite 1s; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));">
         </div>
 
-        <!-- Decorative hills/mountains at bottom -->
         <div class="hills-bg position-absolute w-100" style="bottom: 0; z-index: 3;">
             <img src="{{ asset('images/buildings_purple.png') }}" alt="" class="w-100" style="opacity: 0.5;">
         </div>
@@ -32,12 +29,10 @@
             style="z-index: 4;">
             <div class="center-me w-100">
                 <div class="row align-items-center justify-content-center g-0">
-                    <!-- Left Content Section -->
                     <div class="col-lg-6 col-12 position-relative pe-0" data-aos="fade-right" data-aos-duration="1000">
-                        <!-- Enhanced Street Lamp with Light Beam -->
+                
                         <div class="streetlamp-container position-absolute"
                             style="left: -150px; top: -100px; width: 300px; height: 600px; z-index: 5;">
-                            <!-- Light beam emanating from lamp -->
                             <div class="light-beam position-absolute"
                                 style="
                             top: 50px; 
@@ -57,7 +52,6 @@
                         ">
                             </div>
 
-                            <!-- Light glow at lamp head -->
                             <div class="lamp-glow position-absolute"
                                 style="
                             top: 30px;
@@ -85,9 +79,7 @@
                         "> --}}
                         </div>
 
-                        <!-- Title with enhanced styling and lighting effect -->
                         <div class="title-container position-relative mb-4" style="z-index: 10;">
-                            <!-- Light overlay on text -->
                             <div class="text-light-overlay position-absolute"
                                 style="
                             top: 0;
@@ -131,7 +123,6 @@
                             </h1>
                         </div>
 
-                        <!-- Description Section with enhanced card -->
                         <div class="glass-info-card p-4 rounded-4 mb-4"
                             style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(20px); border: 2px solid rgba(255, 255, 255, 0.3); box-shadow: 0 8px 32px rgba(0,0,0,0.2);">
                             <div class="d-flex align-items-center mb-3">
@@ -149,7 +140,6 @@
                             </p>
                         </div>
 
-                        <!-- Slogan with decorative elements -->
                         <div class="slogan-container position-relative mt-5 pt-3 mb-4">
                             <div class="quote-mark position-absolute"
                                 style="left: -30px; top: -20px; font-size: 80px; color: rgba(255,236,119,0.3); font-family: Georgia, serif;">
@@ -163,7 +153,6 @@
                             </div>
                         </div>
 
-                        <!-- Enhanced CTA Buttons -->
                         <div class="mt-5 d-flex gap-3 flex-wrap">
                             <a href="{{ route('events') }}"
                                 class="btn btn-gradient btn-lg px-5 py-3 position-relative overflow-hidden"
@@ -180,7 +169,6 @@
                             </a>
                         </div>
 
-                        <!-- Floating decorative elements -->
                         <div class="floating-stars position-absolute" style="right: 10%; top: 20%;">
                             <i class="bi bi-star-fill text-warning"
                                 style="font-size: 20px; opacity: 0.7; animation: twinkle 2s ease-in-out infinite;"></i>
@@ -191,23 +179,19 @@
                         </div>
                     </div>
 
-                    <!-- Right Image Section with enhanced presentation -->
                     <div class="col-lg-5 col-12 d-flex justify-content-start align-items-center mascot-container position-relative ps-lg-0"
                         data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
 
-                        <!-- Glow effect behind mascot -->
                         <div class="mascot-glow position-absolute"
                             style="width: 600px; height: 600px; background: radial-gradient(circle, rgba(255,236,119,0.25) 0%, transparent 70%); filter: blur(50px); z-index: 0; left: 50%; transform: translateX(-50%);">
                         </div>
 
-                        <!-- Main mascot -->
                         <div class="mascot-wrapper position-relative" style="z-index: 1; margin-left: 0;">
                             <img src="{{ asset('images/mascot.png') }}?v=2" alt="Kanvas Mascot" class="mascot-image"
                                 style="width: 135%; height: 135%; max-width: 800px; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3)); animation: float 6s ease-in-out infinite;">
                         </div>
                         
 
-                        <!-- Decorative elements around mascot -->
                         <div class="position-absolute" style="bottom: 10%; left: 5%; z-index: 1;">
                             <i class="bi bi-brush-fill text-warning"
                                 style="font-size: 40px; opacity: 0.6; animation: rotate 10s linear infinite;"></i>
@@ -217,7 +201,6 @@
                                 style="font-size: 35px; opacity: 0.6; animation: rotate 12s linear infinite reverse;"></i>
                         </div>
 
-                        <!-- More stars around mascot -->
                         <div class="floating-stars position-absolute" style="left: 15%; top: 25%;">
                             <i class="bi bi-star-fill text-warning"
                                 style="font-size: 16px; opacity: 0.7; animation: twinkle 2.6s ease-in-out infinite 0.8s;"></i>
@@ -249,16 +232,12 @@
     </div>
 
     <style>
-        /* Enhanced animations */
-
-        /* Tablet view (768px - 991px) */
         @media (max-width: 991px) {
             .home-page-content {
                 padding-top: 100px !important;
             }
         }
 
-        /* Mobile view (below 768px) */
         @media (max-width: 767px) {
             .home-page-content {
                 padding-top: 90px !important;
@@ -266,14 +245,12 @@
             }
         }
 
-        /* Extra small mobile (below 576px) */
         @media (max-width: 576px) {
             .home-page-content {
                 padding-top: 85px !important;
             }
         }
 
-        /* Enhanced animations */
         @keyframes float {
 
             0%,
@@ -439,7 +416,6 @@
             background: rgba(255, 255, 255, 0.2) !important;
         }
 
-        /* Glass card hover effect */
         .glass-info-card {
             transition: all 0.3s ease;
         }
@@ -450,7 +426,6 @@
         }
     </style>
 
-    <!-- Section Divider -->
     <div class="container">
         <div class="section-divider" data-aos="fade-in">
             <div class="divider-line"></div>
@@ -461,9 +436,7 @@
         </div>
     </div>
 
-    <!-- Features Section -->
     <section id="features" class="features-section py-5 position-relative">
-        <!-- Floating clouds for Features Section -->
         <div class="floating-clouds position-absolute w-100" style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
             <img src="{{ asset('images/cloud1.png') }}" alt="" class="cloud"
                 style="position: absolute; left: 10%; top: 15%; width: 300px; opacity: 0.6; animation: float 22s ease-in-out infinite;">
@@ -523,7 +496,6 @@
         </div>
     </section>
 
-    <!-- Section Divider -->
     <div class="container">
         <div class="section-divider section-divider-dark" data-aos="fade-in">
             <div class="divider-line"></div>
@@ -534,9 +506,7 @@
         </div>
     </div>
 
-    <!-- Our Values Section -->
     <section class="py-5 position-relative">
-        <!-- Floating clouds for Values Section -->
         <div class="floating-clouds position-absolute w-100" style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
             <img src="{{ asset('images/cloud2.png') }}" alt="" class="cloud"
                 style="position: absolute; right: 15%; top: 10%; width: 350px; opacity: 0.5; animation: float 24s ease-in-out infinite;">
@@ -627,7 +597,6 @@
         </div>
     </section>
 
-    <!-- Section Divider -->
     <div class="container">
         <div class="section-divider section-divider-dark" data-aos="fade-in">
             <div class="divider-line"></div>
@@ -638,9 +607,7 @@
         </div>
     </div>
 
-    <!-- Club Guidelines Section -->
     <section class="py-5 position-relative">
-        <!-- Floating clouds for Guidelines Section -->
         <div class="floating-clouds position-absolute w-100" style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
             <img src="{{ asset('images/cloud5.png') }}" alt="" class="cloud"
                 style="position: absolute; left: 5%; top: 20%; width: 260px; opacity: 0.5; animation: float 25s ease-in-out infinite;">
@@ -700,7 +667,6 @@
         </div>
     </section>
 
-    <!-- Section Divider -->
     <div class="container">
         <div class="section-divider section-divider-dark" data-aos="fade-in">
             <div class="divider-line"></div>
@@ -711,9 +677,7 @@
         </div>
     </div>
 
-    <!-- Mission Section -->
     <section class="py-5 position-relative">
-        <!-- Floating clouds for Mission Section -->
         <div class="floating-clouds position-absolute w-100" style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
             <img src="{{ asset('images/cloud2.png') }}" alt="" class="cloud"
                 style="position: absolute; left: 20%; top: 25%; width: 320px; opacity: 0.55; animation: float 23s ease-in-out infinite;">
@@ -731,7 +695,6 @@
         </div>
     </section>
 
-    <!-- Section Divider -->
     <div class="container">
         <div class="section-divider" data-aos="fade-in">
             <div class="divider-line"></div>
@@ -742,9 +705,7 @@
         </div>
     </div>
 
-    <!-- Upcoming Events Section -->
     <section id="events" class="py-5 position-relative">
-        <!-- Floating clouds for Events Section -->
         <div class="floating-clouds position-absolute w-100" style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
             <img src="{{ asset('images/cloud1.png') }}" alt="" class="cloud"
                 style="position: absolute; right: 12%; top: 8%; width: 290px; opacity: 0.6; animation: float 26s ease-in-out infinite;">
@@ -782,7 +743,6 @@
 
     </section>
 
-    <!-- Section Divider -->
     <div class="section-divider section-divider-dark" data-aos="fade-in">
         <div class="divider-line"></div>
         <div class="divider-icon">
@@ -791,9 +751,7 @@
         <div class="divider-line"></div>
     </div>
 
-    <!-- Gallery Preview Section -->
     <section id="gallery" class="py-5 position-relative">
-        <!-- Floating clouds for Gallery Section -->
         <div class="floating-clouds position-absolute w-100" style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
             <img src="{{ asset('images/cloud4.png') }}" alt="" class="cloud"
                 style="position: absolute; left: 8%; top: 12%; width: 310px; opacity: 0.55; animation: float 27s ease-in-out infinite;">
@@ -831,7 +789,6 @@
                                 </div>
                             </div>
 
-                            <!-- Compact Popup -->
                             <div class="artwork-popup-home" id="popup-home-{{ $artwork->id }}">
                                 <div class="popup-header">
                                     <h6 class="text-white mb-0 fw-bold">{{ $artwork->title }}</h6>
@@ -938,7 +895,6 @@
                     transform: translateY(0);
                 }
 
-                /* Popup Styles for Home Gallery */
                 .artwork-popup-home {
                     position: absolute;
                     top: 50%;
@@ -976,7 +932,6 @@
         </div>
     </section>
 
-    <!-- Section Divider -->
     <div class="section-divider" data-aos="fade-in">
         <div class="divider-line"></div>
         <div class="divider-icon">
@@ -986,9 +941,7 @@
     </div>
 
 
-    <!-- About Section -->
     <section id="about" class="py-5 position-relative">
-        <!-- Floating clouds for About Section -->
         <div class="floating-clouds position-absolute w-100" style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
             <img src="{{ asset('images/cloud5.png') }}" alt="" class="cloud"
                 style="position: absolute; right: 18%; top: 18%; width: 280px; opacity: 0.55; animation: float 29s ease-in-out infinite;">

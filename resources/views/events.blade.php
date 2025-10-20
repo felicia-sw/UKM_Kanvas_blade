@@ -39,14 +39,10 @@
 </div>
 
 <style>
-/* Event-specific styles - extends app.css */
-
-/* Override body gradient for this page */
 body {
   background: #2A0A56 !important;
 }
 
-/* Ensure background covers full width on all devices */
 .page-bg-image {
   width: 100%;
   overflow-x: hidden;
@@ -86,20 +82,17 @@ body {
   z-index: 1;
 }
 
-/* Timeline container - allow content to scale without clipping */
 .timeline-container {
   overflow: visible !important;
   padding: 2rem 0;
 }
 
-/* Add extra padding on larger screens */
 @media (min-width: 1200px) {
   .timeline-container {
     padding: 4rem 0;
   }
 }
 
-/* Event items - ensure proper spacing for zoom effect */
 .event-item {
   margin-bottom: 8rem !important;
   padding-bottom: 6rem !important;
@@ -107,22 +100,18 @@ body {
   overflow: visible !important;
 }
 
-/* Desktop zoom adjustments (1200px and up) */
 @media (min-width: 1200px) {
   .event-item {
     margin-bottom: 10rem !important;
     padding-bottom: 8rem !important;
     padding-top: 3rem !important;
   }
-  
-  /* Reduce zoom to prevent clipping */
   .event-item.zoom-active {
     transform: translateY(0) scale(1.08);
     transition: transform 0.6s ease-out;
   }
 }
 
-/* Tablet adjustments (768px - 1199px) */
 @media (min-width: 768px) and (max-width: 1199px) {
   .timeline-container::before {
     left: 50px;
@@ -136,17 +125,12 @@ body {
     padding-right: 2rem !important;
   }
   
-  /* Reduce space between image and text */
   .ps-md-2 {
     padding-left: 0.25rem !important;
   }
-  
-  /* Make image smaller to save space */
   .event-rect {
     width: 120px;
   }
-  
-  /* Reduce column width for image to bring text closer */
   .col-md-3 {
     flex: 0 0 auto;
     width: 20% !important;
@@ -158,12 +142,10 @@ body {
     padding-right: 1.5rem !important;
   }
   
-  /* Add container padding to prevent overflow */
   .container-fluid {
     padding-right: 2rem !important;
   }
   
-  /* Tablet text sizing */
   .page-title {
     font-size: 3.5rem !important;
     letter-spacing: 4px;
@@ -195,15 +177,11 @@ body {
   
   .event-details i {
     font-size: 1.1rem !important;
-  }
-  
-  /* Minimal zoom effect on tablet */
-  .event-item.zoom-active {
+  }  .event-item.zoom-active {
     transform: translateY(0) scale(1.04);
   }
 }
 
-/* Medium-large screens (992px - 1199px) - extra adjustments */
 @media (min-width: 992px) and (max-width: 1199px) {
   .timeline-container::before {
     left: 55px;
@@ -214,7 +192,6 @@ body {
     padding-right: 2.5rem !important;
   }
   
-  /* Slightly reduce gap */
   .ps-md-2 {
     padding-left: 0.5rem !important;
   }
@@ -222,8 +199,6 @@ body {
   .event-rect {
     width: 130px;
   }
-  
-  /* Reduce column width for image to bring text closer */
   .col-md-3 {
     flex: 0 0 auto;
     width: 18% !important;
@@ -252,7 +227,6 @@ body {
   }
 }
 
-/* Mobile responsive adjustments (below 768px) */
 @media (max-width: 767px) {
   .timeline-container::before {
     display: none;
@@ -264,7 +238,6 @@ body {
     padding-top: 1.5rem !important;
   }
   
-  /* Mobile text sizing */
   .page-title {
     font-size: 2.25rem !important;
     letter-spacing: 2px;
@@ -312,7 +285,6 @@ body {
     font-size: 1rem !important;
   }
   
-  /* Adjust zoom effect for mobile */
   .event-item {
     transform-origin: center center;
   }
@@ -326,7 +298,6 @@ body {
   }
 }
 
-/* Extra small mobile adjustments (below 576px) */
 @media (max-width: 576px) {
   .event-item {
     margin-bottom: 3rem !important;
@@ -373,14 +344,11 @@ body {
   .placeholder-image {
     font-size: 2.25rem !important;
   }
-  
-  /* Disable zoom on very small screens */
   .event-item.zoom-active {
     transform: translateY(0) scale(1);
   }
 }
 
-/* Landscape mobile optimization */
 @media (max-width: 767px) and (orientation: landscape) {
   .event-rect {
     width: 110px;
@@ -413,7 +381,7 @@ body {
 document.addEventListener('DOMContentLoaded', function() {
   const eventItems = document.querySelectorAll('.event-item');
   
-  // Check if device is mobile
+  // check if device is mobile
   function isMobile() {
     return window.innerWidth <= 576;
   }

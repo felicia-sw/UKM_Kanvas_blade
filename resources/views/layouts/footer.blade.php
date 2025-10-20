@@ -1,7 +1,7 @@
 <footer class="footer-section mt-5 py-5" style="background: rgba(42, 10, 86, 0.9); backdrop-filter: blur(12px); border-top: 1px solid rgba(255, 255, 255, 0.1);">
     <div class="container">
         <div class="row g-5">
-            <!-- About -->
+
             <div class="col-lg-4 col-md-6">
                 <h4 class="fw-bold mb-3 text-gradient">UKM KANVAS</h4>
                 <p class="text-white-50 mb-4">
@@ -25,7 +25,7 @@
                 </div>
             </div>
 
-            <!-- Quick Links -->
+
             <div class="col-lg-2 col-md-6">
                 <h5 class="text-white fw-bold mb-4">Quick Links</h5>
                 <ul class="list-unstyled">
@@ -37,7 +37,7 @@
                 </ul>
             </div>
 
-            <!-- Contact -->
+            <!-- contact -->
             <div class="col-lg-4 col-md-6 ms-auto">
                 <h5 class="text-white fw-bold mb-4">Contact Us</h5>
                 <ul class="list-unstyled">
@@ -61,10 +61,9 @@
             </div>
         </div>
 
-        <!-- Divider -->
         <hr class="my-4 border-light opacity-25">
 
-        <!-- Copyright -->
+        <!-- copyright -->
         <div class="row align-items-center">
             <div class="col-md-6 text-center text-md-start mb-3 mb-md-0">
                 <p class="text-white-50 mb-0">&copy; {{ date('Y') }} UKM Kanvas. All rights reserved.</p>
@@ -108,7 +107,6 @@
         color: #FFEC77;
     }
 
-    /* Social Icons Base */
     .social-icon {
         width: 44px;
         height: 44px;
@@ -123,7 +121,7 @@
         transition: all 0.3s ease;
     }
 
-    /* Hover Styles for Each Platform */
+    /* hover   */
     .social-icon.instagram:hover {
         background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
         color: #fff;

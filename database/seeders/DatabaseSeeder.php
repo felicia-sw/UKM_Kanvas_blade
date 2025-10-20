@@ -8,7 +8,7 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        // Run seeders in order (important for foreign keys!)
+        //  run seeders in ordercuz important for foreign key
         $this->call([
             ArtworkCategorySeeder::class,
             ArtworkSeeder::class,

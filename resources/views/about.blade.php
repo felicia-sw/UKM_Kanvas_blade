@@ -6,7 +6,6 @@
 <div class="about-page text-white min-vh-100 py-5">
     <div class="container-fluid">
         
-        <!-- Page Header -->
         <div class="row justify-content-center text-center mb-5 mt-5 pt-5">
             <div class="col-12">
                 <h1 class="page-title display-1 fw-bold text-uppercase mb-4" data-aos="fade-down">ABOUT US</h1>
@@ -16,9 +15,8 @@
             </div>
         </div>
 
-        <!-- About Content -->
         <div class="container py-5">
-        <!-- Introduction -->
+        <!-- intro -->
         <div class="row mb-5 align-items-center">
             <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
                 <div class="about-image-container text-center">
@@ -43,7 +41,7 @@
             </div>
         </div>
 
-        <!-- Vision & Mission -->
+        <!-- Vision & mission -->
         <div class="row g-4 mb-5">
             <div class="col-lg-6" data-aos="fade-up">
                 <div class="glass-card p-5 h-100" style="background: rgba(42, 10, 86, 0.7); backdrop-filter: blur(10px); border: 2px solid rgba(255, 236, 119, 0.3);">
@@ -73,7 +71,7 @@
             </div>
         </div>
 
-        <!-- Values -->
+        <!-- values -->
         <div class="text-center mb-5" data-aos="fade-up">
             <h2 class="text-white fw-bold mb-4">Our Values</h2>
             <p class="text-white-50 fs-5">The principles that are the foundation of UKM Kanvas</p>
@@ -129,7 +127,7 @@
             </div>
         </div>
 
-        <!-- Statistics -->
+        <!-- stats -->
         <div class="stats-section glass-card p-5 mb-5" style="background: rgba(42, 10, 86, 0.7); backdrop-filter: blur(10px); border: 2px solid rgba(255, 236, 119, 0.3);" data-aos="fade-up">
             <div class="row text-center g-4">
                 <div class="col-lg-3 col-6">
@@ -159,7 +157,7 @@
             </div>
         </div>
 
-        <!-- CTA Section -->
+        <!-- CTA  -->
         <div class="glass-card p-5 rounded-4 text-center" style="background: rgba(42, 10, 86, 0.7); backdrop-filter: blur(10px); border: 2px solid rgba(255, 236, 119, 0.3);" data-aos="fade-up">
             <h2 class="text-white fw-bold mb-4">Ready to Join Us?</h2>
             <p class="text-white-50 fs-5 mb-4">
@@ -178,7 +176,6 @@
 </div>
 
 <style>
-/* Override body gradient for this page */
 body {
     background: #2A0A56 !important;
 }

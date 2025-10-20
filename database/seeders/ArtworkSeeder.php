@@ -12,7 +12,7 @@ class ArtworkSeeder extends Seeder
     {
         $categories = ArtworkCategory::all();
 
-        // Create 30 artworks with random categories
+        // create 30 artworks with random categories
         foreach (range(1, 30) as $index) {
             Artwork::factory()->create([
                 'category_id' => $categories->random()->id

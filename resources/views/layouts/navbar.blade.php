@@ -8,22 +8,19 @@
     <header class="mb-4">
     <nav class="navbar navbar-expand-lg navbar-dark bg-glass rounded-4 shadow-lg p-3 p-lg-4 site-navbar-fixed">
         <div class="container">
-                <!-- Logo/Brand -->
                 <a class="navbar-brand d-flex align-items-center" href="{{ route('home') }}">
-                    <!-- Replace /images/logo.png with your logo path in public/ if different -->
                     <img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name') }} logo" class="navbar-logo">
-                    <!-- Keep the app name for screen readers but visually hide it -->
                     <span class="visually-hidden">{{ config('app.name') }}</span>
                 </a>
 
-                <!-- Mobile Toggle -->
+                <!-- mobile burger -->
                 <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
                     aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <!-- Navigation Links -->
+                <!-- nav  links -->
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto gap-2 gap-lg-3 mt-3 mt-lg-0">
                         <li class="nav-item">
@@ -71,26 +68,24 @@
         border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
-    /* Logo sizing and spacing */
     .navbar-logo {
-        height: 42px; /* adjust as needed */
+        height: 42px; 
         width: auto;
         object-fit: contain;
         margin-right: 0.5rem;
     }
 
-    /* Make the navbar fixed to the top of the viewport */
-    .site-navbar-fixed {
+     .site-navbar-fixed {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
         width: 100%;
-        z-index: 1080; /* Above most content but below modals (Bootstrap modal 1050+); set high to ensure visibility */
-        margin: 0 auto;
-        border-radius: 0; /* remove rounded corners when fixed to avoid gaps */
+        z-index: 1080;   
+         margin: 0 auto;
+        border-radius: 0;     
         box-sizing: border-box;
-        padding: 0; /* inner padding managed by .container */
+        padding: 0; 
     }
 
 
@@ -138,8 +133,7 @@
         }
     }
 
-    /* Ensure horizontal nav on mobile scrolls instead of pushing layout */
-    .navbar-nav {
+       .navbar-nav {
         flex-wrap: nowrap;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
