@@ -3,7 +3,7 @@
 @section('title', 'Home - UKM Kanvas')
 
 @section('content')
-    <div class="hero-wrapper position-relative overflow-hidden">
+    <div class="hero-wrapper position-relative overflow-hidden home-page-content">
         <!-- Background cityscape -->
         <div class="cityscape-bg position-absolute w-100" style="bottom: 0; z-index: 1;">
             <img src="{{ asset('images/buildings_blue.png') }}" alt="City Background" class="w-100" style="opacity: 0.4;">
@@ -249,6 +249,61 @@
     </div>
 
     <style>
+        /* Prevent horizontal scrolling on home page - but allow vertical scrolling */
+        body {
+            overflow-x: hidden !important;
+            overflow-y: auto !important;
+        }
+
+        .hero-wrapper {
+            overflow-x: hidden !important;
+            max-width: 100vw !important;
+            width: 100%;
+        }
+
+        .container-fluid {
+            max-width: 100% !important;
+        }
+
+        /* Ensure all sections are visible */
+        section {
+            width: 100%;
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 100%;
+        }
+
+        /* Home Page Specific - Add padding for mobile and tablet to prevent navbar cutoff */
+        .home-page-content {
+            padding-top: 0;
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        /* Tablet view (768px - 991px) */
+        @media (max-width: 991px) {
+            .home-page-content {
+                padding-top: 100px !important;
+            }
+        }
+
+        /* Mobile view (below 768px) */
+        @media (max-width: 767px) {
+            .home-page-content {
+                padding-top: 90px !important;
+            }
+        }
+
+        /* Extra small mobile (below 576px) */
+        @media (max-width: 576px) {
+            .home-page-content {
+                padding-top: 85px !important;
+            }
+        }
+
         /* Enhanced animations */
         @keyframes float {
 
@@ -371,10 +426,18 @@
             .mascot-container {
                 justify-content: center !important;
                 margin-top: 3rem;
+                padding-left: 15px !important;
+                padding-right: 15px !important;
             }
 
             .mascot-wrapper {
                 margin-left: 0 !important;
+                max-width: 100% !important;
+            }
+
+            .mascot-image {
+                width: 100% !important;
+                max-width: 100% !important;
             }
         }
 
@@ -393,10 +456,28 @@
 
             .mascot-wrapper {
                 margin-top: 2rem;
+                max-width: 100% !important;
             }
 
             .mascot-image {
-                max-width: 350px !important;
+                max-width: 100% !important;
+                width: 100% !important;
+            }
+
+            .mascot-container {
+                padding-left: 15px !important;
+                padding-right: 15px !important;
+            }
+
+            /* Ensure no elements overflow on mobile */
+            .container-fluid {
+                padding-left: 15px !important;
+                padding-right: 15px !important;
+            }
+
+            .row {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
             }
         }
 
