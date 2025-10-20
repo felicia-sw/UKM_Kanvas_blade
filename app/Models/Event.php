@@ -31,19 +31,16 @@ class Event extends Model
         'is_active' => 'boolean',
     ];
 
-    // One-to-Many: One event has many documentation photos
     public function documentation()
     {
         return $this->hasMany(Documentation::class, 'event_id');
     }
     
-    // Scope for active events
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
     }
     
-    // Scope for upcoming events
     public function scopeUpcoming($query)
     {
         return $query->where('start_date', '>=', now())->orderBy('start_date');

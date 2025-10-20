@@ -43,16 +43,13 @@ class EventFactory extends Factory
         ];
     }
     
-    // State for active events
     public function active()
     {
         return $this->state(fn (array $attributes) => [
             'is_active' => true,
         ]);
     }
-    
-    // State for inactive events
-    public function inactive()
+        public function inactive()
     {
         return $this->state(fn (array $attributes) => [
             'is_active' => false,

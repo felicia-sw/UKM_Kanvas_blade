@@ -9,13 +9,13 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // Get upcoming events (limit 3)
+        // get upcoming events (maks 3)
         $upcomingEvents = Event::active()
                                ->upcoming()
                                ->limit(3)
                                ->get();
         
-        // Get featured artworks for home gallery (limit 4)
+        // get featured artworks for home gallery (maks 4 spy bisa square)
         $featuredArtworks = Artwork::with('category')
                                    ->orderBy('created_date', 'desc')
                                    ->limit(4)

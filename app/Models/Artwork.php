@@ -7,11 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Artwork extends Model
 {
-    use HasFactory; // enables Artwork::factory() for seeding and testing
+    use HasFactory; // enables for seeding and testing
     
     public $timestamps = false;
     
-    protected $fillable = [ // means fields that can be mass-assigned information// populated
+    protected $fillable = [ // spy bisa diisi 
         'title',
         'description',
         'image_path',
@@ -20,11 +20,11 @@ class Artwork extends Model
         'created_date'
     ];
 
-    protected $casts = [ // converts created_date to a Carbon date [carbon adalah library]
+    protected $casts = [ // converts created_date to a Cformat that php can use
         'created_date' => 'date',
     ];
 
-    // Many-to-One: Each artwork belongs to one category
+    // many to one
     public function category()
     {
         return $this->belongsTo(ArtworkCategory::class, 'category_id'); // each artwork should belong to one category
