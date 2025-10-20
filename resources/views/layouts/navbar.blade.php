@@ -4,14 +4,16 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
-<div class="container-fluid px-4 px-lg-5 py-3">
+    <div class="container-fluid px-4 px-lg-5 py-3">
     <header class="mb-4">
     <nav class="navbar navbar-expand-lg navbar-dark bg-glass rounded-4 shadow-lg p-3 p-lg-4 site-navbar-fixed">
-            <div class="container-fluid">
+        <div class="container">
                 <!-- Logo/Brand -->
-                <a class="navbar-brand fs-3 fs-lg-2 fw-bold text-white d-flex align-items-center"
-                    href="{{ route('home') }}">
-                    <span class="brand-gradient">{{ config('app.name') }}</span>
+                <a class="navbar-brand d-flex align-items-center" href="{{ route('home') }}">
+                    <!-- Replace /images/logo.png with your logo path in public/ if different -->
+                    <img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name') }} logo" class="navbar-logo">
+                    <!-- Keep the app name for screen readers but visually hide it -->
+                    <span class="visually-hidden">{{ config('app.name') }}</span>
                 </a>
 
                 <!-- Mobile Toggle -->
@@ -69,10 +71,17 @@
         border: 1px solid rgba(255, 255, 255, 0.15);
     }
 
+    /* Logo sizing and spacing */
+    .navbar-logo {
+        height: 42px; /* adjust as needed */
+        width: auto;
+        object-fit: contain;
+        margin-right: 0.5rem;
+    }
+
     /* Make the navbar fixed to the top of the viewport */
     .site-navbar-fixed {
         position: fixed;
-        inset: 0 0 auto 0; /* top:0; left:0; right:0 */
         top: 0;
         left: 0;
         right: 0;
@@ -80,6 +89,8 @@
         z-index: 1080; /* Above most content but below modals (Bootstrap modal 1050+); set high to ensure visibility */
         margin: 0 auto;
         border-radius: 0; /* remove rounded corners when fixed to avoid gaps */
+        box-sizing: border-box;
+        padding: 0; /* inner padding managed by .container */
     }
 
 
@@ -126,4 +137,15 @@
             padding: 0.75rem 1rem !important;
         }
     }
+
+    /* Ensure horizontal nav on mobile scrolls instead of pushing layout */
+    .navbar-nav {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .navbar-nav .nav-item { flex: 0 0 auto; }
+
+    .navbar-nav .nav-link { white-space: nowrap; }
 </style>

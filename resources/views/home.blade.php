@@ -249,39 +249,7 @@
     </div>
 
     <style>
-        /* Prevent horizontal scrolling on home page - but allow vertical scrolling */
-        body {
-            overflow-x: hidden !important;
-            overflow-y: auto !important;
-        }
-
-        .hero-wrapper {
-            overflow-x: hidden !important;
-            max-width: 100vw !important;
-            width: 100%;
-        }
-
-        .container-fluid {
-            max-width: 100% !important;
-        }
-
-        /* Ensure all sections are visible */
-        section {
-            width: 100%;
-            max-width: 100vw;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 100%;
-        }
-
-        /* Home Page Specific - Add padding for mobile and tablet to prevent navbar cutoff */
-        .home-page-content {
-            padding-top: 0;
-            width: 100%;
-            max-width: 100vw;
-        }
+        /* Enhanced animations */
 
         /* Tablet view (768px - 991px) */
         @media (max-width: 991px) {
@@ -294,6 +262,7 @@
         @media (max-width: 767px) {
             .home-page-content {
                 padding-top: 90px !important;
+                overflow-x: hidden;
             }
         }
 
@@ -426,18 +395,10 @@
             .mascot-container {
                 justify-content: center !important;
                 margin-top: 3rem;
-                padding-left: 15px !important;
-                padding-right: 15px !important;
             }
 
             .mascot-wrapper {
                 margin-left: 0 !important;
-                max-width: 100% !important;
-            }
-
-            .mascot-image {
-                width: 100% !important;
-                max-width: 100% !important;
             }
         }
 
@@ -456,28 +417,10 @@
 
             .mascot-wrapper {
                 margin-top: 2rem;
-                max-width: 100% !important;
             }
 
             .mascot-image {
-                max-width: 100% !important;
-                width: 100% !important;
-            }
-
-            .mascot-container {
-                padding-left: 15px !important;
-                padding-right: 15px !important;
-            }
-
-            /* Ensure no elements overflow on mobile */
-            .container-fluid {
-                padding-left: 15px !important;
-                padding-right: 15px !important;
-            }
-
-            .row {
-                margin-left: 0 !important;
-                margin-right: 0 !important;
+                max-width: 350px !important;
             }
         }
 
