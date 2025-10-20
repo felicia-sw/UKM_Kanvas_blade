@@ -8,33 +8,26 @@
 
     <title>{{ config('app.name', 'UKM Kanvas') }} - @yield('title', 'Welcome')</title>
 
-    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Judson:ital,wght@0,400;0,700;1,400&display=swap"
         rel="stylesheet">
-
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-
-    <!-- AOS Animation Library -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-
-    <!-- Custom CSS -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <style>
-        /* Global Styles */
-        * {
-            margin: 0;
+            * {
+            margin: 0;  
             padding: 0;
             box-sizing: border-box;
         }
 
-        html {
+
+
+        html 
+        {
             min-height: 100%;
             width: 100%;
             scroll-behavior: smooth;
@@ -42,7 +35,7 @@
 
         body {
             font-family: 'Judson', serif;
-            /* Gradient spans entire page height */
+            /* spy gradient spans entire page height */
             background: linear-gradient(to bottom, #FFEC77 0%, #F7D86A 15%, #D88FC6 40%, #9A4CA0 60%, #5B2066 80%, #2A0A56 100%);
             background-attachment: scroll;
             background-repeat: no-repeat;
@@ -51,7 +44,6 @@
             overflow-x: hidden;
         }
 
-        /* Typography */
         h1,
         h2,
         h3,
@@ -62,7 +54,6 @@
         }
 
 
-        /* Page Header */
         .page-header {
             background: rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(10px);
@@ -81,13 +72,8 @@
 
     @include('layouts.footer')
 
-    <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- AOS Animation JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-    <!-- Initialize AOS -->
     <script>
         AOS.init({
             duration: 800,
@@ -96,7 +82,7 @@
             offset: 100
         });
 
-        // Make gradient span entire page height
+        // spy bisa gradient span entire page height
         function updateGradientHeight() {
             const body = document.body;
             const html = document.documentElement;
@@ -110,11 +96,11 @@
             body.style.backgroundSize = `100% ${height}px`;
         }
 
-        // Update on load and resize
+        // update on load and resize
         window.addEventListener('load', updateGradientHeight);
         window.addEventListener('resize', updateGradientHeight);
         
-        // Also update after a short delay to catch dynamic content
+        // kasih short delayto update 
         setTimeout(updateGradientHeight, 100);
     </script>
 
