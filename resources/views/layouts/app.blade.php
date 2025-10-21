@@ -72,13 +72,15 @@
     {{-- 💡 LOGIN MODAL (POP-UP) --}}
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content modal-glass-content">
+            {{-- FIX 1: Use the defined 'glass-card' class instead of 'modal-glass-content' --}}
+            <div class="modal-content glass-card"> 
                 <div class="modal-header border-bottom-0">
                     <h5 class="modal-title text-white fw-bold" id="loginModalLabel">Login to Your Account</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
                         aria-label="Close"></button>
                 </div>
-                <div class="modal-body modal-glass-body">
+                {{-- FIX 2: Remove the undefined 'modal-glass-body' class --}}
+                <div class="modal-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
@@ -86,13 +88,11 @@
                             <label for="loginEmail" class="form-label text-white-50">Email Address</label>
                             <input type="email" class="form-control contact-input" id="loginEmail" name="email"
                                 required autofocus>
-                            {{-- Add error display for email here if needed --}}
                         </div>
                         <div class="mb-4">
                             <label for="loginPassword" class="form-label text-white-50">Password</label>
                             <input type="password" class="form-control contact-input" id="loginPassword" name="password"
                                 required>
-                            {{-- Add error display for password here if needed --}}
                         </div>
                         <button type="submit" class="btn btn-gradient w-100 py-2">
                             <i class="bi bi-box-arrow-in-right me-2"></i>Login
@@ -109,15 +109,18 @@
             </div>
         </div>
     </div>
+    
     {{-- 💡 REGISTER MODAL (POP-UP) --}}
     <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content modal-glass-content">
+            {{-- FIX 1: Use the defined 'glass-card' class instead of 'modal-glass-content' --}}
+            <div class="modal-content glass-card">
                 <div class="modal-header border-bottom-0">
                     <h5 class="modal-title text-white fw-bold" id="registerModalLabel">Create a New Account</h5>
-                    <button type="button" class="btn-close **btn-close-white**" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body modal-glass-body">
+                {{-- FIX 2: Remove the undefined 'modal-glass-body' class --}}
+                <div class="modal-body">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
