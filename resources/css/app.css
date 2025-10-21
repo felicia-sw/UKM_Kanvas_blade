@@ -2,8 +2,12 @@
 :root {
     --site-font: 'Judson', serif;
     --page-padding: 20px;
-    --accent-start: #FFEC77;
-    --accent-end: #FF750F;
+    --accent-start: #FFEC77; /* Bright Yellow */
+    --accent-end: #FF750F; /* Orange */
+    --text-primary: #fff;
+    --input-bg: rgba(0, 0, 0, 0.3);
+    --input-border: rgba(255, 255, 255, 0.4);
+    --modal-glass-bg: rgba(255, 255, 255, 0.15);
 }
 
 html,
@@ -15,9 +19,11 @@ body {
 
 body {
     font-family: var(--site-font), serif;
+    /* Main body gradient for context */
     background: linear-gradient(to bottom, #FFEC77 0%, #8F4898 42%, #844191 45%, #68307E 50%, #3B1461 57%, #2A0A56 59%, #2A0A56 100%);
     min-height: 100vh;
     overflow-x: hidden;
+    color: var(--text-primary); /* Ensure all body text defaults to white */
 }
 
 /* Typography */
@@ -49,7 +55,7 @@ h6 {
 
 /* Button Styles */
 .btn-gradient {
-    background: linear-gradient(135deg, #FFEC77 0%, #F8B803 50%, #FF750F 100%);
+    background: linear-gradient(135deg, var(--accent-start) 0%, #F8B803 50%, var(--accent-end) 100%);
     border: none;
     color: #1b1b18;
     font-weight: 600;
@@ -77,7 +83,7 @@ h6 {
 
 /* Brand Gradient */
 .brand-gradient {
-    background: linear-gradient(135deg, #FFEC77 0%, #F8B803 50%, #FF750F 100%);
+    background: linear-gradient(135deg, var(--accent-start) 0%, #F8B803 50%, var(--accent-end) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -103,12 +109,12 @@ h6 {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, #FFEC77 0%, #F8B803 100%);
+    background: linear-gradient(135deg, var(--accent-start) 0%, #F8B803 100%);
     border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg, #F8B803 0%, #FF750F 100%);
+    background: linear-gradient(135deg, #F8B803 0%, var(--accent-end) 100%);
 }
 
 /* Loading Animation */
@@ -121,6 +127,87 @@ h6 {
     to {
         opacity: 1;
     }
+}
+
+/* ========================================= */
+/* MODAL FIXES (Login/Register) */
+/* Bootstrap and Custom CSS Clash Resolution */
+/* ========================================= */
+
+/* Backdrop fix: Ensures the dark backdrop is visible and covers the background gradient */
+.modal-backdrop.show {
+    opacity: 0.8 !important; /* Increase opacity to darken the background significantly */
+    background-color: #000;
+}
+
+/* Modal Content fix: Applies the glass card effect and sets text color */
+.modal-content {
+    /* Apply your glass-card logic with higher opacity for legibility */
+    background: var(--modal-glass-bg); 
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-radius: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+    color: var(--text-primary); /* Set all modal text to white for contrast */
+}
+
+/* Modal sections fix: Ensure header/body/footer are transparent and remove default borders */
+.modal-header,
+.modal-body,
+.modal-footer {
+    background-color: transparent;
+    border: none;
+}
+
+/* Re-add subtle separators */
+.modal-header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.modal-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Modal Close button fix for dark theme */
+.modal-header .close {
+    color: var(--text-primary);
+    opacity: 1;
+    text-shadow: none;
+    font-size: 1.5rem;
+}
+
+/* Form Control fix: Styles for inputs and textareas */
+.modal-content .form-control {
+    background-color: var(--input-bg); /* Dark, transparent background */
+    border: 1px solid var(--input-border);
+    color: var(--text-primary);
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+/* Placeholder color fix */
+.modal-content .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Input focus state fix */
+.modal-content .form-control:focus {
+    color: var(--text-primary);
+    background-color: rgba(0, 0, 0, 0.5);
+    border-color: var(--accent-start);
+    /* Match the button shadow using the accent color */
+    box-shadow: 0 0 0 0.2rem rgba(255, 236, 119, 0.4);
+}
+
+/* Link color fix inside the modal */
+.modal-content a:not(.btn) {
+    color: var(--accent-start);
+}
+
+.modal-content a:not(.btn):hover {
+    color: var(--accent-end);
+    text-decoration: none;
 }
 
 /* Responsive Adjustments */
