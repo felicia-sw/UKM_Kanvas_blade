@@ -12,6 +12,7 @@
                     <img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name') }} logo" class="navbar-logo">
                     <span class="visually-hidden">{{ config('app.name') }}</span>
                 </a>
+                <p class="text-white-50 fs-2 mb-0">UKM Kanvas</p>   
 
                 <!-- mobile burger -->
                 <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
