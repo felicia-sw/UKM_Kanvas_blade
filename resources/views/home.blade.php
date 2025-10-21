@@ -130,7 +130,7 @@
                                     style="background: linear-gradient(135deg, #FFEC77, #FF750F); width: 50px; height: 50px; border-radius: 12px; display: flex; align-items: center; justify-content: center;">
                                     <i class="bi bi-palette-fill text-white fs-4"></i>
                                 </div>
-                                <h3 class="text-white mb-0 fs-3 fw-bold">Apa itu Kanvas?</h3>
+                                <h3 class="text-white mb-0 fs-3 fw-bold">What is Kanvas?</h3>
                             </div>
 
                             <p class="text-white fs-5 lh-lg mb-0" style="text-shadow: 1px 1px 3px rgba(0,0,0,0.3);">
