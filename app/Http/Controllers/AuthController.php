@@ -22,19 +22,25 @@ class AuthController extends Controller
         ]);
 
         // 2, attempt to log the user in
-        if (Auth::attempt($credentials, $request->boolean('remember'))) {
-            // regeneration of the session prevents session fixation attacks
+       if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
-            // redirect the user to their desired page (e.g., home or a dashboard)
-            return redirect()->intended(route('home'))->with('success', 'You are now logged in!');
+
+            if (Auth::user()->is_admin) {
+                // If user is admin, redirect to admin dashboard
+                return redirect()->intended(route('admin.dashboard'));
+            }
+
+            // If regular user, redirect to intended page or home
+            return redirect()->intended(route('home'));
         }
 
-        // 3. if authentication fails, redirect back with an error
-        throw ValidationException::withMessages([
-            'email' => ['The provided credentials do not match our records.'],
-        ]);
+        return redirect()->route('home')
+            ->withErrors([
+                'email' => __('auth.failed'),
+            ], 'login') // <-- Specify the 'login' error bag
+            ->withInput($request->only('email', 'remember')) // <-- Resend the email and remember me data
+            ->with('show_modal', 'login'); // <-- Tell the view to re-open the login modal
     }
-
     // handle a registration request.
     // this method handles the POST request from the register model
     public function register(Request $request)
@@ -81,13 +87,22 @@ class AuthController extends Controller
     // However, they are often required by Laravel to resolve the 'login' and 'register' named routes.
     // If you get an error that the 'login' route is not defined, you can uncomment these and create simple views.
     
-    // public function showLoginForm()
-    // {
-    //     return redirect()->route('home'); // Redirect to home if they hit the /login URL directly
-    // }
-    
-    // public function showRegistrationForm()
-    // {
-    //     return redirect()->route('home'); // Redirect to home if they hit the /register URL directly
-    // }
+    /**
+     * Redirect fallback for the /login URL.
+     *
+     * The site uses modal popups for login/register, so accessing /login
+     * directly should just redirect to the homepage where the modal lives.
+     */
+    public function showLoginForm()
+    {
+        return redirect()->route('home');
+    }
+
+    /**
+     * Redirect fallback for the /register URL.
+     */
+    public function showRegistrationForm()
+    {
+        return redirect()->route('home');
+    }
 }

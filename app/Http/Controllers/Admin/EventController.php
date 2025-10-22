@@ -13,7 +13,7 @@ class EventController extends Controller
         $upcomingEvents = Event::where('start_date', '>=', now())->orderBy('start_date', 'asc')->paginate(10, ['*'], 'upcoming_page');
         $pastEvents = Event::where('start_date', '<', now())->orderBy('start_date', 'desc')->paginate(10, ['*'], 'past_page');
 
-        return view('admin.events.index', compact('upcomingEvents', 'pastEvents'));
+        return view('admin.event.index', compact('upcomingEvents', 'pastEvents'));
     }
 
      // Add methods for create, store, edit, update, destroy later

@@ -10,6 +10,7 @@ class DatabaseSeeder extends Seeder
     {
         //  run seeders in ordercuz important for foreign key
         $this->call([
+            UserSeeder::class,
             ArtworkCategorySeeder::class,
             ArtworkSeeder::class,
             EventSeeder::class,

@@ -44,25 +44,16 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
+    
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
+    Route::get('artworks', [AdminArtworkController::class, 'index'])->name('artworks.index');
+    // Add routes for create, store, edit, update, destroy later
 
-Route::prefix('admin')->name('admin.')->group(function () {
-    // Admin Login Routes
-    Route::get('login', [AdminAuthController::class, 'showLoginForm'])->name('login');
-    Route::post('login', [AdminAuthController::class, 'login']);
-    Route::post('logout', [AdminAuthController::class, 'logout'])->name('logout'); // Added admin logout
+    Route::get('events', [AdminEventController::class, 'index'])->name('events.index');
+    // Add routes for create, store, edit, update, destroy later
 
-    // Authenticated Admin Routes (Apply middleware later)
-    // Route::middleware(['auth', 'admin'])->group(function () { // Add middleware later
-        Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
-        Route::get('artworks', [AdminArtworkController::class, 'index'])->name('artworks.index');
-        // Add routes for create, store, edit, update, destroy later
-
-        Route::get('events', [AdminEventController::class, 'index'])->name('events.index');
-        // Add routes for create, store, edit, update, destroy later
-
-        Route::get('documentation', [AdminDocumentationController::class, 'index'])->name('documentation.index');
-        // Add routes for create, store, edit, update, destroy later
-    // });
+    Route::get('documentation', [AdminDocumentationController::class, 'index'])->name('documentation.index');
+    // Add routes for create, store, edit, update, destroy later
 });
