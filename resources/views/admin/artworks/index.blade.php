@@ -6,8 +6,12 @@
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="h2">Art Gallery & Documentation</h1>
     <div>
-        {{-- <a href="#" class="btn btn-admin-primary"><i class="bi bi-plus-lg me-2"></i>Add New Artwork</a> --}}
-        {{-- Add button later --}}
+        {{-- <a href="#" class="btn btn-admin-primary"><i class="bi bi-plus-lg me-2"></i>Add New Artwork</a>
+         --}}
+         
+        <a href="{{ route('admin.artworks.create') }}" class="btn btn-admin-primary">
+            <i class="bi bi-plus-lg me-2"></i>Add New Artwork
+        </a>
     </div>
 </div>
 <p class="text-muted mb-4">Manage artworks displayed in the gallery.</p>
