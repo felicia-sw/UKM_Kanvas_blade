@@ -8,7 +8,7 @@
     <div>
         {{-- <a href="#" class="btn btn-admin-primary"><i class="bi bi-plus-lg me-2"></i>Add New Artwork</a>
          --}}
-         
+
         <a href="{{ route('admin.artworks.create') }}" class="btn btn-admin-primary">
             <i class="bi bi-plus-lg me-2"></i>Add New Artwork
         </a>
@@ -44,8 +44,11 @@
                         <td>{{ $artwork->category->name ?? 'N/A' }}</td>
                         <td>{{ $artwork->created_date->format('d M Y') }}</td>
                         <td>
-                            {{-- Add Edit/Delete buttons later --}}
-                            <button class="btn btn-sm btn-admin-outline-warning me-1 disabled"><i class="bi bi-pencil"></i></button>
+                            {{-- edit button --}}
+                            <a href="{{ route('admin.artworks.edit', $artwork->id)}}" class="btn btn-sm btn-admin-outline-warning me-1" title="Edit Artwork">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            {{-- <button class="btn btn-sm btn-admin-outline-warning me-1 disabled"><i class="bi bi-pencil"></i></button> --}}
                             <form action="{{ route('admin.artworks.destroy', $artwork->id)}}" method="POST" style="display: inline">
                                 @csrf
                                 @method('DELETE')
