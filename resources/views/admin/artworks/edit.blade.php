@@ -10,8 +10,8 @@
     </a>
 </div>
 
-<div>
-    <div>
+<div class="card admin-card">
+    <div class="card-body">
         {{-- action points to the update rout and includes PUT/Patch method and file enctype --}}
         <form action="{{ route('admin.artworks.update', $artwork->id)}}" method="multipart/form-data">
             @csrf
