@@ -42,7 +42,13 @@
                         <td>
                             {{-- Add Edit/Delete buttons later --}}
                             <button class="btn btn-sm btn-admin-outline-warning me-1 disabled"><i class="bi bi-pencil"></i></button>
-                            <button class="btn btn-sm btn-admin-outline-danger disabled"><i class="bi bi-trash"></i></button>
+                            <form action="{{ route('admin.artworks.destroy', $artwork->id)}}" method="POST" style="display: inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-admin-outline-danger" title="Delete Artwork" onclick="return confirm('Are you sure you want to delete this artwork titled \'{{ $artwork->title }}\'?')">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     @empty
