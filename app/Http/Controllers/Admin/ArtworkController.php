@@ -44,7 +44,7 @@ class ArtworkController extends Controller
             'category_id' => $request->category_id,
             'description' => $request->description,
             'image_path' => 'storage/' . $imagePath,
-            // 'created_date' => now(),
+            'created_date' => now(),
         ]);
 
         // 4. Redirect with success message
