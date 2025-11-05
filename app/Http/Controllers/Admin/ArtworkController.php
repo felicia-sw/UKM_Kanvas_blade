@@ -33,7 +33,7 @@ class ArtworkController extends Controller
             'artist_name' => 'required|string|max:255',
             'category_id' => 'required|exists:artwork_categories,id',
             'description' => 'nullable|string',
-            'image_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'image_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:20480',
         ]);
 
         // 2, Handle file upload (REQUIRED FOR IMAGE)
