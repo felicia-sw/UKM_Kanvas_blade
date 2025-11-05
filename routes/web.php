@@ -43,7 +43,7 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
-
+// admin routes
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
     
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -57,3 +57,5 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::get('documentation', [AdminDocumentationController::class, 'index'])->name('documentation.index');
     // Add routes for create, store, edit, update, destroy later
 });
+
+// admin route --> delete 
