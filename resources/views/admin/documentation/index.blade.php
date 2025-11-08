@@ -1,77 +1,87 @@
 @extends('admin.layouts.admin')
 
-@section('title', 'Documentation Management')
+@section('title', 'Documentation for: ' . $event->title)
 
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="h2">Documentation Management</h1>
-    <div>
-        {{-- <a href="#" class="btn btn-admin-primary"><i class="bi bi-plus-lg me-2"></i>Add Documentation</a> --}}
-         {{-- Add button later --}}
-    </div>
+    <h1 class="h2">Documentation for: **{{ $event->title }}**</h1>
+    <a href="{{ route('admin.events.index') }}" class="btn btn-admin-outline-secondary">
+        <i class="bi bi-arrow-left me-2"></i>Back to Events List
+    </a>
 </div>
-<p class="text-muted mb-4">Manage event documentation photos.</p>
 
-<div class="card admin-card">
-    <div class="card-header">
-        Documentation List
-        {{-- Optional Filter --}}
-        {{-- <form method="GET" action="{{ route('admin.documentation.index') }}" class="d-inline-block ms-3">
-             <select name="event_id" class="form-select form-select-sm d-inline-block w-auto" onchange="this.form.submit()">
-                 <option value="">All Events</option>
-                 @foreach($events as $event)
-                     <option value="{{ $event->id }}" {{ request('event_id') == $event->id ? 'selected' : '' }}>
-                         {{ $event->title }}
-                     </option>
-                 @endforeach
-             </select>
-        </form> --}}
+<div class="mb-3">
+    <a href="{{ route('admin.events.documentation.create', $event->id) }}" class="btn btn-admin-primary">
+        <i class="bi bi-plus-lg me-2"></i>Upload Media
+    </a>
+</div>
+
+@if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
-    <div class="card-body">
-        <div class="row g-3">
-            @forelse($documentations as $doc)
-                <div class="col-lg-3 col-md-4 col-sm-6">
-                    <div class="card admin-card h-100 documentation-card">
-                         {{-- Placeholder or actual image --}}
-                         <img src="{{ asset('images/gallery/artwork' . (($loop->index % 6) + 1) . '.jpg') }}" class="card-img-top documentation-image" alt="{{ $doc->title ?? 'Documentation' }}">
-                         {{-- <img src="{{ asset('storage/' . $doc->image_path) }}" class="card-img-top documentation-image" alt="{{ $doc->title ?? 'Documentation' }}"> --}}
-                        <div class="card-body">
-                            <h6 class="card-title mb-1">{{ $doc->title ?? 'Untitled' }}</h6>
-                            <p class="card-text text-muted small mb-2">Event: {{ $doc->event->title ?? 'N/A' }}</p>
-                             <div class="mt-auto d-flex justify-content-end">
-                                {{-- Add Edit/Delete buttons later --}}
-                                <button class="btn btn-sm btn-admin-outline-warning me-1 disabled"><i class="bi bi-pencil"></i></button>
-                                <button class="btn btn-sm btn-admin-outline-danger disabled"><i class="bi bi-trash"></i></button>
-                             </div>
-                        </div>
-                    </div>
-                </div>
-            @empty
-                <div class="col-12">
-                    <p class="text-center text-muted">No documentation found.</p>
-                </div>
-            @endforelse
-        </div>
+@endif
 
-         <div class="d-flex justify-content-center mt-4">
-             {{ $documentations->appends(request()->query())->links('vendor.pagination.bootstrap-5-admin') }}
-         </div>
+<div class="admin-card">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover admin-table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Title</th>
+                        <th scope="col">Media Type</th>
+                        <th scope="col">Featured</th>
+                        <th scope="col">Upload Date</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @forelse ($documentations as $documentation)
+                        <tr>
+                            <th scope="row">{{ $loop->iteration }}</th>
+                            <td>{{ $documentation->title }}</td>
+                            <td>
+                                <span class="badge bg-{{ $documentation->file_type == 'photo' ? 'info' : 'secondary' }}">
+                                    {{ ucfirst($documentation->file_type) }}
+                                </span>
+                            </td>
+                            <td>
+                                @if($documentation->is_featured)
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                @else
+                                    <i class="bi bi-x-circle-fill text-danger"></i>
+                                @endif
+                            </td>
+                            <td>{{ $documentation->created_at->format('d M Y') }}</td>
+                            <td>
+                                <a href="{{ route('admin.events.documentation.edit', ['event' => $event->id, 'documentation' => $documentation->id]) }}" class="btn btn-sm btn-admin-outline-warning me-1">
+                                    <i class="bi bi-pencil me-1"></i>Edit
+                                </a>
+                                
+                                <form action="{{ route('admin.events.documentation.destroy', ['event' => $event->id, 'documentation' => $documentation->id]) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-admin-outline-danger" onclick="return confirm('Are you sure you want to delete this media? This cannot be undone.')">
+                                        <i class="bi bi-trash me-1"></i>Delete
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="6" class="text-center">No documentation media has been uploaded for this event yet.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+        
+        {{-- Pagination Links --}}
+        <div class="d-flex justify-content-center">
+            {{ $documentations->links('vendor.pagination.bootstrap-5-admin') }}
+        </div>
     </div>
 </div>
 @endsection
-
-@push('styles')
-<style>
-    .documentation-card {
-        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-    }
-    .documentation-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-    }
-    .documentation-image {
-        height: 180px;
-        object-fit: cover;
-    }
-</style>
-@endpush

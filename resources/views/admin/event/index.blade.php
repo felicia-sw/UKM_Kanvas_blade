@@ -82,7 +82,9 @@
                         <td>
                             {{-- View Documentation button remains disabled as CRUD isn't implemented for it yet --}}
                             {{-- <a href="{{ route('admin.documentation.index', ['event_id' => $event->id]) }}" class="btn btn-sm btn-admin-outline-info me-1 disabled"><i class="bi bi-images me-1"></i>View Docs</a> --}}
-                            
+                            <a href="{{ route('admin.events.documentation.index', $event->id) }}" class="btn btn-sm btn-admin-outline-info me-1">
+                                <i class="bi bi-images me-1"></i>View Docs
+                            </a>
                             {{-- Delete form for past events --}}
                             <form action="{{ route('admin.events.destroy', $event->id) }}" method="POST" class="d-inline">
                                 @csrf
