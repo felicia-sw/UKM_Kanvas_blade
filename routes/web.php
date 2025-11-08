@@ -31,7 +31,7 @@ Route::get('/events', [EventController::class, 'index'])->name('events');
 // Name: events.show
 Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show');
 
-// Art Gallery Routes
+// Art Gallery Routes (Uses ArtworkController)
 // Matches: GET /art-gallery (Index page)
 // Name: art_gallery
 Route::get('/art-gallery', [ArtworkController::class, 'index'])->name('art_gallery');
@@ -92,40 +92,29 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     // Artworks Resource Routes (CRUD)
-    // Route::resource automatically defines:
-    // GET /admin/artworks (index)   -> name: admin.artworks.index
-    // GET /admin/artworks/create (create form) -> name: admin.artworks.create  <-- FIX for your error
-    // POST /admin/artworks (store) -> name: admin.artworks.store
-    // GET /admin/artworks/{id}/edit (edit form) -> name: admin.artworks.edit
-    // PUT/PATCH /admin/artworks/{id} (update) -> name: admin.artworks.update
-    // DELETE /admin/artworks/{id} (destroy) -> name: admin.artworks.destroy
-    // ->except(['show']) excludes the default GET /admin/artworks/{id} route
     Route::resource('artworks', AdminArtworkController::class)->except(['show']);
 
-    // ... inside Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () { ...
-
-    // Artworks Resource Routes (CRUD)
-    Route::resource('artworks', AdminArtworkController::class)->except(['show']);
-
-    // 💡 FIX 1: Events Full CRUD (Replaces the old Route::get('events', ...))
+    // Events Full CRUD
     Route::resource('events', AdminEventController::class)->except(['show']);
 
-    // 💡 NEW: Documentation: Top-level Index (View all documentation from all events)
+    // KEPT: Documentation: Top-level Index (View all documentation from all events)
     // Matches: GET /admin/documentation/all
     // Name: admin.documentation.index.all
     Route::get('documentation/all', [AdminDocumentationController::class, 'indexAll'])->name('documentation.index.all');
 
-    // 💡 NEW: Documentation: Top-level Create (Create documentation by choosing an event)
+    // KEPT: Documentation: Top-level Create (GET form to choose event)
     // Matches: GET /admin/documentation/create
     // Name: admin.documentation.create.all
     Route::get('documentation/create', [AdminDocumentationController::class, 'createAll'])->name('documentation.create.all');
 
     // 💡 FIX: Dedicated POST route for global store (Calls storeAll)
+    // This is required to make the global upload form work without a 404 error.
     // Matches: POST /admin/documentation/store-all
     // Name: admin.documentation.store.all
     Route::post('documentation/store-all', [AdminDocumentationController::class, 'storeAll'])->name('documentation.store.all');
+    
 
-    // 💡 FIX 2: Documentation Nested Resource (Replaces the old Route::get('documentation', ...))
+    // Documentation Nested Resource (Event-specific CRUD)
     // This correctly defines the nested route: admin.events.documentation.*
     Route::resource('events.documentation', AdminDocumentationController::class)->except(['show']);
 });
