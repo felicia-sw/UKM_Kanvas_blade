@@ -31,7 +31,7 @@ class Event extends Model
         'is_active' => 'boolean',
     ];
 
-    public function documentation()
+    public function documentations()
     {
         return $this->hasMany(Documentation::class, 'event_id');
     }

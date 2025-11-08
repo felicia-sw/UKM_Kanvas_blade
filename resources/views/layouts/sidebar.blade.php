@@ -20,15 +20,22 @@
             <a href="{{ route('admin.artworks.index') }}"
                class="nav-link {{ request()->routeIs('admin.artworks.*') ? 'active' : 'text-white' }}">
                  <i class="bi bi-palette me-2"></i>
-                Art Gallery & Doc
+                Art Gallery
             </a>
         </li>
-        {{-- Documentation link removed as it's combined above --}}
         <li class="nav-item mb-1">
             <a href="{{ route('admin.events.index') }}"
                class="nav-link {{ request()->routeIs('admin.events.*') ? 'active' : 'text-white' }}">
                 <i class="bi bi-calendar-event me-2"></i>
                 Events
+            </a>
+        </li>
+        {{-- NEW: Global Documentation Link --}}
+        <li class="nav-item mb-1">
+            <a href="{{ route('admin.documentation.index.all') }}"
+               class="nav-link {{ request()->routeIs('admin.documentation.index.all') ? 'active' : 'text-white' }}">
+                <i class="bi bi-images me-2"></i>
+                All Documentation
             </a>
         </li>
         {{-- Add Content Management Link Later (commented out) --}}
