@@ -16,19 +16,40 @@
       </div>
     </div>
 
+    <!-- Filter Buttons -->
+    <div class="row justify-content-center mb-4">
+      <div class="col-auto">
+        <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <a href="{{ route('events', ['filter' => 'upcoming']) }}" class="btn btn-filter btn-lg px-4 py-2 {{ ($filter ?? 'upcoming') === 'upcoming' ? 'active' : '' }}">Now & Upcoming</a>
+          <a href="{{ route('events', ['filter' => 'past']) }}" class="btn btn-filter btn-lg px-4 py-2 {{ ($filter ?? 'upcoming') === 'past' ? 'active' : '' }}">Past Events</a>
+        </div>
+      </div>
+    </div>
 
     <div class="row justify-content-center mt-5 pt-5">
       <div class="col-12 col-xl-10 col-xxl-8 px-2 px-md-3" style="overflow: visible;">
         <div class="timeline-container position-relative overflow-visible">
 
           @forelse($events as $event)
-            <x-event-card :event="$event" layout="timeline" />
+            <x-event-card :event="$event" layout="timeline" :filter="$filter ?? 'upcoming'" />
           @empty
           <div class="row justify-content-center">
             <div class="col-12 text-center py-5">
               <i class="bi bi-calendar-x display-1 text-white-50 mb-4"></i>
-              <h3 class="mb-3 text-white">No Active Events</h3>
-              <p class="fs-5 text-white-50">Check back soon for upcoming events!</p>
+              <h3 class="mb-3 text-white">
+                @if(($filter ?? 'upcoming') === 'past')
+                  No Past Events
+                @else
+                  No Active Events
+                @endif
+              </h3>
+              <p class="fs-5 text-white-50">
+                @if(($filter ?? 'upcoming') === 'past')
+                  There are no past events to show.
+                @else
+                  Check back soon for upcoming events!
+                @endif
+              </p>
             </div>
           </div>
           @endforelse
@@ -80,6 +101,29 @@ body {
 .page-bg-image > * {
   position: relative;
   z-index: 1;
+}
+
+/* Filter Button Styles */
+.btn-filter {
+  background: rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 236, 119, 0.3);
+  color: white;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.btn-filter:hover {
+  background: rgba(255, 236, 119, 0.2);
+  border-color: rgba(255, 236, 119, 0.5);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.btn-filter.active {
+  background: linear-gradient(135deg, #FFEC77, #F8B803);
+  border-color: #FFEC77;
+  color: #2A0A56;
 }
 
 .timeline-container {

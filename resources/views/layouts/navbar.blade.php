@@ -4,9 +4,11 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
-    <div class="container-fluid px-4 px-lg-5 py-3">
+    {{-- <div class="container-fluid px-4 px-lg-5 py-3">
     <header class="mb-4">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-glass rounded-4 shadow-lg p-3 p-lg-4 site-navbar-fixed">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-glass rounded-4 shadow-lg p-3 p-lg-4 site-navbar-fixed"> --}}
+    <header class="mb-4">
+<nav class="navbar navbar-expand-lg navbar-dark bg-glass shadow-lg p-3 p-lg-4 site-navbar-fixed">  
         <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="{{ route('home') }}">
                     <img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name') }} logo" class="navbar-logo">
@@ -69,7 +71,7 @@
             </div>
         </nav>
     </header>
-</div>
+{{-- </div> --}}
 
 <style>
     .bg-glass {
@@ -86,7 +88,7 @@
         margin-right: 0.5rem;
     }
 
-     .site-navbar-fixed {
+     /* .site-navbar-fixed {
         position: fixed;
         top: 0;
         left: 0;
@@ -97,8 +99,20 @@
         border-radius: 0;     
         box-sizing: border-box;
         padding: 0; 
-    }
+    } */
 
+    .site-navbar-fixed {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 1080;   
+    margin: 0;          /* Change from 'auto' to '0' */
+    border-radius: 0;     
+    box-sizing: border-box;
+    padding: 1rem 1.5rem; /* Add padding directly to navbar instead */
+}
 
     .nav-link {
         font-size: 18px;

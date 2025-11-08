@@ -1,4 +1,4 @@
-@props(['event', 'layout' => 'home'])
+@props(['event', 'layout' => 'home', 'filter' => 'upcoming'])
 
 @if($layout === 'home')
     {{-- Home Page Event Card Layout --}}
@@ -110,6 +110,15 @@
                     </div>
                     @endif
                 </div>
+                
+                {{-- Show documentation button only for past events --}}
+                @if($filter === 'past')
+                <div class="mt-4">
+                    <a href="{{ route('events.documentation', $event->id) }}" class="btn btn-gradient btn-lg px-4 py-2">
+                        <i class="bi bi-images me-2"></i>View Event Documentation
+                    </a>
+                </div>
+                @endif
             </div>
         </div>
     </div>

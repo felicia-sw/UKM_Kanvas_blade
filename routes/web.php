@@ -30,6 +30,9 @@ Route::get('/events', [EventController::class, 'index'])->name('events');
 // Matches: GET /events/{id} (Show single event)
 // Name: events.show
 Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show');
+// Matches: GET /events/{id}/documentation (Show event documentation/gallery)
+// Name: events.documentation
+Route::get('/events/{id}/documentation', [EventController::class, 'showDocumentation'])->name('events.documentation');
 
 // Art Gallery Routes (Uses ArtworkController)
 // Matches: GET /art-gallery (Index page)
