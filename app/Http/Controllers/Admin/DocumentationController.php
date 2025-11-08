@@ -42,7 +42,7 @@ class DocumentationController extends Controller
     }
 
     /**
-     * 💡 NEW: Show the form for creating a new documentation entry (Global Route)
+     * Show the form for creating a new documentation entry (Global Route)
      */
     public function createAll()
     {
@@ -53,35 +53,25 @@ class DocumentationController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     * This method handles BOTH nested and global creation routes.
+     * Store a newly created resource in storage (NESTED ROUTE: admin.events.documentation.store).
+     * This handles uploads from the Event-specific index page.
      */
-    public function store(Request $request, Event $event = null) // $event is nullable for the global route
+    public function store(Request $request, Event $event)
     {
-        // 1. Determine the Event ID
-        $eventId = $event ? $event->id : $request->event_id;
-        
-        // 2. Base Validation (Photos only: max 10MB)
-        $rules = [
+        // 1. Validation (Photos only: max 10MB)
+        $request->validate([
             'title' => 'required|string|max:255',
             'media_file' => 'required|file|mimes:jpeg,png,jpg|max:10240', // 10MB max for photo
             'caption' => 'nullable|string',
-        ];
-
-        // 3. Add Event ID validation ONLY if coming from the global route (where $event is null)
-        if (!$event) {
-            $rules['event_id'] = 'required|exists:events,id';
-        }
-
-        $request->validate($rules);
+        ]);
         
-        // 4. Handle file upload (saves to storage/app/public/documentation)
+        // 2. Handle file upload (saves to storage/app/public/documentation)
         $file = $request->file('media_file');
         $filePath = $file->store('documentation', 'public');
         
-        // 5. Create Documentation record
+        // 3. Create Documentation record
         Documentation::create([
-            'event_id' => $eventId, // Use the determined event ID
+            'event_id' => $event->id, // Uses the Event provided by Route Model Binding
             'title' => $request->title,
             'file_path' => 'storage/' . $filePath, // Store the public path
             'file_type' => 'photo', // HARDCODED for photos only
@@ -89,11 +79,44 @@ class DocumentationController extends Controller
             'is_featured' => $request->has('is_featured'),
         ]);
 
-        // 6. Redirect: always send the user back to the event-specific index page
-        return redirect()->route('admin.events.documentation.index', $eventId)
+        // 4. Redirect
+        return redirect()->route('admin.events.documentation.index', $event->id)
                          ->with('success', 'Documentation added successfully!');
     }
     
+    /**
+     * 💡 FIX: Dedicated store method for the GLOBAL ROUTE (admin.documentation.store.all).
+     * This method handles the event selection from the global form.
+     */
+    public function storeAll(Request $request)
+    {
+        // 1. Validation (Must validate event selection + Photo rules)
+        $request->validate([
+            'event_id' => 'required|exists:events,id', // Must validate event selection
+            'title' => 'required|string|max:255',
+            'media_file' => 'required|file|mimes:jpeg,png,jpg|max:10240', // 10MB max for photo
+            'caption' => 'nullable|string',
+        ]);
+        
+        // 2. Handle file upload
+        $file = $request->file('media_file');
+        $filePath = $file->store('documentation', 'public');
+        
+        // 3. Create Documentation record
+        Documentation::create([
+            'event_id' => $request->event_id, // Uses the selected event ID from the form
+            'title' => $request->title,
+            'file_path' => 'storage/' . $filePath, 
+            'file_type' => 'photo', // HARDCODED
+            'caption' => $request->caption,
+            'is_featured' => $request->has('is_featured'),
+        ]);
+
+        // 4. Redirect: Go to the index page of the selected event's documentation
+        return redirect()->route('admin.events.documentation.index', $request->event_id)
+                         ->with('success', 'Documentation added successfully!');
+    }
+
     // Since edit/update/destroy only affect the Documentation model, we only inject the Documentation model
     
     public function edit(Event $event, Documentation $documentation)

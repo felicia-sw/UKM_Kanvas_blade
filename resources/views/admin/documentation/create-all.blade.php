@@ -14,7 +14,7 @@
 
 <div class="admin-card">
     <div class="card-body">
-        <form action="{{ route('admin.events.documentation.store', ['event' => 0]) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.documentation.store.all') }}" method="POST" enctype="multipart/form-data">
             @csrf
 
             {{-- Event Selection Dropdown (NEW) --}}
