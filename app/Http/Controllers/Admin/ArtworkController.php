@@ -1,104 +1,45 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Artwork;
-use App\Models\ArtworkCategory;
+use App\Models\Documentation; // Use Documentation model
+use App\Models\Event; // Use Event model for filtering
+use App\Models\ArtworkCategory; // No longer needed
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage; // 💡 CRUCIAL for file deletion/update in the update method
 
 class ArtworkController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $artworks = Artwork::with('category')->orderBy('created_date', 'desc')->paginate(10); // Paginate for admin view
-        $categories = ArtworkCategory::orderBy('name')->get();
-        return view('admin.artworks.index', compact('artworks', 'categories'));
-    }
+        // 1. Query featured documentation photos
+        $query = Documentation::with('event')
+                            ->where('is_featured', true) // Only show photos marked as featured
+                            ->where('file_type', 'photo'); // Only show photos (enforced by Admin logic)
 
-    // Add methods for create, store, edit, update, destroy later
-
-
-    public function create()
-    {
-        $categories = ArtworkCategory::all(); // fetch all categories to populate a dropdown list in the form
-        return view('admin.artworks.create', compact('categories')); // return the create view, passing the categories data 
-    }
-
-    public function store(Request $request)
-    {
-        //  1. validation
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'artist_name' => 'required|string|max:255',
-            'category_id' => 'required|exists:artwork_categories,id',
-            'description' => 'nullable|string',
-            'image_file' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:20480',
-        ]);
-
-        // 2, Handle file upload (REQUIRED FOR IMAGE)
-        $imagePath = $request->file('image_file')->store('artworks','public');
-        Artwork::create([
-            'title' => $request->title,
-            'artist_name' => $request->artist_name,
-            'category_id' => $request->category_id,
-            'description' => $request->description,
-            'image_path' => 'storage/' . $imagePath,
-            'created_date' => now(),
-        ]);
-
-        // 4. Redirect with success message
-        return redirect()->route('admin.artworks.index')->with('success', 'Artwork created successfully.');
-    }
-
-    // delete --> destroy method
-    public function destroy(Artwork $artwork){
-        // delete artwork record
-        $artwork->delete(); // using eloquent ORM to execute SQL DELETE command on the database
-
-        // redirects the admin back to the list of artworks (admin.artworks.index) and flashes a temporary success message to the session
-        return redirect()->route('admin.artworks.index')->with('sucess', 'Artwork deleted successfully.');
-    }
-
-    public function edit(Artwork $artwork)
-    {
-        // fetch list of categories for the dropdown menu
-        $categories = ArtworkCategory::all();
-
-        // return the edit view, passing the artwork data and categories
-        return view('admin.artworks.edit', compact('artwork', 'categories'));
-    }
-
-    public function update(Request $request, Artwork $artwork)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'artist_name' => 'required|string|max:255',
-            'category_id' => 'required|exists:artwork_categories,id',
-            'description' => 'nullable|string',
-            'image_file' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:20480',
-        ]);
-
-        $data = $request->only('title', 'artist_name', 'category_id', 'description');
-
-        if ($request->hasFile('image_file')) {
-            if ($artwork->image_path) {
-                if ($artwork->image_path) {
-                    $oldPath = str_replace('storage/', '', $artwork->image_path);
-                    Storage::disk('public')->delete($oldPath);
-                }
-
-                // store the new image
-                $imagePath = $request->file('image_file')->store('artworks', 'public');
-            $data['image_path'] = 'storage/' . $imagePath;
-            }
-
-            // 3. Update Database Record
-        $artwork->update($data);
-
-        // 4. Redirect with Success
-        return redirect()->route('admin.artworks.index')->with('success', 'Artwork updated successfully!');
+        // 2. Filter by Event if requested (using event_id passed via query string)
+        if ($request->has('event_id') && $request->event_id != '') {
+            $query->where('event_id', $request->event_id);
         }
+
+        // The variable $artworks now holds Documentation records
+        $artworks = $query->orderBy('created_at', 'desc')->paginate(12);
+        
+        // Fetch all Events to act as 'categories' for the filter section
+        $events = Event::all(); 
+        
+        // Passing 'artworks' (Documentation) and 'events' (for filtering) to the view
+        return view('art_gallery', compact('artworks', 'events'));
+    }
+    
+    // Updated show method to find Documentation by ID, maintaining the original $artwork variable name for the view
+    public function show($id)
+    {
+        // Find documentation record instead of artwork
+        $documentation = Documentation::with('event')->findOrFail($id);
+        
+        // Rename local variable to match the expected view variable
+        $artwork = $documentation;
+
+        return view('artworks.show', compact('artwork'));
     }
 }
