@@ -120,6 +120,11 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     // Name: admin.documentation.create.all
     Route::get('documentation/create', [AdminDocumentationController::class, 'createAll'])->name('documentation.create.all');
 
+    // 💡 FIX: Dedicated POST route for global store (Calls storeAll)
+    // Matches: POST /admin/documentation/store-all
+    // Name: admin.documentation.store.all
+    Route::post('documentation/store-all', [AdminDocumentationController::class, 'storeAll'])->name('documentation.store.all');
+
     // 💡 FIX 2: Documentation Nested Resource (Replaces the old Route::get('documentation', ...))
     // This correctly defines the nested route: admin.events.documentation.*
     Route::resource('events.documentation', AdminDocumentationController::class)->except(['show']);
