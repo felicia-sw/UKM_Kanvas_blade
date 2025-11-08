@@ -105,9 +105,11 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     // Events Routes
     // Matches: GET /admin/events
     // Name: admin.events.index
-    Route::get('events', [AdminEventController::class, 'index'])->name('events.index');
+    // Route::get('events', [AdminEventController::class, 'index'])->name('events.index');
     // To enable CRUD: replace the line above with Route::resource('events', AdminEventController::class)->except(['show']);
-
+    // Events Resource Routes (CRUD)
+    // Route::resource automatically defines: index, create, store, edit, update, destroy
+    Route::resource('events', AdminEventController::class)->except(['show']); 
     // Documentation Routes
     // Matches: GET /admin/documentation
     // Name: admin.documentation.index
