@@ -20,6 +20,20 @@ class DocumentationController extends Controller
         return view('admin.documentation.index', compact('event', 'documentations'));
     }
 
+    /**
+     * Display a listing of ALL documentation records across all events.
+     * This is the method for the top-level sidebar link.
+     */
+    public function indexAll()
+    {
+        // Fetch all documentation, ordered by date. We eager-load the parent 'event'
+        // so we can display the event title in the table without N+1 queries.
+        $documentations = Documentation::with('event')->orderBy('created_at', 'desc')->paginate(10);
+        
+        // Use a new view: 'admin.documentation.index-all'
+        return view('admin.documentation.index-all', compact('documentations'));
+    }
+
     public function create(Event $event)
     {
         // Return the upload form

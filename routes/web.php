@@ -110,6 +110,11 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     // 💡 FIX 1: Events Full CRUD (Replaces the old Route::get('events', ...))
     Route::resource('events', AdminEventController::class)->except(['show']);
 
+    // 💡 NEW: Documentation: Top-level Index (View all documentation from all events)
+    // Matches: GET /admin/documentation/all
+    // Name: admin.documentation.index.all
+    Route::get('documentation/all', [AdminDocumentationController::class, 'indexAll'])->name('documentation.index.all');
+
     // 💡 FIX 2: Documentation Nested Resource (Replaces the old Route::get('documentation', ...))
     // This correctly defines the nested route: admin.events.documentation.*
     Route::resource('events.documentation', AdminDocumentationController::class)->except(['show']);
