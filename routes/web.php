@@ -102,17 +102,15 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     // ->except(['show']) excludes the default GET /admin/artworks/{id} route
     Route::resource('artworks', AdminArtworkController::class)->except(['show']);
 
-    // Events Routes
-    // Matches: GET /admin/events
-    // Name: admin.events.index
-    // Route::get('events', [AdminEventController::class, 'index'])->name('events.index');
-    // To enable CRUD: replace the line above with Route::resource('events', AdminEventController::class)->except(['show']);
-    // Events Resource Routes (CRUD)
-    // Route::resource automatically defines: index, create, store, edit, update, destroy
-    Route::resource('events', AdminEventController::class)->except(['show']); 
-    // Documentation Routes
-    // Matches: GET /admin/documentation
-    // Name: admin.documentation.index
-    Route::resource('events.documentation', [AdminDocumentationController::class, 'index'])->except(['show','edit','update']);
-    // To enable CRUD: replace the line above with Route::resource('documentation', AdminDocumentationController::class)->except(['show']);
+    // ... inside Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () { ...
+
+    // Artworks Resource Routes (CRUD)
+    Route::resource('artworks', AdminArtworkController::class)->except(['show']);
+
+    // 💡 FIX 1: Events Full CRUD (Replaces the old Route::get('events', ...))
+    Route::resource('events', AdminEventController::class)->except(['show']);
+
+    // 💡 FIX 2: Documentation Nested Resource (Replaces the old Route::get('documentation', ...))
+    // This correctly defines the nested route: admin.events.documentation.*
+    Route::resource('events.documentation', AdminDocumentationController::class)->except(['show']);
 });
