@@ -30,54 +30,6 @@
             <div class="center-me w-100">
                 <div class="row align-items-center justify-content-center g-0">
                     <div class="col-lg-6 col-12 position-relative pe-0" data-aos="fade-right" data-aos-duration="1000">
-                
-                        <div class="streetlamp-container position-absolute"
-                            style="left: -150px; top: -100px; width: 300px; height: 600px; z-index: 5;">
-                            <div class="light-beam position-absolute"
-                                style="
-                            top: 50px; 
-                            left: 150px; 
-                            width: 600px; 
-                            height: 400px; 
-                            background: radial-gradient(ellipse at 0% 0%, 
-                                rgba(255, 236, 119, 0.4) 0%, 
-                                rgba(255, 236, 119, 0.25) 30%, 
-                                rgba(255, 236, 119, 0.1) 50%,
-                                transparent 70%);
-                            transform: rotate(-15deg);
-                            transform-origin: top left;
-                            filter: blur(15px);
-                            animation: lightPulse 3s ease-in-out infinite;
-                            pointer-events: none;
-                        ">
-                            </div>
-
-                            <div class="lamp-glow position-absolute"
-                                style="
-                            top: 30px;
-                            left: 230px;
-                            width: 80px;
-                            height: 80px;
-                            background: radial-gradient(circle, 
-                                rgba(255, 236, 119, 0.8) 0%, 
-                                rgba(255, 236, 119, 0.4) 40%, 
-                                transparent 70%);
-                            border-radius: 50%;
-                            filter: blur(10px);
-                            animation: glowPulse 2s ease-in-out infinite;
-                        ">
-                            </div>
-
-                            {{-- <!-- Actual streetlamp image -->
-                            <img src="{{ asset('images/streetlamp.png') }}" alt="" class="streetlamp"
-                                style="
-                            width: 280px; 
-                            height: auto; 
-                            position: relative;
-                            z-index: 6;
-                            filter: drop-shadow(0 15px 25px rgba(0,0,0,0.3));
-                        "> --}}
-                        </div>
 
                         <div class="title-container position-relative mb-4" style="z-index: 10;">
                             <div class="text-light-overlay position-absolute"
@@ -86,9 +38,7 @@
                             left: 0;
                             width: 100%;
                             height: 100%;
-                            background: radial-gradient(ellipse at 20% 30%, 
-                                rgba(255, 236, 119, 0.2) 0%, 
-                                transparent 50%);
+                          
                             pointer-events: none;
                             z-index: 1;
                         ">
@@ -248,6 +198,10 @@
         @media (max-width: 576px) {
             .home-page-content {
                 padding-top: 85px !important;
+            }
+
+            .container-fluid{
+                overflow-x: hidden;
             }
         }
 
