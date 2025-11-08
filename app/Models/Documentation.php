@@ -9,24 +9,39 @@ class Documentation extends Model
 {
     use HasFactory;
     
-    public $timestamps = false;
-    
-    const CREATED_AT = 'created_at';
-    const UPDATED_AT = null;
+    // 💡 FIX 1: Allow Laravel to manage timestamps, matching the database migration
+    // We are deleting the custom timestamp logic to use the default settings
+    // Since your migration has $table->timestamps(), leave $timestamps to default (true)
+    // We also explicitly state the table name due to the pluralization confusion in your down() method
+    protected $table = 'documentations'; 
 
+    /**
+     * The attributes that are mass assignable.
+     * 💡 FIX 2: Added file_path (renamed from image_path), file_type, caption, is_featured.
+     */
     protected $fillable = [
+        'event_id',
         'title',
-        'image_path',
-        'event_id'
+        'file_path', 
+        'file_type', 
+        'caption',
+        'is_featured',
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     * 💡 FIX 3: Added casting for the new boolean field.
+     */
     protected $casts = [
-        'created_at' => 'datetime',
+        'is_featured' => 'boolean',
     ];
 
-    // many to one 
+    /**
+     * Get the event that owns the documentation.
+     */
     public function event()
     {
-        return $this->belongsTo(Event::class, 'event_id');
+        // We can safely remove the second argument as Laravel defaults to 'event_id'
+        return $this->belongsTo(Event::class);
     }
 }
