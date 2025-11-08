@@ -115,6 +115,11 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     // Name: admin.documentation.index.all
     Route::get('documentation/all', [AdminDocumentationController::class, 'indexAll'])->name('documentation.index.all');
 
+    // 💡 NEW: Documentation: Top-level Create (Create documentation by choosing an event)
+    // Matches: GET /admin/documentation/create
+    // Name: admin.documentation.create.all
+    Route::get('documentation/create', [AdminDocumentationController::class, 'createAll'])->name('documentation.create.all');
+
     // 💡 FIX 2: Documentation Nested Resource (Replaces the old Route::get('documentation', ...))
     // This correctly defines the nested route: admin.events.documentation.*
     Route::resource('events.documentation', AdminDocumentationController::class)->except(['show']);

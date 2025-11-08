@@ -23,7 +23,7 @@ class Documentation extends Model
         'event_id',
         'title',
         'file_path', 
-        'file_type', 
+        // 'file_type', 
         'caption',
         'is_featured',
     ];

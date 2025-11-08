@@ -28,27 +28,11 @@
 
             {{-- Media File Upload Field --}}
             <div class="mb-3">
-                <label for="media_file" class="form-label">Select Photo or Video File <span class="text-danger">*</span></label>
+                <label for="media_file" class="form-label">Select Photo File (Accepted formats: JPG, PNG. Max size: 10MB.) <span class="text-danger">*</span></label>
                 <input type="file" class="form-control @error('media_file') is-invalid @enderror" id="media_file" name="media_file" required>
-                <div class="form-text">Accepted formats: JPG, PNG, MP4, MOV. Max size: 50MB.</div>
+                <div class="form-text">Accepted formats: JPG, PNG. Max size: 10MB.</div>
                 @error('media_file')
                     <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-
-            {{-- Media Type (Photo/Video) Radio Buttons --}}
-            <div class="mb-4">
-                <label class="form-label d-block">Media Type <span class="text-danger">*</span></label>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="type" id="type_photo" value="photo" {{ old('type') == 'photo' || old('type') === null ? 'checked' : '' }} required>
-                    <label class="form-check-label" for="type_photo">Photo</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="type" id="type_video" value="video" {{ old('type') == 'video' ? 'checked' : '' }} required>
-                    <label class="form-check-label" for="type_video">Video</label>
-                </div>
-                @error('type')
-                    <div class="text-danger small">{{ $message }}</div>
                 @enderror
             </div>
             
@@ -60,7 +44,6 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-
             {{-- Is Featured Checkbox --}}
             <div class="form-check mb-4">
                 {{-- Defaults to unchecked (0) --}}
@@ -69,7 +52,6 @@
                     Mark as Featured (Highlights this media)
                 </label>
             </div>
-
             <button type="submit" class="btn btn-admin-primary">
                 <i class="bi bi-cloud-upload me-2"></i>Upload Media
             </button>

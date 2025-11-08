@@ -1,4 +1,3 @@
-// felicia-sw/ukm_kanvas_blade/UKM_Kanvas_blade-0b53f92b2505becaae0fa1f79d6eaecf074212d4/resources/views/admin/documentation/index-all.blade.php
 
 @extends('admin.layouts.admin')
 
@@ -7,10 +6,16 @@
 @section('content')
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="h2">All Documentation Media</h1>
-    {{-- Button to remind the user where to add new media --}}
-    <a href="{{ route('admin.events.index') }}" class="btn btn-admin-outline-secondary">
-        <i class="bi bi-calendar-event me-2"></i>Manage & Upload Media by Event
-    </a>
+    <div class="d-flex">
+        {{-- Button to quickly add documentation (requires event selection) --}}
+        <a href="{{ route('admin.documentation.create.all') }}" class="btn btn-admin-primary me-2">
+            <i class="bi bi-plus-circle me-1"></i>Add New Photo
+        </a>
+        {{-- Button to remind the user where to manage media event-by-event --}}
+        <a href="{{ route('admin.events.index') }}" class="btn btn-admin-outline-secondary">
+            <i class="bi bi-calendar-event me-2"></i>Manage by Event
+        </a>
+    </div>
 </div>
 
 @if (session('success'))
@@ -28,8 +33,7 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Title</th>
-                        <th scope="col">Event</th> {{-- New Column to show the parent event --}}
-                        <th scope="col">Media Type</th>
+                        <th scope="col">Event</th>
                         <th scope="col">Featured</th>
                         <th scope="col">Upload Date</th>
                         <th scope="col">Actions</th>
@@ -45,11 +49,6 @@
                                 <a href="{{ route('admin.events.documentation.index', $documentation->event_id) }}">
                                     {{ $documentation->event->title ?? 'N/A' }}
                                 </a>
-                            </td>
-                            <td>
-                                <span class="badge bg-{{ $documentation->file_type == 'photo' ? 'info' : 'secondary' }}">
-                                    {{ ucfirst($documentation->file_type) }}
-                                </span>
                             </td>
                             <td>
                                 @if($documentation->is_featured)
@@ -89,4 +88,4 @@
         </div>
     </div>
 </div>
-@endsection
+@endsection {{-- This is the directive that must match a starting @section --}}
