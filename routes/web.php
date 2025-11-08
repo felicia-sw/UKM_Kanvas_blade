@@ -113,6 +113,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     // Documentation Routes
     // Matches: GET /admin/documentation
     // Name: admin.documentation.index
-    Route::get('documentation', [AdminDocumentationController::class, 'index'])->name('documentation.index');
+    Route::resource('events.documentation', [AdminDocumentationController::class, 'index'])->except(['show','edit','update']);
     // To enable CRUD: replace the line above with Route::resource('documentation', AdminDocumentationController::class)->except(['show']);
 });
