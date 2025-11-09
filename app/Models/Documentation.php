@@ -19,10 +19,8 @@ class Documentation extends Model
     protected $fillable = [
         'event_id',
         'title',
-        // FIX: Change the mass assignment key from 'image_path' to 'file_path'
-        'file_path',
-        // IMPORTANT: We explicitly exclude 'file_type', 'caption', 'is_featured'
-    ];
+          'file_path',
+           ];
 
     /**
      * The attributes that should be cast to native types.
