@@ -65,6 +65,22 @@
 <body>
     @include('layouts.navbar')
 
+    {{-- Flash Messages --}}
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3" 
+             style="z-index: 9999; max-width: 500px;" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>{{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+    @if(session('error'))
+        <div class="alert alert-danger alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3" 
+             style="z-index: 9999; max-width: 500px;" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ session('error') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endif
+
     <div class="site-container">
         @yield('content')
     </div>
@@ -81,18 +97,36 @@
                 </div>
                 {{-- FIX 2: Remove the undefined 'modal-glass-body' class --}}
                 <div class="modal-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Oops!</strong> Please fix the following errors:
+                            <ul class="mb-0 mt-2">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+                    
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
                         <div class="mb-3">
                             <label for="loginEmail" class="form-label text-white-50">Email Address</label>
-                            <input type="email" class="form-control contact-input" id="loginEmail" name="email"
-                                required autofocus>
+                            <input type="email" class="form-control contact-input @error('email') is-invalid @enderror" 
+                                id="loginEmail" name="email" value="{{ old('email') }}" required autofocus>
+                            @error('email')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="mb-4">
                             <label for="loginPassword" class="form-label text-white-50">Password</label>
-                            <input type="password" class="form-control contact-input" id="loginPassword" name="password"
-                                required>
+                            <input type="password" class="form-control contact-input @error('password') is-invalid @enderror" 
+                                id="loginPassword" name="password" required>
+                            @error('password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <button type="submit" class="btn btn-gradient w-100 py-2">
                             <i class="bi bi-box-arrow-in-right me-2"></i>Login
@@ -121,29 +155,52 @@
                 </div>
                 {{-- FIX 2: Remove the undefined 'modal-glass-body' class --}}
                 <div class="modal-body">
+                    @if ($errors->any())
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <strong>Oops!</strong> Please fix the following errors:
+                            <ul class="mb-0 mt-2">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    @endif
+                    
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
                         <div class="mb-3">
                             <label for="registerName" class="form-label text-white-50">Full Name</label>
-                            <input type="text" class="form-control contact-input" id="registerName" name="name"
-                                required autofocus>
+                            <input type="text" class="form-control contact-input @error('name') is-invalid @enderror" 
+                                id="registerName" name="name" value="{{ old('name') }}" required autofocus>
+                            @error('name')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="registerEmail" class="form-label text-white-50">Email Address</label>
-                            <input type="email" class="form-control contact-input" id="registerEmail" name="email"
-                                required>
+                            <input type="email" class="form-control contact-input @error('email') is-invalid @enderror" 
+                                id="registerEmail" name="email" value="{{ old('email') }}" required>
+                            @error('email')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="mb-3">
                             <label for="registerPassword" class="form-label text-white-50">Password</label>
-                            <input type="password" class="form-control contact-input" id="registerPassword"
-                                name="password" required>
+                            <input type="password" class="form-control contact-input @error('password') is-invalid @enderror" 
+                                id="registerPassword" name="password" required>
+                            @error('password')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="mb-4">
-                            <label for="registerConfirmPassword" class="form-label text-white-50">Confirm
-                                Password</label>
-                            <input type="password" class="form-control contact-input" id="registerConfirmPassword"
-                                name="password_confirmation" required>
+                            <label for="registerConfirmPassword" class="form-label text-white-50">Confirm Password</label>
+                            <input type="password" class="form-control contact-input @error('password_confirmation') is-invalid @enderror" 
+                                id="registerConfirmPassword" name="password_confirmation" required>
+                            @error('password_confirmation')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <button type="submit" class="btn btn-gradient w-100 py-2">
                             <i class="bi bi-person-plus-fill me-2"></i>Register
@@ -166,6 +223,23 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
+        // Auto-dismiss alerts after 5 seconds
+        document.addEventListener('DOMContentLoaded', function() {
+            const alerts = document.querySelectorAll('.alert');
+            alerts.forEach(function(alert) {
+                setTimeout(function() {
+                    const bsAlert = new bootstrap.Alert(alert);
+                    bsAlert.close();
+                }, 5000);
+            });
+
+            // Automatically show modal if there are validation errors
+            @if ($errors->any())
+                var registerModal = new bootstrap.Modal(document.getElementById('registerModal'));
+                registerModal.show();
+            @endif
+        });
+
         AOS.init({
             duration: 800,
             easing: 'ease-in-out',
