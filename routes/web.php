@@ -61,11 +61,11 @@ Route::get('/contact', function () {
 
 // GET routes act as fallbacks/placeholders for showing the login/registration forms/modals
 // Matches: GET /login
-// Name: login
-Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+// Name: login.form
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
 // Matches: GET /register
-// Name: register
-Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register');
+// Name: register.form
+Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register.form');
 
 // POST ROUTES handle the form submission for login and registration
 // Matches: POST /login (Handles form submission)

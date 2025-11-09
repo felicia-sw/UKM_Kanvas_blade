@@ -27,45 +27,57 @@ class AuthController extends Controller
 
             if (Auth::user()->is_admin) {
                 // If user is admin, redirect to admin dashboard
-                return redirect()->intended(route('admin.dashboard'));
+                return redirect()->intended(route('admin.dashboard'))
+                    ->with('success', 'Welcome back, Admin!');
             }
 
             // If regular user, redirect to intended page or home
-            return redirect()->intended(route('home'));
+            return redirect()->intended(route('home'))
+                ->with('success', 'Welcome back, ' . Auth::user()->name . '!');
         }
 
-        return redirect()->route('home')
+        return back()
             ->withErrors([
-                'email' => __('auth.failed'),
-            ], 'login') // <-- Specify the 'login' error bag
-            ->withInput($request->only('email', 'remember')) // <-- Resend the email and remember me data
-            ->with('show_modal', 'login'); // <-- Tell the view to re-open the login modal
+                'email' => 'The provided credentials do not match our records.',
+            ])
+            ->withInput($request->only('email'));
     }
     // handle a registration request.
     // this method handles the POST request from the register model
     public function register(Request $request)
     {
         // 1. validate the incoming 
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            // ensure the password field from the modal is named 'password' and has a minimum length
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        try {
+            $validated = $request->validate([
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                // ensure the password field from the modal is named 'password' and has a minimum length
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+            ]);
 
-        // 2. create the new user
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            // password must be hashed before saving
-            'password' => Hash::make($request->password),
-        ]);
+            // 2. create the new user
+            $user = User::create([
+                'name' => $validated['name'],
+                'email' => $validated['email'],
+                // password must be hashed before saving
+                'password' => Hash::make($validated['password']),
+                'is_admin' => false, // Explicitly set as regular user
+            ]);
 
-        // 3. log the new user in immediately
-        Auth::login($user);
+            // 3. log the new user in immediately
+            Auth::login($user);
 
-        // 4. Redirect the user
-        return redirect()->route('home')->with('success', 'Registration successsful! Welcome to UKM Kanvas!');
+            // 4. Redirect the user
+            return redirect()->route('home')->with('success', 'Registration successful! Welcome to UKM Kanvas, ' . $user->name . '!');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return back()
+                ->withErrors($e->errors())
+                ->withInput($request->except('password', 'password_confirmation'));
+        } catch (\Exception $e) {
+            return back()
+                ->with('error', 'Registration failed: ' . $e->getMessage())
+                ->withInput($request->except('password', 'password_confirmation'));
+        }
     }
 
     // log the user out of the application
