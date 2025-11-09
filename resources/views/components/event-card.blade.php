@@ -105,7 +105,9 @@
                     </div>
                     @endif
                 </div>
-                
+
+                {{-- DIAGNOSTIC CHECL --}}
+                <h3 style="color: red; background: yellow; margin-top: 10px;">--- BUTTON AREA RENDERING CHECK ---</h3>
                 {{-- FIX APPLIED: Button is now always visible --}}
                 <div class="mt-4">
                     <a href="{{ route('events.documentation', $event->id) }}" class="btn btn-gradient btn-lg px-4 py-2">
