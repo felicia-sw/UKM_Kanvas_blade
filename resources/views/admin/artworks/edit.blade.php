@@ -66,8 +66,7 @@
             {{-- Current Image Preview --}}
             <div class="mb-3">
                 <label class="form-label">Current Artwork Image</label>
-                {{-- Note: Assumes image_path is a full public URL, adjust if needed --}}
-                <img src="{{ asset($artwork->image_path) }}" alt="Current Image" class="img-thumbnail" style="max-height: 150px;">
+                <img src="{{ asset('storage/' . $artwork->image_path) }}" alt="Current Image" class="img-thumbnail" style="max-height: 150px;">
             </div>
 
             {{-- New Image Upload Field (Optional) --}}

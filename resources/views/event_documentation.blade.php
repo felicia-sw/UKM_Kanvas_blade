@@ -43,7 +43,7 @@
                      data-aos-delay="{{ ($index % 3) * 100 }}">
                     <div class="documentation-card">
                         <div class="documentation-image-container">
-                            <img src="{{ asset($documentation->image_path) }}" 
+                            <img src="{{ asset('storage/' . $documentation->image_path) }}" 
                                  alt="{{ $documentation->title }}" 
                                  class="documentation-image">
                             <div class="documentation-overlay">
@@ -84,7 +84,7 @@
         <div class="row g-0 h-100">
             <!-- Image Column -->
             <div class="col-lg-8 d-flex align-items-center justify-content-center p-4">
-                <img src="{{ asset($documentation->image_path) }}" 
+                <img src="{{ asset('storage/' . $documentation->image_path) }}" 
                      alt="{{ $documentation->title }}" 
                      class="modal-image">
             </div>

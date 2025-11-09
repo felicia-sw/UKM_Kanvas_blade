@@ -30,7 +30,7 @@
             {{-- Current Media Preview --}}
             <div class="mb-3">
                 <label class="form-label">Current Media</label>
-                <img src="{{ asset($documentation->image_path) }}" alt="Current Photo" class="img-thumbnail" style="max-height: 200px;">
+                <img src="{{ asset('storage/' . $documentation->image_path) }}" alt="Current Photo" class="img-thumbnail" style="max-height: 200px;">
             </div>
 
             {{-- Media File Upload Field (Optional) --}}
