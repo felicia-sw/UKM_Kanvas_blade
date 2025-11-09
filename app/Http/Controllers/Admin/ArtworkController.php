@@ -102,16 +102,17 @@ class ArtworkController extends Controller
         $data = $request->only('title', 'artist_name', 'category_id', 'description');
 
         // Handle image replacement if a new image is uploaded
-        if ($request->hasFile('image_file')) {
+        if ($request->hasFile('image_file')) { // (1) Checks if a new file exists
+            
             // Delete old image if it exists
-            if ($artwork->image_path) {
-                $oldPath = str_replace('storage/', '', $artwork->image_path);
-                Storage::disk('public')->delete($oldPath);
+            if ($artwork->image_path) { // (2) Checks the database for the old path
+                $oldPath = str_replace('storage/', '', $artwork->image_path); 
+                Storage::disk('public')->delete($oldPath); // (3) DELETES the physical file
             }
 
             // Store the new image
             $imagePath = $request->file('image_file')->store('artworks', 'public');
-            $data['image_path'] = 'storage/' . $imagePath;
+            $data['image_path'] = 'storage/' . $imagePath; // (4) Updates the database with the new path
         }
 
         // Update the artwork record
