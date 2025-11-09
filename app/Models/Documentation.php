@@ -17,23 +17,18 @@ class Documentation extends Model
 
     /**
      * The attributes that are mass assignable.
-     * 💡 FIX 2: Added file_path (renamed from image_path), file_type, caption, is_featured.
      */
     protected $fillable = [
         'event_id',
         'title',
-        'file_path', 
-        // 'file_type', 
-        'caption',
-        'is_featured',
+        'image_path',
     ];
 
     /**
      * The attributes that should be cast to native types.
-     * 💡 FIX 3: Added casting for the new boolean field.
      */
     protected $casts = [
-        'is_featured' => 'boolean',
+        // 'is_featured' => 'boolean', // Column doesn't exist yet
     ];
 
     /**

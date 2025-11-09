@@ -28,6 +28,12 @@ class DocumentationController extends Controller
 
     public function create(Event $event)
     {
+        // Check if event has ended
+        if ($event->end_date && now()->lt($event->end_date)) {
+            return redirect()->route('admin.events.index')
+                ->with('error', 'Cannot upload documentation for an event that has not ended yet. Event ends on: ' . $event->end_date->format('d M Y'));
+        }
+        
         return view('admin.documentation.create', compact('event'));
     }
 
@@ -36,7 +42,10 @@ class DocumentationController extends Controller
      */
     public function createAll()
     {
-        $events = Event::orderBy('start_date', 'desc')->get();
+        // Only show events that have ended
+        $events = Event::where('end_date', '<', now())
+            ->orderBy('start_date', 'desc')
+            ->get();
         return view('admin.documentation.create-all', compact('events'));
     }
 
@@ -45,10 +54,15 @@ class DocumentationController extends Controller
      */
     public function store(Request $request, Event $event)
     {
+        // Check if event has ended
+        if ($event->end_date && now()->lt($event->end_date)) {
+            return redirect()->route('admin.events.index')
+                ->with('error', 'Cannot upload documentation for an event that has not ended yet.');
+        }
+        
         $request->validate([
             'title' => 'required|string|max:255',
             'media_file' => 'required|file|mimes:jpeg,png,jpg|max:10240', // 10MB max for photo
-            'caption' => 'nullable|string',
         ]);
         
         $file = $request->file('media_file');
@@ -57,10 +71,7 @@ class DocumentationController extends Controller
         Documentation::create([
             'event_id' => $event->id,
             'title' => $request->title,
-            'file_path' => 'storage/' . $filePath, 
-            'file_type' => 'photo', 
-            'caption' => $request->caption,
-            'is_featured' => $request->has('is_featured'),
+            'image_path' => 'storage/' . $filePath,
         ]);
 
         return redirect()->route('admin.events.documentation.index', $event->id)
@@ -76,8 +87,15 @@ class DocumentationController extends Controller
             'event_id' => 'required|exists:events,id', 
             'title' => 'required|string|max:255',
             'media_file' => 'required|file|mimes:jpeg,png,jpg|max:10240', // 10MB max for photo
-            'caption' => 'nullable|string',
         ]);
+        
+        $event = Event::findOrFail($request->event_id);
+        
+        // Check if event has ended
+        if ($event->end_date && now()->lt($event->end_date)) {
+            return redirect()->route('admin.documentation.index')
+                ->with('error', 'Cannot upload documentation for an event that has not ended yet.');
+        }
         
         $file = $request->file('media_file');
         $filePath = $file->store('documentation', 'public');
@@ -85,10 +103,7 @@ class DocumentationController extends Controller
         Documentation::create([
             'event_id' => $request->event_id, 
             'title' => $request->title,
-            'file_path' => 'storage/' . $filePath, 
-            'file_type' => 'photo', 
-            'caption' => $request->caption,
-            'is_featured' => $request->has('is_featured'),
+            'image_path' => 'storage/' . $filePath,
         ]);
 
         return redirect()->route('admin.events.documentation.index', $request->event_id)
@@ -104,22 +119,19 @@ class DocumentationController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'media_file' => 'nullable|file|mimes:jpeg,png,jpg|max:10240', 
-            'caption' => 'nullable|string',
+            'media_file' => 'nullable|file|mimes:jpeg,png,jpg|max:10240',
         ]);
 
-        $data = $request->only(['title', 'caption']);
-        $data['is_featured'] = $request->has('is_featured');
-        $data['file_type'] = 'photo'; 
+        $data = $request->only(['title']);
 
         if ($request->hasFile('media_file')) {
-            if ($documentation->file_path) {
-                $oldPath = str_replace('storage/', '', $documentation->file_path);
+            if ($documentation->image_path) {
+                $oldPath = str_replace('storage/', '', $documentation->image_path);
                 Storage::disk('public')->delete($oldPath);
             }
             
             $filePath = $request->file('media_file')->store('documentation', 'public');
-            $data['file_path'] = 'storage/' . $filePath;
+            $data['image_path'] = 'storage/' . $filePath;
         }
 
         $documentation->update($data);
@@ -130,8 +142,8 @@ class DocumentationController extends Controller
 
     public function destroy(Event $event, Documentation $documentation)
     {
-        if ($documentation->file_path) {
-            $path = str_replace('storage/', '', $documentation->file_path);
+        if ($documentation->image_path) {
+            $path = str_replace('storage/', '', $documentation->image_path);
             Storage::disk('public')->delete($path);
         }
 

@@ -4,8 +4,8 @@
     {{-- Home Page Event Card Layout --}}
     <div class="card border-0 h-100 event-card">
         <div class="card-body p-4">
-            <div class="d-flex align-items-center mb-3">
-                <span class="badge bg-warning text-dark me-2 event-badge">
+            <div class="d-flex align-items-start mb-3 flex-wrap">
+                <span class="badge bg-warning text-dark me-2 mb-2 event-badge" style="max-width: 100%; word-wrap: break-word; white-space: normal; text-align: left;">
                     {{ $event->title }}
                 </span>
                 <small class="text-white-50 event-badge text-shadow-sm">

@@ -30,58 +30,17 @@
             {{-- Current Media Preview --}}
             <div class="mb-3">
                 <label class="form-label">Current Media</label>
-                @if ($documentation->file_type == 'photo')
-                    <img src="{{ asset($documentation->file_path) }}" alt="Current Photo" class="img-thumbnail" style="max-height: 200px;">
-                @elseif ($documentation->file_type == 'video')
-                    <video controls src="{{ asset($documentation->file_path) }}" class="img-thumbnail" style="max-height: 200px;">
-                        Your browser does not support the video tag.
-                    </video>
-                @endif
+                <img src="{{ asset($documentation->image_path) }}" alt="Current Photo" class="img-thumbnail" style="max-height: 200px;">
             </div>
 
             {{-- Media File Upload Field (Optional) --}}
-            <div class="mb-3">
-                <label for="media_file" class="form-label">Replace Media File (Optional)</label>
+            <div class="mb-4">
+                <label for="media_file" class="form-label">Replace Photo (Optional)</label>
                 <input type="file" class="form-control @error('media_file') is-invalid @enderror" id="media_file" name="media_file">
-                <div class="form-text">Leave blank to keep current file. Accepted formats: JPG, PNG, MP4, MOV. Max 50MB.</div>
+                <div class="form-text">Leave blank to keep current file. Accepted formats: JPG, PNG. Max 10MB.</div>
                 @error('media_file')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
-            </div>
-
-            {{-- Media Type (Photo/Video) Radio Buttons --}}
-            <div class="mb-4">
-                <label class="form-label d-block">Media Type <span class="text-danger">*</span></label>
-                @php $currentType = old('type', $documentation->file_type); @endphp
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="type" id="type_photo_edit" value="photo" {{ $currentType == 'photo' ? 'checked' : '' }} required>
-                    <label class="form-check-label" for="type_photo_edit">Photo</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="radio" name="type" id="type_video_edit" value="video" {{ $currentType == 'video' ? 'checked' : '' }} required>
-                    <label class="form-check-label" for="type_video_edit">Video</label>
-                </div>
-                @error('type')
-                    <div class="text-danger small">{{ $message }}</div>
-                @enderror
-            </div>
-
-            {{-- Caption Textarea --}}
-            <div class="mb-3">
-                <label for="caption" class="form-label">Caption (Optional)</label>
-                <textarea class="form-control @error('caption') is-invalid @enderror" name="caption" id="caption" rows="3">{{ old('caption', $documentation->caption) }}</textarea>
-                @error('caption')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-
-            {{-- Is Featured Checkbox --}}
-            <div class="form-check mb-4">
-                {{-- Uses the existing database value for default state --}}
-                <input class="form-check-input" type="checkbox" value="1" id="is_featured_edit" name="is_featured" {{ old('is_featured', $documentation->is_featured) ? 'checked' : '' }}>
-                <label class="form-check-label" for="is_featured_edit">
-                    Mark as Featured (Highlights this media)
-                </label>
             </div>
 
             <button type="submit" class="btn btn-admin-primary">

@@ -81,8 +81,8 @@
                         <td>{{ $event->start_date->format('d M Y') }}</td>
                         <td>
                             {{-- View Documentation button (Now working via nested route) --}}
-                            <a href="{{ route('admin.events.documentation.index', $event->id) }}" class="btn btn-sm btn-admin-outline-info me-1">
-                                <i class="bi bi-images me-1"></i>View Docs
+                            <a href="{{ route('admin.events.documentation.index', $event->id) }}" class="btn btn-sm btn-admin-outline-secondary me-1" style="border: 2px solid #6c757d !important;">
+                                <i class="bi bi-images me-1 color: #000000"></i>View Docs
                             </a>
                             
                             {{-- Delete form --}}

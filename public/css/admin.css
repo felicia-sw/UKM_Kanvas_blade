@@ -120,12 +120,53 @@
 }
 
 /* General Admin Elements */
-h1.h2, h5 {
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+    color: var(--text-color) !important;
+}
+
+p, div, span, label, a, td, th, li {
     color: var(--text-color);
 }
-p.text-muted {
+
+p.text-muted, .text-muted, small.text-muted {
     color: var(--text-muted) !important;
     font-size: 0.95rem;
+}
+
+/* Ensure all text in cards is white */
+.admin-card, .admin-card * {
+    color: var(--text-color);
+}
+
+/* Override Bootstrap's default dark text */
+.fw-bold, .fw-semibold {
+    color: var(--text-color) !important;
+}
+
+/* Form elements */
+.form-label {
+    color: var(--text-color) !important;
+}
+
+.form-control, .form-select {
+    background-color: var(--sidebar-bg);
+    border-color: var(--border-color);
+    color: var(--text-color);
+}
+
+.form-control:focus, .form-select:focus {
+    background-color: var(--sidebar-bg);
+    border-color: var(--primary-accent);
+    color: var(--text-color);
+    box-shadow: 0 0 0 0.2rem rgba(255, 152, 0, 0.25);
+}
+
+.form-control::placeholder {
+    color: var(--text-muted);
+}
+
+.form-text {
+    color: var(--text-muted) !important;
 }
 
 /* Admin Cards */
@@ -167,12 +208,29 @@ p.text-muted {
 .card-icon.bg-info { background-color: #00cfe8 !important; }
 .card-icon.bg-success { background-color: #28c76f !important; }
 
+/* Dashboard stat numbers - ensure they're bright white */
+.admin-card .fs-2 {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+
+.admin-card .fs-5 {
+    color: #ffffff !important;
+}
+
+/* Text color overrides for specific classes */
+.text-primary { color: #5a8dee !important; }
+.text-warning { color: #ff9f43 !important; }
+.text-info { color: #00cfe8 !important; }
+.text-success { color: #28c76f !important; }
+.text-danger { color: #ea5455 !important; }
+
 
 /* Dashboard Recent Activity List */
 .list-group-item {
     background-color: transparent;
     border-color: var(--border-color);
-    color: var(--text-color);
+    color: var(--text-color) !important;
     padding: 1rem 0; /* Adjust padding */
 }
 .list-group-item:first-child {
@@ -183,6 +241,39 @@ p.text-muted {
 }
 .list-group-item p {
     margin-bottom: 0.25rem !important;
+    color: var(--text-color) !important;
+}
+.list-group-item div, .list-group-item span {
+    color: var(--text-color) !important;
+}
+
+/* Badges */
+.badge {
+    font-weight: 500;
+}
+
+.badge.bg-secondary {
+    background-color: var(--card-bg) !important;
+    color: var(--text-color) !important;
+}
+
+/* Links */
+a:not(.btn) {
+    color: var(--primary-accent);
+    text-decoration: none;
+}
+
+a:not(.btn):hover {
+    color: var(--primary-accent-hover);
+}
+
+/* Card footer links */
+.card-footer a {
+    color: inherit !important;
+}
+
+.card-footer a:hover {
+    opacity: 0.8;
 }
 
 /* Table Styles */
@@ -225,36 +316,81 @@ p.text-muted {
 .btn-admin-primary {
     background-color: var(--primary-accent);
     border-color: var(--primary-accent);
-    color: var(--primary-accent-text); /* Dark text */
+    color: var(--primary-accent-text) !important; /* Dark text */
     font-weight: 500;
 }
 .btn-admin-primary:hover {
     background-color: var(--primary-accent-hover);
     border-color: var(--primary-accent-hover);
-    color: var(--primary-accent-text);
+    color: var(--primary-accent-text) !important;
+}
+
+.btn-admin-warning {
+    background-color: #ff9f43;
+    border-color: #ff9f43;
+    color: var(--primary-accent-text) !important;
+    font-weight: 500;
+}
+.btn-admin-warning:hover {
+    background-color: #ff8c1a;
+    border-color: #ff8c1a;
+    color: var(--primary-accent-text) !important;
+}
+
+.btn-admin-info {
+    background-color: #00cfe8;
+    border-color: #00cfe8;
+    color: var(--primary-accent-text) !important;
+    font-weight: 500;
+}
+.btn-admin-info:hover {
+    background-color: #00b8d4;
+    border-color: #00b8d4;
+    color: var(--primary-accent-text) !important;
 }
 
 /* Outline buttons matching screenshot orange/gray */
 .btn-admin-outline-warning {
-    color: var(--primary-accent);
+    color: var(--primary-accent) !important;
     border-color: var(--primary-accent);
+    background-color: transparent;
 }
 .btn-admin-outline-warning:hover {
     background-color: var(--primary-accent);
     border-color: var(--primary-accent);
-    color: var(--primary-accent-text);
+    color: var(--primary-accent-text) !important;
 }
 
-.btn-admin-outline-danger, /* Assuming Delete uses danger */
-.btn-admin-outline-secondary { /* Assuming Cancel/View Docs uses secondary */
-    color: var(--text-muted);
-    border-color: var(--text-muted);
+.btn-admin-outline-danger { /* Assuming Delete uses danger */
+    color: #ea5455 !important;
+    border-color: #ea5455;
+    background-color: transparent;
 }
-.btn-admin-outline-danger:hover,
+.btn-admin-outline-danger:hover {
+    background-color: #ea5455;
+    border-color: #ea5455;
+    color: #ffffff !important;
+}
+
+.btn-admin-outline-secondary { /* Assuming Cancel/View Docs uses secondary */
+    color: var(--text-color) !important;
+    border-color: var(--border-color);
+    background-color: transparent;
+}
 .btn-admin-outline-secondary:hover {
-    background-color: var(--text-muted);
+    background-color: var(--card-bg);
     border-color: var(--text-muted);
-    color: var(--text-color);
+    color: var(--text-color) !important;
+}
+
+/* Bootstrap default buttons override */
+.btn-outline-secondary {
+    color: var(--text-color) !important;
+    border-color: var(--border-color);
+}
+.btn-outline-secondary:hover {
+    background-color: var(--card-bg);
+    color: var(--text-color) !important;
 }
 
 /* Button sizing consistency */
@@ -296,6 +432,50 @@ p.text-muted {
 .documentation-image {
     height: 150px;
     object-fit: cover;
+}
+
+/* Alert Messages */
+.alert {
+    color: #ffffff !important;
+    border: none;
+}
+
+.alert-success {
+    background-color: rgba(40, 199, 111, 0.2);
+    border-left: 3px solid #28c76f;
+}
+
+.alert-danger {
+    background-color: rgba(234, 84, 85, 0.2);
+    border-left: 3px solid #ea5455;
+}
+
+.alert-warning {
+    background-color: rgba(255, 159, 67, 0.2);
+    border-left: 3px solid #ff9f43;
+}
+
+.alert-info {
+    background-color: rgba(0, 207, 232, 0.2);
+    border-left: 3px solid #00cfe8;
+}
+
+/* Invalid feedback for forms */
+.invalid-feedback {
+    color: #ea5455 !important;
+}
+
+.is-invalid {
+    border-color: #ea5455 !important;
+}
+
+/* Border utilities */
+.border-bottom {
+    border-color: var(--border-color) !important;
+}
+
+.border-top {
+    border-color: var(--border-color) !important;
 }
 
 

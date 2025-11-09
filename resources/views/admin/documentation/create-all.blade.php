@@ -43,30 +43,13 @@
             </div>
 
             {{-- Media File Upload Field (Photos Only) --}}
-            <div class="mb-3">
+            <div class="mb-4">
                 <label for="media_file" class="form-label">Select Photo File <span class="text-danger">*</span></label>
                 <input type="file" class="form-control @error('media_file') is-invalid @enderror" id="media_file" name="media_file" required>
                 <div class="form-text">Accepted formats: JPG, PNG. Max size: 10MB.</div>
                 @error('media_file')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
-            </div>
-
-            {{-- Caption Field --}}
-            <div class="mb-3">
-                <label for="caption" class="form-label">Caption / Description (Optional)</label>
-                <textarea class="form-control @error('caption') is-invalid @enderror" id="caption" name="caption" rows="3">{{ old('caption') }}</textarea>
-                @error('caption')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-
-            {{-- Is Featured Checkbox --}}
-            <div class="form-check mb-4">
-                <input class="form-check-input" type="checkbox" id="is_featured" name="is_featured" value="1" {{ old('is_featured') ? 'checked' : '' }}>
-                <label class="form-check-label" for="is_featured">
-                    Mark as Featured Photo (Appears prominently on the event page)
-                </label>
             </div>
 
             <button type="submit" class="btn btn-admin-primary">

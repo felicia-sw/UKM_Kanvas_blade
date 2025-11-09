@@ -27,8 +27,8 @@
             </div>
 
             {{-- Media File Upload Field --}}
-            <div class="mb-3">
-                <label for="media_file" class="form-label">Select Photo File (Accepted formats: JPG, PNG. Max size: 10MB.) <span class="text-danger">*</span></label>
+            <div class="mb-4">
+                <label for="media_file" class="form-label">Select Photo File <span class="text-danger">*</span></label>
                 <input type="file" class="form-control @error('media_file') is-invalid @enderror" id="media_file" name="media_file" required>
                 <div class="form-text">Accepted formats: JPG, PNG. Max size: 10MB.</div>
                 @error('media_file')
@@ -36,22 +36,6 @@
                 @enderror
             </div>
             
-            {{-- Caption Textarea --}}
-            <div class="mb-3">
-                <label for="caption" class="form-label">Caption (Optional)</label>
-                <textarea class="form-control @error('caption') is-invalid @enderror" name="caption" id="caption" rows="3">{{ old('caption') }}</textarea>
-                @error('caption')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-            {{-- Is Featured Checkbox --}}
-            <div class="form-check mb-4">
-                {{-- Defaults to unchecked (0) --}}
-                <input class="form-check-input" type="checkbox" value="1" id="is_featured" name="is_featured" {{ old('is_featured') ? 'checked' : '' }}>
-                <label class="form-check-label" for="is_featured">
-                    Mark as Featured (Highlights this media)
-                </label>
-            </div>
             <button type="submit" class="btn btn-admin-primary">
                 <i class="bi bi-cloud-upload me-2"></i>Upload Media
             </button>
