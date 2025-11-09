@@ -64,8 +64,7 @@ class DocumentationController extends Controller
         Documentation::create([
             'event_id' => $event->id,
             'title' => $request->title,
-            // FIX: Use 'file_path'
-            'file_path' => 'storage/' . $filePath, 
+            'file_path' => $filePath, 
         ]);
 
         return redirect()->route('admin.events.documentation.index', $event->id)
@@ -93,8 +92,7 @@ class DocumentationController extends Controller
         Documentation::create([
             'event_id' => $request->event_id, 
             'title' => $request->title,
-            // FIX: Use 'file_path'
-            'file_path' => 'storage/' . $filePath,
+            'file_path' => $filePath,
         ]);
 
         return redirect()->route('admin.events.documentation.index', $request->event_id)
@@ -125,15 +123,12 @@ class DocumentationController extends Controller
         $data = $request->only(['title']);
 
         if ($request->hasFile('media_file')) {
-            // FIX: Check and delete using 'file_path'
             if ($documentation->file_path) {
-                $oldPath = str_replace('storage/', '', $documentation->file_path);
-                Storage::disk('public')->delete($oldPath);
+                Storage::disk('public')->delete($documentation->file_path);
             }
             
             $filePath = $request->file('media_file')->store('documentation', 'public');
-            // FIX: Use 'file_path'
-            $data['file_path'] = 'storage/' . $filePath;
+            $data['file_path'] = $filePath;
         }
 
         $documentation->update($data);
@@ -147,10 +142,8 @@ class DocumentationController extends Controller
      */
     public function destroy(Event $event, Documentation $documentation)
     {
-        // FIX: Check and delete using 'file_path'
         if ($documentation->file_path) {
-            $path = str_replace('storage/', '', $documentation->file_path);
-            Storage::disk('public')->delete($path);
+            Storage::disk('public')->delete($documentation->file_path);
         }
 
         $documentation->delete();

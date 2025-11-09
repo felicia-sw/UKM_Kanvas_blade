@@ -14,7 +14,7 @@ class DocumentationFactory extends Factory
     {
         return [
             'title' => $this->faker->optional()->sentence(3),
-            'image_path' => 'documentation/' . $this->faker->uuid() . '.jpg',
+            'file_path' => 'documentation/' . $this->faker->uuid() . '.jpg',
             'event_id' => Event::factory(),
             'created_at' => $this->faker->dateTimeBetween('-1 year', 'now'),
         ];
