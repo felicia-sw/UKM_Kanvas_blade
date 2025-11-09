@@ -3,12 +3,17 @@
 @section('title', 'Art Gallery Management')
 
 @section('content')
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="h2">Art Gallery & Documentation</h1>
-    <div>
-        {{-- <a href="#" class="btn btn-admin-primary"><i class="bi bi-plus-lg me-2"></i>Add New Artwork</a>
-         --}}
+{{-- Success Message --}}
+@if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
 
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h2">Art Gallery Management</h1>
+    <div>
         <a href="{{ route('admin.artworks.create') }}" class="btn btn-admin-primary">
             <i class="bi bi-plus-lg me-2"></i>Add New Artwork
         </a>

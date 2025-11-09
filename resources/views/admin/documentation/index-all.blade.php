@@ -34,7 +34,6 @@
                         <th scope="col">#</th>
                         <th scope="col">Title</th>
                         <th scope="col">Event</th>
-                        <th scope="col">Featured</th>
                         <th scope="col">Upload Date</th>
                         <th scope="col">Actions</th>
                     </tr>
@@ -49,13 +48,6 @@
                                 <a href="{{ route('admin.events.documentation.index', $documentation->event_id) }}">
                                     {{ $documentation->event->title ?? 'N/A' }}
                                 </a>
-                            </td>
-                            <td>
-                                @if($documentation->is_featured)
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                @else
-                                    <i class="bi bi-x-circle-fill text-danger"></i>
-                                @endif
                             </td>
                             <td>{{ $documentation->created_at->format('d M Y') }}</td>
                             <td>

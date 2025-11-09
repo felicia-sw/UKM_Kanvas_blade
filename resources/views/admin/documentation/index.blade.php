@@ -31,8 +31,6 @@
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Title</th>
-                        <th scope="col">Media Type</th>
-                        <th scope="col">Featured</th>
                         <th scope="col">Upload Date</th>
                         <th scope="col">Actions</th>
                     </tr>
@@ -42,18 +40,6 @@
                         <tr>
                             <th scope="row">{{ $loop->iteration }}</th>
                             <td>{{ $documentation->title }}</td>
-                            <td>
-                                <span class="badge bg-{{ $documentation->file_type == 'photo' ? 'info' : 'secondary' }}">
-                                    {{ ucfirst($documentation->file_type) }}
-                                </span>
-                            </td>
-                            <td>
-                                @if($documentation->is_featured)
-                                    <i class="bi bi-star-fill text-warning"></i>
-                                @else
-                                    <i class="bi bi-x-circle-fill text-danger"></i>
-                                @endif
-                            </td>
                             <td>{{ $documentation->created_at->format('d M Y') }}</td>
                             <td>
                                 <a href="{{ route('admin.events.documentation.edit', ['event' => $event->id, 'documentation' => $documentation->id]) }}" class="btn btn-sm btn-admin-outline-warning me-1">

@@ -24,7 +24,10 @@
                     @endif
                 </div>
                 <div class="mt-4">
-                    <a href="{{ route('events', ['filter' => 'past']) }}" class="btn btn-outline-light btn-lg px-4">
+                    <a href="{{ route('events', ['filter' => 'past']) }}" class="btn btn-lg px-4" 
+                       data-aos="fade-up" 
+                       data-aos-delay="300"
+                       style="background-color: #FFEC77 !important; color: #1a1a2e !important; border: 2px solid #F8B803 !important; font-weight: bold !important; opacity: 1 !important; z-index: 1000 !important; position: relative !important; transition: all 0.3s ease !important;">
                         <i class="bi bi-arrow-left me-2"></i>Back to Events
                     </a>
                 </div>
@@ -40,20 +43,12 @@
                      data-aos-delay="{{ ($index % 3) * 100 }}">
                     <div class="documentation-card">
                         <div class="documentation-image-container">
-                            <img src="{{ asset($documentation->file_path) }}" 
+                            <img src="{{ asset($documentation->image_path) }}" 
                                  alt="{{ $documentation->title }}" 
                                  class="documentation-image">
                             <div class="documentation-overlay">
                                 <div class="documentation-info">
                                     <h4 class="text-white fw-bold mb-2">{{ $documentation->title }}</h4>
-                                    @if($documentation->caption)
-                                    <p class="text-white-50 mb-3">{{ $documentation->caption }}</p>
-                                    @endif
-                                    @if($documentation->is_featured)
-                                    <span class="badge text-dark mb-2" style="background: linear-gradient(135deg, #FFEC77, #F8B803);">
-                                        <i class="bi bi-star-fill me-1"></i>Featured
-                                    </span>
-                                    @endif
                                     <button class="btn btn-sm btn-gradient view-details-btn" 
                                             onclick="togglePopup(event, {{ $documentation->id }})">
                                         <i class="bi bi-eye me-2"></i>View Full Size
@@ -89,7 +84,7 @@
         <div class="row g-0 h-100">
             <!-- Image Column -->
             <div class="col-lg-8 d-flex align-items-center justify-content-center p-4">
-                <img src="{{ asset($documentation->file_path) }}" 
+                <img src="{{ asset($documentation->image_path) }}" 
                      alt="{{ $documentation->title }}" 
                      class="modal-image">
             </div>
@@ -97,13 +92,6 @@
             <!-- Details Column -->
             <div class="col-lg-4 p-4 modal-details">
                 <h2 class="text-white fw-bold mb-4">{{ $documentation->title }}</h2>
-                
-                @if($documentation->caption)
-                <div class="mb-4">
-                    <h5 class="text-accent mb-2"><i class="bi bi-chat-quote me-2"></i>Caption</h5>
-                    <p class="text-white-50">{{ $documentation->caption }}</p>
-                </div>
-                @endif
                 
                 <div class="mb-4">
                     <h5 class="text-accent mb-2"><i class="bi bi-calendar-event me-2"></i>Event</h5>
@@ -114,14 +102,6 @@
                     <h5 class="text-accent mb-2"><i class="bi bi-clock me-2"></i>Event Date</h5>
                     <p class="text-white-50">{{ date('d M Y', strtotime($event->start_date)) }}</p>
                 </div>
-                
-                @if($documentation->is_featured)
-                <div class="mb-4">
-                    <span class="badge text-dark fs-6 px-3 py-2" style="background: linear-gradient(135deg, #FFEC77, #F8B803);">
-                        <i class="bi bi-star-fill me-2"></i>Featured Photo
-                    </span>
-                </div>
-                @endif
                 
                 <div class="mb-4">
                     <h5 class="text-accent mb-2"><i class="bi bi-upload me-2"></i>Upload Date</h5>

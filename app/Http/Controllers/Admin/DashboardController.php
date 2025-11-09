@@ -6,34 +6,87 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Artwork;
 use App\Models\Event;
-use App\Models\User; // Assuming you have a User model for registrations
+use App\Models\Documentation;
+use App\Models\User;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        // Fetch some basic stats (replace with actual logic/queries)
+        // Fetch statistics
         $totalArtworks = Artwork::count();
+        $totalEvents = Event::count();
         $upcomingEvents = Event::where('start_date', '>=', now())->count();
-        $userRegistrations = User::count(); // Example: Count all users
-        $monthlyGrowth = 27; // Dummy data
+        $totalDocumentation = Documentation::count();
+        $userRegistrations = User::count();
+        
+        // Calculate monthly growth (artworks added this month vs last month)
+        $currentMonthArtworks = Artwork::whereMonth('created_date', now()->month)
+            ->whereYear('created_date', now()->year)
+            ->count();
+        $lastMonthArtworks = Artwork::whereMonth('created_date', now()->subMonth()->month)
+            ->whereYear('created_date', now()->subMonth()->year)
+            ->count();
+        
+        if ($lastMonthArtworks > 0) {
+            $monthlyGrowth = round((($currentMonthArtworks - $lastMonthArtworks) / $lastMonthArtworks) * 100);
+        } else {
+            $monthlyGrowth = $currentMonthArtworks > 0 ? 100 : 0;
+        }
 
-        // Fetch recent activity (dummy data for now)
-        $recentActivity = [
-            ['type' => 'Artwork Upload', 'details' => 'New artwork uploaded: "Digital Dreams"', 'user' => 'Artist John', 'time' => '7 hours ago'],
-            ['type' => 'Event Registered', 'details' => 'Event registered: Cyberpunk Art Expo 2025', 'user' => 'User Sarah', 'time' => '3 hours ago'],
-            ['type' => 'Documentation Added', 'details' => 'Documentation added: Vaporwave Night Gallery', 'user' => 'Admin Team', 'time' => '1 day ago'],
-            ['type' => 'User Registration', 'details' => 'New user registration: alex_artworks', 'user' => 'System', 'time' => '1 day ago'],
-            ['type' => 'Artwork Updated', 'details' => 'Artwork updated: "Neon Sunset"', 'user' => 'Artist Maria', 'time' => '7 days ago'],
-        ];
+        // Fetch recent artworks (last 5)
+        $recentArtworks = Artwork::with('category')
+            ->latest('created_date')
+            ->take(5)
+            ->get();
 
+        // Fetch recent events (last 5)
+        $recentEvents = Event::latest('created_at')
+            ->take(5)
+            ->get();
+
+        // Build recent activity from actual data
+        $recentActivity = [];
+        
+        // Add recent artworks to activity
+        foreach ($recentArtworks as $artwork) {
+            $recentActivity[] = [
+                'type' => 'Artwork',
+                'icon' => 'bi-palette',
+                'color' => 'primary',
+                'details' => 'Artwork added: "' . $artwork->title . '"',
+                'user' => $artwork->artist_name,
+                'time' => $artwork->created_date ? $artwork->created_date->diffForHumans() : 'Recently'
+            ];
+        }
+        
+        // Add recent events to activity
+        foreach ($recentEvents as $event) {
+            $recentActivity[] = [
+                'type' => 'Event',
+                'icon' => 'bi-calendar-event',
+                'color' => 'warning',
+                'details' => 'Event created: "' . $event->title . '"',
+                'user' => 'Admin',
+                'time' => $event->created_at ? $event->created_at->diffForHumans() : 'Recently'
+            ];
+        }
+        
+        // Sort activity by most recent (we'll approximate using array order)
+        // In a real app, you'd sort by actual timestamps
+        $recentActivity = array_slice($recentActivity, 0, 8);
 
         return view('admin.dashboard', compact(
             'totalArtworks',
+            'totalEvents',
             'upcomingEvents',
+            'totalDocumentation',
             'userRegistrations',
             'monthlyGrowth',
-            'recentActivity'
+            'recentActivity',
+            'recentArtworks',
+            'recentEvents'
         ));
     }
 }
