@@ -34,6 +34,11 @@
                         <td>{{ $event->start_date->format('d M Y, H:i') }}</td>
                         <td>{{ $event->location ?? 'Online Event' }}</td>
                         <td>
+                            {{-- FIX: Added View Documentation button for Upcoming Events --}}
+                            <a href="{{ route('admin.events.documentation.index', $event->id) }}" class="btn btn-sm btn-admin-outline-secondary me-1" style="border: 2px solid #6c757d !important;">
+                                <i class="bi bi-images me-1"></i>View Docs
+                            </a>
+                            
                             <a href="{{ route('admin.events.edit', $event->id) }}" class="btn btn-sm btn-admin-outline-warning me-1"><i class="bi bi-pencil me-1"></i>Edit</a>
                             
                             {{-- Delete form --}}
@@ -70,7 +75,9 @@
                 <thead>
                     <tr>
                         <th>Title</th>
-                        <th>Date</th>
+                        {{-- Added for alignment --}}
+                        <th>Location/Type</th> 
+                        <th>Start Date</th> {{-- This header refers to the start date --}}
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -78,11 +85,14 @@
                      @forelse($pastEvents as $event)
                     <tr>
                         <td>{{ $event->title }}</td>
+                        {{-- Added for alignment --}}
+                        <td>{{ $event->location ?? 'Online Event' }}</td> 
+                        {{-- Keeping start_date --}}
                         <td>{{ $event->start_date->format('d M Y') }}</td>
                         <td>
-                            {{-- View Documentation button (Now working via nested route) --}}
+                            {{-- View Documentation button --}}
                             <a href="{{ route('admin.events.documentation.index', $event->id) }}" class="btn btn-sm btn-admin-outline-secondary me-1" style="border: 2px solid #6c757d !important;">
-                                <i class="bi bi-images me-1 color: #000000"></i>View Docs
+                                <i class="bi bi-images me-1"></i>View Docs
                             </a>
                             
                             {{-- Delete form --}}
@@ -97,7 +107,8 @@
                     </tr>
                     @empty
                     <tr>
-                        <td colspan="3" class="text-center text-muted">No past events.</td>
+                        {{-- Updated colspan to 4 for alignment --}}
+                        <td colspan="4" class="text-center text-muted">No past events.</td>
                     </tr>
                     @endforelse
                 </tbody>

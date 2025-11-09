@@ -1,5 +1,3 @@
-// felicia-sw/ukm_kanvas_blade/UKM_Kanvas_blade-0b53f92b2505becaae0fa1f79d6eaecf074212d4/resources/views/admin/documentation/create-all.blade.php
-
 @extends('admin.layouts.admin')
 
 @section('title', 'Add New Documentation Photo')

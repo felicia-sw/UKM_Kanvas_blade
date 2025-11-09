@@ -24,7 +24,6 @@
 @elseif($layout === 'timeline')
     {{-- Events Page Timeline Layout --}}
     <div class="row event-item mb-5 pb-5 position-relative overflow-visible" data-index="{{ $loop->index ?? 0 }}">
-        <!-- Image Rectangle (Left Side) -->
         <div class="col-12 col-md-3 col-lg-3 col-xl-2 d-flex justify-content-center justify-content-md-start align-items-center mb-4 mb-md-0">
             <div class="event-rect border-3 border-white position-relative d-flex align-items-center justify-content-center overflow-hidden rounded-3 shadow-sm">
                 @if($event->poster_image)
@@ -39,20 +38,16 @@
             </div>
         </div>
 
-        <!-- Event Content (Right Side) -->
         <div class="col-12 col-md-9 col-lg-9 col-xl-10 d-flex flex-column justify-content-center ps-md-2 ps-xl-4">
-            <!-- Date at Top -->
             <div class="d-flex align-items-baseline mb-3">
                 <span class="display-4 fw-bold">{{ date('d', strtotime($event->start_date)) }}</span>
                 <span class="fs-4 text-uppercase ms-2">{{ strtoupper(date('M', strtotime($event->start_date))) }}</span>
             </div>
 
-            <!-- Event Info -->
             <div class="event-content">
                 <h2 class="h2 fw-bold mb-3">{{ $event->title }}</h2>
                 <p class="text-white fs-5 mb-4 lh-base">{{ $event->description }}</p>
 
-                <!-- Event Details -->
                 <div class="event-details">
                     <div class="d-flex align-items-start mb-2">
                         <i class="bi bi-clock text-accent fs-5 me-2 flex-shrink-0"></i>
@@ -110,15 +105,16 @@
                     </div>
                     @endif
                 </div>
-                
-                {{-- Show documentation button only for past events --}}
-                @if($filter === 'past')
+
+                {{-- DIAGNOSTIC CHECL --}}
+                <h3 style="color: red; background: yellow; margin-top: 10px;">--- BUTTON AREA RENDERING CHECK ---</h3>
+                {{-- FIX APPLIED: Button is now always visible --}}
                 <div class="mt-4">
                     <a href="{{ route('events.documentation', $event->id) }}" class="btn btn-gradient btn-lg px-4 py-2">
                         <i class="bi bi-images me-2"></i>View Event Documentation
                     </a>
                 </div>
-                @endif
+                
             </div>
         </div>
     </div>

@@ -9,26 +9,26 @@ class Documentation extends Model
 {
     use HasFactory;
     
-    // 💡 FIX 1: Allow Laravel to manage timestamps, matching the database migration
-    // We are deleting the custom timestamp logic to use the default settings
-    // Since your migration has $table->timestamps(), leave $timestamps to default (true)
-    // We also explicitly state the table name due to the pluralization confusion in your down() method
+    // Explicitly state table name 
     protected $table = 'documentations'; 
 
     /**
      * The attributes that are mass assignable.
+     * Only include the columns you want to allow in create/update operations.
      */
     protected $fillable = [
         'event_id',
         'title',
-        'image_path',
+        // FIX: Change the mass assignment key from 'image_path' to 'file_path'
+        'file_path',
+        // IMPORTANT: We explicitly exclude 'file_type', 'caption', 'is_featured'
     ];
 
     /**
      * The attributes that should be cast to native types.
      */
     protected $casts = [
-        // 'is_featured' => 'boolean', // Column doesn't exist yet
+        // REMOVED: 'is_featured' casting since we are not using it
     ];
 
     /**
@@ -36,7 +36,6 @@ class Documentation extends Model
      */
     public function event()
     {
-        // We can safely remove the second argument as Laravel defaults to 'event_id'
         return $this->belongsTo(Event::class);
     }
 }
