@@ -22,8 +22,22 @@ class DocumentationController extends Controller
      */
     public function indexAll()
     {
-        $documentations = Documentation::with('event')->orderBy('created_at', 'desc')->paginate(10);
-        return view('admin.documentation.index-all', compact('documentations'));
+        $search = request('search');
+        $eventFilter = request('event');
+        
+        $documentations = Documentation::with('event')
+            ->when($search, function ($query, $search) {
+                return $query->where('title', 'like', "%{$search}%");
+            })
+            ->when($eventFilter, function ($query, $eventFilter) {
+                return $query->where('event_id', $eventFilter);
+            })
+            ->orderBy('created_at', 'desc')
+            ->paginate(10);
+            
+        $events = Event::all();
+        
+        return view('admin.documentation.index-all', compact('documentations', 'events'));
     }
 
     /**

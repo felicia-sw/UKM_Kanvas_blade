@@ -25,6 +25,40 @@
     </div>
 @endif
 
+{{-- Search and Filter Bar --}}
+<div class="card admin-card mb-4">
+    <div class="card-body">
+        <form action="{{ route('admin.documentation.index.all') }}" method="GET" class="row g-3">
+            <div class="col-md-6">
+                <input type="text" name="search" class="form-control" 
+                       placeholder="Search" 
+                       value="{{ request('search') }}">
+            </div>
+            <div class="col-md-4">
+                <select name="event" class="form-select">
+                    <option value="">All Events</option>
+                    @foreach($events as $eventOption)
+                    <option value="{{ $eventOption->id }}" {{ request('event') == $eventOption->id ? 'selected' : '' }}>
+                        {{ $eventOption->title }}
+                    </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-admin-primary w-100">
+                    <i class="bi bi-search me-2"></i>Search
+                </button>
+            </div>
+            @if(request('search') || request('event'))
+            <div class="col-12">
+                <a href="{{ route('admin.documentation.index.all') }}" class="btn btn-admin-secondary">
+                </a>
+            </div>
+            @endif
+        </form>
+    </div>
+</div>
+
 <div class="admin-card">
     <div class="card-body">
         <div class="table-responsive">
@@ -76,7 +110,7 @@
         
         {{-- Pagination Links --}}
         <div class="d-flex justify-content-center">
-            {{ $documentations->links('vendor.pagination.bootstrap-5-admin') }}
+            {{ $documentations->appends(request()->query())->links('vendor.pagination.bootstrap-5-admin') }}
         </div>
     </div>
 </div>

@@ -11,8 +11,27 @@ class EventController extends Controller
 {
     public function index()
     {
-        $upcomingEvents = Event::where('start_date', '>=', now())->orderBy('start_date', 'asc')->paginate(10, ['*'], 'upcoming_page');
-        $pastEvents = Event::where('start_date', '<', now())->orderBy('start_date', 'desc')->paginate(10, ['*'], 'past_page');
+        $search = request('search');
+        
+        $upcomingEvents = Event::query()
+            ->when($search, function ($query, $search) {
+                return $query->where('title', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%")
+                    ->orWhere('location', 'like', "%{$search}%");
+            })
+            ->where('start_date', '>=', now())
+            ->orderBy('start_date', 'asc')
+            ->paginate(10, ['*'], 'upcoming_page');
+            
+        $pastEvents = Event::query()
+            ->when($search, function ($query, $search) {
+                return $query->where('title', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%")
+                    ->orWhere('location', 'like', "%{$search}%");
+            })
+            ->where('start_date', '<', now())
+            ->orderBy('start_date', 'desc')
+            ->paginate(10, ['*'], 'past_page');
 
         return view('admin.event.index', compact('upcomingEvents', 'pastEvents'));
     }

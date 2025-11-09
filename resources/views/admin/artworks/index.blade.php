@@ -21,6 +21,40 @@
 </div>
 <p class="text-muted mb-4">Manage artworks displayed in the gallery.</p>
 
+{{-- Search and Filter Bar --}}
+<div class="card admin-card mb-4">
+    <div class="card-body">
+        <form action="{{ route('admin.artworks.index') }}" method="GET" class="row g-3">
+            <div class="col-md-6">
+                <input type="text" name="search" class="form-control" 
+                       placeholder="Search" 
+                       value="{{ request('search') }}">
+            </div>
+            <div class="col-md-4">
+                <select name="category" class="form-select">
+                    <option value="">All Categories</option>
+                    @foreach($categories as $category)
+                    <option value="{{ $category->id }}" {{ request('category') == $category->id ? 'selected' : '' }}>
+                        {{ $category->name }}
+                    </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-admin-primary w-100">
+                    <i class="bi bi-search me-2"></i>Search
+                </button>
+            </div>
+            @if(request('search') || request('category'))
+            <div class="col-12">
+                <a href="{{ route('admin.artworks.index') }}" class="btn btn-admin-secondary">
+                </a>    
+            </div>
+            @endif
+        </form>
+    </div>
+</div>
+
 <div class="card admin-card">
     <div class="card-header">
        Artwork List
@@ -73,7 +107,7 @@
         </div>
 
          <div class="d-flex justify-content-center mt-4">
-             {{ $artworks->links('vendor.pagination.bootstrap-5-admin') }}
+             {{ $artworks->appends(request()->query())->links('vendor.pagination.bootstrap-5-admin') }}
          </div>
     </div>
 </div>

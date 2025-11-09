@@ -15,19 +15,29 @@ class ArtworkController extends Controller
      */
     public function index(Request $request)
     {
-        // Query Artworks with their category
-        $query = Artwork::with('category')->latest();
+        $search = $request->input('search');
+        $categoryFilter = $request->input('category');
         
-        // Filter by category_id if requested
-        if ($request->has('category') && $request->category != '') {
-            $query->where('category_id', $request->category); 
-        }
+        // Query Artworks with their category
+        $query = Artwork::with('category')
+            ->when($search, function ($q, $search) {
+                return $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('artist_name', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%");
+            })
+            ->when($categoryFilter, function ($q, $categoryFilter) {
+                return $q->where('category_id', $categoryFilter);
+            })
+            ->latest();
 
         // Fetch paginated artworks (10 per page for admin)
         $artworks = $query->paginate(10);
         
+        // Fetch all categories for the filter dropdown
+        $categories = ArtworkCategory::all();
+        
         // Return the ADMIN view
-        return view('admin.artworks.index', compact('artworks'));
+        return view('admin.artworks.index', compact('artworks', 'categories'));
     }
     
     /**
