@@ -42,7 +42,7 @@ class EventController extends Controller
 
         // 3. prepare data and create event 
         $data = $request->except(['_token', 'poster_image']);
-        $data['poster_image'] = 'storage/' . $imagePath;
+        $data['poster_image'] = $imagePath;
         $data['is_active'] = $request->has('is_active');
 
         Event::create($data); // USES THE EVENT MODEL to insert a new row into the events table in the database
@@ -78,13 +78,12 @@ class EventController extends Controller
         // handle file upload IF new image provided
         if($request->hasFile('poster_image')) { // if new file exists, the lofic runs; prevents accidental deletion if the field is left blank
             if ($event->poster_image) {
-                $oldPath = str_replace('storage/', '', $event->poster_image);
-                Storage::disk('public')->delete($oldPath);
+                Storage::disk('public')->delete($event->poster_image);
             }
 
             // store the new image
             $imagePath = $request->file('poster_image')->store('events/posters', 'public');
-            $data['poster_image'] = 'storage/' . $imagePath;
+            $data['poster_image'] = $imagePath;
         }
 
         // 4. update database record
@@ -99,8 +98,7 @@ class EventController extends Controller
     {
         // 1. deleteassociated image file 
         if ($event->poster_image) { // checks if a poster image exists to safely attampt deletion 
-            $path = str_replace('storage/','', $event->poster_image);
-            Storage::disk('public')->delete($path); // deletes the record from database; the deletion must happen before the database record is removed
+            Storage::disk('public')->delete($event->poster_image); // deletes the record from database; the deletion must happen before the database record is removed
         }
 
         // 2. delete the database record

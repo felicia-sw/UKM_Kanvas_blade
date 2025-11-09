@@ -71,7 +71,7 @@ class DocumentationController extends Controller
         Documentation::create([
             'event_id' => $event->id,
             'title' => $request->title,
-            'image_path' => 'storage/' . $filePath,
+            'image_path' => $filePath,
         ]);
 
         return redirect()->route('admin.events.documentation.index', $event->id)
@@ -103,7 +103,7 @@ class DocumentationController extends Controller
         Documentation::create([
             'event_id' => $request->event_id, 
             'title' => $request->title,
-            'image_path' => 'storage/' . $filePath,
+            'image_path' => $filePath,
         ]);
 
         return redirect()->route('admin.events.documentation.index', $request->event_id)
@@ -126,12 +126,11 @@ class DocumentationController extends Controller
 
         if ($request->hasFile('media_file')) {
             if ($documentation->image_path) {
-                $oldPath = str_replace('storage/', '', $documentation->image_path);
-                Storage::disk('public')->delete($oldPath);
+                Storage::disk('public')->delete($documentation->image_path);
             }
             
             $filePath = $request->file('media_file')->store('documentation', 'public');
-            $data['image_path'] = 'storage/' . $filePath;
+            $data['image_path'] = $filePath;
         }
 
         $documentation->update($data);
@@ -143,8 +142,7 @@ class DocumentationController extends Controller
     public function destroy(Event $event, Documentation $documentation)
     {
         if ($documentation->image_path) {
-            $path = str_replace('storage/', '', $documentation->image_path);
-            Storage::disk('public')->delete($path);
+            Storage::disk('public')->delete($documentation->image_path);
         }
 
         $documentation->delete();

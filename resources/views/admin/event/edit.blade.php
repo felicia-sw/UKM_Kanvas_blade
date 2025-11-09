@@ -105,8 +105,7 @@
             @if ($event->poster_image)
             <div class="mb-3">
                 <label class="form-label">Current Event Poster</label>
-                {{-- asset() generates the public path to the image --}}
-                <img src="{{ asset($event->poster_image) }}" alt="Current Poster" class="img-thumbnail" style="max-height: 150px;">
+                <img src="{{ asset('storage/' . $event->poster_image) }}" alt="Current Poster" class="img-thumbnail" style="max-height: 150px;">
             </div>
             @endif
 

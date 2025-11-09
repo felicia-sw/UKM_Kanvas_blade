@@ -64,7 +64,7 @@ class ArtworkController extends Controller
             'artist_name' => $request->artist_name,
             'category_id' => $request->category_id,
             'description' => $request->description,
-            'image_path' => 'storage/' . $imagePath,
+            'image_path' => $imagePath,
             'created_date' => now(),
         ]);
 
@@ -105,13 +105,12 @@ class ArtworkController extends Controller
         if ($request->hasFile('image_file')) {
             // Delete old image if it exists
             if ($artwork->image_path) {
-                $oldPath = str_replace('storage/', '', $artwork->image_path);
-                Storage::disk('public')->delete($oldPath);
+                Storage::disk('public')->delete($artwork->image_path);
             }
 
             // Store the new image
             $imagePath = $request->file('image_file')->store('artworks', 'public');
-            $data['image_path'] = 'storage/' . $imagePath;
+            $data['image_path'] = $imagePath;
         }
 
         // Update the artwork record
@@ -129,8 +128,7 @@ class ArtworkController extends Controller
     {
         // Delete the image file from storage
         if ($artwork->image_path) {
-            $imagePath = str_replace('storage/', '', $artwork->image_path);
-            Storage::disk('public')->delete($imagePath);
+            Storage::disk('public')->delete($artwork->image_path);
         }
 
         // Delete the artwork record
