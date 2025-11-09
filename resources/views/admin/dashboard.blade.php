@@ -69,31 +69,20 @@
          </div>
     </div>
 
-    {{-- Monthly Growth --}}
+    {{-- user regist total --}}
     <div class="col-xl-3 col-md-6">
         <div class="card admin-card h-100">
             <div class="card-body d-flex align-items-center">
                  <div class="card-icon bg-success text-white me-3">
-                    <i class="bi bi-graph-up-arrow fs-4"></i>
+                    <i class="bi bi-people fs-4"></i>
                 </div>
                 <div>
-                    <div class="fs-2 fw-bold">
-                        {{ $monthlyGrowth > 0 ? '+' : '' }}{{ $monthlyGrowth }}%
-                    </div>
-                    <div class="text-muted">Monthly Growth</div>
-                    <small class="text-muted">Artwork additions</small>
+                    <div class="fs-2 fw-bold">{{ $userRegistrations }}  </div>
+                    <div class="text-muted">User Regist</div>
                 </div>
             </div>
-            <div class="card-footer bg-transparent border-top-0">
-                <span class="text-muted small">
-                    @if($monthlyGrowth > 0)
-                        <i class="bi bi-arrow-up text-success"></i> Increasing
-                    @elseif($monthlyGrowth < 0)
-                        <i class="bi bi-arrow-down text-danger"></i> Decreasing
-                    @else
-                        <i class="bi bi-dash"></i> No change
-                    @endif
-                </span>
+              <div class="card-footer bg-transparent border-top-0">
+            <i class="bi bi-dash"></i> -
             </div>
         </div>
     </div>
@@ -102,9 +91,74 @@
 {{-- Recent Activity Section --}}
 <div class="row g-4">
     <div class="col-lg-8">
+        <div class="card admin-card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><i class=" me-2"></i>Recent Events</h5>
+
+            </div>
+            <div class="card-body">
+                @if(count($recentEvents) > 0)
+                    <ul class="list-group list-group-flush">
+                        @foreach($recentEvents as $event)
+                            <li class="list-group-item d-flex justify-content-between align-items-start px-0">
+                                <div>
+                                    <div class="fw-semibold">{{ $event->title }}</div>
+                                    <small class="text-muted">{{ $event->location ?? 'No location' }} • {{ date('d M Y', strtotime($event->start_date)) }}</small>
+                                </div>
+                                <a href="{{ route('admin.events.edit', $event) }}" class="btn btn-sm btn-outline-warning">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                @else
+                    <div class="text-center py-5 text-muted">
+                        <i class="bi bi-inbox fs-1 d-block mb-3"></i>
+                        <p>No events found.</p>
+                    </div>
+                @endif
+            </div>
+        </div>
+        
         <div class="card admin-card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0"><i class="bi bi-activity me-2"></i>Recent Activity</h5>
+                <h5 class="mb-0"><i class=" me-2"></i>Recent Artworks</h5>
+            </div>
+            <div class="card-body">
+                @if(count($recentArtworks) > 0)
+                    <ul class="list-group list-group-flush">
+                        @foreach($recentArtworks as $artwork)
+                            <li class="list-group-item d-flex justify-content-between align-items-start px-0">
+                                <div class="d-flex align-items-center">
+                                    <img src="{{ asset('storage/' . $artwork->image_path) }}" 
+                                         alt="{{ $artwork->title }}" 
+                                         style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;" 
+                                         class="me-3">
+                                    <div>
+                                        <div class="fw-semibold">{{ $artwork->title }}</div>
+                                        <small class="text-muted">by {{ $artwork->artist_name }} • {{ $artwork->category->name ?? 'N/A' }}</small>
+                                    </div>
+                                </div>
+                                <a href="{{ route('admin.artworks.edit', $artwork) }}" class="btn btn-sm btn-outline-warning">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                            </li>
+                        @endforeach
+                    </ul>
+                @else
+                    <div class="text-center py-5 text-muted">
+                        <i class="bi bi-inbox fs-1 d-block mb-3"></i>
+                        <p>No artworks found.</p>
+                    </div>
+                @endif
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-4">
+        <div class="card admin-card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0"><i class=" me-2"></i>Recent Activity</h5>
                 <span class="badge bg-secondary">Last 8 items</span>
             </div>
             <div class="card-body">
@@ -136,60 +190,6 @@
             </div>
         </div>
     </div>
-
-    {{-- Quick Stats Sidebar --}}
-    <div class="col-lg-4">
-        <div class="card admin-card mb-4">
-            <div class="card-header">
-                <h5 class="mb-0"><i class="bi bi-bar-chart me-2"></i>Quick Stats</h5>
-            </div>
-            <div class="card-body">
-                <div class="mb-3 pb-3 border-bottom">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="text-muted">Artworks</span>
-                        <span class="fs-5 fw-bold text-primary">{{ $totalArtworks }}</span>
-                    </div>
-                </div>
-                <div class="mb-3 pb-3 border-bottom">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="text-muted">Events</span>
-                        <span class="fs-5 fw-bold text-warning">{{ $totalEvents }}</span>
-                    </div>
-                </div>
-                <div class="mb-3 pb-3 border-bottom">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="text-muted">Documentation</span>
-                        <span class="fs-5 fw-bold text-info">{{ $totalDocumentation }}</span>
-                    </div>
-                </div>
-                <div>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <span class="text-muted">Users</span>
-                        <span class="fs-5 fw-bold text-success">{{ $userRegistrations }}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        {{-- Quick Actions
-        <div class="card admin-card">
-            <div class="card-header">
-                <h5 class="mb-0"><i class="bi bi-lightning me-2"></i>Quick Actions</h5>
-            </div>
-            <div class="card-body">
-                <div class="d-grid gap-2">
-                    <a href="{{ route('admin.artworks.create') }}" class="btn btn-admin-primary">
-                        <i class="bi bi-plus-lg me-2"></i>Add Artwork
-                    </a>
-                    <a href="{{ route('admin.events.create') }}" class="btn btn-admin-warning">
-                        <i class="bi bi-plus-lg me-2"></i>Add Event
-                    </a>
-                    <a href="{{ route('admin.documentation.create.all') }}" class="btn btn-admin-info">
-                        <i class="bi bi-plus-lg me-2"></i>Add Documentation
-                    </a>
-                </div>
-            </div>
-        </div> --}}
     </div>
 </div>
 @endsection

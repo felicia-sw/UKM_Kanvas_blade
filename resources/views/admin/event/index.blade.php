@@ -11,10 +11,35 @@
 </div>
 <p class="text-muted mb-4">Organize and track your events.</p>
 
+{{-- Search Bar --}}
+<div class="card admin-card mb-4">
+    <div class="card-body">
+        <form action="{{ route('admin.events.index') }}" method="GET" class="row g-3">
+            <div class="col-md-10">
+                <input type="text" name="search" class="form-control" 
+                       placeholder="search" 
+                       value="{{ request('search') }}">
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-admin-primary w-100">
+                    <i class="bi bi-search me-2"></i>Search
+                </button>
+            </div>
+            @if(request('search'))
+            <div class="col-12">
+                <a href="{{ route('admin.events.index') }}" class="btn btn-admin-secondary">
+                  
+                </a>
+               
+            </div>
+            @endif
+        </form>
+    </div>
+</div>
+
 <div class="card admin-card mb-4">
     <div class="card-header d-flex justify-content-between align-items-center">
        <h5 class="mb-0">Upcoming Events</h5>
-       {{-- Filter/Search can go here --}}
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -60,7 +85,7 @@
             </table>
         </div>
          <div class="d-flex justify-content-center mt-4">
-             {{ $upcomingEvents->appends(['past_page' => $pastEvents->currentPage()])->links('vendor.pagination.bootstrap-5-admin') }}
+             {{ $upcomingEvents->appends(request()->query())->links('vendor.pagination.bootstrap-5-admin') }}
          </div>
     </div>
 </div>
@@ -115,7 +140,7 @@
             </table>
         </div>
         <div class="d-flex justify-content-center mt-4">
-            {{ $pastEvents->appends(['upcoming_page' => $upcomingEvents->currentPage()])->links('vendor.pagination.bootstrap-5-admin') }}
+            {{ $pastEvents->appends(request()->query())->links('vendor.pagination.bootstrap-5-admin') }}
          </div>
     </div>
 </div>

@@ -35,14 +35,28 @@ class DashboardController extends Controller
             $monthlyGrowth = $currentMonthArtworks > 0 ? 100 : 0;
         }
 
-        // Fetch recent artworks (last 5)
-        $recentArtworks = Artwork::with('category')
-            ->latest('created_date')
+        // Search for events
+        $eventSearch = request('event_search');
+        $recentEvents = Event::query()
+            ->when($eventSearch, function ($query, $search) {
+                return $query->where('title', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%")
+                    ->orWhere('location', 'like', "%{$search}%");
+            })
+            ->latest('created_at')
             ->take(5)
             ->get();
 
-        // Fetch recent events (last 5)
-        $recentEvents = Event::latest('created_at')
+        // Search for artworks
+        $artworkSearch = request('artwork_search');
+        $recentArtworks = Artwork::query()
+            ->with('category')
+            ->when($artworkSearch, function ($query, $search) {
+                return $query->where('title', 'like', "%{$search}%")
+                    ->orWhere('artist_name', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%");
+            })
+            ->latest('created_date')
             ->take(5)
             ->get();
 
