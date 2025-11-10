@@ -12,7 +12,7 @@
 
 <div class="admin-card">
     <div class="card-body">
-        {{-- IMPORTANT: enctype is required for file uploads --}}
+        
         <form action="{{ route('admin.events.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
