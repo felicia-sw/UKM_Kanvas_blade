@@ -10,24 +10,44 @@ use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
+    /**
+     * Where to redirect users after login based on their role.
+     * This helps Laravel know where to send users after authentication.
+     */
+    protected function redirectTo()
+    {
+        if (Auth::check() && Auth::user()->is_admin) {
+            return route('admin.dashboard');
+        }
+        return route('home');
+    }
+
     // this is to handle incoming authentication requests [login]
     // this method handles the POST request from the login modal
 
     public function login(Request $request) 
     {
         // 1. validate the incoming request data 
-        $credentials = $request->validate([
-            'email' => ['required', 'email'],
-            'password' => ['required'],
-        ]);
+        try {
+            $credentials = $request->validate([
+                'email' => ['required', 'email'],
+                'password' => ['required'],
+            ]);
+        } catch (ValidationException $e) {
+            // If validation fails, redirect back to home with the modal errors
+            return redirect()->route('home')
+                ->withErrors($e->errors())
+                ->withInput($request->only('email'));
+        }
 
         // 2, attempt to log the user in
        if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
 
             if (Auth::user()->is_admin) {
-                // If user is admin, redirect to admin dashboard
-                return redirect()->intended(route('admin.dashboard'))
+                // If user is admin, redirect directly to admin dashboard
+                // Force redirect to admin dashboard without using intended() to avoid page expired issues
+                return redirect()->route('admin.dashboard')
                     ->with('success', 'Welcome back, Admin!');
             }
 
@@ -36,7 +56,8 @@ class AuthController extends Controller
                 ->with('success', 'Welcome back, ' . Auth::user()->name . '!');
         }
 
-        return back()
+        // If authentication fails, redirect back to home with error
+        return redirect()->route('home')
             ->withErrors([
                 'email' => 'The provided credentials do not match our records.',
             ])
