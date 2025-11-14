@@ -1,6 +1,6 @@
-@@extends('admin.layouts.admin')
+@extends('admin.layouts.admin')
 
-@@section('content')
+@section('content')
 <div class="container-fluid">
     <h1 class="h3 mb-2 text-gray-800">Merchandise</h1>
     <p class="mb-4">Manage your club's merchandise here.</p>

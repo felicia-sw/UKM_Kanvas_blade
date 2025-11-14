@@ -43,9 +43,4 @@
     </div>
 
 </div>
-
-{{-- 
-Note: For the styles to apply, make sure the CSS from the previous step 
-is at the end of your public/css/app.css file.
---}}
 @endsection
