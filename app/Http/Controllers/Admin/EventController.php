@@ -38,12 +38,12 @@ class EventController extends Controller
 
     public function create()
     {
-        return view('admin.event.create'); // to return the creation form view
+        return view('admin.event.create');
     }
 
     public function store(Request $request)
     {
-        // 1. validation
+        
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -56,17 +56,17 @@ class EventController extends Controller
             'max_participants' => 'nullable|integer|min:1',
         ]);
 
-        // 2. handle file upload for post
+        
         $imagePath = $request->file('poster_image')->store('events/posters', 'public');
 
-        // 3. prepare data and create event 
+    
         $data = $request->except(['_token', 'poster_image']);
         $data['poster_image'] = $imagePath;
         $data['is_active'] = $request->has('is_active');
 
-        Event::create($data); // USES THE EVENT MODEL to insert a new row into the events table in the database
+        Event::create($data);
 
-        // 4. redirect with success message
+        
         return redirect()->route('admin.events.index')->with('success', 'Event created successfully');
     }
 
@@ -77,11 +77,11 @@ class EventController extends Controller
 
     public function update(Request $request, Event $event)
     { 
-        // 1. Validation
+       
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'poster_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Now nullable
+            'poster_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'start_date' => 'required|date_format:Y-m-d\TH:i',
             'end_date' => 'nullable|date_format:Y-m-d\TH:i|after:start_date',
             'registration_deadline' => 'nullable|date|before:start_date',
@@ -90,17 +90,17 @@ class EventController extends Controller
             'max_participants' => 'nullable|integer|min:1',
         ]);
 
-        // 2. prepare data for update
+        
         $data = $request->except(['_token', '_method', 'poster_image']);
         $data['is_active'] = $request->has('is_active');
 
-        // handle file upload IF new image provided
-        if($request->hasFile('poster_image')) { // if new file exists, the lofic runs; prevents accidental deletion if the field is left blank
+      
+        if($request->hasFile('poster_image')) {
             if ($event->poster_image) {
                 Storage::disk('public')->delete($event->poster_image);
             }
 
-            // store the new image
+           
             $imagePath = $request->file('poster_image')->store('events/posters', 'public');
             $data['poster_image'] = $imagePath;
         }
