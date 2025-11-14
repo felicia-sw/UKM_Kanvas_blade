@@ -9,7 +9,7 @@ class EventController extends Controller
 {
     public function index()
         {
-            // Get filter from query (?filter=past or ?filter=upcoming)
+            
             $filter = request('filter', 'upcoming');
 
             if ($filter === 'past') {
@@ -18,7 +18,6 @@ class EventController extends Controller
                     ->orderBy('start_date', 'desc')
                     ->get();
             } else {
-                // Default: upcoming/now
                 $events = Event::active()
                     ->where('start_date', '>=', now())
                     ->orderBy('start_date', 'asc')
