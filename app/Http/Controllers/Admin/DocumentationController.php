@@ -10,16 +10,13 @@ use Illuminate\Support\Facades\Storage;
 
 class DocumentationController extends Controller
 {
-    // The index method receives the Event object due to nested routing
-    public function index(Event $event)
+      public function index(Event $event)
     {
         $documentations = $event->documentations()->orderBy('created_at', 'desc')->paginate(10);
         return view('admin.documentation.index', compact('event', 'documentations'));
     }
 
-    /**
-     * Display a listing of ALL documentation records across all events (admin.documentation.index.all).
-     */
+    
     public function indexAll()
     {
         $search = request('search');
@@ -40,33 +37,19 @@ class DocumentationController extends Controller
         return view('admin.documentation.index-all', compact('documentations', 'events'));
     }
 
-    /**
-     * NESTED CREATE: Show the form for creating a new documentation entry linked to a specific event.
-     * Allowed for any event (removed date check).
-     */
+    
     public function create(Event $event)
     {
-        // Removed: Check if event has ended. Now allows upload to any event.
-        return view('admin.documentation.create', compact('event'));
+          return view('admin.documentation.create', compact('event'));
     }
 
-    /**
-     * GLOBAL CREATE: Show the form for creating a new documentation entry where the event is selected via a dropdown.
-     */
     public function createAll()
     {
-        // FIX: Remove 'where' clause to show ALL events in the dropdown.
-        $events = Event::orderBy('start_date', 'desc')->get();
+         $events = Event::orderBy('start_date', 'desc')->get();
         return view('admin.documentation.create-all', compact('events'));
     }
-
-    /**
-     * NESTED STORE: Store a newly created resource in storage (admin.events.documentation.store).
-     */
     public function store(Request $request, Event $event)
     {
-        // Removed: Check if event has ended.
-        
         $request->validate([
             'title' => 'required|string|max:255',
             'media_file' => 'required|file|mimes:jpeg,png,jpg|max:10240', // 10MB max for photo
@@ -85,9 +68,6 @@ class DocumentationController extends Controller
                          ->with('success', 'Documentation added successfully!');
     }
     
-    /**
-     * GLOBAL STORE: Store a newly created resource in storage (admin.documentation.store.all).
-     */
     public function storeAll(Request $request)
     {
         $request->validate([
@@ -98,8 +78,7 @@ class DocumentationController extends Controller
         
         $event = Event::findOrFail($request->event_id);
         
-        // Removed: Check if event has ended.
-        
+      
         $file = $request->file('media_file');
         $filePath = $file->store('documentation', 'public');
         
@@ -113,21 +92,12 @@ class DocumentationController extends Controller
                          ->with('success', 'Documentation added successfully!');
     }
     
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Event $event, Documentation $documentation)
-    {
-        // FIX: Fetch all events for the dropdown (if the form allows changing the linked event)
-        $events = Event::all();
+      public function edit(Event $event, Documentation $documentation)
+    {  $events = Event::all();
         
         return view('admin.documentation.edit', compact('event', 'documentation', 'events'));
     }
-    
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Event $event, Documentation $documentation)
+       public function update(Request $request, Event $event, Documentation $documentation)
     {
         $request->validate([
             'title' => 'required|string|max:255',
@@ -151,10 +121,7 @@ class DocumentationController extends Controller
                         ->with('success', 'Documentation updated successfully!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Event $event, Documentation $documentation)
+      public function destroy(Event $event, Documentation $documentation)
     {
         if ($documentation->file_path) {
             Storage::disk('public')->delete($documentation->file_path);
