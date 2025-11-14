@@ -51,6 +51,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link text-white px-3 py-2 rounded-3 {{ request()->routeIs('merchandise') ? 'active' : '' }}"
+                                href="{{ route('Merchandise') }}">
+                                <i class="bi bi-info-circle me-2"></i>Merchandise
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link text-white px-3 py-2 rounded-3 {{ request()->routeIs('contact') ? 'active' : '' }}"
                                 href="{{ route('contact') }}">
                                 <i class="bi bi-envelope me-2"></i>Contact

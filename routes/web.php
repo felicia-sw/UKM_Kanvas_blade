@@ -6,12 +6,14 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\ArtworkController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MerchandiseController;
 // Admin Controllers are aliased to avoid naming conflicts with public controllers
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ArtworkController as AdminArtworkController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\DocumentationController as AdminDocumentationController;
+use App\Http\Controllers\Admin\MerchandiseController as AdminMerchandiseController;
 
 
 // ===============================================
@@ -29,6 +31,8 @@ Route::get('/art-gallery', [ArtworkController::class, 'index'])->name('art_galle
 
 Route::get('/artworks/{id}', [ArtworkController::class, 'show'])->name('artworks.show');
 
+// Merchandise Page
+Route::get('/merchandise', [MerchandiseController::class, 'index'])->name('merchandise');
 
 Route::get('/about', function () {
     return view('about');
@@ -79,4 +83,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::post('documentation/store-all', [AdminDocumentationController::class, 'storeAll'])->name('documentation.store.all');
     
     Route::resource('events.documentation', AdminDocumentationController::class)->except(['show']);
+
+    Route::resource('merchandise', AdminMerchandiseController::class);
 });

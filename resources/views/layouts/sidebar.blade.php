@@ -30,6 +30,11 @@
                 Events
             </a>
         </li>
+        <li class="nav-item {{ request()->routeIs('admin.merchandise.*') ? 'active' : '' }}">
+            <a class="nav-link" href="{{ route('admin.merchandise.index') }}">
+                <i class="fas fa-fw fa-shopping-bag"></i>
+                <span>Merchandise</span></a>
+        </li>
         {{-- NEW: Global Documentation Link --}}
         <li class="nav-item mb-1">
             <a href="{{ route('admin.documentation.index.all') }}"
