@@ -29,9 +29,17 @@ class EventController extends Controller
     
     public function show($id)
     {
-        $event = Event::with('documentation')->findOrFail($id);
+        $event = Event::with('registrations')->findOrFail($id);
         
-        return view('events.show', compact('event'));
+        // Check if current user already registered
+        $userRegistration = null;
+        if (auth()->check()) {
+            $userRegistration = $event->registrations()
+                ->where('user_id', auth()->id())
+                ->first();
+        }
+        
+        return view('events.show', compact('event', 'userRegistration'));
     }
     
     public function showDocumentation($id)

@@ -108,9 +108,17 @@
 
             
                 <div class="mt-4">
-                    <a href="{{ route('events.documentation', $event->id) }}" class="btn btn-gradient btn-lg px-4 py-2">
-                        <i class="bi bi-images me-2"></i>View Event Documentation
-                    </a>
+                    @if($filter === 'past')
+                        {{-- Past Event: Show Documentation Button --}}
+                        <a href="{{ route('events.documentation', $event->id) }}" class="btn btn-gradient btn-lg px-4 py-2">
+                            <i class="bi bi-images me-2"></i>View Event Documentation
+                        </a>
+                    @else
+                        {{-- Upcoming Event: Show Event Details Button --}}
+                        <a href="{{ route('events.show', $event->id) }}" class="btn btn-gradient btn-lg px-4 py-2">
+                            <i class="bi bi-info-circle me-2"></i>View Details & Register
+                        </a>
+                    @endif
                 </div>
                 
             </div>

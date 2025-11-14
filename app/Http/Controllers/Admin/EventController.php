@@ -54,6 +54,10 @@ class EventController extends Controller
             'price' => 'nullable|numeric|min:0',
             'location' => 'nullable|string|max:255',
             'max_participants' => 'nullable|integer|min:1',
+            'has_multiple_days' => 'nullable|boolean',
+            'day_1_price' => 'nullable|numeric|min:0',
+            'day_2_price' => 'nullable|numeric|min:0',
+            'both_days_price' => 'nullable|numeric|min:0',
         ]);
 
         
@@ -88,6 +92,10 @@ class EventController extends Controller
             'price' => 'nullable|numeric|min:0',
             'location' => 'nullable|string|max:255',
             'max_participants' => 'nullable|integer|min:1',
+            'has_multiple_days' => 'nullable|boolean',
+            'day_1_price' => 'nullable|numeric|min:0',
+            'day_2_price' => 'nullable|numeric|min:0',
+            'both_days_price' => 'nullable|numeric|min:0',
         ]);
 
         
@@ -125,5 +133,11 @@ class EventController extends Controller
 
         // 3. redirecct
         return redirect()->route('admin.events.index')->with('success', 'Event deleted successfully');
+    }
+
+    public function registrations(Event $event)
+    {
+        $event->load(['registrations.user']);
+        return view('admin.event.registrations', compact('event'));
     }
 }

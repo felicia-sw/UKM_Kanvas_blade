@@ -59,6 +59,11 @@
                         <td>{{ $event->start_date->format('d M Y, H:i') }}</td>
                         <td>{{ $event->location ?? 'Online Event' }}</td>
                         <td>
+                            {{-- View Registrations button --}}
+                            <a href="{{ route('admin.events.registrations', $event->id) }}" class="btn btn-sm btn-admin-outline-primary me-1">
+                                <i class="bi bi-person-lines-fill me-1"></i>Registrations
+                            </a>
+                            
                             {{-- FIX: Added View Documentation button for Upcoming Events --}}
                             <a href="{{ route('admin.events.documentation.index', $event->id) }}" class="btn btn-sm btn-admin-outline-secondary me-1" style="border: 2px solid #6c757d !important;">
                                 <i class="bi bi-images me-1"></i>View Docs
@@ -115,6 +120,11 @@
                         {{-- Keeping start_date --}}
                         <td>{{ $event->start_date->format('d M Y') }}</td>
                         <td>
+                            {{-- View Registrations button --}}
+                            <a href="{{ route('admin.events.registrations', $event->id) }}" class="btn btn-sm btn-admin-outline-primary me-1">
+                                <i class="bi bi-person-lines-fill me-1"></i>Registrations
+                            </a>
+                            
                             {{-- View Documentation button --}}
                             <a href="{{ route('admin.events.documentation.index', $event->id) }}" class="btn btn-sm btn-admin-outline-secondary me-1" style="border: 2px solid #6c757d !important;">
                                 <i class="bi bi-images me-1"></i>View Docs

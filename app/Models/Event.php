@@ -20,7 +20,11 @@ class Event extends Model
         'price',
         'location',
         'max_participants',
-        'is_active'
+        'is_active',
+        'has_multiple_days',
+        'day_1_price',
+        'day_2_price',
+        'both_days_price',
     ];
 
     protected $casts = [
@@ -29,11 +33,20 @@ class Event extends Model
         'registration_deadline' => 'date',
         'price' => 'decimal:2',
         'is_active' => 'boolean',
+        'has_multiple_days' => 'boolean',
+        'day_1_price' => 'decimal:2',
+        'day_2_price' => 'decimal:2',
+        'both_days_price' => 'decimal:2',
     ];
 
     public function documentations()
     {
         return $this->hasMany(Documentation::class, 'event_id');
+    }
+
+    public function registrations()
+    {
+        return $this->hasMany(EventRegistration::class);
     }
     
     public function scopeActive($query)
@@ -44,5 +57,31 @@ class Event extends Model
     public function scopeUpcoming($query)
     {
         return $query->where('start_date', '>=', now())->orderBy('start_date');
+    }
+
+    public function isPastEvent()
+    {
+        return $this->end_date < now();
+    }
+
+    public function canRegister()
+    {
+        return !$this->isPastEvent() && 
+               $this->registration_deadline >= now() &&
+               $this->is_active;
+    }
+
+    public function getTotalIncome()
+    {
+        return $this->registrations()
+            ->where('payment_status', 'verified')
+            ->sum('amount_paid');
+    }
+
+    public function getVerifiedParticipantsCount()
+    {
+        return $this->registrations()
+            ->where('payment_status', 'verified')
+            ->count();
     }
 }
