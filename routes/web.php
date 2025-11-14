@@ -7,6 +7,7 @@ use App\Http\Controllers\ArtworkController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MerchandiseController;
+use App\Http\Controllers\EventRegistrationController;
 // Admin Controllers are aliased to avoid naming conflicts with public controllers
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -61,6 +62,13 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 // ===============================================
+// EVENT REGISTRATION ROUTES
+Route::middleware('auth')->group(function () {
+    Route::post('/events/{event}/register', [EventRegistrationController::class, 'store'])->name('events.register');
+});
+
+
+// ===============================================
 // ADMIN ROUTES
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
@@ -74,6 +82,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     // Events Full CRUD
     Route::resource('events', AdminEventController::class)->except(['show']);
 
+    // Event Registrations
+    Route::get('events/{event}/registrations', [AdminEventController::class, 'registrations'])->name('events.registrations');
+
     
     Route::get('documentation/all', [AdminDocumentationController::class, 'indexAll'])->name('documentation.index.all');
     
@@ -85,4 +96,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::resource('events.documentation', AdminDocumentationController::class)->except(['show']);
 
     Route::resource('merchandise', AdminMerchandiseController::class);
+
+    // Event Registration Management
+    Route::patch('/registrations/{registration}/status', [EventRegistrationController::class, 'updateStatus'])->name('registrations.update-status');
 });
