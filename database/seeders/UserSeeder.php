@@ -10,25 +10,21 @@ class UserSeeder extends Seeder
 {
     public function run(): void
     {
-        // Create the Admin User
         User::create([
             'name' => 'Admin Kanvas',
             'email' => 'admin@gmail.com',
-            'password' => Hash::make('adminKanvas123'), // Hash the password
-            'is_admin' => true, // Set as admin
+            'password' => Hash::make('adminKanvas123'), 
+            'is_admin' => true, 
             'email_verified_at' => now(),
         ]);
 
-        // Optional: Create a regular test user
         User::create([
             'name' => 'Test User',
             'email' => 'test@gmail.com',
-            'password' => Hash::make('password'), // Default password
+            'password' => Hash::make('password'), 
             'is_admin' => false,
             'email_verified_at' => now(),
         ]);
 
-        // Optional: Create more random users
-        // User::factory(10)->create();
     }
 }
