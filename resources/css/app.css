@@ -217,3 +217,106 @@ h6 {
         font-size: 14px;
     }
 }
+
+/*
+|--------------------------------------------------------------------------
+| Merchandise Page Styles
+|--------------------------------------------------------------------------
+*/
+.merchandise-page {
+    position: relative;
+    z-index: 1;
+}
+
+.merch-title {
+    font-weight: 800;
+    font-size: 2.5rem;
+    color: #4a00e0; /* Deep purple */
+}
+
+.merch-subtitle {
+    font-size: 1.2rem;
+    color: #555;
+}
+
+.merch-card {
+    background: #ffffff;
+    border-radius: 20px;
+    border: 3px solid transparent;
+    /* Gradient border simulation */
+    background-image: linear-gradient(white, white), 
+                      linear-gradient(135deg, #ff6b6b, #4a00e0); /* Pink to Purple gradient */
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    overflow: hidden; /* To keep rounded corners on image */
+}
+
+.merch-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(74, 0, 224, 0.2);
+}
+
+.merch-card-image-container {
+    padding: 15px;
+}
+
+.merch-card-image {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 15px; /* Rounded corners for the image */
+}
+
+.merch-card-body {
+    padding: 15px 25px 25px 25px;
+    text-align: center;
+}
+
+.merch-card-title {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.merch-card-price {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #4a00e0; /* Gradient color */
+}
+
+/* Decorative elements */
+.merch-decor {
+    position: absolute;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+.mascot-decor {
+    bottom: -50px;
+    left: -30px;
+    width: 250px;
+    opacity: 0.8;
+}
+
+.cloud-decor-1 {
+    top: 80px;
+    right: -50px;
+    width: 150px;
+    opacity: 0.7;
+}
+
+.cloud-decor-2 {
+    top: 30%;
+    left: -40px;
+    width: 120px;
+    opacity: 0.6;
+}
+
+.cloud-decor-3 {
+    bottom: 20%;
+    right: -30px;
+    width: 180px;
+}
