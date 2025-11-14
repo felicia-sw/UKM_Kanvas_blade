@@ -6,7 +6,6 @@
 <div class="documentation-page text-white min-vh-100 py-5">
     <div class="container-fluid">
         
-        <!-- Page Header -->
         <div class="row justify-content-center text-center mb-5 mt-5 pt-5">
             <div class="col-12">
                 <h1 class="page-title display-1 fw-bold text-uppercase mb-4" data-aos="fade-down">{{ $event->title }}</h1>
@@ -34,7 +33,7 @@
             </div>
         </div>
 
-        <!-- Documentation Gallery Grid -->
+        <!-- Documentation gallery grid -->
         <div class="container pb-5">
             <div class="row g-4 gallery-grid">
                 @forelse($event->documentations as $index => $documentation)
@@ -72,24 +71,24 @@
     </div>
 </div>
 
-<!-- Modal-style Popup for Documentation Details -->
+<!-- Modal  popup for documentation details -->
 @foreach($event->documentations as $documentation)
 <div class="documentation-modal-overlay" id="popup-{{ $documentation->id }}" onclick="closePopup({{ $documentation->id }})">
     <div class="documentation-modal-container" onclick="event.stopPropagation()">
-        <!-- Close Button -->
+      
         <button class="modal-close-btn" onclick="closePopup({{ $documentation->id }})">
             <i class="bi bi-x-lg"></i>
         </button>
         
         <div class="row g-0 h-100">
-            <!-- Image Column -->
+           
             <div class="col-lg-8 d-flex align-items-center justify-content-center p-4">
                 <img src="{{ asset('storage/' . $documentation->file_path) }}" 
                      alt="{{ $documentation->title }}" 
                      class="modal-image">
             </div>
             
-            <!-- Details Column -->
+         
             <div class="col-lg-4 p-4 modal-details">
                 <h2 class="text-white fw-bold mb-4">{{ $documentation->title }}</h2>
                 
