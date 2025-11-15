@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -12,16 +13,20 @@ class EventController extends Controller
             
             $filter = request('filter', 'upcoming');
 
-            if ($filter === 'past') {
-                $events = Event::active()
-                    ->where('start_date', '<', now())
-                    ->orderBy('start_date', 'desc')
-                    ->get();
-            } else {
-                $events = Event::active()
-                    ->where('start_date', '>=', now())
-                    ->orderBy('start_date', 'asc')
-                    ->get();
+                    if ($filter === 'upcoming') {
+                        $events = Event::active()
+                            ->where('start_date', '>=', now())
+                            ->orderBy('start_date', 'asc')
+                            ->get();
+                    } elseif ($filter === 'past') {
+                        $events = Event::active()
+                            ->where('start_date', '<', now())
+                            ->orderBy('start_date', 'desc')
+                            ->get();
+                    } elseif ($filter === 'all') {
+                        $events = Event::active()
+                            ->orderBy('start_date', 'asc')
+                            ->get();
             }
 
             return view('events', compact('events', 'filter'));
@@ -33,9 +38,9 @@ class EventController extends Controller
         
         // Check if current user already registered
         $userRegistration = null;
-        if (auth()->check()) {
+        if (Auth::check()) {
             $userRegistration = $event->registrations()
-                ->where('user_id', auth()->id())
+                ->where('user_id', Auth::id())
                 ->first();
         }
         

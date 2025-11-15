@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use App\Models\EventRegistration;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class EventRegistrationController extends Controller
 {
@@ -37,8 +39,8 @@ class EventRegistrationController extends Controller
 
         $registration = EventRegistration::create([
             'event_id' => $event->id,
-            'user_id' => auth()->id(),
-            'name' => auth()->user()->name,
+            'user_id' => Auth::id(),
+            'name' => Auth::user()->name,
             'nim' => $validated['nim'],
             'jurusan' => $validated['jurusan'],
             'asal_universitas' => $validated['asal_universitas'],
@@ -47,6 +49,14 @@ class EventRegistrationController extends Controller
             'days_attending' => $validated['days_attending'] ?? null,
             'payment_proof' => $paymentProofPath,
             'amount_paid' => $amount,
+        ]);
+
+        // Create notification for user
+        Notification::create([
+            'user_id' => Auth::id(),
+            'event_id' => $event->id,
+            'type' => 'registration',
+            'message' => "You have successfully registered for {$event->title}. Your payment is being verified.",
         ]);
 
         return redirect()->back()->with('success', 'Registration submitted successfully! Please wait for payment verification.');
