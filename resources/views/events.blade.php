@@ -20,6 +20,7 @@
     <div class="row justify-content-center mb-4">
       <div class="col-auto">
         <div class="btn-group btn-group-toggle" data-toggle="buttons">
+          <a href="{{ route('events', ['filter' => 'all']) }}" class="btn btn-filter btn-lg px-4 py-2 {{ ($filter ?? 'upcoming') === 'all' ? 'active' : '' }}">All Events</a>
           <a href="{{ route('events', ['filter' => 'upcoming']) }}" class="btn btn-filter btn-lg px-4 py-2 {{ ($filter ?? 'upcoming') === 'upcoming' ? 'active' : '' }}">Now & Upcoming</a>
           <a href="{{ route('events', ['filter' => 'past']) }}" class="btn btn-filter btn-lg px-4 py-2 {{ ($filter ?? 'upcoming') === 'past' ? 'active' : '' }}">Past Events</a>
         </div>

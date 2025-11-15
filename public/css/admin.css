@@ -278,13 +278,27 @@ a:not(.btn):hover {
 
 /* Table Styles */
 .admin-table {
+
     color: var(--text-color);
-    border-color: var(--border-color); /* Apply border color */
-    margin-bottom: 0; /* Remove default margin */
+    background-color: var(--card-bg);
+    border-color: var(--border-color);
+    margin-bottom: 0;
+}
+/* Ensure all tables in admin views, including merchandise and documentation, use dark backgrounds */
+table, th, td {
+    background-color: var(--card-bg) !important;
+    color: var(--text-color) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* Table numbering column (if using .table-index or .table-number) */
+.table-index, .table-number {
+    background-color: #22262e !important;
+    color: var(--text-muted) !important;
 }
 
 .admin-table thead th {
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: #22262e;
     border-bottom: 2px solid var(--border-color);
     color: var(--text-muted);
     font-weight: 600;
@@ -296,6 +310,7 @@ a:not(.btn):hover {
 }
 
 .admin-table tbody tr {
+    background-color: var(--card-bg);
     border-color: var(--border-color);
 }
 .admin-table tbody tr:last-child td {
@@ -303,10 +318,12 @@ a:not(.btn):hover {
 }
 
 .admin-table tbody tr:hover {
-    background-color: rgba(255, 255, 255, 0.03);
+    background-color: #1a1d24;
 }
 
 .admin-table td {
+    background-color: var(--card-bg);
+    color: var(--text-color);
     padding: 0.75rem 1rem;
     vertical-align: middle;
     border-top: 1px solid var(--border-color);

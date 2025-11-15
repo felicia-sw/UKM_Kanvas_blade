@@ -10,9 +10,17 @@ class MerchandiseController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $merchandiseItems = Merchandise::latest()->get();
-        return view('merchandise', compact('merchandiseItems'));
+        $category = $request->query('category', 'all');
+        $query = Merchandise::query();
+
+        if ($category !== 'all') {
+            $query->where('category', $category);
+        }
+
+        $merchandises = $query->get();
+        $categories = Merchandise::select('category')->distinct()->pluck('category');
+        return view('merchandise', compact('merchandises', 'categories', 'category'));
     }
 }

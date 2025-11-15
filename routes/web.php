@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MerchandiseController;
 use App\Http\Controllers\EventRegistrationController;
+use App\Http\Controllers\NotificationController;
 // Admin Controllers are aliased to avoid naming conflicts with public controllers
 use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\DashboardController;
@@ -65,6 +66,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // EVENT REGISTRATION ROUTES
 Route::middleware('auth')->group(function () {
     Route::post('/events/{event}/register', [EventRegistrationController::class, 'store'])->name('events.register');
+    
+    // Notification routes
+    Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::patch('/notifications/{notification}/mark-read', [NotificationController::class, 'markAsRead'])->name('notifications.mark-read');
+    Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.mark-all-read');
 });
 
 
