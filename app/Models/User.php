@@ -42,4 +42,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Notification::class)->where('is_read', false);
     }
+
+    public function duesPayments()
+    {
+        return $this->hasMany(DuesPayment::class);
+    }
+
+    public function verifiedDuesPayments()
+    {
+        return $this->hasMany(DuesPayment::class, 'verified_by');
+    }
 }
