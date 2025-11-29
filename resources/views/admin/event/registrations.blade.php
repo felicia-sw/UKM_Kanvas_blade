@@ -16,7 +16,12 @@
     <!-- Event Info Header -->
     <div class="card mb-4">
         <div class="card-body">
-            <h1 class="h3 mb-3">{{ $event->title }}</h1>
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h1 class="h3 mb-0">{{ $event->title }}</h1>
+                <a href="{{ route('admin.events.finances.recap', $event->id) }}" class="btn btn-primary">
+                    <i class="bi bi-calculator me-2"></i>View Financial Recap
+                </a>
+            </div>
             <div class="row">
                 <div class="col-md-6">
                     <p class="mb-1"><strong>Date:</strong> {{ $event->start_date->format('d M Y, H:i') }}</p>

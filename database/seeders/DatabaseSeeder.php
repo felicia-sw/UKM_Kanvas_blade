@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
             ArtworkSeeder::class,
             EventSeeder::class,
             DocumentationSeeder::class,
+            IncomeExpenseSeeder::class,
         ]);
     }
 }

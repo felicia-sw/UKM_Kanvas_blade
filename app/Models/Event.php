@@ -50,6 +50,21 @@ class Event extends Model
     {
         return $this->hasMany(EventRegistration::class);
     }
+
+    public function incomeExpenses()
+    {
+        return $this->hasMany(IncomeExpense::class);
+    }
+
+    public function incomes()
+    {
+        return $this->hasMany(IncomeExpense::class)->where('type', 'income');
+    }
+
+    public function expenses()
+    {
+        return $this->hasMany(IncomeExpense::class)->where('type', 'expense');
+    }
     
     public function scopeActive($query)
     {
@@ -85,5 +100,47 @@ class Event extends Model
         return $this->registrations()
             ->where('payment_status', 'verified')
             ->count();
+    }
+
+    // Get total income from manual entries (pemasukan)
+    public function getTotalManualIncome()
+    {
+        return $this->incomes()->sum('amount');
+    }
+
+    // Get total expenses (pengeluaran)
+    public function getTotalExpenses()
+    {
+        return $this->expenses()->sum('amount');
+    }
+
+    // Get total income including registration fees
+    public function getTotalAllIncome()
+    {
+        return $this->getTotalIncome() + $this->getTotalManualIncome();
+    }
+
+    // Get net balance (income - expenses)
+    public function getNetBalance()
+    {
+        return $this->getTotalAllIncome() - $this->getTotalExpenses();
+    }
+
+    // Check if budget is exceeded
+    public function isBudgetExceeded()
+    {
+        if (!$this->budget) {
+            return false;
+        }
+        return $this->getTotalExpenses() > $this->budget;
+    }
+
+    // Get budget status percentage
+    public function getBudgetUsagePercentage()
+    {
+        if (!$this->budget || $this->budget == 0) {
+            return 0;
+        }
+        return ($this->getTotalExpenses() / $this->budget) * 100;
     }
 }
