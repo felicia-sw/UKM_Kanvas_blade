@@ -64,6 +64,11 @@
                                 <i class="bi bi-person-lines-fill me-1"></i>Registrations
                             </a>
                             
+                            {{-- Financial Recap button --}}
+                            <a href="{{ route('admin.events.finances.recap', $event->id) }}" class="btn btn-sm btn-admin-outline-success me-1">
+                                <i class="bi bi-calculator me-1"></i>Finances
+                            </a>
+                            
                             {{-- FIX: Added View Documentation button for Upcoming Events --}}
                             <a href="{{ route('admin.events.documentation.index', $event->id) }}" class="btn btn-sm btn-admin-outline-secondary me-1" style="border: 2px solid #6c757d !important;">
                                 <i class="bi bi-images me-1"></i>View Docs
@@ -123,6 +128,11 @@
                             {{-- View Registrations button --}}
                             <a href="{{ route('admin.events.registrations', $event->id) }}" class="btn btn-sm btn-admin-outline-primary me-1">
                                 <i class="bi bi-person-lines-fill me-1"></i>Registrations
+                            </a>
+                            
+                            {{-- Financial Recap button --}}
+                            <a href="{{ route('admin.events.finances.recap', $event->id) }}" class="btn btn-sm btn-admin-outline-success me-1">
+                                <i class="bi bi-calculator me-1"></i>Finances
                             </a>
                             
                             {{-- View Documentation button --}}

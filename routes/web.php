@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\ArtworkController as AdminArtworkController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\DocumentationController as AdminDocumentationController;
 use App\Http\Controllers\Admin\MerchandiseController as AdminMerchandiseController;
+use App\Http\Controllers\Admin\IncomeExpenseController;
 
 
 // ===============================================
@@ -90,6 +91,15 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 
     // Event Registrations
     Route::get('events/{event}/registrations', [AdminEventController::class, 'registrations'])->name('events.registrations');
+
+    // Event Financial Management (Pemasukan & Pengeluaran)
+    Route::get('events/{event}/finances', [IncomeExpenseController::class, 'recap'])->name('events.finances.recap');
+    Route::get('events/{event}/finances/income/create', [IncomeExpenseController::class, 'createIncome'])->name('events.finances.income.create');
+    Route::get('events/{event}/finances/expense/create', [IncomeExpenseController::class, 'createExpense'])->name('events.finances.expense.create');
+    Route::post('events/{event}/finances', [IncomeExpenseController::class, 'store'])->name('events.finances.store');
+    Route::get('events/{event}/finances/{incomeExpense}/edit', [IncomeExpenseController::class, 'edit'])->name('events.finances.edit');
+    Route::put('events/{event}/finances/{incomeExpense}', [IncomeExpenseController::class, 'update'])->name('events.finances.update');
+    Route::delete('events/{event}/finances/{incomeExpense}', [IncomeExpenseController::class, 'destroy'])->name('events.finances.destroy');
 
     
     Route::get('documentation/all', [AdminDocumentationController::class, 'indexAll'])->name('documentation.index.all');
