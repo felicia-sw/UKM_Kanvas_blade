@@ -1,0 +1,24 @@
+{
+    "php.suggest.basic": false,
+    "php.validate.enable": true,
+    "php.validate.executablePath": "C:\\php\\php.exe"","intelephense.files.maxSize": 5000000,
+    "intelephense.completion.triggerParameterHints": true,
+    "intelephense.completion.insertUseDeclaration": true,
+    "files.associations": {
+        "*.blade.php": "blade"
+    },
+    "emmet.includeLanguages": {
+        "blade": "html"
+    },
+    "tailwindCSS.includeLanguages": {
+        "blade": "html"
+    },
+    "editor.quickSuggestions": {
+        "strings": true
+    },
+    "editor.autoClosingBrackets": "always",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true
+    }
+}
