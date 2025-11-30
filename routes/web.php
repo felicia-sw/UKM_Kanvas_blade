@@ -16,6 +16,13 @@ use App\Http\Controllers\Admin\ArtworkController as AdminArtworkController;
 use App\Http\Controllers\Admin\EventController as AdminEventController;
 use App\Http\Controllers\Admin\DocumentationController as AdminDocumentationController;
 use App\Http\Controllers\Admin\MerchandiseController as AdminMerchandiseController;
+use App\Http\Controllers\CloudinaryTestController;
+
+
+// ===============================================
+// CLOUDINARY TEST ROUTES
+Route::get('/upload', [CloudinaryTestController::class, 'showUploadForm'])->name('upload.form');
+Route::post('/upload', [CloudinaryTestController::class, 'upload'])->name('upload.post');
 
 
 // ===============================================
