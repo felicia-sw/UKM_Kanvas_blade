@@ -18,7 +18,14 @@ class CloudinaryTestController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
 
-        $uploadedFileUrl = Cloudinary::upload($request->file('image')->getRealPath())->getSecurePath();
+        $uploadedFileUrl = Cloudinary::upload($request->file('image')->getRealPath(), [
+            'transformation' => [
+                'width' => 800,
+                'crop' => 'limit',
+                'quality' => 'auto',
+                'fetch_format' => 'auto'
+            ]
+        ])->getSecurePath();
 
         return back()
             ->with('success', 'Image uploaded successfully')
