@@ -20,7 +20,7 @@ class CloudinaryTestController extends Controller
 
         $uploadedFileUrl = Cloudinary::upload($request->file('image')->getRealPath(), [
             'transformation' => [
-                'width' => 200,
+                'width' => 500,
                 'crop' => 'limit',
                 'quality' => 'auto',
                 'fetch_format' => 'auto'
