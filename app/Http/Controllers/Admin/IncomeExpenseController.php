@@ -58,6 +58,7 @@ class IncomeExpenseController extends Controller
             'type' => 'required|in:income,expense',
             'item_name' => 'required|string|max:255',
             'amount' => 'required|numeric|min:0',
+            'quantity' => 'required|integer|min:1',
             'description' => 'nullable|string',
             'transaction_date' => 'required|date'
         ]);
@@ -100,6 +101,7 @@ class IncomeExpenseController extends Controller
         $validated = $request->validate([
             'item_name' => 'required|string|max:255',
             'amount' => 'required|numeric|min:0',
+            'quantity' => 'required|integer|min:1',
             'description' => 'nullable|string',
             'transaction_date' => 'required|date'
         ]);

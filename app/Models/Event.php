@@ -105,13 +105,17 @@ class Event extends Model
     // Get total income from manual entries (pemasukan)
     public function getTotalManualIncome()
     {
-        return $this->incomes()->sum('amount');
+        return $this->incomes()->get()->sum(function($income) {
+            return $income->amount * $income->quantity;
+        });
     }
 
     // Get total expenses (pengeluaran)
     public function getTotalExpenses()
     {
-        return $this->expenses()->sum('amount');
+        return $this->expenses()->get()->sum(function($expense) {
+            return $expense->amount * $expense->quantity;
+        });
     }
 
     // Get total income including registration fees

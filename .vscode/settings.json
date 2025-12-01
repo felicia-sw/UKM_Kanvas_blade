@@ -1,7 +1,8 @@
 {
     "php.suggest.basic": false,
     "php.validate.enable": true,
-    "php.validate.executablePath": "C:\\php\\php.exe"","intelephense.files.maxSize": 5000000,
+    "php.validate.executablePath": "C:\\php\\php.exe",
+    "intelephense.files.maxSize": 5000000,
     "intelephense.completion.triggerParameterHints": true,
     "intelephense.completion.insertUseDeclaration": true,
     "files.associations": {

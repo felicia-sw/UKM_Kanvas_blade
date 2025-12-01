@@ -14,6 +14,7 @@ class IncomeExpense extends Model
         'type',
         'item_name',
         'amount',
+        'quantity',
         'description',
         'transaction_date'
     ];
@@ -22,6 +23,12 @@ class IncomeExpense extends Model
         'transaction_date' => 'date',
         'amount' => 'decimal:2'
     ];
+
+    // Calculate total (amount * quantity)
+    public function getTotalAttribute()
+    {
+        return $this->amount * $this->quantity;
+    }
 
     // Relationship to Event
     public function event()

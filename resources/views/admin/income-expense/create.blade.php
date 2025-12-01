@@ -32,7 +32,7 @@
                     <input type="hidden" name="type" value="{{ $type }}">
 
                     <div class="row">
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-4 mb-3">
                             <label for="item_name" class="form-label">Item Name <span class="text-danger">*</span></label>
                             <input type="text" class="form-control @error('item_name') is-invalid @enderror"
                                 id="item_name" name="item_name" value="{{ old('item_name') }}"
@@ -42,12 +42,22 @@
                             @enderror
                         </div>
 
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-4 mb-3">
                             <label for="amount" class="form-label">Amount (Rp) <span class="text-danger">*</span></label>
                             <input type="number" class="form-control @error('amount') is-invalid @enderror" id="amount"
                                 name="amount" value="{{ old('amount') }}" min="0" step="0.01" placeholder="0"
                                 required>
                             @error('amount')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+
+                        <div class="col-md-4 mb-3">
+                            <label for="quantity" class="form-label">Quantity <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="quantity"
+                                name="quantity" value="{{ old('quantity', 1) }}" min="1" placeholder="1"
+                                required>
+                            @error('quantity')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
