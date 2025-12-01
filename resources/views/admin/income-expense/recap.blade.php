@@ -169,6 +169,8 @@
                                         <th>Date</th>
                                         <th>Item</th>
                                         <th class="text-end">Amount</th>
+                                        <th class="text-center">Quantity</th>
+                                        <th class="text-end">Total</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
@@ -182,8 +184,14 @@
                                                 <br><small class="text-muted">{{ $income->description }}</small>
                                             @endif
                                         </td>
-                                        <td class="text-end text-success fw-bold">
+                                        <td class="text-end">
                                             Rp {{ number_format($income->amount, 0, ',', '.') }}
+                                        </td>
+                                        <td class="text-center">
+                                            {{ $income->quantity }}
+                                        </td>
+                                        <td class="text-end text-success fw-bold">
+                                            Rp {{ number_format($income->total, 0, ',', '.') }}
                                         </td>
                                         <td class="text-center">
                                             <a href="{{ route('admin.events.finances.edit', [$event->id, $income->id]) }}" 
@@ -206,7 +214,7 @@
                                 </tbody>
                                 <tfoot class="table-light">
                                     <tr>
-                                        <td colspan="2" class="text-end"><strong>Total:</strong></td>
+                                        <td colspan="4" class="text-end"><strong>Grand Total:</strong></td>
                                         <td class="text-end"><strong>Rp {{ number_format($totalManualIncome, 0, ',', '.') }}</strong></td>
                                         <td></td>
                                     </tr>
@@ -241,6 +249,8 @@
                                         <th>Date</th>
                                         <th>Item</th>
                                         <th class="text-end">Amount</th>
+                                        <th class="text-center">Quantity</th>
+                                        <th class="text-end">Total</th>
                                         <th class="text-center">Actions</th>
                                     </tr>
                                 </thead>
@@ -254,8 +264,14 @@
                                                 <br><small class="text-muted">{{ $expense->description }}</small>
                                             @endif
                                         </td>
-                                        <td class="text-end text-danger fw-bold">
+                                        <td class="text-end">
                                             Rp {{ number_format($expense->amount, 0, ',', '.') }}
+                                        </td>
+                                        <td class="text-center">
+                                            {{ $expense->quantity }}
+                                        </td>
+                                        <td class="text-end text-danger fw-bold">
+                                            Rp {{ number_format($expense->total, 0, ',', '.') }}
                                         </td>
                                         <td class="text-center">
                                             <a href="{{ route('admin.events.finances.edit', [$event->id, $expense->id]) }}" 
@@ -278,7 +294,7 @@
                                 </tbody>
                                 <tfoot class="table-light">
                                     <tr>
-                                        <td colspan="2" class="text-end"><strong>Total:</strong></td>
+                                        <td colspan="4" class="text-end"><strong>Grand Total:</strong></td>
                                         <td class="text-end"><strong>Rp {{ number_format($totalExpenses, 0, ',', '.') }}</strong></td>
                                         <td></td>
                                     </tr>

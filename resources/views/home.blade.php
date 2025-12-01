@@ -5,41 +5,46 @@
 @section('content')
     <!-- Notification Section -->
     @auth
-        @if(auth()->user()->unreadNotifications()->count() > 0)
-        <div class="notification-banner bg-primary text-white py-3" style="position: relative; z-index: 1000;">
-            <div class="container">
-                <div class="d-flex align-items-center justify-content-between">
-                    <div class="flex-grow-1">
-                        <h5 class="mb-2"><i class="bi bi-bell-fill me-2"></i>You have {{ auth()->user()->unreadNotifications()->count() }} new notification(s)</h5>
-                        @foreach(auth()->user()->unreadNotifications()->latest()->limit(3)->get() as $notification)
-                        <div class="notification-item mb-2 p-2 bg-white bg-opacity-10 rounded">
-                            <div class="d-flex justify-content-between align-items-start">
-                                <div class="flex-grow-1">
-                                    <p class="mb-1">{{ $notification->message }}</p>
-                                    <small class="text-white-50">{{ $notification->created_at->diffForHumans() }}</small>
+        @if (auth()->user()->unreadNotifications()->count() > 0)
+            <div class="notification-banner bg-primary text-white py-3" style="position: relative; z-index: 1000;">
+                <div class="container">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <div class="flex-grow-1">
+                            <h5 class="mb-2"><i class="bi bi-bell-fill me-2"></i>You have
+                                {{ auth()->user()->unreadNotifications()->count() }} new notification(s)</h5>
+                            @foreach (auth()->user()->unreadNotifications()->latest()->limit(3)->get() as $notification)
+                                <div class="notification-item mb-2 p-2 bg-white bg-opacity-10 rounded">
+                                    <div class="d-flex justify-content-between align-items-start">
+                                        <div class="flex-grow-1">
+                                            <p class="mb-1">{{ $notification->message }}</p>
+                                            <small
+                                                class="text-white-50">{{ $notification->created_at->diffForHumans() }}</small>
+                                        </div>
+                                        <form action="{{ route('notifications.mark-read', $notification) }}" method="POST"
+                                            class="ms-3">
+                                            @csrf
+                                            @method('PATCH')
+                                            <button type="submit" class="btn btn-sm btn-light">Mark as Read</button>
+                                        </form>
+                                    </div>
                                 </div>
-                                <form action="{{ route('notifications.mark-read', $notification) }}" method="POST" class="ms-3">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button type="submit" class="btn btn-sm btn-light">Mark as Read</button>
-                                </form>
-                            </div>
+                            @endforeach
+                            @if (auth()->user()->unreadNotifications()->count() > 3)
+                                <a href="{{ route('notifications.index') }}" class="btn btn-sm btn-light mt-2">View All
+                                    Notifications</a>
+                            @endif
                         </div>
-                        @endforeach
-                        @if(auth()->user()->unreadNotifications()->count() > 3)
-                        <a href="{{ route('notifications.index') }}" class="btn btn-sm btn-light mt-2">View All Notifications</a>
-                        @endif
                     </div>
                 </div>
             </div>
-        </div>
         @endif
     @endauth
-    
-    <div class="hero-wrapper position-relative overflow-hidden home-page-content">
+
+    <div class="hero-wrapper position-relative overflow-hidden home-page-content"
+        style="background: linear-gradient(to bottom, #3b5998 0%, #6b5b95 50%, #8b5a9b 100%); min-height: 100vh;">
 
         <div class="cityscape-bg position-absolute w-100" style="bottom: 0; z-index: 1;">
-            <img src="{{ asset('images/buildings_blue.png') }}" alt="City Background" class="w-100" style="opacity: 0.4;">
+            <img src="{{ asset('images/Removal-530.png') }}" alt="City Background" class="w-100" style="opacity: 0.6;">
         </div>
         <div class="floating-clouds position-absolute w-100" style="top: 5%; z-index: 2; pointer-events: none;">
             <img src="{{ asset('images/cloud1.png') }}" alt="" class="cloud cloud-1"
@@ -47,7 +52,7 @@
             <img src="{{ asset('images/cloud2.png') }}" alt="" class="cloud cloud-2"
                 style="position: absolute; right: 8%; width: 400px; opacity: 0.75; animation: float 25s ease-in-out infinite reverse; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));">
             <img src="{{ asset('images/cloud3.png') }}" alt="" class="cloud cloud-3"
-                style="position: absolute; left: 35%; top: 25%; width: 350px; opacity: 0.7; animation: float 30s ease-in-out infinite; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));">
+                style="position: absolute; left: 45%; top: 25%; width: 350px; opacity: 0.7; animation: float 30s ease-in-out infinite; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));">
             <img src="{{ asset('images/cloud4.png') }}" alt="" class="cloud cloud-4"
                 style="position: absolute; right: 30%; top: 40%; width: 300px; opacity: 0.65; animation: float 28s ease-in-out infinite 2s; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));">
             <img src="{{ asset('images/cloud5.png') }}" alt="" class="cloud cloud-5"
@@ -55,7 +60,7 @@
         </div>
 
         <div class="hills-bg position-absolute w-100" style="bottom: 0; z-index: 3;">
-            <img src="{{ asset('images/buildings_purple.png') }}" alt="" class="w-100" style="opacity: 0.5;">
+            <img src="{{ asset('images/buildings_purple.png') }}" alt="" class="w-100" style="opacity: 0.9;">
         </div>
 
         <div class="container-fluid px-5 min-vh-100 d-flex align-items-center hero-section position-relative"
@@ -173,7 +178,7 @@
                             <img src="{{ asset('images/mascot.png') }}?v=2" alt="Kanvas Mascot" class="mascot-image"
                                 style="width: 135%; height: 135%; max-width: 800px; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3)); animation: float 6s ease-in-out infinite;">
                         </div>
-                        
+
 
                         <div class="position-absolute" style="bottom: 10%; left: 5%; z-index: 1;">
                             <i class="bi bi-brush-fill text-warning"
@@ -233,7 +238,7 @@
                 padding-top: 85px !important;
             }
 
-            .container-fluid{
+            .container-fluid {
                 overflow-x: hidden;
             }
         }
@@ -424,7 +429,8 @@
     </div>
 
     <section id="features" class="features-section py-5 position-relative">
-        <div class="floating-clouds position-absolute w-100" style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
+        <div class="floating-clouds position-absolute w-100"
+            style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
             <img src="{{ asset('images/cloud1.png') }}" alt="" class="cloud"
                 style="position: absolute; left: 10%; top: 15%; width: 300px; opacity: 0.6; animation: float 22s ease-in-out infinite;">
             <img src="{{ asset('images/cloud3.png') }}" alt="" class="cloud"
@@ -494,7 +500,8 @@
     </div>
 
     <section class="py-5 position-relative">
-        <div class="floating-clouds position-absolute w-100" style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
+        <div class="floating-clouds position-absolute w-100"
+            style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
             <img src="{{ asset('images/cloud2.png') }}" alt="" class="cloud"
                 style="position: absolute; right: 15%; top: 10%; width: 350px; opacity: 0.5; animation: float 24s ease-in-out infinite;">
             <img src="{{ asset('images/cloud4.png') }}" alt="" class="cloud"
@@ -595,7 +602,8 @@
     </div>
 
     <section class="py-5 position-relative">
-        <div class="floating-clouds position-absolute w-100" style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
+        <div class="floating-clouds position-absolute w-100"
+            style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
             <img src="{{ asset('images/cloud5.png') }}" alt="" class="cloud"
                 style="position: absolute; left: 5%; top: 20%; width: 260px; opacity: 0.5; animation: float 25s ease-in-out infinite;">
             <img src="{{ asset('images/cloud3.png') }}" alt="" class="cloud"
@@ -665,7 +673,8 @@
     </div>
 
     <section class="py-5 position-relative">
-        <div class="floating-clouds position-absolute w-100" style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
+        <div class="floating-clouds position-absolute w-100"
+            style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
             <img src="{{ asset('images/cloud2.png') }}" alt="" class="cloud"
                 style="position: absolute; left: 20%; top: 25%; width: 320px; opacity: 0.55; animation: float 23s ease-in-out infinite;">
             <img src="{{ asset('images/cloud4.png') }}" alt="" class="cloud"
@@ -693,7 +702,8 @@
     </div>
 
     <section id="events" class="py-5 position-relative">
-        <div class="floating-clouds position-absolute w-100" style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
+        <div class="floating-clouds position-absolute w-100"
+            style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
             <img src="{{ asset('images/cloud1.png') }}" alt="" class="cloud"
                 style="position: absolute; right: 12%; top: 8%; width: 290px; opacity: 0.6; animation: float 26s ease-in-out infinite;">
             <img src="{{ asset('images/cloud3.png') }}" alt="" class="cloud"
@@ -716,7 +726,7 @@
 
             <div class="row g-4">
                 @forelse($upcomingEvents as $index => $event)
-                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="{{ 100 + ($index * 100) }}">
+                    <div class="col-md-4" data-aos="fade-up" data-aos-delay="{{ 100 + $index * 100 }}">
                         <x-event-card :event="$event" layout="home" />
                     </div>
                 @empty
@@ -739,7 +749,8 @@
     </div>
 
     <section id="gallery" class="py-5 position-relative">
-        <div class="floating-clouds position-absolute w-100" style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
+        <div class="floating-clouds position-absolute w-100"
+            style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
             <img src="{{ asset('images/cloud4.png') }}" alt="" class="cloud"
                 style="position: absolute; left: 8%; top: 12%; width: 310px; opacity: 0.55; animation: float 27s ease-in-out infinite;">
             <img src="{{ asset('images/cloud2.png') }}" alt="" class="cloud"
@@ -929,7 +940,8 @@
 
 
     <section id="about" class="py-5 position-relative">
-        <div class="floating-clouds position-absolute w-100" style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
+        <div class="floating-clouds position-absolute w-100"
+            style="top: 0; left: 0; right: 0; bottom: 0; z-index: 1; pointer-events: none; overflow: hidden;">
             <img src="{{ asset('images/cloud5.png') }}" alt="" class="cloud"
                 style="position: absolute; right: 18%; top: 18%; width: 280px; opacity: 0.55; animation: float 29s ease-in-out infinite;">
             <img src="{{ asset('images/cloud3.png') }}" alt="" class="cloud"
@@ -940,18 +952,25 @@
                 <div class="col-lg-6" data-aos="fade-right">
                     <div class="about-card-enhanced p-4">
                         <h2 class="text-white fw-bold mb-4 display-5 text-shadow-md">Tentang Kanvas</h2>
-                        <p class="text-white-50 fs-4 mb-4 text-shadow-sm">Kanvas adalah komunitas kreatif di lingkungan kampus yang mendorong eksplorasi seni visual, desain, dan media kreatif lainnya. Kami rutin mengadakan workshop, pameran, serta kolaborasi lintas disiplin untuk memperluas wawasan dan jejaring.</p>
+                        <p class="text-white-50 fs-4 mb-4 text-shadow-sm">Kanvas adalah komunitas kreatif di lingkungan
+                            kampus yang mendorong eksplorasi seni visual, desain, dan media kreatif lainnya. Kami rutin
+                            mengadakan workshop, pameran, serta kolaborasi lintas disiplin untuk memperluas wawasan dan
+                            jejaring.</p>
                         <ul class="text-white-50 mb-4 list-unstyled fs-5 text-shadow-sm">
-                            <li class="mb-2 feature-list-item"><i class="bi bi-check-circle text-warning me-2"></i>Mentoring dari praktisi</li>
-                            <li class="mb-2 feature-list-item"><i class="bi bi-check-circle text-warning me-2"></i>Fasilitas studio dan perangkat</li>
-                            <li class="mb-2 feature-list-item"><i class="bi bi-check-circle text-warning me-2"></i>Proyek kolaborasi nyata</li>
+                            <li class="mb-2 feature-list-item"><i
+                                    class="bi bi-check-circle text-warning me-2"></i>Mentoring dari praktisi</li>
+                            <li class="mb-2 feature-list-item"><i
+                                    class="bi bi-check-circle text-warning me-2"></i>Fasilitas studio dan perangkat</li>
+                            <li class="mb-2 feature-list-item"><i class="bi bi-check-circle text-warning me-2"></i>Proyek
+                                kolaborasi nyata</li>
                         </ul>
                         <a href="{{ route('about') }}" class="btn btn-gradient px-4 py-2">Pelajari lebih lanjut</a>
                     </div>
                 </div>
                 <div class="col-lg-6" data-aos="fade-left">
                     <div class="ratio ratio-16x9 overflow-hidden about-image-container">
-                        <img src="{{ asset('images/bg2.jpg') }}" alt="Tentang Kanvas" class="w-100 h-100 object-fit-cover about-image">
+                        <img src="{{ asset('images/bg2.jpg') }}" alt="Tentang Kanvas"
+                            class="w-100 h-100 object-fit-cover about-image">
                     </div>
                 </div>
             </div>
@@ -998,6 +1017,7 @@
         .about-image-container:hover .about-image {
             transform: scale(1.05);
         }
+
         .about-card-enhanced {
             background: rgba(255, 255, 255, 0.08);
             backdrop-filter: blur(20px);
