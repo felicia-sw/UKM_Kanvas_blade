@@ -1,35 +1,78 @@
 @extends('admin.layouts.admin')
 
-@section('content')
-<div class="container-fluid">
-    <h1 class="h3 mb-2 text-gray-800">Edit Merchandise: {{ $merchandise->name }}</h1>
+@section('title', 'Edit Merchandise')
 
-    <div class="card shadow mb-4">
+@section('content')
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <a href="{{ route('admin.merchandise.index') }}" class="btn btn-admin-outline-secondary">
+                <i class="bi bi-arrow-left me-2"></i>Back to Merchandise List
+            </a>
+        </div>
+        <h1 class="h2 mb-0">Edit Merchandise: {{ $merchandise->name }}</h1>
+        <div style="width: 200px;"></div>
+    </div>
+
+    <div class="admin-card">
         <div class="card-body">
-            <form action="{{ route('admin.merchandise.update', $merchandise->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('admin.merchandise.update', $merchandise->id) }}" method="POST"
+                enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" value="{{ old('name', $merchandise->name) }}" required>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Merchandise Name <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
+                        name="name" value="{{ old('name', $merchandise->name) }}" required>
+                    @error('name')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
-                <div class="form-group">
-                    <label for="price">Price (IDR)</label>
-                    <input type="number" class="form-control" id="price" name="price" value="{{ old('price', $merchandise->price) }}" required>
+                <div class="mb-3">
+                    <label for="price" class="form-label">Price (IDR) <span class="text-danger">*</span></label>
+                    <input type="number" class="form-control @error('price') is-invalid @enderror" id="price"
+                        name="price" value="{{ old('price', $merchandise->price) }}" required>
+                    @error('price')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea class="form-control" id="description" name="description" rows="3">{{ old('description', $merchandise->description) }}</textarea>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
+                        rows="4">{{ old('description', $merchandise->description) }}</textarea>
+                    @error('description')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
-                <div class="form-group">
-                    <label for="image">Image</label>
-                    <input type="file" class="form-control-file" id="image" name="image">
-                    <small class="form-text text-muted">Leave blank to keep current image.</small>
-                    <img src="{{ $merchandise->image_path }}" alt="{{ $merchandise->name }}" width="150" class="mt-2">
+                <div class="mb-3">
+                    <label for="image" class="form-label">Merchandise Image</label>
+                    <input type="file" class="form-control @error('image') is-invalid @enderror" id="image"
+                        name="image" accept="image/*">
+                    <small class="form-text text-muted">Leave blank to keep current image. Accepted formats: JPG, PNG, GIF
+                        (Max: 2MB)</small>
+                    @error('image')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
-                <button type="submit" class="btn btn-primary">Update</button>
+                <div class="mb-4">
+                    <label class="form-label">Current Image</label>
+                    <div>
+                        <img src="{{ $merchandise->image_path }}" alt="{{ $merchandise->name }}" class="img-thumbnail"
+                            style="max-width: 300px;">
+                    </div>
+                </div>
+                <div class="d-flex gap-2">
+                    <button type="submit" class="btn btn-admin-primary">
+                        <i class="bi bi-check-lg me-2"></i>Update Merchandise
+                    </button>
+                    <a href="{{ route('admin.merchandise.index') }}" class="btn btn-admin-outline-secondary">
+                        <i class="bi bi-x-lg me-2"></i>Cancel
+                    </a>
+                </div>
             </form>
         </div>
     </div>
-</div>
+    </form>
+    </div>
+    </div>
+    </div>
 @endsection

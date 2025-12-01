@@ -350,6 +350,35 @@ a:not(.btn):hover {
     color: var(--primary-accent-hover);
 }
 
+/* Breadcrumb Styling */
+.breadcrumb {
+    background-color: transparent;
+    padding: 0.75rem 0;
+    margin-bottom: 0;
+}
+
+.breadcrumb-item {
+    color: var(--text-muted);
+}
+
+.breadcrumb-item a {
+    color: var(--primary-accent);
+    text-decoration: none;
+}
+
+.breadcrumb-item a:hover {
+    color: var(--primary-accent-hover);
+    text-decoration: underline;
+}
+
+.breadcrumb-item.active {
+    color: var(--text-color);
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    color: var(--text-muted);
+}
+
 /* Card footer links */
 .card-footer a {
     color: inherit !important;
@@ -459,22 +488,46 @@ td {
 }
 
 /* Outline buttons matching screenshot orange/gray */
-.btn-admin-outline-warning {
+.btn-admin-outline-primary {
     color: var(--primary-accent) !important;
+    border: 2px solid var(--primary-accent);
+    background-color: transparent;
+}
+
+.btn-admin-outline-primary:hover {
+    background-color: var(--primary-accent);
     border-color: var(--primary-accent);
+    color: var(--primary-accent-text) !important;
+}
+
+.btn-admin-outline-success {
+    color: #28c76f !important;
+    border: 2px solid #28c76f;
+    background-color: transparent;
+}
+
+.btn-admin-outline-success:hover {
+    background-color: #28c76f;
+    border-color: #28c76f;
+    color: #ffffff !important;
+}
+
+.btn-admin-outline-warning {
+    color: #ff9f43 !important;
+    border: 2px solid #ff9f43;
     background-color: transparent;
 }
 
 .btn-admin-outline-warning:hover {
-    background-color: var(--primary-accent);
-    border-color: var(--primary-accent);
+    background-color: #ff9f43;
+    border-color: #ff9f43;
     color: var(--primary-accent-text) !important;
 }
 
 .btn-admin-outline-danger {
     /* Assuming Delete uses danger */
     color: #ea5455 !important;
-    border-color: #ea5455;
+    border: 2px solid #ea5455;
     background-color: transparent;
 }
 
@@ -487,7 +540,7 @@ td {
 .btn-admin-outline-secondary {
     /* Assuming Cancel/View Docs uses secondary */
     color: var(--text-color) !important;
-    border-color: var(--border-color);
+    border: 2px solid var(--border-color);
     background-color: transparent;
 }
 
