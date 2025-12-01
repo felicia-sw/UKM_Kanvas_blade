@@ -54,9 +54,9 @@
 
                         <div class="col-md-4 mb-3">
                             <label for="quantity" class="form-label">Quantity <span class="text-danger">*</span></label>
-                            <input type="number" class="form-control @error('quantity') is-invalid @enderror" id="quantity"
-                                name="quantity" value="{{ old('quantity', $incomeExpense->quantity) }}" min="1" placeholder="1"
-                                required>
+                            <input type="number" class="form-control @error('quantity') is-invalid @enderror"
+                                id="quantity" name="quantity" value="{{ old('quantity', $incomeExpense->quantity) }}"
+                                min="1" placeholder="1" required>
                             @error('quantity')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
