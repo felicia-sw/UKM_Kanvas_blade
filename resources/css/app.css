@@ -288,35 +288,97 @@ h6 {
 }
 
 /* Decorative elements */
+
 .merch-decor {
+
     position: absolute;
+
     z-index: -1;
+
     opacity: 0.5;
+
 }
+
+
 
 .mascot-decor {
+
     bottom: -50px;
+
     left: -30px;
+
     width: 250px;
+
     opacity: 0.8;
+
 }
+
+
 
 .cloud-decor-1 {
+
     top: 80px;
+
     right: -50px;
+
     width: 150px;
+
     opacity: 0.7;
+
 }
+
+
 
 .cloud-decor-2 {
+
     top: 30%;
+
     left: -40px;
+
     width: 120px;
+
     opacity: 0.6;
+
 }
 
+
+
 .cloud-decor-3 {
+
     bottom: 20%;
+
     right: -30px;
+
     width: 180px;
+
+}
+
+
+
+/*
+
+|--------------------------------------------------------------------------
+
+| Merchandise Cart Styles (Bootstrap)
+
+|--------------------------------------------------------------------------
+
+*/
+
+
+
+.offcanvas-body {
+
+    background-color: #f8f9fa;
+
+}
+
+
+
+.cart-item .card-footer {
+
+    background-color: #fff;
+
+    border-top: 1px solid #eee;
+
 }
