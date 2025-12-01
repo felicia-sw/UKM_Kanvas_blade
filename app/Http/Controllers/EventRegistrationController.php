@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\PaymentVerified;
 use App\Models\Event;
 use App\Models\EventRegistration;
 use App\Models\Notification;
@@ -26,7 +27,7 @@ class EventRegistrationController extends Controller
         // Calculate amount based on days
         $amount = $event->price ?? 0;
         if ($event->has_multiple_days && $request->days_attending) {
-            $amount = match($request->days_attending) {
+            $amount = match ($request->days_attending) {
                 'day_1' => $event->day_1_price ?? 0,
                 'day_2' => $event->day_2_price ?? 0,
                 'both' => $event->both_days_price ?? 0,
@@ -69,6 +70,13 @@ class EventRegistrationController extends Controller
         ]);
 
         $registration->update($validated);
+
+        // If payment is verified, send a notification to the user.
+        if ($validated['payment_status'] === 'verified') {
+            // We notify the user associated with the registration
+            $user = $registration->user;
+            $user->notify(new PaymentVerified($registration));
+        }
 
         return redirect()->back()->with('success', 'Registration status updated successfully!');
     }
