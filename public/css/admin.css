@@ -1,14 +1,23 @@
 /* Admin Specific Styles - Inspired by Screenshots */
 :root {
-    --admin-bg: #1a1d24; /* Very dark background */
-    --sidebar-bg: #22262e; /* Slightly lighter sidebar */
-    --card-bg: #2a2e37; /* Card background */
-    --text-color: #e0e0e0; /* Light text */
-    --text-muted: #888ea8; /* Muted text color */
-    --border-color: #3b4049; /* Subtle border color */
-    --primary-accent: #ff9800; /* Orange accent (like active sidebar item) */
-    --primary-accent-hover: #fb8c00; /* Darker orange on hover */
-    --primary-accent-text: #1a1d24; /* Text color for active/primary elements */
+    --admin-bg: #1a1d24;
+    /* Very dark background */
+    --sidebar-bg: #22262e;
+    /* Slightly lighter sidebar */
+    --card-bg: #2a2e37;
+    /* Card background */
+    --text-color: #e0e0e0;
+    /* Light text */
+    --text-muted: #888ea8;
+    /* Muted text color */
+    --border-color: #3b4049;
+    /* Subtle border color */
+    --primary-accent: #ff9800;
+    /* Orange accent (like active sidebar item) */
+    --primary-accent-hover: #fb8c00;
+    /* Darker orange on hover */
+    --primary-accent-text: #1a1d24;
+    /* Text color for active/primary elements */
     --sidebar-width: 260px;
     --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
@@ -34,7 +43,8 @@
     border-right: 1px solid var(--border-color);
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
     height: 100vh;
-    position: sticky; /* Make sidebar stick */
+    position: sticky;
+    /* Make sidebar stick */
     top: 0;
 }
 
@@ -57,36 +67,45 @@
     font-size: 0.95rem;
     border-radius: 6px;
     margin-bottom: 0.25rem;
-    color: var(--text-muted); /* Default link color muted */
+    color: var(--text-muted);
+    /* Default link color muted */
     transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .sidebar .nav-link i {
-    width: 20px; /* Align icons */
+    width: 20px;
+    /* Align icons */
     text-align: center;
     font-size: 1rem;
-    margin-right: 10px !important; /* Override default bootstrap margin */
+    margin-right: 10px !important;
+    /* Override default bootstrap margin */
 }
 
 .sidebar .nav-link.active {
     background-color: var(--primary-accent);
-    color: var(--primary-accent-text) !important; /* Dark text on orange */
+    color: var(--primary-accent-text) !important;
+    /* Dark text on orange */
     font-weight: 600;
 }
+
 .sidebar .nav-link.active i {
-    color: var(--primary-accent-text); /* Ensure icon matches text color */
+    color: var(--primary-accent-text);
+    /* Ensure icon matches text color */
 }
 
 
 .sidebar .nav-link:not(.active):hover {
     background-color: rgba(255, 255, 255, 0.05);
-    color: var(--text-color); /* Lighten text on hover */
+    color: var(--text-color);
+    /* Lighten text on hover */
 }
 
 /* Logout Button Styling */
 .admin-logout-section {
-    padding: 0 1rem; /* Match nav link padding */
-    margin-top: auto; /* Push to bottom */
+    padding: 0 1rem;
+    /* Match nav link padding */
+    margin-top: auto;
+    /* Push to bottom */
     margin-bottom: 1rem;
 }
 
@@ -99,6 +118,7 @@
     border-radius: 6px;
     transition: background-color 0.2s ease, color 0.2s ease;
 }
+
 .btn-logout i {
     width: 20px;
     text-align: center;
@@ -115,31 +135,55 @@
 /* Main Content Area */
 .main-content {
     background-color: var(--admin-bg);
-    overflow-y: auto; /* Allow content scrolling */
-    padding: 2rem !important; /* Increased padding */
+    overflow-y: auto;
+    /* Allow content scrolling */
+    padding: 2rem !important;
+    /* Increased padding */
 }
 
 /* General Admin Elements */
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
     color: var(--text-color) !important;
 }
 
-p, div, span, label, a, td, th, li {
+p,
+div,
+span,
+label,
+a,
+td,
+th,
+li {
     color: var(--text-color);
 }
 
-p.text-muted, .text-muted, small.text-muted {
+p.text-muted,
+.text-muted,
+small.text-muted {
     color: var(--text-muted) !important;
     font-size: 0.95rem;
 }
 
 /* Ensure all text in cards is white */
-.admin-card, .admin-card * {
+.admin-card,
+.admin-card * {
     color: var(--text-color);
 }
 
 /* Override Bootstrap's default dark text */
-.fw-bold, .fw-semibold {
+.fw-bold,
+.fw-semibold {
     color: var(--text-color) !important;
 }
 
@@ -148,13 +192,15 @@ p.text-muted, .text-muted, small.text-muted {
     color: var(--text-color) !important;
 }
 
-.form-control, .form-select {
+.form-control,
+.form-select {
     background-color: var(--sidebar-bg);
     border-color: var(--border-color);
     color: var(--text-color);
 }
 
-.form-control:focus, .form-select:focus {
+.form-control:focus,
+.form-select:focus {
     background-color: var(--sidebar-bg);
     border-color: var(--primary-accent);
     color: var(--text-color);
@@ -172,11 +218,14 @@ p.text-muted, .text-muted, small.text-muted {
 /* Admin Cards */
 .admin-card {
     background-color: var(--card-bg);
-    border: none; /* Remove default border */
+    border: none;
+    /* Remove default border */
     color: var(--text-color);
-    border-radius: 8px; /* Slightly more rounded */
+    border-radius: 8px;
+    /* Slightly more rounded */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    margin-bottom: 1.5rem; /* Add consistent spacing */
+    margin-bottom: 1.5rem;
+    /* Add consistent spacing */
 }
 
 .admin-card .card-header {
@@ -189,7 +238,8 @@ p.text-muted, .text-muted, small.text-muted {
 }
 
 .admin-card .card-body {
-    padding: 1.5rem; /* More padding */
+    padding: 1.5rem;
+    /* More padding */
 }
 
 /* Dashboard Stats Card Icons */
@@ -200,13 +250,26 @@ p.text-muted, .text-muted, small.text-muted {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.3rem; /* Make icon slightly larger */
+    font-size: 1.3rem;
+    /* Make icon slightly larger */
 }
+
 /* Specific icon colors */
-.card-icon.bg-primary { background-color: #5a8dee !important; }
-.card-icon.bg-warning { background-color: #ff9f43 !important; }
-.card-icon.bg-info { background-color: #00cfe8 !important; }
-.card-icon.bg-success { background-color: #28c76f !important; }
+.card-icon.bg-primary {
+    background-color: #5a8dee !important;
+}
+
+.card-icon.bg-warning {
+    background-color: #ff9f43 !important;
+}
+
+.card-icon.bg-info {
+    background-color: #00cfe8 !important;
+}
+
+.card-icon.bg-success {
+    background-color: #28c76f !important;
+}
 
 /* Dashboard stat numbers - ensure they're bright white */
 .admin-card .fs-2 {
@@ -219,11 +282,25 @@ p.text-muted, .text-muted, small.text-muted {
 }
 
 /* Text color overrides for specific classes */
-.text-primary { color: #5a8dee !important; }
-.text-warning { color: #ff9f43 !important; }
-.text-info { color: #00cfe8 !important; }
-.text-success { color: #28c76f !important; }
-.text-danger { color: #ea5455 !important; }
+.text-primary {
+    color: #5a8dee !important;
+}
+
+.text-warning {
+    color: #ff9f43 !important;
+}
+
+.text-info {
+    color: #00cfe8 !important;
+}
+
+.text-success {
+    color: #28c76f !important;
+}
+
+.text-danger {
+    color: #ea5455 !important;
+}
 
 
 /* Dashboard Recent Activity List */
@@ -231,19 +308,25 @@ p.text-muted, .text-muted, small.text-muted {
     background-color: transparent;
     border-color: var(--border-color);
     color: var(--text-color) !important;
-    padding: 1rem 0; /* Adjust padding */
+    padding: 1rem 0;
+    /* Adjust padding */
 }
+
 .list-group-item:first-child {
     border-top: none;
 }
+
 .list-group-item:last-child {
     border-bottom: none;
 }
+
 .list-group-item p {
     margin-bottom: 0.25rem !important;
     color: var(--text-color) !important;
 }
-.list-group-item div, .list-group-item span {
+
+.list-group-item div,
+.list-group-item span {
     color: var(--text-color) !important;
 }
 
@@ -284,15 +367,19 @@ a:not(.btn):hover {
     border-color: var(--border-color);
     margin-bottom: 0;
 }
+
 /* Ensure all tables in admin views, including merchandise and documentation, use dark backgrounds */
-table, th, td {
+table,
+th,
+td {
     background-color: var(--card-bg) !important;
     color: var(--text-color) !important;
     border-color: var(--border-color) !important;
 }
 
 /* Table numbering column (if using .table-index or .table-number) */
-.table-index, .table-number {
+.table-index,
+.table-number {
     background-color: #22262e !important;
     color: var(--text-muted) !important;
 }
@@ -313,6 +400,7 @@ table, th, td {
     background-color: var(--card-bg);
     border-color: var(--border-color);
 }
+
 .admin-table tbody tr:last-child td {
     border-bottom: none;
 }
@@ -333,9 +421,11 @@ table, th, td {
 .btn-admin-primary {
     background-color: var(--primary-accent);
     border-color: var(--primary-accent);
-    color: var(--primary-accent-text) !important; /* Dark text */
+    color: var(--primary-accent-text) !important;
+    /* Dark text */
     font-weight: 500;
 }
+
 .btn-admin-primary:hover {
     background-color: var(--primary-accent-hover);
     border-color: var(--primary-accent-hover);
@@ -348,6 +438,7 @@ table, th, td {
     color: var(--primary-accent-text) !important;
     font-weight: 500;
 }
+
 .btn-admin-warning:hover {
     background-color: #ff8c1a;
     border-color: #ff8c1a;
@@ -360,6 +451,7 @@ table, th, td {
     color: var(--primary-accent-text) !important;
     font-weight: 500;
 }
+
 .btn-admin-info:hover {
     background-color: #00b8d4;
     border-color: #00b8d4;
@@ -372,28 +464,33 @@ table, th, td {
     border-color: var(--primary-accent);
     background-color: transparent;
 }
+
 .btn-admin-outline-warning:hover {
     background-color: var(--primary-accent);
     border-color: var(--primary-accent);
     color: var(--primary-accent-text) !important;
 }
 
-.btn-admin-outline-danger { /* Assuming Delete uses danger */
+.btn-admin-outline-danger {
+    /* Assuming Delete uses danger */
     color: #ea5455 !important;
     border-color: #ea5455;
     background-color: transparent;
 }
+
 .btn-admin-outline-danger:hover {
     background-color: #ea5455;
     border-color: #ea5455;
     color: #ffffff !important;
 }
 
-.btn-admin-outline-secondary { /* Assuming Cancel/View Docs uses secondary */
+.btn-admin-outline-secondary {
+    /* Assuming Cancel/View Docs uses secondary */
     color: var(--text-color) !important;
     border-color: var(--border-color);
     background-color: transparent;
 }
+
 .btn-admin-outline-secondary:hover {
     background-color: var(--card-bg);
     border-color: var(--text-muted);
@@ -405,6 +502,7 @@ table, th, td {
     color: var(--text-color) !important;
     border-color: var(--border-color);
 }
+
 .btn-outline-secondary:hover {
     background-color: var(--card-bg);
     color: var(--text-color) !important;
@@ -421,24 +519,80 @@ table, th, td {
     background-color: var(--card-bg);
     border-color: var(--border-color);
     color: var(--primary-accent);
-    border-radius: 4px; /* Slightly less rounded */
+    border-radius: 4px;
+    /* Slightly less rounded */
     margin: 0 2px;
 }
+
 .pagination .page-link:hover {
-    background-color: rgba(255, 152, 0, 0.1); /* Light orange background */
+    background-color: rgba(255, 152, 0, 0.1);
+    /* Light orange background */
     border-color: var(--primary-accent);
     color: var(--primary-accent-hover);
 }
+
 .pagination .page-item.active .page-link {
     background-color: var(--primary-accent);
     border-color: var(--primary-accent);
-    color: var(--primary-accent-text); /* Dark text */
+    color: var(--primary-accent-text);
+    /* Dark text */
     z-index: 3;
 }
+
 .pagination .page-item.disabled .page-link {
     background-color: var(--sidebar-bg);
     border-color: var(--border-color);
     color: var(--text-muted);
+}
+
+/* Make Bootstrap cards and tables in admin use the dark card background */
+.main-content .card,
+.admin-wrapper .card,
+.card.shadow.mb-4,
+.card {
+    background-color: var(--card-bg) !important;
+    border: 1px solid var(--border-color) !important;
+    color: var(--text-color) !important;
+}
+
+.main-content .card .card-header,
+.main-content .card .card-body,
+.admin-wrapper .card .card-header,
+.admin-wrapper .card .card-body,
+.card .card-header,
+.card .card-body {
+    background-color: transparent !important;
+    color: var(--text-color) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* Strong table overrides to catch plugin and bootstrap defaults */
+.main-content table,
+.main-content th,
+.main-content td,
+.admin-wrapper table,
+.admin-wrapper th,
+.admin-wrapper td,
+.table,
+.table-bordered,
+.table-responsive table {
+    background-color: var(--card-bg) !important;
+    color: var(--text-color) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* DataTables/plugin overrides */
+.dataTables_wrapper,
+.dataTables_wrapper .dataTables_filter,
+.dataTables_wrapper .dataTables_info {
+    color: var(--text-color) !important;
+}
+
+.dataTables_wrapper table tr,
+.dataTables_wrapper table td,
+.dataTables_wrapper table th {
+    background-color: var(--card-bg) !important;
+    color: var(--text-color) !important;
 }
 
 /* Documentation Card */
@@ -446,6 +600,7 @@ table, th, td {
     background-color: var(--card-bg);
     border: 1px solid var(--border-color);
 }
+
 .documentation-image {
     height: 150px;
     object-fit: cover;
@@ -497,7 +652,9 @@ table, th, td {
 
 
 /* Responsive */
-@media (max-width: 991px) { /* Adjust breakpoint if sidebar collapses differently */
+@media (max-width: 991px) {
+
+    /* Adjust breakpoint if sidebar collapses differently */
     .sidebar {
         width: 100%;
         height: auto;
@@ -507,14 +664,19 @@ table, th, td {
         border-bottom: 1px solid var(--border-color);
         box-shadow: none;
     }
+
     .main-content {
         width: 100%;
-        padding: 1.5rem !important; /* Adjust padding for smaller screens */
+        padding: 1.5rem !important;
+        /* Adjust padding for smaller screens */
     }
+
     .admin-wrapper {
         flex-direction: column;
     }
+
     .admin-logout-section {
-        margin-top: 1rem; /* Adjust spacing */
+        margin-top: 1rem;
+        /* Adjust spacing */
     }
 }
