@@ -12,15 +12,7 @@ class MerchandiseController extends Controller
      */
     public function index(Request $request)
     {
-        $category = $request->query('category', 'all');
-        $query = Merchandise::query();
-
-        if ($category !== 'all') {
-            $query->where('category', $category);
-        }
-
-        $merchandises = $query->get();
-        $categories = Merchandise::select('category')->distinct()->pluck('category');
-        return view('merchandise', compact('merchandises', 'categories', 'category'));
+        $merchandises = Merchandise::all();
+        return view('merchandise', compact('merchandises'));
     }
 }
