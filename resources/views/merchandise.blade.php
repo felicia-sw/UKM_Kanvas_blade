@@ -18,18 +18,6 @@
         </div>
     </div>
 
-    <form method="GET" action="{{ route('merchandise') }}" class="mb-4">
-        <div class="row">
-            <div class="col-md-4">
-                <select name="category" class="form-select" onchange="this.form.submit()">
-                    <option value="all" {{ ($category ?? 'all') === 'all' ? 'selected' : '' }}>All Categories</option>
-                    @foreach ($categories as $cat)
-                        <option value="{{ $cat }}" {{ ($category ?? 'all') === $cat ? 'selected' : '' }}>{{ $cat }}</option>
-                    @endforeach
-                </select>
-            </div>
-        </div>
-    </form>
     <div class="row">
         @forelse ($merchandises as $item)
             <div class="col-lg-4 col-md-6 mb-4">
