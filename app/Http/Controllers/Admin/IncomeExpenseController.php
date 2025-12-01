@@ -14,16 +14,16 @@ class IncomeExpenseController extends Controller
     {
         $incomes = $event->incomes()->orderBy('transaction_date', 'desc')->get();
         $expenses = $event->expenses()->orderBy('transaction_date', 'desc')->get();
-        
+
         $totalRegistrationIncome = $event->getTotalIncome();
         $totalManualIncome = $event->getTotalManualIncome();
         $totalExpenses = $event->getTotalExpenses();
         $netBalance = $event->getNetBalance();
         $budgetUsage = $event->getBudgetUsagePercentage();
-        
+
         return view('admin.income-expense.recap', compact(
-            'event', 
-            'incomes', 
+            'event',
+            'incomes',
             'expenses',
             'totalRegistrationIncome',
             'totalManualIncome',
@@ -67,8 +67,8 @@ class IncomeExpenseController extends Controller
 
         IncomeExpense::create($validated);
 
-        $message = $validated['type'] === 'income' 
-            ? 'Income entry added successfully!' 
+        $message = $validated['type'] === 'income'
+            ? 'Income entry added successfully!'
             : 'Expense entry added successfully!';
 
         return redirect()
@@ -108,8 +108,8 @@ class IncomeExpenseController extends Controller
 
         $incomeExpense->update($validated);
 
-        $message = $incomeExpense->type === 'income' 
-            ? 'Income entry updated successfully!' 
+        $message = $incomeExpense->type === 'income'
+            ? 'Income entry updated successfully!'
             : 'Expense entry updated successfully!';
 
         return redirect()
@@ -128,8 +128,8 @@ class IncomeExpenseController extends Controller
         $type = $incomeExpense->type;
         $incomeExpense->delete();
 
-        $message = $type === 'income' 
-            ? 'Income entry deleted successfully!' 
+        $message = $type === 'income'
+            ? 'Income entry deleted successfully!'
             : 'Expense entry deleted successfully!';
 
         return redirect()

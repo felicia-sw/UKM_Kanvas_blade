@@ -9,7 +9,7 @@ class Event extends Model
 {
     use HasFactory;
 
-    
+
     protected $fillable = [
         'title',
         'description',
@@ -65,12 +65,12 @@ class Event extends Model
     {
         return $this->hasMany(IncomeExpense::class)->where('type', 'expense');
     }
-    
+
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
     }
-    
+
     public function scopeUpcoming($query)
     {
         return $query->where('start_date', '>=', now())->orderBy('start_date');
@@ -83,9 +83,9 @@ class Event extends Model
 
     public function canRegister()
     {
-        return !$this->isPastEvent() && 
-               $this->registration_deadline >= now() &&
-               $this->is_active;
+        return !$this->isPastEvent() &&
+            $this->registration_deadline >= now() &&
+            $this->is_active;
     }
 
     public function getTotalIncome()
@@ -105,7 +105,7 @@ class Event extends Model
     // Get total income from manual entries (pemasukan)
     public function getTotalManualIncome()
     {
-        return $this->incomes()->get()->sum(function($income) {
+        return $this->incomes()->get()->sum(function ($income) {
             return $income->amount * $income->quantity;
         });
     }
@@ -113,7 +113,7 @@ class Event extends Model
     // Get total expenses (pengeluaran)
     public function getTotalExpenses()
     {
-        return $this->expenses()->get()->sum(function($expense) {
+        return $this->expenses()->get()->sum(function ($expense) {
             return $expense->amount * $expense->quantity;
         });
     }

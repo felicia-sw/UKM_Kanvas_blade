@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class IncomeExpense extends Model
 {
     use HasFactory;
-    
+
     protected $fillable = [
         'event_id',
         'type',
