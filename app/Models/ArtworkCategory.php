@@ -9,11 +9,10 @@ class ArtworkCategory extends Model
 {
     use HasFactory;
     
-    public $timestamps = false;
+    // REMOVED: public $timestamps = false;
     
-    protected $fillable = ['name']; // only name can be mass assigned
+    protected $fillable = ['name', 'description'];
 
-    // one to many
     public function artworks()
     {
         return $this->hasMany(Artwork::class, 'category_id');

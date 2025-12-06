@@ -2,20 +2,19 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     protected $fillable = [
         'name',
         'email',
         'password',
-        // NOTE: 'is_admin' is REMOVED here. If you still see it, you are in the old file.
     ];
 
     protected $hidden = [
@@ -32,40 +31,55 @@ class User extends Authenticatable
     }
 
     // =======================================
-    // 1. NEW CORE RELATIONSHIPS (These are missing in your file!)
+    // 1. AUTH & PROFILE
     // =======================================
 
-    // Relationship: A User has ONE Profile
     public function profile()
     {
         return $this->hasOne(Profile::class);
     }
 
-    // Relationship: A User has MANY Roles
     public function roles()
     {
         return $this->belongsToMany(Role::class, 'role_user');
     }
 
-    // =======================================
-    // 2. THE MISSING FUNCTION (This Fixes Your Error)
-    // =======================================
     public function hasRole($roleName)
     {
         return $this->roles()->where('name', $roleName)->exists();
     }
 
     // =======================================
-    // 3. EXISTING DUES RELATIONSHIPS
+    // 2. NEW FEATURE RELATIONSHIPS
     // =======================================
+
+    public function artworks()
+    {
+        return $this->hasMany(Artwork::class);
+    }
+
+    public function eventRegistrations()
+    {
+        return $this->hasMany(EventRegistration::class);
+    }
+
+    public function shoppingCart()
+    {
+        return $this->hasOne(ShoppingCart::class);
+    }
+
+    public function merchandiseOrders()
+    {
+        return $this->hasMany(MerchandiseOrder::class);
+    }
 
     public function duesPayments()
     {
         return $this->hasMany(DuesPayment::class);
     }
 
-    public function verifiedDuesPayments()
+    public function contactSubmissions()
     {
-        return $this->hasMany(DuesPayment::class, 'verified_by');
+        return $this->hasMany(ContactUs::class);
     }
 }

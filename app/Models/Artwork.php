@@ -4,29 +4,36 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes; // 1. Add this
 
 class Artwork extends Model
 {
-    use HasFactory; // enables for seeding and testing
+    use HasFactory, SoftDeletes; // 2. Use this
     
-    public $timestamps = false;
+    // REMOVED: public $timestamps = false; (Your migration creates timestamps, so we need them)
     
-    protected $fillable = [ // spy bisa diisi 
+    protected $fillable = [
+        'user_id', // 3. Added this
+        'category_id',
         'title',
         'description',
         'image_path',
         'artist_name',
-        'category_id',
         'created_date'
     ];
 
-    protected $casts = [ // converts created_date to a Cformat that php can use
+    protected $casts = [
         'created_date' => 'date',
     ];
 
-    // many to one
     public function category()
     {
-        return $this->belongsTo(ArtworkCategory::class, 'category_id'); // each artwork should belong to one category
+        return $this->belongsTo(ArtworkCategory::class, 'category_id');
+    }
+
+    // 4. Added relationship to User
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

@@ -52,15 +52,26 @@ class DocumentationController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'media_file' => 'required|file|mimes:jpeg,png,jpg|max:10240', // 10MB max for photo
+            'file_type' => 'required|in:image,video',
+            'caption' => 'nullable|string',
+            'media_file' => 'required|file|mimes:jpeg,png,jpg,mp4,mov,avi|max:10240', // 10MB max
         ]);
         
         $file = $request->file('media_file');
         $filePath = $file->store('documentation', 'public');
         
+        // Determine file type from mime type if not explicitly provided
+        $fileType = $request->file_type;
+        if (!$fileType) {
+            $mimeType = $file->getMimeType();
+            $fileType = str_starts_with($mimeType, 'video/') ? 'video' : 'image';
+        }
+        
         Documentation::create([
             'event_id' => $event->id,
             'title' => $request->title,
+            'file_type' => $fileType,
+            'caption' => $request->caption,
             'file_path' => $filePath, 
         ]);
 
@@ -73,18 +84,28 @@ class DocumentationController extends Controller
         $request->validate([
             'event_id' => 'required|exists:events,id', 
             'title' => 'required|string|max:255',
-            'media_file' => 'required|file|mimes:jpeg,png,jpg|max:10240', // 10MB max for photo
+            'file_type' => 'required|in:image,video',
+            'caption' => 'nullable|string',
+            'media_file' => 'required|file|mimes:jpeg,png,jpg,mp4,mov,avi|max:10240', // 10MB max
         ]);
         
         $event = Event::findOrFail($request->event_id);
         
-      
         $file = $request->file('media_file');
         $filePath = $file->store('documentation', 'public');
+        
+        // Determine file type from mime type if not explicitly provided
+        $fileType = $request->file_type;
+        if (!$fileType) {
+            $mimeType = $file->getMimeType();
+            $fileType = str_starts_with($mimeType, 'video/') ? 'video' : 'image';
+        }
         
         Documentation::create([
             'event_id' => $request->event_id, 
             'title' => $request->title,
+            'file_type' => $fileType,
+            'caption' => $request->caption,
             'file_path' => $filePath,
         ]);
 
@@ -101,18 +122,27 @@ class DocumentationController extends Controller
     {
         $request->validate([
             'title' => 'required|string|max:255',
-            'media_file' => 'nullable|file|mimes:jpeg,png,jpg|max:10240',
+            'file_type' => 'required|in:image,video',
+            'caption' => 'nullable|string',
+            'media_file' => 'nullable|file|mimes:jpeg,png,jpg,mp4,mov,avi|max:10240',
         ]);
 
-        $data = $request->only(['title']);
+        $data = $request->only(['title', 'file_type', 'caption']);
 
         if ($request->hasFile('media_file')) {
             if ($documentation->file_path) {
                 Storage::disk('public')->delete($documentation->file_path);
             }
             
-            $filePath = $request->file('media_file')->store('documentation', 'public');
+            $file = $request->file('media_file');
+            $filePath = $file->store('documentation', 'public');
             $data['file_path'] = $filePath;
+            
+            // Update file_type if not explicitly set
+            if (!isset($data['file_type'])) {
+                $mimeType = $file->getMimeType();
+                $data['file_type'] = str_starts_with($mimeType, 'video/') ? 'video' : 'image';
+            }
         }
 
         $documentation->update($data);

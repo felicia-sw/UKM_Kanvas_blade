@@ -26,10 +26,33 @@
                     @enderror
                 </div>
                 <div class="mb-3">
+                    <label for="category_id" class="form-label">Category <span class="text-danger">*</span></label>
+                    <select class="form-control @error('category_id') is-invalid @enderror" id="category_id"
+                        name="category_id" required>
+                        <option value="">Select a category...</option>
+                        @foreach($categories as $category)
+                            <option value="{{ $category->id }}" {{ old('category_id') == $category->id ? 'selected' : '' }}>
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('category_id')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
                     <label for="price" class="form-label">Price (IDR) <span class="text-danger">*</span></label>
                     <input type="number" class="form-control @error('price') is-invalid @enderror" id="price"
                         name="price" value="{{ old('price') }}" required>
                     @error('price')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="stock" class="form-label">Stock <span class="text-danger">*</span></label>
+                    <input type="number" class="form-control @error('stock') is-invalid @enderror" id="stock"
+                        name="stock" value="{{ old('stock', 0) }}" min="0" required>
+                    @error('stock')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

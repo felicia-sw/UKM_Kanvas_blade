@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Event;
-use App\Models\IncomeExpense;
+use App\Models\EventBudgetItem;
 use Illuminate\Http\Request;
 
 class IncomeExpenseController extends Controller
@@ -12,14 +12,13 @@ class IncomeExpenseController extends Controller
     // Show financial recap for an event
     public function recap(Event $event)
     {
-        $incomes = $event->incomes()->orderBy('transaction_date', 'desc')->get();
-        $expenses = $event->expenses()->orderBy('transaction_date', 'desc')->get();
+        $incomes = $event->incomes()->orderBy('created_at', 'desc')->get();
+        $expenses = $event->expenses()->orderBy('created_at', 'desc')->get();
 
         $totalRegistrationIncome = $event->getTotalIncome();
         $totalManualIncome = $event->getTotalManualIncome();
         $totalExpenses = $event->getTotalExpenses();
         $netBalance = $event->getNetBalance();
-        $budgetUsage = $event->getBudgetUsagePercentage();
 
         return view('admin.income-expense.recap', compact(
             'event',
@@ -28,8 +27,7 @@ class IncomeExpenseController extends Controller
             'totalRegistrationIncome',
             'totalManualIncome',
             'totalExpenses',
-            'netBalance',
-            'budgetUsage'
+            'netBalance'
         ));
     }
 
@@ -57,15 +55,17 @@ class IncomeExpenseController extends Controller
         $validated = $request->validate([
             'type' => 'required|in:income,expense',
             'item_name' => 'required|string|max:255',
-            'amount' => 'required|numeric|min:0',
+            'price' => 'required|numeric|min:0',
             'quantity' => 'required|integer|min:1',
-            'description' => 'nullable|string',
-            'transaction_date' => 'required|date'
         ]);
 
-        $validated['event_id'] = $event->id;
-
-        IncomeExpense::create($validated);
+        EventBudgetItem::create([
+            'event_id' => $event->id,
+            'type' => $validated['type'],
+            'item_name' => $validated['item_name'],
+            'price' => $validated['price'],
+            'quantity' => $validated['quantity'],
+        ]);
 
         $message = $validated['type'] === 'income'
             ? 'Income entry added successfully!'
@@ -77,7 +77,7 @@ class IncomeExpenseController extends Controller
     }
 
     // Show edit form
-    public function edit(Event $event, IncomeExpense $incomeExpense)
+    public function edit(Event $event, EventBudgetItem $incomeExpense)
     {
         // Ensure the income/expense belongs to this event
         if ($incomeExpense->event_id !== $event->id) {
@@ -91,7 +91,7 @@ class IncomeExpenseController extends Controller
     }
 
     // Update income or expense
-    public function update(Request $request, Event $event, IncomeExpense $incomeExpense)
+    public function update(Request $request, Event $event, EventBudgetItem $incomeExpense)
     {
         // Ensure the income/expense belongs to this event
         if ($incomeExpense->event_id !== $event->id) {
@@ -100,10 +100,8 @@ class IncomeExpenseController extends Controller
 
         $validated = $request->validate([
             'item_name' => 'required|string|max:255',
-            'amount' => 'required|numeric|min:0',
+            'price' => 'required|numeric|min:0',
             'quantity' => 'required|integer|min:1',
-            'description' => 'nullable|string',
-            'transaction_date' => 'required|date'
         ]);
 
         $incomeExpense->update($validated);
@@ -118,7 +116,7 @@ class IncomeExpenseController extends Controller
     }
 
     // Delete income or expense
-    public function destroy(Event $event, IncomeExpense $incomeExpense)
+    public function destroy(Event $event, EventBudgetItem $incomeExpense)
     {
         // Ensure the income/expense belongs to this event
         if ($incomeExpense->event_id !== $event->id) {

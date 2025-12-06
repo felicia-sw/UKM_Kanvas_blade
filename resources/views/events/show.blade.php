@@ -47,9 +47,6 @@
                                 @if($event->price)
                                 <p class="mb-2"><i class="bi bi-tag me-2"></i><strong>Price:</strong> Rp {{ number_format($event->price, 0, ',', '.') }}</p>
                                 @endif
-                                @if($event->max_participants)
-                                <p class="mb-2"><i class="bi bi-people me-2"></i><strong>Max Participants:</strong> {{ $event->max_participants }}</p>
-                                @endif
                             </div>
 
                             <!-- Action Buttons -->
@@ -157,68 +154,6 @@
                         <label class="form-label fw-semibold">Email Address</label>
                         <input type="email" value="{{ auth()->user()->email }}" disabled class="form-control bg-secondary text-white">
                     </div>
-
-                    <!-- NIM -->
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">NIM <span class="text-danger">*</span></label>
-                        <input type="text" name="nim" required class="form-control" value="{{ old('nim') }}">
-                    </div>
-
-                    <!-- Jurusan -->
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Jurusan <span class="text-danger">*</span></label>
-                        <input type="text" name="jurusan" required class="form-control" value="{{ old('jurusan') }}">
-                    </div>
-
-                    <!-- Asal Universitas -->
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Asal Universitas <span class="text-danger">*</span></label>
-                        <input type="text" name="asal_universitas" required class="form-control" value="{{ old('asal_universitas') }}">
-                    </div>
-
-                    <!-- Nomor Telepon -->
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Nomor Telepon <span class="text-danger">*</span></label>
-                        <input type="tel" name="nomor_telp" required class="form-control" value="{{ old('nomor_telp') }}">
-                    </div>
-
-                    <!-- Kanvas Member -->
-                    <div class="mb-3">
-                        <div class="form-check">
-                            <input type="hidden" name="is_kanvas_member" value="0">
-                            <input type="checkbox" name="is_kanvas_member" value="1" class="form-check-input" id="kanvasMember" {{ old('is_kanvas_member') ? 'checked' : '' }}>
-                            <label class="form-check-label" for="kanvasMember">
-                                I am a Kanvas member
-                            </label>
-                        </div>
-                    </div>
-
-                    <!-- Days Selection (if multiple days) -->
-                    @if($event->has_multiple_days)
-                    <div class="mb-3">
-                        <label class="form-label fw-semibold">Select Days <span class="text-danger">*</span></label>
-                        <div class="d-flex flex-column gap-2">
-                            <div class="form-check">
-                                <input type="radio" name="days_attending" value="day_1" required class="form-check-input" id="day1" {{ old('days_attending') == 'day_1' ? 'checked' : '' }}>
-                                <label class="form-check-label" for="day1">
-                                    Day 1 - Rp {{ number_format($event->day_1_price, 0, ',', '.') }}
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input type="radio" name="days_attending" value="day_2" required class="form-check-input" id="day2" {{ old('days_attending') == 'day_2' ? 'checked' : '' }}>
-                                <label class="form-check-label" for="day2">
-                                    Day 2 - Rp {{ number_format($event->day_2_price, 0, ',', '.') }}
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input type="radio" name="days_attending" value="both" required class="form-check-input" id="both" {{ old('days_attending') == 'both' ? 'checked' : '' }}>
-                                <label class="form-check-label" for="both">
-                                    Both Days - Rp {{ number_format($event->both_days_price, 0, ',', '.') }}
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    @endif
 
                     <!-- Payment Gateway Link -->
                     <div class="alert alert-info mb-3">
