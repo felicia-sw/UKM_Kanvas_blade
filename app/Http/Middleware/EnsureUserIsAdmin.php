@@ -12,10 +12,10 @@ class EnsureUserIsAdmin
    
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::check() || !Auth::user()->is_admin) {
-                 return redirect()->route('home')->with('error', 'You do not have permission to access this page.');
-        }
+        if (!Auth::check() || !Auth::user()->hasRole('Admin')) {
+            return redirect()->route('home')->with('error', 'You do not have permission to access this page.');
+       }
 
-        return $next($request);
+       return $next($request);
     }
 }

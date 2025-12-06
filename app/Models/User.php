@@ -11,15 +11,13 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
-    
     protected $fillable = [
         'name',
         'email',
         'password',
-        'is_admin',
+        // NOTE: 'is_admin' is REMOVED here. If you still see it, you are in the old file.
     ];
 
-    
     protected $hidden = [
         'password',
         'remember_token',
@@ -33,15 +31,33 @@ class User extends Authenticatable
         ];
     }
 
-    public function notifications()
+    // =======================================
+    // 1. NEW CORE RELATIONSHIPS (These are missing in your file!)
+    // =======================================
+
+    // Relationship: A User has ONE Profile
+    public function profile()
     {
-        return $this->hasMany(Notification::class);
+        return $this->hasOne(Profile::class);
     }
 
-    public function unreadNotifications()
+    // Relationship: A User has MANY Roles
+    public function roles()
     {
-        return $this->hasMany(Notification::class)->where('is_read', false);
+        return $this->belongsToMany(Role::class, 'role_user');
     }
+
+    // =======================================
+    // 2. THE MISSING FUNCTION (This Fixes Your Error)
+    // =======================================
+    public function hasRole($roleName)
+    {
+        return $this->roles()->where('name', $roleName)->exists();
+    }
+
+    // =======================================
+    // 3. EXISTING DUES RELATIONSHIPS
+    // =======================================
 
     public function duesPayments()
     {

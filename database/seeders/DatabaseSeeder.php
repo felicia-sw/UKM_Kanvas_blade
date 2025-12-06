@@ -8,14 +8,13 @@ class DatabaseSeeder extends Seeder
 {
     public function run(): void
     {
-        //  run seeders in ordercuz important for foreign key
+        // The order is important! Roles must exist before Users.
         $this->call([
+            RoleSeeder::class,
             UserSeeder::class,
-            ArtworkCategorySeeder::class,
-            ArtworkSeeder::class,
-            EventSeeder::class,
-            DocumentationSeeder::class,
-            IncomeExpenseSeeder::class,
+            // You can uncomment these later if you want dummy events/art
+            // EventSeeder::class,
+            // ArtworkSeeder::class,
         ]);
     }
 }
