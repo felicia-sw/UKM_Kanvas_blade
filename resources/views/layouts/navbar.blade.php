@@ -72,14 +72,14 @@
                                     <i class="bi bi-person-circle me-1"></i>{{ Auth::user()->name }}
                                 </button>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                                    @if(Auth::user()->is_admin)
-                                        <li>
-                                            <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
-                                                <i class="bi bi-speedometer2 me-2"></i>Admin Dashboard
-                                            </a>
-                                        </li>
-                                        <li><hr class="dropdown-divider"></li>
-                                    @endif
+                                    @if(Auth::user()->hasRole('Admin'))
+    <li>
+        <a class="dropdown-item" href="{{ route('admin.dashboard') }}">
+            <i class="bi bi-speedometer2 me-2"></i>Admin Dashboard
+        </a>
+    </li>
+    <li><hr class="dropdown-divider"></li>
+@endif
                                     <li>
                                         <form action="{{ route('logout') }}" method="POST">
                                             @csrf

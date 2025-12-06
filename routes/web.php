@@ -122,4 +122,23 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 
     // Event Registration Management
     Route::patch('/registrations/{registration}/status', [EventRegistrationController::class, 'updateStatus'])->name('registrations.update-status');
+
+
+
 });
+
+    // --- TEMPORARY DEBUG ROUTE --- for "hasRole" issue
+// Route::get('/debug-role', function () {
+//     $user = \Illuminate\Support\Facades\Auth::user();
+    
+//     if (!$user) {
+//         return "Not logged in! Please login first.";
+//     }
+
+//     return [
+//         'User Class' => get_class($user),
+//         'Has "hasRole" Method?' => method_exists($user, 'hasRole') ? 'YES' : 'NO',
+//         'User Roles' => $user->roles->pluck('name'),
+//         'Is Admin?' => $user->hasRole('Admin') ? 'YES' : 'NO',
+//     ];
+// });
