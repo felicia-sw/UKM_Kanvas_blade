@@ -8,22 +8,22 @@ return new class extends Migration
 {
    
     public function up()
-    {
-        Schema::create('events', function (Blueprint $table) {
-            $table->id();
-            $table->string('title');
-            $table->text('description');
-            $table->string('poster_image')->nullable();
-            $table->dateTime('start_date');
-            $table->dateTime('end_date')->nullable();
-            $table->date('registration_deadline')->nullable();
-            $table->decimal('price', 10, 2)->nullable();
-            $table->string('location')->nullable();
-            $table->integer('max_participants')->nullable();
-            $table->boolean('is_active')->default(true);
-            $table->timestamps();
-        });
-    }
+{
+    Schema::create('events', function (Blueprint $table) {
+        $table->id();
+        $table->string('title');
+        $table->text('description');
+        $table->string('poster_image')->nullable();
+        $table->dateTime('start_date');
+        $table->dateTime('end_date')->nullable();
+        $table->dateTime('registration_deadline')->nullable(); // Changed to dateTime
+        $table->decimal('price', 10, 2)->default(0);
+        $table->string('location')->nullable();
+        $table->boolean('is_active')->default(true);
+        $table->softDeletes(); // <--- ADDED THIS (Matches ERD)
+        $table->timestamps();
+    });
+}
 
    
     public function down()
