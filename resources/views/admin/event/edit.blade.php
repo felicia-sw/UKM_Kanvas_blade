@@ -94,7 +94,7 @@
 
                 <div class="row">
                     {{-- Price field (Optional) --}}
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-6 mb-3">
                         <label for="price" class="form-label">Price (IDR) (Optional)</label>
                         <input type="number" step="0.01" class="form-control @error('price') is-invalid @enderror"
                             id="price" name="price" value="{{ old('price', $event->price) }}">
@@ -103,19 +103,8 @@
                         @enderror
                     </div>
 
-                    {{-- Max Participants field (Optional) --}}
-                    <div class="col-md-4 mb-3">
-                        <label for="max_participants" class="form-label">Max Participants (Optional)</label>
-                        <input type="number" class="form-control @error('max_participants') is-invalid @enderror"
-                            id="max_participants" name="max_participants"
-                            value="{{ old('max_participants', $event->max_participants) }}">
-                        @error('max_participants')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
                     {{-- Location field (Optional) --}}
-                    <div class="col-md-4 mb-3">
+                    <div class="col-md-6 mb-3">
                         <label for="location" class="form-label">Location / Type (Optional)</label>
                         <input type="text" class="form-control @error('location') is-invalid @enderror" id="location"
                             name="location" value="{{ old('location', $event->location) }}"
@@ -123,52 +112,6 @@
                         @error('location')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
-                    </div>
-                </div>
-
-                {{-- Multiple Days Checkbox --}}
-                <div class="form-check mb-3">
-                    <input class="form-check-input" type="checkbox" id="has_multiple_days" name="has_multiple_days"
-                        value="1" {{ old('has_multiple_days', $event->has_multiple_days) ? 'checked' : '' }}
-                        onchange="toggleMultipleDaysPricing()">
-                    <label class="form-check-label" for="has_multiple_days">
-                        Event has multiple days (Day 1, Day 2, or Both)
-                    </label>
-                </div>
-
-                {{-- Multiple Days Pricing --}}
-                <div id="multipleDaysPricing"
-                    style="display: {{ old('has_multiple_days', $event->has_multiple_days) ? 'block' : 'none' }};">
-                    <div class="row">
-                        <div class="col-md-4 mb-3">
-                            <label for="day_1_price" class="form-label">Day 1 Price (IDR)</label>
-                            <input type="number" step="0.01"
-                                class="form-control @error('day_1_price') is-invalid @enderror" id="day_1_price"
-                                name="day_1_price" value="{{ old('day_1_price', $event->day_1_price) }}">
-                            @error('day_1_price')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="col-md-4 mb-3">
-                            <label for="day_2_price" class="form-label">Day 2 Price (IDR)</label>
-                            <input type="number" step="0.01"
-                                class="form-control @error('day_2_price') is-invalid @enderror" id="day_2_price"
-                                name="day_2_price" value="{{ old('day_2_price', $event->day_2_price) }}">
-                            @error('day_2_price')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
-
-                        <div class="col-md-4 mb-3">
-                            <label for="both_days_price" class="form-label">Both Days Price (IDR)</label>
-                            <input type="number" step="0.01"
-                                class="form-control @error('both_days_price') is-invalid @enderror" id="both_days_price"
-                                name="both_days_price" value="{{ old('both_days_price', $event->both_days_price) }}">
-                            @error('both_days_price')
-                                <div class="invalid-feedback">{{ $message }}</div>
-                            @enderror
-                        </div>
                     </div>
                 </div>
 
@@ -213,11 +156,4 @@
         </div>
     </div>
 
-    <script>
-        function toggleMultipleDaysPricing() {
-            const checkbox = document.getElementById('has_multiple_days');
-            const pricingDiv = document.getElementById('multipleDaysPricing');
-            pricingDiv.style.display = checkbox.checked ? 'block' : 'none';
-        }
-    </script>
 @endsection

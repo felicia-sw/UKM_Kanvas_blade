@@ -44,17 +44,19 @@ class SendEventReminders extends Command
 
             foreach ($registrations as $registration) {
                 // Check if notification already sent
+                $linkUrl = route('events.show', $event->id);
                 $exists = Notification::where('user_id', $registration->user_id)
-                    ->where('event_id', $event->id)
+                    ->where('link_url', $linkUrl)
                     ->where('type', 'reminder_1day')
                     ->exists();
 
                 if (!$exists) {
                     Notification::create([
                         'user_id' => $registration->user_id,
-                        'event_id' => $event->id,
                         'type' => 'reminder_1day',
                         'message' => "Reminder: {$event->title} is tomorrow! Don't forget to attend.",
+                        'is_read' => false,
+                        'link_url' => $linkUrl,
                     ]);
                 }
             }
@@ -72,17 +74,19 @@ class SendEventReminders extends Command
 
             foreach ($registrations as $registration) {
                 // Check if notification already sent
+                $linkUrl = route('events.show', $event->id);
                 $exists = Notification::where('user_id', $registration->user_id)
-                    ->where('event_id', $event->id)
+                    ->where('link_url', $linkUrl)
                     ->where('type', 'reminder_today')
                     ->exists();
 
                 if (!$exists) {
                     Notification::create([
                         'user_id' => $registration->user_id,
-                        'event_id' => $event->id,
                         'type' => 'reminder_today',
                         'message' => "Today is the day! {$event->title} is happening today at {$event->location}.",
+                        'is_read' => false,
+                        'link_url' => $linkUrl,
                     ]);
                 }
             }

@@ -31,9 +31,24 @@
             </a>
         </li>
         <li class="nav-item {{ request()->routeIs('admin.merchandise.*') ? 'active' : '' }}">
-            <a class="nav-link" href="{{ route('admin.merchandise.index') }}">
-                <i class="fas fa-fw fa-shopping-bag"></i>
-                <span>Merchandise</span></a>
+            <a class="nav-link {{ request()->routeIs('admin.merchandise.*') ? 'active' : 'text-white' }}" href="{{ route('admin.merchandise.index') }}">
+                <i class="bi bi-bag me-2"></i>
+                <span>Merchandise</span>
+            </a>
+        </li>
+        <li class="nav-item mb-1">
+            <a href="{{ route('admin.orders.index') }}"
+               class="nav-link {{ request()->routeIs('admin.orders.*') ? 'active' : 'text-white' }}">
+                <i class="bi bi-receipt me-2"></i>
+                Orders
+            </a>
+        </li>
+        <li class="nav-item mb-1">
+            <a href="{{ route('admin.dues.index') }}"
+               class="nav-link {{ request()->routeIs('admin.dues.*') ? 'active' : 'text-white' }}">
+                <i class="bi bi-cash-coin me-2"></i>
+                Dues (Kas)
+            </a>
         </li>
         {{-- NEW: Global Documentation Link --}}
         <li class="nav-item mb-1">

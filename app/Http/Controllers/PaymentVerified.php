@@ -57,8 +57,10 @@ class PaymentVerified extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
-            'event_id' => $this->registration->event_id,
+            'type' => 'payment_verified',
             'message' => "Your payment for '{$this->registration->event->title}' has been verified.",
+            'is_read' => false,
+            'link_url' => route('events.show', $this->registration->event_id),
         ];
     }
 }

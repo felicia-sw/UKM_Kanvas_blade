@@ -32,19 +32,46 @@
                     @enderror
                 </div>
 
+                {{-- File Type Field --}}
+                <div class="mb-3">
+                    <label for="file_type" class="form-label">File Type <span class="text-danger">*</span></label>
+                    <select class="form-control @error('file_type') is-invalid @enderror" id="file_type"
+                        name="file_type" required>
+                        <option value="image" {{ old('file_type', $documentation->file_type) == 'image' ? 'selected' : '' }}>Image</option>
+                        <option value="video" {{ old('file_type', $documentation->file_type) == 'video' ? 'selected' : '' }}>Video</option>
+                    </select>
+                    @error('file_type')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                {{-- Caption Field --}}
+                <div class="mb-3">
+                    <label for="caption" class="form-label">Caption (Optional)</label>
+                    <textarea class="form-control @error('caption') is-invalid @enderror" id="caption"
+                        name="caption" rows="3" placeholder="Add a caption for this media...">{{ old('caption', $documentation->caption) }}</textarea>
+                    @error('caption')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
                 {{-- Current Media Preview --}}
                 <div class="mb-3">
                     <label class="form-label">Current Media</label>
-                    <img src="{{ asset('storage/' . $documentation->file_path) }}" alt="Current Photo" class="img-thumbnail"
-                        style="max-height: 200px;">
+                    @if($documentation->file_type == 'video')
+                        <video src="{{ asset('storage/' . $documentation->file_path) }}" controls class="img-thumbnail" style="max-height: 200px;"></video>
+                    @else
+                        <img src="{{ asset('storage/' . $documentation->file_path) }}" alt="Current Media" class="img-thumbnail"
+                            style="max-height: 200px;">
+                    @endif
                 </div>
 
                 {{-- Media File Upload Field (Optional) --}}
                 <div class="mb-4">
-                    <label for="media_file" class="form-label">Replace Photo (Optional)</label>
+                    <label for="media_file" class="form-label">Replace Media (Optional)</label>
                     <input type="file" class="form-control @error('media_file') is-invalid @enderror" id="media_file"
-                        name="media_file">
-                    <div class="form-text">Leave blank to keep current file. Accepted formats: JPG, PNG. Max 10MB.</div>
+                        name="media_file" accept="image/*,video/*">
+                    <div class="form-text">Leave blank to keep current file. Accepted formats: JPG, PNG (images) or MP4, MOV, AVI (videos). Max 10MB.</div>
                     @error('media_file')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror

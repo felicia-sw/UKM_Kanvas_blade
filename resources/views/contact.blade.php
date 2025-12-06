@@ -26,45 +26,74 @@
                             <p class="text-white-50 mb-4">Fill in this form and we'll get back to you as soon as possible!
                             </p>
 
-                            <form id="contactForm" novalidate>
+                            @if(session('success'))
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <i class="bi bi-check-circle me-2"></i>{{ session('success') }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            @endif
+
+                            @if($errors->any())
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <i class="bi bi-exclamation-triangle me-2"></i>
+                                    <ul class="mb-0">
+                                        @foreach($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                                </div>
+                            @endif
+
+                            <form action="{{ route('contact.store') }}" method="POST" id="contactForm">
+                                @csrf
                                 <div class="row g-3">
                                     <div class="col-md-6">
-                                        <label for="name" class="form-label fw-500">Full Name</label>
-                                        <input type="text" class="form-control form-control-lg contact-input"
-                                            id="name" name="name" required placeholder="Enter Your Full Name"
+                                        <label for="full_name" class="form-label fw-500">Full Name</label>
+                                        <input type="text" class="form-control form-control-lg contact-input @error('full_name') is-invalid @enderror"
+                                            id="full_name" name="full_name" value="{{ old('full_name') }}" required placeholder="Enter Your Full Name"
                                             autocomplete="name">
+                                        @error('full_name')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="col-md-6">
                                         <label for="email" class="form-label fw-500">Email</label>
-                                        <input type="email" class="form-control form-control-lg contact-input"
-                                            id="email" name="email" required placeholder="email@example.com"
+                                        <input type="email" class="form-control form-control-lg contact-input @error('email') is-invalid @enderror"
+                                            id="email" name="email" value="{{ old('email', auth()->check() ? auth()->user()->email : '') }}" required placeholder="email@example.com"
                                             autocomplete="email">
+                                        @error('email')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="col-md-6">
-                                        <label for="phone" class="form-label fw-500">Telephone Number</label>
-                                        <input type="tel" class="form-control form-control-lg contact-input"
-                                            id="phone" name="phone" placeholder="+62 xxx xxxx xxxx"
+                                        <label for="tele_number" class="form-label fw-500">Telephone Number</label>
+                                        <input type="tel" class="form-control form-control-lg contact-input @error('tele_number') is-invalid @enderror"
+                                            id="tele_number" name="tele_number" value="{{ old('tele_number') }}" required placeholder="+62 xxx xxxx xxxx"
                                             autocomplete="tel">
+                                        @error('tele_number')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="col-md-6">
                                         <label for="subject" class="form-label fw-500">Subject</label>
-                                        <select class="form-select form-select-lg contact-input" id="subject"
-                                            name="subject" required>
-                                            <option value="" disabled selected>Choose a subject</option>
-                                            <option value="membership">Informasi Keanggotaan</option>
-                                            <option value="event">Pertanyaan Event</option>
-                                            <option value="collaboration">Kolaborasi</option>
-                                            <option value="other">Lainnya</option>
-                                        </select>
+                                        <input type="text" class="form-control form-control-lg contact-input @error('subject') is-invalid @enderror"
+                                            id="subject" name="subject" value="{{ old('subject') }}" required placeholder="Enter subject">
+                                        @error('subject')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="col-12">
                                         <label for="message" class="form-label fw-500">Pesan</label>
-                                        <textarea class="form-control form-control-lg contact-input" id="message" name="message" rows="5" required
-                                            placeholder="Your message here"></textarea>
+                                        <textarea class="form-control form-control-lg contact-input @error('message') is-invalid @enderror" 
+                                            id="message" name="message" rows="5" required placeholder="Your message here">{{ old('message') }}</textarea>
+                                        @error('message')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
 
                                     <div class="col-12 mt-4">
@@ -393,28 +422,5 @@
             }
         </style>
 
-        <script>
-            document.addEventListener('DOMContentLoaded', function() {
-                const form = document.getElementById('contactForm');
-
-                form.addEventListener('submit', function(e) {
-                    e.preventDefault();
-
-                    // Add success animation
-                    form.classList.add('submit-success');
-
-                    // Show success message
-                    alert('Terima kasih! Pesan Anda telah terkirim. Kami akan segera menghubungi Anda.');
-
-                    // Reset form
-                    form.reset();
-
-                    // Remove animation class
-                    setTimeout(() => {
-                        form.classList.remove('submit-success');
-                    }, 500);
-                });
-            });
-        </script>
 
     @endsection

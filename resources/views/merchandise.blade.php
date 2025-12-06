@@ -31,6 +31,28 @@
                         @if($item->description)
                             <p class="merch-card-description">{{ $item->description }}</p>
                         @endif
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <small class="text-muted">
+                                Stock: {{ $item->stock }}
+                            </small>
+                            @auth
+                                @if($item->stock > 0)
+                                    <form action="{{ route('cart.add', $item->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        <input type="hidden" name="quantity" value="1">
+                                        <button type="submit" class="btn btn-sm btn-warning">
+                                            <i class="bi bi-cart-plus me-1"></i>Add to Cart
+                                        </button>
+                                    </form>
+                                @else
+                                    <span class="badge bg-danger">Out of Stock</span>
+                                @endif
+                            @else
+                                <a href="{{ route('login.form') }}" class="btn btn-sm btn-outline-warning">
+                                    <i class="bi bi-box-arrow-in-right me-1"></i>Login to Buy
+                                </a>
+                            @endauth
+                        </div>
                     </div>
                 </div>
             </div>

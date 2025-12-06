@@ -9,17 +9,16 @@ class Documentation extends Model
 {
     use HasFactory;
     
-    // Explicitly state table name 
     protected $table = 'documentations'; 
 
-   
     protected $fillable = [
         'event_id',
         'title',
-          'file_path',
-           ];
+        'file_type', // New
+        'caption',   // New
+        'file_path', // Renamed from image_path
+    ];
 
-   
     public function event()
     {
         return $this->belongsTo(Event::class);

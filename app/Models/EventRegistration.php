@@ -12,20 +12,13 @@ class EventRegistration extends Model
     protected $fillable = [
         'event_id',
         'user_id',
-        'name',
-        'nim',
-        'jurusan',
-        'asal_universitas',
-        'nomor_telp',
-        'is_kanvas_member',
-        'days_attending',
         'payment_proof',
         'payment_status',
         'amount_paid',
+        // Removed: name, nim, jurusan, etc.
     ];
 
     protected $casts = [
-        'is_kanvas_member' => 'boolean',
         'amount_paid' => 'decimal:2',
     ];
 

@@ -4,11 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes; // Added SoftDeletes
 
 class Event extends Model
 {
-    use HasFactory;
-
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'title',
@@ -18,53 +18,59 @@ class Event extends Model
         'end_date',
         'registration_deadline',
         'price',
-        'budget',
         'location',
-        'max_participants',
         'is_active',
-        'has_multiple_days',
-        'day_1_price',
-        'day_2_price',
-        'both_days_price',
     ];
 
     protected $casts = [
         'start_date' => 'datetime',
         'end_date' => 'datetime',
-        'registration_deadline' => 'date',
+        'registration_deadline' => 'datetime',
         'price' => 'decimal:2',
-        'budget' => 'decimal:2',
         'is_active' => 'boolean',
-        'has_multiple_days' => 'boolean',
-        'day_1_price' => 'decimal:2',
-        'day_2_price' => 'decimal:2',
-        'both_days_price' => 'decimal:2',
     ];
 
-    public function documentations()
-    {
-        return $this->hasMany(Documentation::class, 'event_id');
-    }
+    // ==========================
+    // RELATIONSHIPS
+    // ==========================
 
     public function registrations()
     {
         return $this->hasMany(EventRegistration::class);
     }
 
-    public function incomeExpenses()
+    public function documentations()
     {
-        return $this->hasMany(IncomeExpense::class);
+        return $this->hasMany(Documentation::class);
     }
 
+    // NEW: Relationship to Rundown
+    public function rundowns()
+    {
+        return $this->hasMany(Rundown::class);
+    }
+
+    // UPDATED: Relationship to new Budget Items
+    public function budgetItems()
+    {
+        return $this->hasMany(EventBudgetItem::class);
+    }
+
+    // Helper: Get only incomes
     public function incomes()
     {
-        return $this->hasMany(IncomeExpense::class)->where('type', 'income');
+        return $this->hasMany(EventBudgetItem::class)->where('type', 'income');
     }
 
+    // Helper: Get only expenses
     public function expenses()
     {
-        return $this->hasMany(IncomeExpense::class)->where('type', 'expense');
+        return $this->hasMany(EventBudgetItem::class)->where('type', 'expense');
     }
+
+    // ==========================
+    // QUERY SCOPES
+    // ==========================
 
     public function scopeActive($query)
     {
@@ -73,21 +79,27 @@ class Event extends Model
 
     public function scopeUpcoming($query)
     {
-        return $query->where('start_date', '>=', now())->orderBy('start_date');
+        return $query->where('start_date', '>=', now());
     }
+
+    // ==========================
+    // LOGIC & CALCULATIONS
+    // ==========================
 
     public function isPastEvent()
     {
-        return $this->end_date < now();
+        $dateToCheck = $this->end_date ?? $this->start_date;
+        return $dateToCheck < now();
     }
 
     public function canRegister()
     {
         return !$this->isPastEvent() &&
-            $this->registration_deadline >= now() &&
+            ($this->registration_deadline ? $this->registration_deadline >= now() : true) &&
             $this->is_active;
     }
 
+    // Total from Registrations
     public function getTotalIncome()
     {
         return $this->registrations()
@@ -95,56 +107,31 @@ class Event extends Model
             ->sum('amount_paid');
     }
 
-    public function getVerifiedParticipantsCount()
-    {
-        return $this->registrations()
-            ->where('payment_status', 'verified')
-            ->count();
-    }
-
-    // Get total income from manual entries (pemasukan)
+    // Total from Budget Income items
     public function getTotalManualIncome()
     {
-        return $this->incomes()->get()->sum(function ($income) {
-            return $income->amount * $income->quantity;
+        return $this->incomes()->get()->sum(function ($item) {
+            return $item->quantity * $item->price;
         });
     }
 
-    // Get total expenses (pengeluaran)
+    // Total Expenses
     public function getTotalExpenses()
     {
-        return $this->expenses()->get()->sum(function ($expense) {
-            return $expense->amount * $expense->quantity;
+        return $this->expenses()->get()->sum(function ($item) {
+            return $item->quantity * $item->price;
         });
     }
 
-    // Get total income including registration fees
+    // Grand Total (Registrations + Manual Income)
     public function getTotalAllIncome()
     {
         return $this->getTotalIncome() + $this->getTotalManualIncome();
     }
 
-    // Get net balance (income - expenses)
+    // Net Profit/Loss
     public function getNetBalance()
     {
         return $this->getTotalAllIncome() - $this->getTotalExpenses();
-    }
-
-    // Check if budget is exceeded
-    public function isBudgetExceeded()
-    {
-        if (!$this->budget) {
-            return false;
-        }
-        return $this->getTotalExpenses() > $this->budget;
-    }
-
-    // Get budget status percentage
-    public function getBudgetUsagePercentage()
-    {
-        if (!$this->budget || $this->budget == 0) {
-            return 0;
-        }
-        return ($this->getTotalExpenses() / $this->budget) * 100;
     }
 }

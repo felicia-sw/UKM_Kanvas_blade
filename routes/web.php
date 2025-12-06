@@ -19,6 +19,12 @@ use App\Http\Controllers\Admin\MerchandiseController as AdminMerchandiseControll
 use App\Http\Controllers\CloudinaryTestController;
 
 use App\Http\Controllers\Admin\IncomeExpenseController;
+use App\Http\Controllers\ContactUsController;
+use App\Http\Controllers\DuesPaymentController;
+use App\Http\Controllers\ShoppingCartController;
+use App\Http\Controllers\MerchandiseOrderController;
+use App\Http\Controllers\Admin\DuesPeriodController;
+use App\Http\Controllers\Admin\RundownController;
 
 // ===============================================
 // CLOUDINARY TEST ROUTES
@@ -52,6 +58,8 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
+Route::post('/contact', [ContactUsController::class, 'store'])->name('contact.store');
+
 // ===============================================
 // AUTHENTICATION ROUTES (User Login/Register/Logout)
 
@@ -71,14 +79,32 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
 
 // ===============================================
-// EVENT REGISTRATION ROUTES
+// AUTHENTICATED USER ROUTES
 Route::middleware('auth')->group(function () {
+    // Event Registration
     Route::post('/events/{event}/register', [EventRegistrationController::class, 'store'])->name('events.register');
-    
+
     // Notification routes
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
     Route::patch('/notifications/{notification}/mark-read', [NotificationController::class, 'markAsRead'])->name('notifications.mark-read');
     Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.mark-all-read');
+
+    // Dues Payment routes
+    Route::get('/dues', [DuesPaymentController::class, 'index'])->name('dues.index');
+    Route::get('/dues/{duesPeriod}/pay', [DuesPaymentController::class, 'create'])->name('dues.payment.create');
+    Route::post('/dues/{duesPeriod}/pay', [DuesPaymentController::class, 'store'])->name('dues.payment.store');
+
+    // Shopping Cart routes
+    Route::get('/cart', [ShoppingCartController::class, 'index'])->name('cart.index');
+    Route::post('/cart/add/{merchandise}', [ShoppingCartController::class, 'add'])->name('cart.add');
+    Route::patch('/cart/update/{cartItem}', [ShoppingCartController::class, 'update'])->name('cart.update');
+    Route::delete('/cart/remove/{cartItem}', [ShoppingCartController::class, 'remove'])->name('cart.remove');
+    Route::post('/cart/clear', [ShoppingCartController::class, 'clear'])->name('cart.clear');
+
+    // Merchandise Order routes
+    Route::get('/orders', [MerchandiseOrderController::class, 'index'])->name('orders.index');
+    Route::get('/orders/{order}', [MerchandiseOrderController::class, 'show'])->name('orders.show');
+    Route::post('/orders', [MerchandiseOrderController::class, 'store'])->name('orders.store');
 });
 
 
@@ -86,7 +112,7 @@ Route::middleware('auth')->group(function () {
 // ADMIN ROUTES
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
-    
+
 
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -108,14 +134,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::put('events/{event}/finances/{incomeExpense}', [IncomeExpenseController::class, 'update'])->name('events.finances.update');
     Route::delete('events/{event}/finances/{incomeExpense}', [IncomeExpenseController::class, 'destroy'])->name('events.finances.destroy');
 
-    
+
     Route::get('documentation/all', [AdminDocumentationController::class, 'indexAll'])->name('documentation.index.all');
-    
+
     Route::get('documentation/create', [AdminDocumentationController::class, 'createAll'])->name('documentation.create.all');
 
-    
+
     Route::post('documentation/store-all', [AdminDocumentationController::class, 'storeAll'])->name('documentation.store.all');
-    
+
     Route::resource('events.documentation', AdminDocumentationController::class)->except(['show']);
 
     Route::resource('merchandise', AdminMerchandiseController::class);
@@ -123,8 +149,26 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     // Event Registration Management
     Route::patch('/registrations/{registration}/status', [EventRegistrationController::class, 'updateStatus'])->name('registrations.update-status');
 
+    // Event Rundown Management
+    Route::get('events/{event}/rundown', [RundownController::class, 'index'])->name('events.rundown.index');
+    Route::get('events/{event}/rundown/create', [RundownController::class, 'create'])->name('events.rundown.create');
+    Route::post('events/{event}/rundown', [RundownController::class, 'store'])->name('events.rundown.store');
+    Route::get('events/{event}/rundown/{rundown}/edit', [RundownController::class, 'edit'])->name('events.rundown.edit');
+    Route::put('events/{event}/rundown/{rundown}', [RundownController::class, 'update'])->name('events.rundown.update');
+    Route::delete('events/{event}/rundown/{rundown}', [RundownController::class, 'destroy'])->name('events.rundown.destroy');
 
+    // Dues Period Management
+    Route::resource('dues', DuesPeriodController::class);
+    Route::get('dues/{duesPeriod}/payments', [DuesPeriodController::class, 'show'])->name('dues.show');
 
+    // Dues Payment Verification
+    Route::patch('/dues-payments/{payment}/verify', [DuesPaymentController::class, 'verify'])->name('dues-payments.verify');
+
+    // Merchandise Order Management
+    Route::get('orders', [MerchandiseOrderController::class, 'adminIndex'])->name('orders.index');
+    Route::get('orders/{order}', [MerchandiseOrderController::class, 'show'])->name('orders.show');
+    Route::patch('orders/{order}/verify-payment', [MerchandiseOrderController::class, 'verifyPayment'])->name('orders.verify-payment');
+    Route::patch('orders/{order}/pickup-status', [MerchandiseOrderController::class, 'updatePickupStatus'])->name('orders.update-pickup-status');
 });
 
     // --- TEMPORARY DEBUG ROUTE --- for "hasRole" issue

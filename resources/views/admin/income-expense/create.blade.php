@@ -43,11 +43,11 @@
                         </div>
 
                         <div class="col-md-4 mb-3">
-                            <label for="amount" class="form-label">Amount (Rp) <span class="text-danger">*</span></label>
-                            <input type="number" class="form-control @error('amount') is-invalid @enderror" id="amount"
-                                name="amount" value="{{ old('amount') }}" min="0" step="0.01" placeholder="0"
+                            <label for="price" class="form-label">Price (Rp) <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control @error('price') is-invalid @enderror" id="price"
+                                name="price" value="{{ old('price') }}" min="0" step="0.01" placeholder="0"
                                 required>
-                            @error('amount')
+                            @error('price')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
@@ -61,26 +61,6 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="transaction_date" class="form-label">Transaction Date <span
-                                class="text-danger">*</span></label>
-                        <input type="date" class="form-control @error('transaction_date') is-invalid @enderror"
-                            id="transaction_date" name="transaction_date"
-                            value="{{ old('transaction_date', date('Y-m-d')) }}" required>
-                        @error('transaction_date')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="description" class="form-label">Description (Optional)</label>
-                        <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description"
-                            rows="4" placeholder="Add any additional details about this {{ $type }}...">{{ old('description') }}</textarea>
-                        @error('description')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
                     </div>
 
                     <div class="d-flex gap-2">
