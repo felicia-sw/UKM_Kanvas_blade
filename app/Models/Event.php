@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes; // Added SoftDeletes
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Event extends Model
 {
@@ -124,9 +124,10 @@ class Event extends Model
     }
 
     // Grand Total (Registrations + Manual Income)
+    // Get total income including registration fees (now part of manual income)
     public function getTotalAllIncome()
     {
-        return $this->getTotalIncome() + $this->getTotalManualIncome();
+        return $this->getTotalManualIncome();
     }
 
     // Net Profit/Loss

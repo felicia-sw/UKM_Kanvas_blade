@@ -58,12 +58,6 @@
                     </li>
                     @auth
                         <li class="nav-item">
-                            <a class="nav-link text-white px-3 py-2 rounded-3 {{ request()->routeIs('dues.*') ? 'active' : '' }}"
-                                href="{{ route('dues.index') }}">
-                                <i class="bi bi-cash-coin me-2"></i>Dues
-                            </a>
-                        </li>
-                        <li class="nav-item">
                             <a class="nav-link text-white px-3 py-2 rounded-3 {{ request()->routeIs('cart.*') ? 'active' : '' }}"
                                 href="{{ route('cart.index') }}">
                                 <i class="bi bi-cart me-2"></i>Cart
@@ -96,11 +90,11 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                 <li>
-                                    <a class="dropdown-item" href="{{ route('notifications.index') }}">
-                                        <i class="bi bi-bell me-2"></i>Notifications
+                                    <a class="dropdown-item" href="{{ route('profile.show') }}">
+                                        <i class="bi bi-person me-2"></i>My Profile
                                         @php
                                             $unreadCount = Auth::user()
-                                                ->notifications()
+                                                ->customNotifications()
                                                 ->where('is_read', false)
                                                 ->count();
                                         @endphp

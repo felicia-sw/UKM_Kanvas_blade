@@ -82,4 +82,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(ContactUs::class);
     }
+
+    public function customNotifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
+    public function unreadCustomNotifications()
+    {
+        return $this->customNotifications()->where('is_read', false);
+    }
 }

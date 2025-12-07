@@ -6,6 +6,7 @@ use App\Notifications\PaymentVerified;
 use App\Models\Event;
 use App\Models\EventRegistration;
 use App\Models\Notification;
+use App\Models\EventBudgetItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
@@ -50,6 +51,7 @@ class EventRegistrationController extends Controller
             'payment_status' => 'required|in:pending,verified,rejected',
         ]);
 
+        $oldStatus = $registration->payment_status;
         $registration->update($validated);
 
         // If payment is verified, send a notification to the user.
@@ -59,6 +61,56 @@ class EventRegistrationController extends Controller
             $user->notify(new PaymentVerified($registration));
         }
 
+        // Update automatic registration income entry
+        $this->updateRegistrationIncomeEntry($registration->event);
+
         return redirect()->back()->with('success', 'Registration status updated successfully!');
+    }
+
+    /**
+     * Create or update automatic income entry for all verified registrations
+     */
+    private function updateRegistrationIncomeEntry(Event $event)
+    {
+        // Get all verified registrations
+        $verifiedRegistrations = $event->registrations()
+            ->where('payment_status', 'verified')
+            ->get();
+
+        $totalCount = $verifiedRegistrations->count();
+        $totalAmount = $verifiedRegistrations->sum('amount_paid');
+
+        // Find existing registration income entry
+        $registrationIncome = EventBudgetItem::where('event_id', $event->id)
+            ->where('type', 'income')
+            ->where('item_name', 'Biaya Registrasi')
+            ->first();
+
+        if ($totalCount > 0) {
+            // Calculate average price per registration
+            $averagePrice = $totalCount > 0 ? $totalAmount / $totalCount : 0;
+
+            if ($registrationIncome) {
+                // Update existing entry
+                $registrationIncome->update([
+                    'price' => $averagePrice,
+                    'quantity' => $totalCount,
+                ]);
+            } else {
+                // Create new entry
+                EventBudgetItem::create([
+                    'event_id' => $event->id,
+                    'type' => 'income',
+                    'item_name' => 'Biaya Registrasi',
+                    'price' => $averagePrice,
+                    'quantity' => $totalCount,
+                ]);
+            }
+        } else {
+            // If no verified registrations, delete the entry if it exists
+            if ($registrationIncome) {
+                $registrationIncome->delete();
+            }
+        }
     }
 }
