@@ -2,8 +2,10 @@
 :root {
     --site-font: 'Judson', serif;
     --page-padding: 20px;
-    --accent-start: #FFEC77; /* Bright Yellow */
-    --accent-end: #FF750F; /* Orange */
+    --accent-start: #FFEC77;
+    /* Bright Yellow */
+    --accent-end: #FF750F;
+    /* Orange */
     --text-primary: #fff;
     --input-bg: rgba(0, 0, 0, 0.3);
     --input-border: rgba(255, 255, 255, 0.4);
@@ -24,7 +26,8 @@ body {
     background: linear-gradient(to bottom, #FFEC77 0%, #8F4898 42%, #844191 45%, #68307E 50%, #3B1461 57%, #2A0A56 59%, #2A0A56 100%);
     min-height: 100vh;
     overflow-x: hidden;
-    color: var(--text-primary); /* Ensure all body text defaults to white */
+    color: var(--text-primary);
+    /* Ensure all body text defaults to white */
 }
 
 /* Typography */
@@ -91,6 +94,15 @@ h6 {
 }
 
 /* Navigation */
+.site-navbar-fixed {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1030;
+    width: 100%;
+}
+
 .nav-link:hover {
     background-color: rgba(255, 255, 255, 0.2) !important;
 }
@@ -137,20 +149,22 @@ h6 {
 
 /* Backdrop fix: Ensures the dark backdrop is visible and covers the background gradient */
 .modal-backdrop.show {
-    opacity: 0.8 !important; /* Increase opacity to darken the background significantly */
+    opacity: 0.8 !important;
+    /* Increase opacity to darken the background significantly */
     background-color: #000;
 }
 
 /* Modal Content fix: Applies the glass card effect and sets text color */
 .modal-content {
     /* Apply your glass-card logic with higher opacity for legibility */
-    background: var(--modal-glass-bg); 
+    background: var(--modal-glass-bg);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border-radius: 1.5rem;
     border: 1px solid rgba(255, 255, 255, 0.3);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
-    color: var(--text-primary); /* Set all modal text to white for contrast */
+    color: var(--text-primary);
+    /* Set all modal text to white for contrast */
 }
 
 /* Modal sections fix: Ensure header/body/footer are transparent and remove default borders */
@@ -180,7 +194,8 @@ h6 {
 
 /* Form Control fix: Styles for inputs and textareas */
 .modal-content .form-control {
-    background-color: var(--input-bg); /* Dark, transparent background */
+    background-color: var(--input-bg);
+    /* Dark, transparent background */
     border: 1px solid var(--input-border);
     color: var(--text-primary);
     border-radius: 0.5rem;
@@ -231,7 +246,8 @@ h6 {
 .merch-title {
     font-weight: 800;
     font-size: 2.5rem;
-    color: #4a00e0; /* Deep purple */
+    color: #4a00e0;
+    /* Deep purple */
 }
 
 .merch-subtitle {
@@ -244,13 +260,15 @@ h6 {
     border-radius: 20px;
     border: 3px solid transparent;
     /* Gradient border simulation */
-    background-image: linear-gradient(white, white), 
-                      linear-gradient(135deg, #ff6b6b, #4a00e0); /* Pink to Purple gradient */
+    background-image: linear-gradient(white, white),
+        linear-gradient(135deg, #ff6b6b, #4a00e0);
+    /* Pink to Purple gradient */
     background-origin: border-box;
     background-clip: padding-box, border-box;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
     transition: all 0.3s ease;
-    overflow: hidden; /* To keep rounded corners on image */
+    overflow: hidden;
+    /* To keep rounded corners on image */
 }
 
 .merch-card:hover {
@@ -266,7 +284,8 @@ h6 {
     width: 100%;
     height: 250px;
     object-fit: cover;
-    border-radius: 15px; /* Rounded corners for the image */
+    border-radius: 15px;
+    /* Rounded corners for the image */
 }
 
 .merch-card-body {
@@ -284,7 +303,8 @@ h6 {
 .merch-card-price {
     font-weight: 600;
     font-size: 1.2rem;
-    color: #4a00e0; /* Gradient color */
+    color: #4a00e0;
+    /* Gradient color */
 }
 
 /* Decorative elements */
