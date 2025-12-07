@@ -3,20 +3,17 @@
 @section('title', 'My Profile')
 
 @section('content')
-    <!-- Spacer for fixed navbar -->
-    <div style="height: 200px; background: transparent;"></div>
-
-    <div class="container" style="padding-bottom: 3rem; margin-top: 2rem;">
+    <div class="container py-5">
         <div class="row">
             <!-- Sidebar -->
             <div class="col-lg-3 mb-4">
-                <div class="card shadow-lg border-0" style="background: #2A0A56;">
+                <div class="card shadow-sm">
                     <div class="card-body text-center">
                         <div class="mb-3">
-                            <i class="bi bi-person-circle" style="font-size: 5rem; color: #FFEC77;"></i>
+                            <i class="bi bi-person-circle" style="font-size: 5rem; color: #6c757d;"></i>
                         </div>
-                        <h5 class="card-title mb-1 text-white">{{ $user->name }}</h5>
-                        <p class="text-white-50 small mb-3">{{ $user->email }}</p>
+                        <h5 class="card-title mb-1">{{ $user->name }}</h5>
+                        <p class="text-muted small mb-3">{{ $user->email }}</p>
                         <hr>
                         <div class="list-group list-group-flush">
                             <a href="#profile-info" class="list-group-item list-group-item-action active">
@@ -49,9 +46,9 @@
                 @endif
 
                 <!-- Profile Information Section -->
-                <div class="card shadow-lg border-0 mb-4" id="profile-info" style="background: #2A0A56;">
-                    <div class="card-header" style="background: #8F4898; border-bottom: none;">
-                        <h5 class="mb-0 text-white"><i class="bi bi-person me-2"></i>Profile Information</h5>
+                <div class="card shadow-sm mb-4" id="profile-info">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="bi bi-person me-2"></i>Profile Information</h5>
                     </div>
                     <div class="card-body">
                         <form action="{{ route('profile.update') }}" method="POST">
@@ -60,7 +57,7 @@
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label for="name" class="form-label text-white">Full Name <span
+                                    <label for="name" class="form-label">Full Name <span
                                             class="text-danger">*</span></label>
                                     <input type="text" class="form-control @error('name') is-invalid @enderror"
                                         id="name" name="name" value="{{ old('name', $user->name) }}" required>
@@ -70,7 +67,7 @@
                                 </div>
 
                                 <div class="col-md-6 mb-3">
-                                    <label for="email" class="form-label text-white">Email <span
+                                    <label for="email" class="form-label">Email <span
                                             class="text-danger">*</span></label>
                                     <input type="email" class="form-control @error('email') is-invalid @enderror"
                                         id="email" name="email" value="{{ old('email', $user->email) }}" required>
@@ -82,7 +79,7 @@
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label for="nim" class="form-label text-white">NIM</label>
+                                    <label for="nim" class="form-label">NIM</label>
                                     <input type="text" class="form-control @error('nim') is-invalid @enderror"
                                         id="nim" name="nim" value="{{ old('nim', $profile->nim ?? '') }}">
                                     @error('nim')
@@ -91,7 +88,7 @@
                                 </div>
 
                                 <div class="col-md-6 mb-3">
-                                    <label for="jurusan" class="form-label text-white">Jurusan</label>
+                                    <label for="jurusan" class="form-label">Jurusan</label>
                                     <input type="text" class="form-control @error('jurusan') is-invalid @enderror"
                                         id="jurusan" name="jurusan"
                                         value="{{ old('jurusan', $profile->jurusan ?? '') }}">
@@ -103,7 +100,7 @@
 
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label for="asal_universitas" class="form-label text-white">Asal Universitas</label>
+                                    <label for="asal_universitas" class="form-label">Asal Universitas</label>
                                     <input type="text"
                                         class="form-control @error('asal_universitas') is-invalid @enderror"
                                         id="asal_universitas" name="asal_universitas"
@@ -114,7 +111,7 @@
                                 </div>
 
                                 <div class="col-md-6 mb-3">
-                                    <label for="no_telp" class="form-label text-white">Phone Number</label>
+                                    <label for="no_telp" class="form-label">Phone Number</label>
                                     <input type="text" class="form-control @error('no_telp') is-invalid @enderror"
                                         id="no_telp" name="no_telp"
                                         value="{{ old('no_telp', $profile->no_telp ?? '') }}">
@@ -124,7 +121,7 @@
                                 </div>
                             </div>
 
-                            <button type="submit" class="btn btn-warning text-dark">
+                            <button type="submit" class="btn btn-primary">
                                 <i class="bi bi-save me-2"></i>Update Profile
                             </button>
                         </form>
@@ -132,10 +129,9 @@
                 </div>
 
                 <!-- Notifications Section -->
-                <div class="card shadow-lg border-0 mb-4" id="notifications" style="background: #2A0A56;">
-                    <div class="card-header d-flex justify-content-between align-items-center"
-                        style="background: #8F4898; border-bottom: none;">
-                        <h5 class="mb-0 text-white"><i class="bi bi-bell me-2"></i>Notifications</h5>
+                <div class="card shadow-sm mb-4" id="notifications">
+                    <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0"><i class="bi bi-bell me-2"></i>Notifications</h5>
                         @if ($notifications->total() > 0)
                             <form action="{{ route('notifications.mark-all-read') }}" method="POST">
                                 @csrf
@@ -150,27 +146,26 @@
                         @if ($notifications->count() > 0)
                             <div class="list-group list-group-flush">
                                 @foreach ($notifications as $notification)
-                                    <div class="list-group-item {{ !$notification->is_read ? 'bg-dark bg-opacity-25' : '' }} border-0"
-                                        style="background: rgba(255, 255, 255, 0.05);">
+                                    <div class="list-group-item {{ !$notification->is_read ? 'bg-light' : '' }}">
                                         <div class="d-flex justify-content-between align-items-start">
                                             <div class="flex-grow-1">
                                                 <div class="d-flex align-items-center mb-1">
                                                     @if (!$notification->is_read)
-                                                        <span class="badge bg-warning text-dark me-2">New</span>
+                                                        <span class="badge bg-primary me-2">New</span>
                                                     @endif
                                                     <span
                                                         class="badge bg-secondary">{{ ucfirst(str_replace('_', ' ', $notification->type)) }}</span>
                                                 </div>
-                                                <p class="mb-1 text-white">{{ $notification->message }}</p>
+                                                <p class="mb-1">{{ $notification->message }}</p>
                                                 <small
-                                                    class="text-white-50">{{ $notification->created_at->diffForHumans() }}</small>
+                                                    class="text-muted">{{ $notification->created_at->diffForHumans() }}</small>
                                             </div>
                                             @if (!$notification->is_read)
                                                 <form action="{{ route('notifications.mark-read', $notification) }}"
                                                     method="POST">
                                                     @csrf
                                                     @method('PATCH')
-                                                    <button type="submit" class="btn btn-sm btn-outline-warning">
+                                                    <button type="submit" class="btn btn-sm btn-outline-primary">
                                                         <i class="bi bi-check2"></i>
                                                     </button>
                                                 </form>
@@ -184,22 +179,22 @@
                             </div>
                         @else
                             <div class="text-center py-5">
-                                <i class="bi bi-bell-slash" style="font-size: 3rem; color: #FFEC77;"></i>
-                                <p class="text-white-50 mt-3">No notifications yet</p>
+                                <i class="bi bi-bell-slash" style="font-size: 3rem; color: #6c757d;"></i>
+                                <p class="text-muted mt-3">No notifications yet</p>
                             </div>
                         @endif
                     </div>
                 </div>
 
                 <!-- Dues Payments Section -->
-                <div class="card shadow-lg border-0 mb-4" id="dues" style="background: #2A0A56;">
-                    <div class="card-header" style="background: #8F4898; border-bottom: none;">
-                        <h5 class="mb-0 text-white"><i class="bi bi-wallet2 me-2"></i>Dues Payments History</h5>
+                <div class="card shadow-sm mb-4" id="dues">
+                    <div class="card-header bg-success text-white">
+                        <h5 class="mb-0"><i class="bi bi-wallet2 me-2"></i>Dues Payments History</h5>
                     </div>
                     <div class="card-body">
                         @if ($duesPayments->count() > 0)
                             <div class="table-responsive">
-                                <table class="table table-hover table-dark">
+                                <table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>Period</th>
@@ -239,8 +234,8 @@
                             </div>
                         @else
                             <div class="text-center py-5">
-                                <i class="bi bi-wallet2" style="font-size: 3rem; color: #FFEC77;"></i>
-                                <p class="text-white-50 mt-3">No payment history yet</p>
+                                <i class="bi bi-wallet2" style="font-size: 3rem; color: #6c757d;"></i>
+                                <p class="text-muted mt-3">No payment history yet</p>
                             </div>
                         @endif
                     </div>
@@ -250,28 +245,17 @@
     </div>
 
     <style>
-        .list-group-item {
-            background: #3d1a5c;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #fff;
-        }
-
         .list-group-item.active {
-            background: #8F4898;
-            border-color: #8F4898;
+            background-color: #0d6efd;
+            border-color: #0d6efd;
         }
 
         .list-group-item:hover {
-            background: #4d2a6c;
+            background-color: #f8f9fa;
         }
 
         .list-group-item.active:hover {
-            background: #9f58a8;
-        }
-
-        .table-dark {
-            --bs-table-bg: transparent;
-            --bs-table-border-color: rgba(255, 255, 255, 0.1);
+            background-color: #0d6efd;
         }
     </style>
 

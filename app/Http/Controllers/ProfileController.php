@@ -20,7 +20,7 @@ class ProfileController extends Controller
         // Get dues payments
         $duesPayments = $user->duesPayments()->with('duesPeriod')->latest()->paginate(10, ['*'], 'dues_page');
 
-        return view('profile.show', compact('user', 'profile', 'notifications', 'duesPayments'));
+        return view('profile.profile', compact('user', 'profile', 'notifications', 'duesPayments'));
     }
 
     public function update(Request $request)
@@ -53,7 +53,7 @@ class ProfileController extends Controller
             ]
         );
 
-        return redirect()->route('profile.show')->with('success', 'Profile updated successfully!');
+        return redirect()->route('profile.profile')->with('success', 'Profile updated successfully!');
     }
 
     public function updatePassword(Request $request)
@@ -73,6 +73,6 @@ class ProfileController extends Controller
             'password' => Hash::make($validated['new_password']),
         ]);
 
-        return redirect()->route('profile.show')->with('success', 'Password updated successfully!');
+        return redirect()->route('profile.profile')->with('success', 'Password updated successfully!');
     }
 }

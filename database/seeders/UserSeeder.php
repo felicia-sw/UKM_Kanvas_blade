@@ -18,15 +18,15 @@ class UserSeeder extends Seeder
 
         // 2. Create YOUR Admin Account
         $admin = User::create([
-            'name' => 'Super Admin',
-            'email' => 'admin@kanvas.com', // <--- Login Email
-            'password' => Hash::make('password'), // <--- Login Password
+            'name' => 'Admin Kanvas',
+            'email' => 'admin@gmail.com', // <--- Login Email
+            'password' => Hash::make('adminKanvas123'), // <--- Login Password
             'email_verified_at' => now(),
         ]);
 
         // 3. Assign Role & Create Profile
         $admin->roles()->attach($adminRole);
-        
+
         Profile::create([
             'user_id' => $admin->id,
             'nim' => '00000000',

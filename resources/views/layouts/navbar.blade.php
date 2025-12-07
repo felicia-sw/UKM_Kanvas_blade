@@ -90,7 +90,7 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
                                 <li>
-                                    <a class="dropdown-item" href="{{ route('profile.show') }}">
+                                    <a class="dropdown-item" href="{{ route('profile.profile') }}">
                                         <i class="bi bi-person me-2"></i>My Profile
                                         @php
                                             $unreadCount = Auth::user()

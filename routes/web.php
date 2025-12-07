@@ -82,7 +82,7 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // AUTHENTICATED USER ROUTES
 Route::middleware('auth')->group(function () {
     // Profile routes
-    Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'show'])->name('profile.profile');
     Route::put('/profile', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password', [App\Http\Controllers\ProfileController::class, 'updatePassword'])->name('profile.update-password');
 
