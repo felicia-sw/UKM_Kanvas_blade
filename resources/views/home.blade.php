@@ -5,14 +5,14 @@
 @section('content')
     <!-- Notification Section -->
     @auth
-        @if (auth()->user()->unreadNotifications()->count() > 0)
+        @if (auth()->user()->unreadCustomNotifications()->count() > 0)
             <div class="notification-banner bg-primary text-white py-3" style="position: relative; z-index: 1000;">
                 <div class="container">
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="flex-grow-1">
                             <h5 class="mb-2"><i class="bi bi-bell-fill me-2"></i>You have
-                                {{ auth()->user()->unreadNotifications()->count() }} new notification(s)</h5>
-                            @foreach (auth()->user()->unreadNotifications()->latest()->limit(3)->get() as $notification)
+                                {{ auth()->user()->unreadCustomNotifications()->count() }} new notification(s)</h5>
+                            @foreach (auth()->user()->unreadCustomNotifications()->latest()->limit(3)->get() as $notification)
                                 <div class="notification-item mb-2 p-2 bg-white bg-opacity-10 rounded">
                                     <div class="d-flex justify-content-between align-items-start">
                                         <div class="flex-grow-1">
@@ -29,7 +29,7 @@
                                     </div>
                                 </div>
                             @endforeach
-                            @if (auth()->user()->unreadNotifications()->count() > 3)
+                            @if (auth()->user()->unreadCustomNotifications()->count() > 3)
                                 <a href="{{ route('notifications.index') }}" class="btn btn-sm btn-light mt-2">View All
                                     Notifications</a>
                             @endif

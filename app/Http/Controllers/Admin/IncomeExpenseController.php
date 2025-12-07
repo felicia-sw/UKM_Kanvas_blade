@@ -15,7 +15,6 @@ class IncomeExpenseController extends Controller
         $incomes = $event->incomes()->orderBy('created_at', 'desc')->get();
         $expenses = $event->expenses()->orderBy('created_at', 'desc')->get();
 
-        $totalRegistrationIncome = $event->getTotalIncome();
         $totalManualIncome = $event->getTotalManualIncome();
         $totalExpenses = $event->getTotalExpenses();
         $netBalance = $event->getNetBalance();
@@ -24,7 +23,6 @@ class IncomeExpenseController extends Controller
             'event',
             'incomes',
             'expenses',
-            'totalRegistrationIncome',
             'totalManualIncome',
             'totalExpenses',
             'netBalance'

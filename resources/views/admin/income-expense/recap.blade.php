@@ -40,37 +40,18 @@
 
         <!-- Financial Summary Cards -->
         <div class="row g-4 mb-4">
-            <!-- Total Income (Registrations) -->
-            <div class="col-md-6 col-xl-3">
+            <!-- Total Income -->
+            <div class="col-md-6 col-xl-4">
                 <div class="card border-0 shadow-sm h-100">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
                             <div class="flex-shrink-0">
                                 <div class="avatar avatar-lg bg-success bg-opacity-10 text-success rounded">
-                                    <i class="bi bi-people-fill fs-4"></i>
-                                </div>
-                            </div>
-                            <div class="flex-grow-1 ms-3">
-                                <h6 class="text-muted mb-1">Registration Income</h6>
-                                <h4 class="mb-0">Rp {{ number_format($totalRegistrationIncome, 0, ',', '.') }}</h4>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Manual Income -->
-            <div class="col-md-6 col-xl-3">
-                <div class="card border-0 shadow-sm h-100">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center">
-                            <div class="flex-shrink-0">
-                                <div class="avatar avatar-lg bg-info bg-opacity-10 text-info rounded">
                                     <i class="bi bi-cash-coin fs-4"></i>
                                 </div>
                             </div>
                             <div class="flex-grow-1 ms-3">
-                                <h6 class="text-muted mb-1">Other Income</h6>
+                                <h6 class="text-muted mb-1">Total Income</h6>
                                 <h4 class="mb-0">Rp {{ number_format($totalManualIncome, 0, ',', '.') }}</h4>
                             </div>
                         </div>
@@ -79,7 +60,7 @@
             </div>
 
             <!-- Total Expenses -->
-            <div class="col-md-6 col-xl-3">
+            <div class="col-md-6 col-xl-4">
                 <div class="card border-0 shadow-sm h-100">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
@@ -98,7 +79,7 @@
             </div>
 
             <!-- Net Balance -->
-            <div class="col-md-6 col-xl-3">
+            <div class="col-md-6 col-xl-4">
                 <div class="card border-0 shadow-sm h-100">
                     <div class="card-body">
                         <div class="d-flex align-items-center">
@@ -196,20 +177,28 @@
                                                     Rp {{ number_format($income->total, 0, ',', '.') }}
                                                 </td>
                                                 <td class="text-center">
-                                                    <a href="{{ route('admin.events.finances.edit', [$event->id, $income->id]) }}"
-                                                        class="btn btn-sm btn-outline-primary me-1">
-                                                        <i class="bi bi-pencil"></i>
-                                                    </a>
-                                                    <form
-                                                        action="{{ route('admin.events.finances.destroy', [$event->id, $income->id]) }}"
-                                                        method="POST" class="d-inline"
-                                                        onsubmit="return confirm('Are you sure you want to delete this income entry?');">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <button type="submit" class="btn btn-sm btn-outline-danger">
-                                                            <i class="bi bi-trash"></i>
-                                                        </button>
-                                                    </form>
+                                                    @if ($income->item_name === 'Biaya Registrasi')
+                                                        <span class="badge bg-secondary"
+                                                            title="Auto-generated from verified registrations">
+                                                            <i class="bi bi-lock-fill"></i> Auto
+                                                        </span>
+                                                    @else
+                                                        <a href="{{ route('admin.events.finances.edit', [$event->id, $income->id]) }}"
+                                                            class="btn btn-sm btn-outline-primary me-1" title="Edit">
+                                                            <i class="bi bi-pencil"></i>
+                                                        </a>
+                                                        <form
+                                                            action="{{ route('admin.events.finances.destroy', [$event->id, $income->id]) }}"
+                                                            method="POST" class="d-inline"
+                                                            onsubmit="return confirm('Are you sure you want to delete this income entry?');">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-sm btn-outline-danger"
+                                                                title="Delete">
+                                                                <i class="bi bi-trash"></i>
+                                                            </button>
+                                                        </form>
+                                                    @endif
                                                 </td>
                                             </tr>
                                         @endforeach

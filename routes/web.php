@@ -81,13 +81,18 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // ===============================================
 // AUTHENTICATED USER ROUTES
 Route::middleware('auth')->group(function () {
+    // Profile routes
+    Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'show'])->name('profile.show');
+    Route::put('/profile', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/profile/password', [App\Http\Controllers\ProfileController::class, 'updatePassword'])->name('profile.update-password');
+
     // Event Registration
     Route::post('/events/{event}/register', [EventRegistrationController::class, 'store'])->name('events.register');
 
     // Notification routes
     Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
     Route::patch('/notifications/{notification}/mark-read', [NotificationController::class, 'markAsRead'])->name('notifications.mark-read');
-    Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.mark-all-read');
+    Route::patch('/notifications/mark-all-read', [NotificationController::class, 'markAllAsRead'])->name('notifications.mark-all-read');
 
     // Dues Payment routes
     Route::get('/dues', [DuesPaymentController::class, 'index'])->name('dues.index');

@@ -10,7 +10,7 @@ class NotificationController extends Controller
 {
     public function index()
     {
-        $notifications = Auth::user()->notifications()->latest()->paginate(20);
+        $notifications = Auth::user()->customNotifications()->latest()->paginate(20);
         return view('notifications.index', compact('notifications'));
     }
 
@@ -28,7 +28,7 @@ class NotificationController extends Controller
 
     public function markAllAsRead()
     {
-        Auth::user()->notifications()->where('is_read', false)->update(['is_read' => true]);
+        Auth::user()->customNotifications()->where('is_read', false)->update(['is_read' => true]);
 
         return redirect()->back()->with('success', 'All notifications marked as read.');
     }

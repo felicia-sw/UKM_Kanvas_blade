@@ -24,7 +24,6 @@
 # Thumbs.db
 
 
-/node_modules
 /storage/debugbar
 /storage/framework/sessions
 /storage/framework/cache
