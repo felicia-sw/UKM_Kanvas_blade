@@ -24,9 +24,14 @@
                             {{ $event->start_date->format('M d, Y') }} - {{ $event->end_date->format('M d, Y') }}
                         </p>
                     </div>
-                    <a href="{{ route('admin.events.index') }}" class="btn btn-admin-outline-secondary">
-                        <i class="bi bi-arrow-left me-2"></i>Back to Events
-                    </a>
+                    <div>
+                        <a href="{{ route('export.event', $event->id) }}" class="btn btn-success me-2" target="_blank">
+                            <i class="bi bi-file-earmark-excel me-2"></i>Export to Excel
+                        </a>
+                        <a href="{{ route('admin.events.index') }}" class="btn btn-admin-outline-secondary">
+                            <i class="bi bi-arrow-left me-2"></i>Back to Events
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
