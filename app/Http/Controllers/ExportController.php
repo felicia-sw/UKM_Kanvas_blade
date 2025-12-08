@@ -34,6 +34,10 @@ class ExportController extends Controller
         $spreadsheet = IOFactory::load($templatePath);
         $sheet = $spreadsheet->getActiveSheet();
 
+        // Make sure column G is visible and unmerged
+        $sheet->getColumnDimension('G')->setVisible(true);
+        $sheet->getColumnDimension('G')->setCollapsed(false);
+
         // ============ SECTION PEMASUKAN ============
         // Data pemasukan dimulai dari row 46 (setelah header di row 45)
         $row = 46;
@@ -41,55 +45,73 @@ class ExportController extends Controller
         $totalPemasukan = 0;
 
         foreach ($pemasukan as $item) {
+            // Insert new row if we have more than 2 items (template has 2 rows: 46-47)
+            if ($no > 2) {
+                $sheet->insertNewRowBefore($row, 1);
+            }
+
             $itemTotal = $item->price * $item->quantity;
             $totalPemasukan += $itemTotal;
 
             $sheet->setCellValue('C' . $row, $no);
             $sheet->setCellValue('D' . $row, $item->item_name);
             $sheet->setCellValue('E' . $row, 'Rp' . number_format($item->price, 0, ',', '.'));
-            $sheet->setCellValue('F' . $row, $item->quantity);
+            $sheet->mergeCells('E' . $row . ':F' . $row);
+            $sheet->setCellValueExplicit('G' . $row, $item->quantity, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC);
             $sheet->setCellValue('H' . $row, 'Rp' . number_format($itemTotal, 0, ',', '.'));
 
             $row++;
             $no++;
         }
 
-        // Total pemasukan di row 48 (sesuai template)
-        $sheet->setCellValue('H48', 'Rp' . number_format($totalPemasukan, 0, ',', '.'));
+        // Calculate dynamic row for total pemasukan (row after last data)
+        $totalPemasukanRow = $row;
+        $sheet->setCellValue('H' . $totalPemasukanRow, 'Rp' . number_format($totalPemasukan, 0, ',', '.'));
 
         // ============ SECTION PENGELUARAN ============
-        // Data pengeluaran dimulai dari row 52 (setelah header di row 51)
-        $row = 52;
+        // Pengeluaran starts 4 rows after total pemasukan (accounting for spacing and headers)
+        $pengeluaranStartRow = $totalPemasukanRow + 4;
+        $row = $pengeluaranStartRow;
         $no = 1;
         $totalPengeluaran = 0;
 
         foreach ($pengeluaran as $item) {
+            // Insert new row if we have more than 2 items (template has 2 rows: 52-53)
+            if ($no > 2) {
+                $sheet->insertNewRowBefore($row, 1);
+            }
+
             $itemTotal = $item->price * $item->quantity;
             $totalPengeluaran += $itemTotal;
 
             $sheet->setCellValue('C' . $row, $no);
             $sheet->setCellValue('D' . $row, $item->item_name);
             $sheet->setCellValue('E' . $row, 'Rp' . number_format($item->price, 0, ',', '.'));
-            $sheet->setCellValue('F' . $row, $item->quantity);
+            $sheet->mergeCells('E' . $row . ':F' . $row);
+            $sheet->setCellValueExplicit('G' . $row, $item->quantity, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC);
             $sheet->setCellValue('H' . $row, 'Rp' . number_format($itemTotal, 0, ',', '.'));
 
             $row++;
             $no++;
         }
 
-        // Total pengeluaran di row 54 (sesuai template)
-        $sheet->setCellValue('H54', 'Rp' . number_format($totalPengeluaran, 0, ',', '.'));
+        // Calculate dynamic row for total pengeluaran
+        $totalPengeluaranRow = $row;
+        $sheet->setCellValue('H' . $totalPengeluaranRow, 'Rp' . number_format($totalPengeluaran, 0, ',', '.'));
 
         // ============ GRAND TOTALS ============
-        // TOTAL PEMASUKAN di row 56
-        $sheet->setCellValue('H56', 'Rp' . number_format($totalPemasukan, 0, ',', '.'));
+        // Grand totals start 2 rows after total pengeluaran
+        $grandTotalStartRow = $totalPengeluaranRow + 2;
 
-        // TOTAL PENGELUARAN di row 57
-        $sheet->setCellValue('H57', 'Rp' . number_format($totalPengeluaran, 0, ',', '.'));
+        // TOTAL PEMASUKAN
+        $sheet->setCellValue('H' . $grandTotalStartRow, 'Rp' . number_format($totalPemasukan, 0, ',', '.'));
 
-        // GRAND TOTAL di row 58
+        // TOTAL PENGELUARAN
+        $sheet->setCellValue('H' . ($grandTotalStartRow + 1), 'Rp' . number_format($totalPengeluaran, 0, ',', '.'));
+
+        // GRAND TOTAL
         $grandTotal = $totalPemasukan - $totalPengeluaran;
-        $sheet->setCellValue('H58', 'Rp' . number_format($grandTotal, 0, ',', '.'));
+        $sheet->setCellValue('H' . ($grandTotalStartRow + 2), 'Rp' . number_format($grandTotal, 0, ',', '.'));
 
 
         // Buat writer untuk menulis file Excel
