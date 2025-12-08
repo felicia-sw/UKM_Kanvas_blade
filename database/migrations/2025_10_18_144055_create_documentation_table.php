@@ -20,6 +20,7 @@ public function up()
         $table->string('file_path'); // Renamed from image_path
         
         $table->timestamps();
+        $table->softDeletes();
     });
 }
 

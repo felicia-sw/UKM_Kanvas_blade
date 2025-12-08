@@ -21,6 +21,7 @@ return new class extends Migration
             $table->decimal('price', 10, 2); // This matches "price" in your ERD
             
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

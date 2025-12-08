@@ -20,6 +20,7 @@ return new class extends Migration
             $table->timestamp('verified_at')->nullable();
             $table->string('pickup_status')->default('pending');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

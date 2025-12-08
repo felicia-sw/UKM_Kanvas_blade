@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('price', 10, 2); // Or use integer if you don't need cents
             $table->string('image_path');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

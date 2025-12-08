@@ -23,6 +23,7 @@ return new class extends Migration
             $table->enum('payment_status', ['pending', 'verified', 'rejected'])->default('pending');
             $table->decimal('amount_paid', 10, 2);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

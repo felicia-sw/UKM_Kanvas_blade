@@ -20,6 +20,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('person_in_charge')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
