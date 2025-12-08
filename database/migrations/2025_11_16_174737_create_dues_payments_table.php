@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('verified_by')->nullable()->constrained('users')->onDelete('set null'); // Admin who verified
             $table->timestamp('verified_at')->nullable(); // When it was verified
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
