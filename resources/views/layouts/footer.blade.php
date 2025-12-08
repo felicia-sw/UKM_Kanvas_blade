@@ -41,7 +41,7 @@
             <div class="col-lg-4 col-md-6 ms-auto">
                 <h5 class="text-white fw-bold mb-4">Contact Us</h5>
                 <ul class="list-unstyled">
-                    <li class="mb-3 d-flex align-items-start">
+                    <li class="mb-3 d-flex align-items-center">
                         <i class="bi bi-geo-alt text-warning me-3 fs-5"></i>
                         <span class="text-white-50">CitraLand CBD Boulevard, Made, Kec. Sambikerep, Surabaya, Jawa Timur 60219</span>
                     </li>
