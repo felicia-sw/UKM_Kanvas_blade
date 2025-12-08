@@ -60,6 +60,9 @@ class ExportController extends Controller
             $sheet->setCellValueExplicit('G' . $row, $item->quantity, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC);
             $sheet->setCellValue('H' . $row, 'Rp' . number_format($itemTotal, 0, ',', '.'));
 
+            // Apply font styling: Calibri 12, black color
+            $sheet->getStyle('C' . $row . ':H' . $row)->getFont()->setName('Calibri')->setSize(12)->getColor()->setARGB('FF000000');
+
             $row++;
             $no++;
         }
@@ -90,6 +93,9 @@ class ExportController extends Controller
             $sheet->mergeCells('E' . $row . ':F' . $row);
             $sheet->setCellValueExplicit('G' . $row, $item->quantity, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC);
             $sheet->setCellValue('H' . $row, 'Rp' . number_format($itemTotal, 0, ',', '.'));
+
+            // Apply font styling: Calibri 12, black color
+            $sheet->getStyle('C' . $row . ':H' . $row)->getFont()->setName('Calibri')->setSize(12)->getColor()->setARGB('FF000000');
 
             $row++;
             $no++;
