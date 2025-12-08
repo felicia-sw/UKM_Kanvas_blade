@@ -18,6 +18,7 @@ return new class extends Migration
             $table->date('due_date'); // When the payment is due
             $table->text('description')->nullable(); // Optional description
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
