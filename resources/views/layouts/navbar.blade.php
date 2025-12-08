@@ -14,7 +14,7 @@
                 <img src="{{ asset('images/logo.png') }}" alt="{{ config('app.name') }} logo" class="navbar-logo">
                 <span class="visually-hidden">{{ config('app.name') }}</span>
             </a>
-            <p class="text-white-50 fs-2 mb-0">UKM Kanvas</p>
+            <p class="text-white-50 mb-0 navbar-brand-text">UKM Kanvas</p>
 
             <!-- mobile burger -->
             <button class="navbar-toggler border-0 shadow-none" type="button" data-bs-toggle="collapse"
@@ -164,6 +164,26 @@
         margin-right: 0.5rem;
     }
 
+    .navbar-brand-text {
+        font-size: 1.5rem;
+    }
+
+    @media (max-width: 575px) {
+        .navbar-logo {
+            height: 32px;
+        }
+
+        .navbar-brand-text {
+            display: none;
+        }
+    }
+
+    @media (min-width: 576px) and (max-width: 767px) {
+        .navbar-brand-text {
+            font-size: 1rem;
+        }
+    }
+
     /* .site-navbar-fixed {
         position: fixed;
         top: 0;
@@ -183,13 +203,13 @@
         left: 0;
         right: 0;
         width: 100%;
+        max-width: 100vw;
         z-index: 1080;
         margin: 0;
-        /* Change from 'auto' to '0' */
         border-radius: 0;
         box-sizing: border-box;
         padding: 1rem 1.5rem;
-        /* Add padding directly to navbar instead */
+        overflow-x: hidden;
     }
 
     .nav-link {
@@ -225,6 +245,8 @@
     @media (max-width: 991px) {
         .navbar-nav {
             padding-top: 1rem;
+            flex-wrap: wrap;
+            overflow-x: visible;
         }
 
         .nav-item {
@@ -233,21 +255,33 @@
 
         .nav-link {
             padding: 0.75rem 1rem !important;
+            white-space: normal;
+        }
+
+        .site-navbar-fixed {
+            padding: 0.75rem 1rem;
+        }
+
+        .site-navbar-fixed .container {
+            padding-left: 0;
+            padding-right: 0;
         }
     }
 
-    .navbar-nav {
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
+    @media (min-width: 992px) {
+        .navbar-nav {
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
 
-    .navbar-nav .nav-item {
-        flex: 0 0 auto;
-    }
+        .navbar-nav .nav-item {
+            flex: 0 0 auto;
+        }
 
-    .navbar-nav .nav-link {
-        white-space: nowrap;
+        .navbar-nav .nav-link {
+            white-space: nowrap;
+        }
     }
 
     /* Dropdown menu styling */
