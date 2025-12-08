@@ -194,9 +194,41 @@
                 <!-- Dues Payments Section -->
                 <div class="card shadow-lg border-0 mb-4" id="dues" style="background: #2A0A56;">
                     <div class="card-header" style="background: #8F4898; border-bottom: none;">
-                        <h5 class="mb-0 text-white"><i class="bi bi-wallet2 me-2"></i>Dues Payments History</h5>
+                        <h5 class="mb-0 text-white"><i class="bi bi-wallet2 me-2"></i>Dues Payments</h5>
                     </div>
                     <div class="card-body">
+                        <!-- Unpaid Dues -->
+                        @if ($unpaidDues->count() > 0)
+                            <h6 class="text-white mb-3">Unpaid Dues</h6>
+                            <div class="row g-3 mb-4">
+                                @foreach ($unpaidDues as $dues)
+                                    <div class="col-md-6">
+                                        <div class="card border-warning" style="background: rgba(255, 193, 7, 0.1);">
+                                            <div class="card-body">
+                                                <h6 class="card-title text-white">{{ $dues->name }}</h6>
+                                                <p class="card-text text-white-50 mb-2">
+                                                    <strong>Amount:</strong> Rp
+                                                    {{ number_format($dues->amount, 0, ',', '.') }}<br>
+                                                    <strong>Due Date:</strong>
+                                                    {{ $dues->due_date ? $dues->due_date->format('d M Y') : 'N/A' }}
+                                                </p>
+                                                @if ($dues->description)
+                                                    <p class="text-white-50 small mb-3">{{ $dues->description }}</p>
+                                                @endif
+                                                <a href="{{ route('dues.payment.create', $dues->id) }}"
+                                                    class="btn btn-warning btn-sm">
+                                                    <i class="bi bi-credit-card me-1"></i>Pay Now
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+                            <hr style="border-color: rgba(255, 255, 255, 0.1);">
+                        @endif
+
+                        <!-- Payment History -->
+                        <h6 class="text-white mb-3">Payment History</h6>
                         @if ($duesPayments->count() > 0)
                             <div class="table-responsive">
                                 <table class="table table-hover table-dark">
@@ -213,9 +245,8 @@
                                             <tr>
                                                 <td>
                                                     <strong>{{ $payment->duesPeriod->name }}</strong><br>
-                                                    <small
-                                                        class="text-muted">{{ $payment->duesPeriod->start_date->format('M Y') }}
-                                                        - {{ $payment->duesPeriod->end_date->format('M Y') }}</small>
+                                                    <small class="text-white-50">Due:
+                                                        {{ $payment->duesPeriod->due_date ? $payment->duesPeriod->due_date->format('d M Y') : 'N/A' }}</small>
                                                 </td>
                                                 <td>Rp {{ number_format($payment->duesPeriod->amount, 0, ',', '.') }}
                                                 </td>
