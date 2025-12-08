@@ -90,10 +90,12 @@
                                     <td>{{ $payment->user->email }}</td>
                                     <td>
                                         @if ($payment->payment_proof)
-                                            <a href="{{ Storage::url($payment->payment_proof) }}" target="_blank"
+                                            <a href="{{ $payment->payment_proof }}" target="_blank"
                                                 class="btn btn-sm btn-outline-primary">
                                                 <i class="bi bi-image"></i> View
                                             </a>
+                                        @else
+                                            <span class="text-muted">No proof</span>
                                         @endif
                                     </td>
                                     <td>{{ $payment->created_at->format('d M Y H:i') }}</td>
