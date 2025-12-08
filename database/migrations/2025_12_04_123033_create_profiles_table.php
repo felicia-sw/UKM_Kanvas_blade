@@ -19,6 +19,7 @@ return new class extends Migration
         $table->string('asal_universitas');
         $table->string('no_telp');
         $table->timestamps();
+        $table->softDeletes();
     });
 }
 
