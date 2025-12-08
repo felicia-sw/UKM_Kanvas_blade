@@ -66,16 +66,16 @@
     @include('layouts.navbar')
 
     {{-- Flash Messages --}}
-    @if(session('success'))
-        <div class="alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3" 
-             style="z-index: 9999; max-width: 500px;" role="alert">
+    @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3"
+            style="z-index: 9999; max-width: 500px;" role="alert">
             <i class="bi bi-check-circle-fill me-2"></i>{{ session('success') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
     @endif
-    @if(session('error'))
-        <div class="alert alert-danger alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3" 
-             style="z-index: 9999; max-width: 500px;" role="alert">
+    @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3"
+            style="z-index: 9999; max-width: 500px;" role="alert">
             <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ session('error') }}
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
@@ -85,11 +85,42 @@
         @yield('content')
     </div>
 
+    <!-- Notification Toast Container (Right Side) -->
+    @auth
+        @if (Auth::user()->unreadCustomNotifications()->count() > 0)
+            <div class="position-fixed top-0 end-0 p-3" style="z-index: 1050; margin-top: 100px;">
+                <div id="notificationToast" class="toast show" role="alert"
+                    style="background: #2A0A56; border: 1px solid #8F4898; max-width: 350px;">
+                    <div class="toast-header" style="background: #8F4898; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                        <i class="bi bi-bell-fill text-warning me-2"></i>
+                        <strong class="me-auto text-white">Notifications</strong>
+                        <small class="text-white-50">{{ Auth::user()->unreadCustomNotifications()->count() }} new</small>
+                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
+                    </div>
+                    <div class="toast-body text-white" style="max-height: 400px; overflow-y: auto;">
+                        @foreach (Auth::user()->unreadCustomNotifications()->latest()->take(3)->get() as $notification)
+                            <div class="mb-2 pb-2 border-bottom border-secondary">
+                                <small
+                                    class="text-warning">{{ ucfirst(str_replace('_', ' ', $notification->type)) }}</small>
+                                <p class="mb-1 small">{{ Str::limit($notification->message, 80) }}</p>
+                                <small class="text-white-50">{{ $notification->created_at->diffForHumans() }}</small>
+                            </div>
+                        @endforeach
+                        <a href="{{ route('profile.profile') }}#notifications"
+                            class="btn btn-sm btn-warning text-dark w-100 mt-2">
+                            <i class="bi bi-eye me-1"></i>View All
+                        </a>
+                    </div>
+                </div>
+            </div>
+        @endif
+    @endauth
+
     {{-- 💡 LOGIN MODAL (POP-UP) --}}
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             {{-- FIX 1: Use the defined 'glass-card' class instead of 'modal-glass-content' --}}
-            <div class="modal-content glass-card"> 
+            <div class="modal-content glass-card">
                 <div class="modal-header border-bottom-0">
                     <h5 class="modal-title text-white fw-bold" id="loginModalLabel">Login to Your Account</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
@@ -105,24 +136,27 @@
                                     <li>{{ $error }}</li>
                                 @endforeach
                             </ul>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
                         </div>
                     @endif
-                    
+
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
                         <div class="mb-3">
                             <label for="loginEmail" class="form-label text-white-50">Email Address</label>
-                            <input type="email" class="form-control contact-input @error('email') is-invalid @enderror" 
-                                id="loginEmail" name="email" value="{{ old('email') }}" required autofocus>
+                            <input type="email"
+                                class="form-control contact-input @error('email') is-invalid @enderror" id="loginEmail"
+                                name="email" value="{{ old('email') }}" required autofocus>
                             @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="mb-4">
                             <label for="loginPassword" class="form-label text-white-50">Password</label>
-                            <input type="password" class="form-control contact-input @error('password') is-invalid @enderror" 
+                            <input type="password"
+                                class="form-control contact-input @error('password') is-invalid @enderror"
                                 id="loginPassword" name="password" required>
                             @error('password')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -143,15 +177,17 @@
             </div>
         </div>
     </div>
-    
+
     {{-- 💡 REGISTER MODAL (POP-UP) --}}
-    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             {{-- FIX 1: Use the defined 'glass-card' class instead of 'modal-glass-content' --}}
             <div class="modal-content glass-card">
                 <div class="modal-header border-bottom-0">
                     <h5 class="modal-title text-white fw-bold" id="registerModalLabel">Create a New Account</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 {{-- FIX 2: Remove the undefined 'modal-glass-body' class --}}
                 <div class="modal-body">
@@ -163,16 +199,18 @@
                                     <li>{{ $error }}</li>
                                 @endforeach
                             </ul>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                aria-label="Close"></button>
                         </div>
                     @endif
-                    
+
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
                         <div class="mb-3">
                             <label for="registerName" class="form-label text-white-50">Full Name</label>
-                            <input type="text" class="form-control contact-input @error('name') is-invalid @enderror" 
+                            <input type="text"
+                                class="form-control contact-input @error('name') is-invalid @enderror"
                                 id="registerName" name="name" value="{{ old('name') }}" required autofocus>
                             @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -180,7 +218,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="registerEmail" class="form-label text-white-50">Email Address</label>
-                            <input type="email" class="form-control contact-input @error('email') is-invalid @enderror" 
+                            <input type="email"
+                                class="form-control contact-input @error('email') is-invalid @enderror"
                                 id="registerEmail" name="email" value="{{ old('email') }}" required>
                             @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -188,15 +227,18 @@
                         </div>
                         <div class="mb-3">
                             <label for="registerPassword" class="form-label text-white-50">Password</label>
-                            <input type="password" class="form-control contact-input @error('password') is-invalid @enderror" 
+                            <input type="password"
+                                class="form-control contact-input @error('password') is-invalid @enderror"
                                 id="registerPassword" name="password" required>
                             @error('password')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="mb-4">
-                            <label for="registerConfirmPassword" class="form-label text-white-50">Confirm Password</label>
-                            <input type="password" class="form-control contact-input @error('password_confirmation') is-invalid @enderror" 
+                            <label for="registerConfirmPassword" class="form-label text-white-50">Confirm
+                                Password</label>
+                            <input type="password"
+                                class="form-control contact-input @error('password_confirmation') is-invalid @enderror"
                                 id="registerConfirmPassword" name="password_confirmation" required>
                             @error('password_confirmation')
                                 <div class="invalid-feedback">{{ $message }}</div>

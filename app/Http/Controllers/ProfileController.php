@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Profile;
+use App\Models\DuesPeriod;
 
 class ProfileController extends Controller
 {
@@ -20,7 +21,15 @@ class ProfileController extends Controller
         // Get dues payments
         $duesPayments = $user->duesPayments()->with('duesPeriod')->latest()->paginate(10, ['*'], 'dues_page');
 
-        return view('profile.profile', compact('user', 'profile', 'notifications', 'duesPayments'));
+        // Get unpaid dues periods
+        $unpaidDues = DuesPeriod::where('due_date', '>=', now())
+            ->whereDoesntHave('payments', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })
+            ->orderBy('due_date', 'asc')
+            ->get();
+
+        return view('profile.show', compact('user', 'profile', 'notifications', 'duesPayments', 'unpaidDues'));
     }
 
     public function update(Request $request)
