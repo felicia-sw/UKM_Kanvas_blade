@@ -73,7 +73,7 @@ class DuesPeriodController extends Controller
         
         $paidUsers = $duesPeriod->payments()
             ->where('payment_status', 'verified')
-            ->with('user')
+            ->with(['user', 'verifiedBy'])
             ->get();
         
         $pendingUsers = $duesPeriod->payments()
