@@ -26,6 +26,11 @@ use App\Http\Controllers\MerchandiseOrderController;
 use App\Http\Controllers\Admin\DuesPeriodController;
 use App\Http\Controllers\Admin\RundownController;
 
+
+use App\Http\Controllers\ExportController;
+
+Route::get('/export/{eventId}', [ExportController::class, 'export'])->name('export.event');
+
 // ===============================================
 // CLOUDINARY TEST ROUTES
 Route::get('/upload', [CloudinaryTestController::class, 'showUploadForm'])->name('upload.form');
