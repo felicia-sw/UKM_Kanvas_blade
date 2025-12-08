@@ -12,9 +12,11 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleSeeder::class,
             UserSeeder::class,
-            // You can uncomment these later if you want dummy events/art
-            // EventSeeder::class,
-            // ArtworkSeeder::class,
+            ArtworkCategorySeeder::class,
+            EventSeeder::class,
+            ArtworkSeeder::class,
+            DocumentationSeeder::class,
+            IncomeExpenseSeeder::class,
         ]);
     }
 }
