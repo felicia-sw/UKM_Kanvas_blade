@@ -62,7 +62,7 @@ class ProfileController extends Controller
             ]
         );
 
-        return redirect()->route('profile.profile')->with('success', 'Profile updated successfully!');
+        return redirect()->route('profile.show')->with('success', 'Profile updated successfully!');
     }
 
     public function updatePassword(Request $request)
@@ -82,6 +82,6 @@ class ProfileController extends Controller
             'password' => Hash::make($validated['new_password']),
         ]);
 
-        return redirect()->route('profile.profile')->with('success', 'Password updated successfully!');
+        return redirect()->route('profile.show')->with('success', 'Password updated successfully!');
     }
 }

@@ -106,7 +106,7 @@
                                 <small class="text-white-50">{{ $notification->created_at->diffForHumans() }}</small>
                             </div>
                         @endforeach
-                        <a href="{{ route('profile.profile') }}#notifications"
+                        <a href="{{ route('profile.show') }}#notifications"
                             class="btn btn-sm btn-warning text-dark w-100 mt-2">
                             <i class="bi bi-eye me-1"></i>View All
                         </a>
