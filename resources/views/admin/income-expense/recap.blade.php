@@ -160,7 +160,7 @@
                                     <tbody>
                                         @foreach ($incomes as $income)
                                             <tr>
-                                                <td>{{ $income->transaction_date->format('M d, Y') }}</td>
+                                                <td>{{ $income->created_at->format('M d, Y') }}</td>
                                                 <td>
                                                     <strong>{{ $income->item_name }}</strong>
                                                     @if ($income->description)
@@ -251,7 +251,7 @@
                                     <tbody>
                                         @foreach ($expenses as $expense)
                                             <tr>
-                                                <td>{{ $expense->transaction_date->format('M d, Y') }}</td>
+                                                <td>{{ $expense->created_at->format('M d, Y') }}</td>
                                                 <td>
                                                     <strong>{{ $expense->item_name }}</strong>
                                                     @if ($expense->description)
