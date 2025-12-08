@@ -163,11 +163,13 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::delete('events/{event}/rundown/{rundown}', [RundownController::class, 'destroy'])->name('events.rundown.destroy');
 
     // Dues Period Management
-    Route::resource('dues', DuesPeriodController::class);
+    Route::resource('dues', DuesPeriodController::class)->parameters([
+        'dues' => 'duesPeriod'
+    ]);
     Route::get('dues/{duesPeriod}/payments', [DuesPeriodController::class, 'show'])->name('dues.show');
 
     // Dues Payment Verification
-    Route::patch('/dues-payments/{payment}/verify', [DuesPaymentController::class, 'verify'])->name('dues-payments.verify');
+    Route::patch('dues-payments/{payment}/verify', [DuesPaymentController::class, 'verify'])->name('dues-payments.verify');
 
     // Merchandise Order Management
     Route::get('orders', [MerchandiseOrderController::class, 'adminIndex'])->name('orders.index');

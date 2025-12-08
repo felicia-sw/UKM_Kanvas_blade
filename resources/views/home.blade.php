@@ -238,8 +238,12 @@
                 padding-top: 85px !important;
             }
 
-            .container-fluid {
-                overflow-x: hidden;
+            .floating-clouds img {
+                max-width: 150px !important;
+            }
+
+            .mascot-image {
+                max-width: 280px !important;
             }
         }
 
@@ -740,12 +744,14 @@
 
     </section>
 
-    <div class="section-divider section-divider-dark" data-aos="fade-in">
-        <div class="divider-line"></div>
-        <div class="divider-icon">
-            <i class="bi bi-palette-fill"></i>
+    <div class="container">
+        <div class="section-divider section-divider-dark" data-aos="fade-in">
+            <div class="divider-line"></div>
+            <div class="divider-icon">
+                <i class="bi bi-palette-fill"></i>
+            </div>
+            <div class="divider-line"></div>
         </div>
-        <div class="divider-line"></div>
     </div>
 
     <section id="gallery" class="py-5 position-relative">

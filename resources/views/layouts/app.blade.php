@@ -65,22 +65,6 @@
 <body>
     @include('layouts.navbar')
 
-    {{-- Flash Messages --}}
-    @if (session('success'))
-        <div class="alert alert-success alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3"
-            style="z-index: 9999; max-width: 500px;" role="alert">
-            <i class="bi bi-check-circle-fill me-2"></i>{{ session('success') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-    @if (session('error'))
-        <div class="alert alert-danger alert-dismissible fade show position-fixed top-0 start-50 translate-middle-x mt-3"
-            style="z-index: 9999; max-width: 500px;" role="alert">
-            <i class="bi bi-exclamation-triangle-fill me-2"></i>{{ session('error') }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    @endif
-
     <div class="site-container">
         @yield('content')
     </div>
@@ -179,8 +163,7 @@
     </div>
 
     {{-- 💡 REGISTER MODAL (POP-UP) --}}
-    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
             {{-- FIX 1: Use the defined 'glass-card' class instead of 'modal-glass-content' --}}
             <div class="modal-content glass-card">

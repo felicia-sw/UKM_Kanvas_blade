@@ -19,7 +19,7 @@ class DuesPeriodController extends Controller
         $duesPeriods = DuesPeriod::withCount('payments')
             ->orderBy('due_date', 'desc')
             ->paginate(10);
-        
+
         return view('admin.dues.index', compact('duesPeriods'));
     }
 
@@ -46,7 +46,7 @@ class DuesPeriodController extends Controller
         $duesPeriod = DuesPeriod::create($validated);
 
         // Notify all members about the new dues period
-        $members = User::whereHas('roles', function($query) {
+        $members = User::whereHas('roles', function ($query) {
             $query->where('name', 'Member');
         })->get();
 
@@ -70,20 +70,20 @@ class DuesPeriodController extends Controller
     public function show(DuesPeriod $duesPeriod)
     {
         $duesPeriod->load(['payments.user']);
-        
+
         $paidUsers = $duesPeriod->payments()
             ->where('payment_status', 'verified')
-            ->with('user')
+            ->with(['user', 'verifiedBy'])
             ->get();
-        
+
         $pendingUsers = $duesPeriod->payments()
             ->where('payment_status', 'pending')
             ->with('user')
             ->get();
-        
-        $unpaidUsers = User::whereHas('roles', function($query) {
+
+        $unpaidUsers = User::whereHas('roles', function ($query) {
             $query->where('name', 'Member');
-        })->whereDoesntHave('duesPayments', function($query) use ($duesPeriod) {
+        })->whereDoesntHave('duesPayments', function ($query) use ($duesPeriod) {
             $query->where('dues_period_id', $duesPeriod->id);
         })->get();
 
@@ -122,7 +122,7 @@ class DuesPeriodController extends Controller
     public function destroy(DuesPeriod $duesPeriod)
     {
         $duesPeriod->delete();
-        
+
         return redirect()->route('admin.dues.index')
             ->with('success', 'Dues period deleted successfully.');
     }
