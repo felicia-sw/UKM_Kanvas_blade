@@ -53,6 +53,9 @@ class EventRegistrationController extends Controller
             'payment_status' => 'required|in:pending,verified,rejected',
         ]);
 
+        // Load relationships to ensure they're available
+        $registration->load(['user.profile', 'event']);
+
         $oldStatus = $registration->payment_status;
         $registration->update($validated);
 
@@ -62,7 +65,7 @@ class EventRegistrationController extends Controller
             $user = $registration->user;
             $user->notify(new PaymentVerified($registration));
 
-            // Send WhatsApp confirmation message
+            // Send WhatsApp confirmation message to the participant
             $this->sendWhatsAppVerification($registration);
         }
 
@@ -70,10 +73,10 @@ class EventRegistrationController extends Controller
         $this->updateRegistrationIncomeEntry($registration->event);
 
         // Return JSON response for AJAX requests
-        if ($request->ajax() || $request->wantsJson()) {
+        if ($request->ajax() || $request->wantsJson() || $request->header('X-Requested-With') === 'XMLHttpRequest') {
             return response()->json([
                 'success' => true,
-                'message' => 'Registration status updated successfully!',
+                'message' => 'Registration status updated successfully! WhatsApp confirmation sent.',
                 'payment_status' => $registration->payment_status,
             ]);
         }
