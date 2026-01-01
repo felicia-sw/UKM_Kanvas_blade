@@ -26,9 +26,19 @@
                             <tr>
                                 <td>
                                     @if ($registration->payment_status === 'pending')
+                                        @php
+                                            $hasPhoneNumber = $registration->user->profile?->no_telp ?? false;
+                                        @endphp
                                         <input type="checkbox" class="verify-checkbox"
                                             data-registration-id="{{ $registration->id }}"
-                                            data-user-name="{{ $registration->user->name }}" title="Verify Payment">
+                                            data-user-name="{{ $registration->user->name }}"
+                                            data-has-phone="{{ $hasPhoneNumber ? '1' : '0' }}"
+                                            title="{{ $hasPhoneNumber ? 'Verify Payment' : 'No phone number - WhatsApp cannot be sent' }}">
+                                        @if (!$hasPhoneNumber)
+                                            <small class="d-block text-danger mt-1" style="font-size: 0.7rem;">
+                                                <i class="bi bi-exclamation-triangle"></i> No phone
+                                            </small>
+                                        @endif
                                     @else
                                         <span class="text-muted">-</span>
                                     @endif
@@ -43,7 +53,15 @@
                                 <td>{{ $registration->user->profile?->nim ?? 'N/A' }}</td>
                                 <td>{{ $registration->user->profile?->jurusan ?? 'N/A' }}</td>
                                 <td>{{ $registration->user->profile?->asal_universitas ?? 'N/A' }}</td>
-                                <td>{{ $registration->user->profile?->no_telp ?? 'N/A' }}</td>
+                                <td>
+                                    @if ($registration->user->profile?->no_telp)
+                                        {{ $registration->user->profile->no_telp }}
+                                    @else
+                                        <span class="text-danger">
+                                            <i class="bi bi-exclamation-triangle"></i> Not provided
+                                        </span>
+                                    @endif
+                                </td>
                                 <td>
                                     <strong>Rp {{ number_format($registration->amount_paid, 0, ',', '.') }}</strong>
                                 </td>
@@ -147,13 +165,23 @@
                 if (this.checked && !this.disabled) {
                     const registrationId = this.getAttribute('data-registration-id');
                     const userName = this.getAttribute('data-user-name');
+                    const hasPhone = this.getAttribute('data-has-phone') === '1';
+
+                    // Check if phone number exists
+                    if (!hasPhone) {
+                        this.checked = false;
+                        showAlert('warning',
+                            `Cannot verify payment for ${userName}: No WhatsApp number provided. Please ask the participant to add their phone number in their profile.`
+                            );
+                        return;
+                    }
 
                     // Mark as processing immediately
                     processingCheckboxes.add(this);
                     this.disabled = true;
 
                     if (confirm(
-                            `Verify payment for ${userName}? A WhatsApp confirmation will be sent.`
+                            `Verify payment for ${userName}? A WhatsApp confirmation will be sent to their registered phone number.`
                             )) {
                         verifyRegistration(registrationId, this);
                     } else {
@@ -198,9 +226,9 @@
                 })
                 .then(data => {
                     if (data.success) {
-                        // Show success message
-                        showAlert('success', data.message ||
-                            'Payment verified successfully! WhatsApp message sent.');
+                        // Show success message with appropriate alert type
+                        const alertType = data.whatsapp_sent === false ? 'warning' : 'success';
+                        showAlert(alertType, data.message || 'Payment verified successfully!');
                         // Reload page after 1.5 seconds to show updated status
                         setTimeout(() => {
                             window.location.reload();
