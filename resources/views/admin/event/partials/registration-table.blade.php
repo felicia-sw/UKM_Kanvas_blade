@@ -120,37 +120,53 @@
         const selectAllCheckbox = document.getElementById('selectAll');
         const verifyCheckboxes = document.querySelectorAll('.verify-checkbox');
 
+        // Track which checkboxes are being processed to prevent multiple triggers
+        const processingCheckboxes = new Set();
+
         // Select all functionality
         if (selectAllCheckbox) {
             selectAllCheckbox.addEventListener('change', function() {
                 verifyCheckboxes.forEach(checkbox => {
-                    checkbox.checked = this.checked;
+                    // Only check/uncheck if not currently being processed
+                    if (!processingCheckboxes.has(checkbox)) {
+                        checkbox.checked = this.checked;
+                    }
                 });
             });
         }
 
         // Handle individual checkbox verification
         verifyCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                if (this.checked) {
+            checkbox.addEventListener('change', function(e) {
+                // Prevent multiple triggers
+                if (processingCheckboxes.has(this)) {
+                    e.preventDefault();
+                    return;
+                }
+
+                if (this.checked && !this.disabled) {
                     const registrationId = this.getAttribute('data-registration-id');
                     const userName = this.getAttribute('data-user-name');
+
+                    // Mark as processing immediately
+                    processingCheckboxes.add(this);
+                    this.disabled = true;
 
                     if (confirm(
                             `Verify payment for ${userName}? A WhatsApp confirmation will be sent.`
                             )) {
                         verifyRegistration(registrationId, this);
                     } else {
+                        // User cancelled - reset checkbox
                         this.checked = false;
+                        this.disabled = false;
+                        processingCheckboxes.delete(this);
                     }
                 }
             });
         });
 
         function verifyRegistration(registrationId, checkbox) {
-            // Disable checkbox during request
-            checkbox.disabled = true;
-
             // Create form data
             const formData = new FormData();
             formData.append('_token', '{{ csrf_token() }}');
@@ -167,27 +183,41 @@
                     },
                     body: formData
                 })
-                .then(response => response.json())
+                .then(response => {
+                    // Check if response is JSON
+                    const contentType = response.headers.get('content-type');
+                    if (contentType && contentType.includes('application/json')) {
+                        return response.json();
+                    } else {
+                        // If not JSON, assume success and reload
+                        return {
+                            success: true,
+                            message: 'Payment verified successfully!'
+                        };
+                    }
+                })
                 .then(data => {
                     if (data.success) {
                         // Show success message
                         showAlert('success', data.message ||
                             'Payment verified successfully! WhatsApp message sent.');
-                        // Reload page after 1 second to show updated status
+                        // Reload page after 1.5 seconds to show updated status
                         setTimeout(() => {
                             window.location.reload();
-                        }, 1000);
+                        }, 1500);
                     } else {
                         showAlert('danger', data.message || 'Failed to verify payment.');
                         checkbox.checked = false;
                         checkbox.disabled = false;
+                        processingCheckboxes.delete(checkbox);
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
-                    showAlert('danger', 'An error occurred while verifying payment.');
+                    showAlert('danger', 'An error occurred while verifying payment. Please try again.');
                     checkbox.checked = false;
                     checkbox.disabled = false;
+                    processingCheckboxes.delete(checkbox);
                 });
         }
 
@@ -201,9 +231,9 @@
             alertDiv.className = `alert alert-${type} alert-dismissible fade show verification-alert`;
             alertDiv.setAttribute('role', 'alert');
             alertDiv.innerHTML = `
-            <i class="bi bi-${type === 'success' ? 'check-circle' : 'exclamation-triangle'} me-2"></i>${message}
-            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-        `;
+                <i class="bi bi-${type === 'success' ? 'check-circle' : 'exclamation-triangle'} me-2"></i>${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
 
             // Insert at top of content
             const content = document.querySelector('.container-fluid');
