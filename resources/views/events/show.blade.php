@@ -190,17 +190,6 @@
                                     @enderror
                                 </div>
 
-                                <!-- Payment Gateway Link -->
-                                <div class="alert alert-info mb-3">
-                                    <h6 class="alert-heading"><i class="bi bi-credit-card me-2"></i>Payment Instructions</h6>
-                                    <p class="mb-2">Please complete payment first through our payment gateway:</p>
-                                    <a href="https://forms.google.com/your-payment-form" target="_blank"
-                                        class="btn btn-sm btn-primary">
-                                        <i class="bi bi-box-arrow-up-right me-1"></i>Proceed to Payment
-                                    </a>
-                                    <small class="d-block mt-2 text-muted">After payment, upload your proof below</small>
-                                </div>
-
                                 <!-- Upload Payment Proof -->
                                 <div class="mb-3">
                                     <label class="form-label fw-semibold">Upload Payment Proof <span

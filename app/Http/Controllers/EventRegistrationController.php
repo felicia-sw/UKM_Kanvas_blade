@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Notifications\PaymentVerified;
 use App\Models\Event;
 use App\Models\EventRegistration;
 use App\Models\Notification;
 use App\Models\EventBudgetItem;
-use App\Services\FonnteService;
+use App\Notifications\PaymentVerified;
+use App\Services\WhatsAppService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 class EventRegistrationController extends Controller
 {
@@ -24,13 +24,23 @@ class EventRegistrationController extends Controller
 
         $user = Auth::user();
 
-        // Update or create user profile with phone number if provided
+        // Update or create phone number in profile if provided
         if ($request->filled('phone_number')) {
             /** @var \App\Models\User $user */
-            $user->profile()->updateOrCreate(
-                ['user_id' => $user->id],
-                ['no_telp' => $request->phone_number]
-            );
+            $profile = $user->profile;
+            if ($profile) {
+                // Profile exists, update phone number
+                $profile->update(['no_telp' => $request->phone_number]);
+            } else {
+                // Profile doesn't exist - create with phone number and placeholder values for required fields
+                // Using user ID + timestamp to ensure unique NIM
+                $user->profile()->create([
+                    'nim' => 'REG-' . $user->id . '-' . now()->timestamp, // Temporary unique NIM for registration
+                    'jurusan' => 'Belum diisi', // Placeholder - user should update in profile
+                    'asal_universitas' => 'Belum diisi', // Placeholder - user should update in profile
+                    'no_telp' => $request->phone_number,
+                ]);
+            }
         }
 
         // Calculate amount - use event price
@@ -66,50 +76,96 @@ class EventRegistrationController extends Controller
         return redirect()->back()->with('success', $message);
     }
 
-    public function updateStatus(Request $request, EventRegistration $registration)
+    public function updateStatus(Request $request, EventRegistration $registration, WhatsAppService $whatsAppService)
     {
-        $validated = $request->validate([
-            'payment_status' => 'required|in:pending,verified,rejected',
-        ]);
+        try {
+            $validated = $request->validate([
+                'payment_status' => 'required|in:pending,verified,rejected',
+            ]);
 
-        // Load relationships to ensure they're available
-        $registration->load(['user.profile', 'event']);
+            $registration->load(['user.profile', 'event']);
+            $oldStatus = $registration->payment_status;
+            $registration->update($validated);
 
-        $oldStatus = $registration->payment_status;
-        $registration->update($validated);
+            $whatsappSent = false;
+            $whatsappMessage = 'Registration status updated successfully!';
 
-        // If payment is verified, send a notification to the user.
-        $whatsappSent = false;
-        if ($validated['payment_status'] === 'verified') {
-            // We notify the user associated with the registration
-            $user = $registration->user;
-            $user->notify(new PaymentVerified($registration));
-
-            // Send WhatsApp confirmation message to the participant (if phone number exists)
-            $whatsappSent = $this->sendWhatsAppVerification($registration);
-        }
-
-        // Update automatic registration income entry
-        $this->updateRegistrationIncomeEntry($registration->event);
-
-        // Return JSON response for AJAX requests
-        if ($request->ajax() || $request->wantsJson() || $request->header('X-Requested-With') === 'XMLHttpRequest') {
-            $message = 'Registration status updated successfully!';
             if ($validated['payment_status'] === 'verified') {
-                $message = $whatsappSent
-                    ? 'Registration verified successfully! WhatsApp confirmation sent.'
-                    : 'Registration verified successfully, but WhatsApp message could not be sent (no phone number in profile).';
+                $user = $registration->user;
+
+                // 1. Create the in-app notification manually for consistency with original code.
+                Notification::create([
+                    'user_id' => $user->id,
+                    'type' => 'payment_verified',
+                    'message' => "Your payment for '{$registration->event->title}' has been verified.",
+                    'is_read' => false,
+                    'link_url' => route('events.show', $registration->event_id),
+                ]);
+
+                // 2. Handle WhatsApp sending to get synchronous feedback for the AJAX response.
+                if (empty(config('fonnte.token'))) {
+                    $whatsappMessage = 'Registration verified, but WhatsApp not sent (FONNTE_TOKEN not configured).';
+                } elseif (!$user->profile || !$user->profile->no_telp) {
+                    $whatsappMessage = 'Registration verified, but WhatsApp not sent (no phone number in profile).';
+                } else {
+                    try {
+                        // Reuse the message formatting from the notification class to avoid duplicating logic.
+                        $notification = new PaymentVerified($registration);
+                        $message = $notification->toWhatsApp($user);
+                        
+                        $whatsappSent = $whatsAppService->sendMessage($user->profile->no_telp, $message);
+                        
+                        if ($whatsappSent) {
+                            $whatsappMessage = 'Registration verified successfully! WhatsApp confirmation sent.';
+                        } else {
+                            $whatsappMessage = 'Registration verified, but WhatsApp message failed to send (check logs).';
+                        }
+                    } catch (\Exception $e) {
+                         Log::error('Error sending WhatsApp from controller', ['error' => $e->getMessage(), 'registration_id' => $registration->id]);
+                         $whatsappMessage = 'Registration verified, but an error occurred while sending WhatsApp.';
+                    }
+                }
             }
 
-            return response()->json([
-                'success' => true,
-                'message' => $message,
-                'payment_status' => $registration->payment_status,
-                'whatsapp_sent' => $whatsappSent,
-            ]);
-        }
+            try {
+                $this->updateRegistrationIncomeEntry($registration->event);
+            } catch (\Exception $e) {
+                Log::error('Failed to update registration income entry. This did not prevent payment verification.', [
+                    'event_id' => $registration->event_id,
+                    'error' => $e->getMessage(),
+                    'trace' => $e->getTraceAsString()
+                ]);
+            }
 
-        return redirect()->back()->with('success', 'Registration status updated successfully!');
+            if ($request->ajax() || $request->wantsJson() || $request->header('X-Requested-With') === 'XMLHttpRequest') {
+                $finalMessage = ($validated['payment_status'] === 'verified') ? $whatsappMessage : 'Registration status updated successfully!';
+                
+                return response()->json([
+                    'success' => true,
+                    'message' => $finalMessage,
+                    'payment_status' => $registration->payment_status,
+                    'whatsapp_sent' => $whatsappSent,
+                ]);
+            }
+            
+            $finalMessage = ($validated['payment_status'] === 'verified') ? $whatsappMessage : 'Registration status updated successfully!';
+            return redirect()->back()->with('success', $finalMessage);
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            Log::error('Validation error in updateStatus', [
+                'errors' => $e->errors()
+            ]);
+            return redirect()->back()->withErrors($e->errors())->withInput();
+
+        } catch (\Exception $e) {
+            Log::error('Error updating payment status', [
+                'registration_id' => $registration->id ?? 'unknown',
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
+
+            return redirect()->back()->with('error', 'An error occurred while verifying payment. Please try again.');
+        }
     }
 
     /**
@@ -156,64 +212,6 @@ class EventRegistrationController extends Controller
             if ($registrationIncome) {
                 $registrationIncome->delete();
             }
-        }
-    }
-
-    /**
-     * Send WhatsApp verification message to the user
-     *
-     * @param EventRegistration $registration
-     * @return void
-     */
-    private function sendWhatsAppVerification(EventRegistration $registration)
-    {
-        try {
-            $user = $registration->user;
-            $event = $registration->event;
-            $profile = $user->profile;
-
-            // Check if user has a profile with phone number
-            if (!$profile || !$profile->no_telp) {
-                Log::warning("Cannot send WhatsApp verification: User {$user->id} does not have a phone number in profile");
-                return;
-            }
-
-            // Format phone number
-            $phoneNumber = FonnteService::formatPhoneNumber($profile->no_telp);
-
-            // Create verification message
-            $message = "Selamat! 🎉\n\n";
-            $message .= "Pendaftaran Anda untuk event *{$event->title}* telah *diverifikasi*.\n\n";
-            $message .= "Detail Pendaftaran:\n";
-            $message .= "• Event: {$event->title}\n";
-            $message .= "• Status: Terverifikasi ✓\n";
-            $message .= "• Jumlah Pembayaran: Rp " . number_format($registration->amount_paid, 0, ',', '.') . "\n\n";
-
-            if ($event->start_date) {
-                $startDate = $event->start_date->format('d F Y');
-                $message .= "• Tanggal Event: {$startDate}\n";
-            }
-
-            if ($event->location) {
-                $message .= "• Lokasi: {$event->location}\n";
-            }
-
-            $message .= "\nTerima kasih telah mendaftar! Kami tunggu kehadiran Anda di event tersebut.\n\n";
-            $message .= "Salam,\nUKM Kanvas";
-
-            // Send WhatsApp message
-            $result = FonnteService::send($phoneNumber, $message);
-
-            if ($result === false) {
-                Log::error("Failed to send WhatsApp verification message to user {$user->id} (phone: {$phoneNumber})");
-                return false;
-            } else {
-                Log::info("WhatsApp verification message sent successfully to user {$user->id} (phone: {$phoneNumber})");
-                return true;
-            }
-        } catch (\Exception $e) {
-            Log::error("Error sending WhatsApp verification message: " . $e->getMessage());
-            return false;
         }
     }
 }
