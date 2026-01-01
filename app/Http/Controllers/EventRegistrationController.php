@@ -7,9 +7,11 @@ use App\Models\Event;
 use App\Models\EventRegistration;
 use App\Models\Notification;
 use App\Models\EventBudgetItem;
+use App\Services\FonnteService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class EventRegistrationController extends Controller
 {
@@ -59,10 +61,22 @@ class EventRegistrationController extends Controller
             // We notify the user associated with the registration
             $user = $registration->user;
             $user->notify(new PaymentVerified($registration));
+
+            // Send WhatsApp confirmation message
+            $this->sendWhatsAppVerification($registration);
         }
 
         // Update automatic registration income entry
         $this->updateRegistrationIncomeEntry($registration->event);
+
+        // Return JSON response for AJAX requests
+        if ($request->ajax() || $request->wantsJson()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Registration status updated successfully!',
+                'payment_status' => $registration->payment_status,
+            ]);
+        }
 
         return redirect()->back()->with('success', 'Registration status updated successfully!');
     }
@@ -111,6 +125,61 @@ class EventRegistrationController extends Controller
             if ($registrationIncome) {
                 $registrationIncome->delete();
             }
+        }
+    }
+
+    /**
+     * Send WhatsApp verification message to the user
+     *
+     * @param EventRegistration $registration
+     * @return void
+     */
+    private function sendWhatsAppVerification(EventRegistration $registration)
+    {
+        try {
+            $user = $registration->user;
+            $event = $registration->event;
+            $profile = $user->profile;
+
+            // Check if user has a profile with phone number
+            if (!$profile || !$profile->no_telp) {
+                Log::warning("Cannot send WhatsApp verification: User {$user->id} does not have a phone number in profile");
+                return;
+            }
+
+            // Format phone number
+            $phoneNumber = FonnteService::formatPhoneNumber($profile->no_telp);
+
+            // Create verification message
+            $message = "Selamat! 🎉\n\n";
+            $message .= "Pendaftaran Anda untuk event *{$event->title}* telah *diverifikasi*.\n\n";
+            $message .= "Detail Pendaftaran:\n";
+            $message .= "• Event: {$event->title}\n";
+            $message .= "• Status: Terverifikasi ✓\n";
+            $message .= "• Jumlah Pembayaran: Rp " . number_format($registration->amount_paid, 0, ',', '.') . "\n\n";
+
+            if ($event->start_date) {
+                $startDate = $event->start_date->format('d F Y');
+                $message .= "• Tanggal Event: {$startDate}\n";
+            }
+
+            if ($event->location) {
+                $message .= "• Lokasi: {$event->location}\n";
+            }
+
+            $message .= "\nTerima kasih telah mendaftar! Kami tunggu kehadiran Anda di event tersebut.\n\n";
+            $message .= "Salam,\nUKM Kanvas";
+
+            // Send WhatsApp message
+            $result = FonnteService::send($phoneNumber, $message);
+
+            if ($result === false) {
+                Log::error("Failed to send WhatsApp verification message to user {$user->id} (phone: {$phoneNumber})");
+            } else {
+                Log::info("WhatsApp verification message sent successfully to user {$user->id} (phone: {$phoneNumber})");
+            }
+        } catch (\Exception $e) {
+            Log::error("Error sending WhatsApp verification message: " . $e->getMessage());
         }
     }
 }
