@@ -1,18 +1,20 @@
 <div class="card">
     <div class="card-body">
-        @if($registrations->count() > 0)
+        @if ($registrations->count() > 0)
             <div class="table-responsive">
                 <table class="table table-hover align-middle">
                     <thead class="table-light">
                         <tr>
+                            <th width="50">
+                                <input type="checkbox" id="selectAll" title="Select All Pending">
+                            </th>
                             <th>ID</th>
                             <th>Name</th>
+                            <th>Email</th>
                             <th>NIM</th>
                             <th>Jurusan</th>
                             <th>University</th>
                             <th>Phone</th>
-                            <th>Kanvas Member</th>
-                            <th>Days</th>
                             <th>Amount</th>
                             <th>Status</th>
                             <th>Registered</th>
@@ -20,90 +22,84 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($registrations as $registration)
-                        <tr>
-                            <td>#{{ $registration->id }}</td>
-                            <td>
-                                <div>
-                                    <strong>{{ $registration->name }}</strong><br>
-                                    <small class="text-muted">{{ $registration->user->email }}</small>
-                                </div>
-                            </td>
-                            <td>{{ $registration->nim }}</td>
-                            <td>{{ $registration->jurusan }}</td>
-                            <td>{{ $registration->asal_universitas }}</td>
-                            <td>{{ $registration->nomor_telp }}</td>
-                            <td>
-                                @if($registration->is_kanvas_member)
-                                    <span class="badge bg-primary">Yes</span>
-                                @else
-                                    <span class="badge bg-secondary">No</span>
-                                @endif
-                            </td>
-                            <td>
-                                @if($registration->days_attending)
-                                    <span class="badge bg-info">{{ ucfirst(str_replace('_', ' ', $registration->days_attending)) }}</span>
-                                @else
-                                    <span class="text-muted">N/A</span>
-                                @endif
-                            </td>
-                            <td>
-                                <strong>Rp {{ number_format($registration->amount_paid, 0, ',', '.') }}</strong>
-                            </td>
-                            <td>
-                                @if($registration->payment_status === 'verified')
-                                    <span class="badge bg-success">
-                                        <i class="bi bi-check-circle"></i> Verified
-                                    </span>
-                                @elseif($registration->payment_status === 'rejected')
-                                    <span class="badge bg-danger">
-                                        <i class="bi bi-x-circle"></i> Rejected
-                                    </span>
-                                @else
-                                    <span class="badge bg-warning text-dark">
-                                        <i class="bi bi-clock"></i> Pending
-                                    </span>
-                                @endif
-                            </td>
-                            <td>
-                                <small>{{ $registration->created_at->format('d M Y, H:i') }}</small>
-                            </td>
-                            <td>
-                                <div class="btn-group btn-group-sm" role="group">
-                                    <button type="button" class="btn btn-outline-primary" onclick="viewPaymentProof('{{ Storage::url($registration->payment_proof) }}')" title="View Payment Proof">
-                                        <i class="bi bi-image"></i>
-                                    </button>
-                                    
-                                    @if($registration->payment_status === 'pending')
-                                        <form action="{{ route('admin.registrations.update-status', $registration) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('PATCH')
-                                            <input type="hidden" name="payment_status" value="verified">
-                                            <button type="submit" class="btn btn-outline-success" title="Verify" onclick="return confirm('Verify this registration?')">
-                                                <i class="bi bi-check-lg"></i>
-                                            </button>
-                                        </form>
-                                        
-                                        <form action="{{ route('admin.registrations.update-status', $registration) }}" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('PATCH')
-                                            <input type="hidden" name="payment_status" value="rejected">
-                                            <button type="submit" class="btn btn-outline-danger" title="Reject" onclick="return confirm('Reject this registration?')">
-                                                <i class="bi bi-x-lg"></i>
-                                            </button>
-                                        </form>
+                        @foreach ($registrations as $registration)
+                            <tr>
+                                <td>
+                                    @if ($registration->payment_status === 'pending')
+                                        <input type="checkbox" class="verify-checkbox"
+                                            data-registration-id="{{ $registration->id }}"
+                                            data-user-name="{{ $registration->user->name }}" title="Verify Payment">
+                                    @else
+                                        <span class="text-muted">-</span>
                                     @endif
-                                </div>
-                            </td>
-                        </tr>
+                                </td>
+                                <td>#{{ $registration->id }}</td>
+                                <td>
+                                    <strong>{{ $registration->user->name }}</strong>
+                                </td>
+                                <td>
+                                    <small class="text-muted">{{ $registration->user->email }}</small>
+                                </td>
+                                <td>{{ $registration->user->profile?->nim ?? 'N/A' }}</td>
+                                <td>{{ $registration->user->profile?->jurusan ?? 'N/A' }}</td>
+                                <td>{{ $registration->user->profile?->asal_universitas ?? 'N/A' }}</td>
+                                <td>{{ $registration->user->profile?->no_telp ?? 'N/A' }}</td>
+                                <td>
+                                    <strong>Rp {{ number_format($registration->amount_paid, 0, ',', '.') }}</strong>
+                                </td>
+                                <td>
+                                    @if ($registration->payment_status === 'verified')
+                                        <span class="badge bg-success">
+                                            <i class="bi bi-check-circle"></i> Verified
+                                        </span>
+                                    @elseif($registration->payment_status === 'rejected')
+                                        <span class="badge bg-danger">
+                                            <i class="bi bi-x-circle"></i> Rejected
+                                        </span>
+                                    @else
+                                        <span class="badge bg-warning text-dark">
+                                            <i class="bi bi-clock"></i> Pending
+                                        </span>
+                                    @endif
+                                </td>
+                                <td>
+                                    <small>{{ $registration->created_at->format('d M Y, H:i') }}</small>
+                                </td>
+                                <td>
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        @if ($registration->payment_proof)
+                                            <button type="button" class="btn btn-outline-primary"
+                                                onclick="viewPaymentProof('{{ Storage::url($registration->payment_proof) }}')"
+                                                title="View Payment Proof">
+                                                <i class="bi bi-image"></i>
+                                            </button>
+                                        @endif
+
+                                        @if ($registration->payment_status === 'pending')
+                                            <form
+                                                action="{{ route('admin.registrations.update-status', $registration) }}"
+                                                method="POST" class="d-inline reject-form">
+                                                @csrf
+                                                @method('PATCH')
+                                                <input type="hidden" name="payment_status" value="rejected">
+                                                <button type="submit" class="btn btn-outline-danger" title="Reject"
+                                                    onclick="return confirm('Reject this registration?')">
+                                                    <i class="bi bi-x-lg"></i>
+                                                </button>
+                                            </form>
+                                        @endif
+                                    </div>
+                                </td>
+                            </tr>
                         @endforeach
                     </tbody>
                     <tfoot class="table-light">
                         <tr>
-                            <td colspan="8" class="text-end"><strong>Total Income (Verified):</strong></td>
-                            <td colspan="4">
+                            <td colspan="9" class="text-end"><strong>Total Income (Verified):</strong></td>
+                            <td colspan="3">
                                 <strong class="text-success fs-5">
-                                    Rp {{ number_format($registrations->where('payment_status', 'verified')->sum('amount_paid'), 0, ',', '.') }}
+                                    Rp
+                                    {{ number_format($registrations->where('payment_status', 'verified')->sum('amount_paid'), 0, ',', '.') }}
                                 </strong>
                             </td>
                         </tr>
@@ -118,3 +114,102 @@
         @endif
     </div>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const selectAllCheckbox = document.getElementById('selectAll');
+        const verifyCheckboxes = document.querySelectorAll('.verify-checkbox');
+
+        // Select all functionality
+        if (selectAllCheckbox) {
+            selectAllCheckbox.addEventListener('change', function() {
+                verifyCheckboxes.forEach(checkbox => {
+                    checkbox.checked = this.checked;
+                });
+            });
+        }
+
+        // Handle individual checkbox verification
+        verifyCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    const registrationId = this.getAttribute('data-registration-id');
+                    const userName = this.getAttribute('data-user-name');
+
+                    if (confirm(
+                            `Verify payment for ${userName}? A WhatsApp confirmation will be sent.`
+                            )) {
+                        verifyRegistration(registrationId, this);
+                    } else {
+                        this.checked = false;
+                    }
+                }
+            });
+        });
+
+        function verifyRegistration(registrationId, checkbox) {
+            // Disable checkbox during request
+            checkbox.disabled = true;
+
+            // Create form data
+            const formData = new FormData();
+            formData.append('_token', '{{ csrf_token() }}');
+            formData.append('_method', 'PATCH');
+            formData.append('payment_status', 'verified');
+
+            // Send AJAX request
+            const url = `/admin/registrations/${registrationId}/status`;
+            fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest',
+                        'Accept': 'application/json',
+                    },
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Show success message
+                        showAlert('success', data.message ||
+                            'Payment verified successfully! WhatsApp message sent.');
+                        // Reload page after 1 second to show updated status
+                        setTimeout(() => {
+                            window.location.reload();
+                        }, 1000);
+                    } else {
+                        showAlert('danger', data.message || 'Failed to verify payment.');
+                        checkbox.checked = false;
+                        checkbox.disabled = false;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    showAlert('danger', 'An error occurred while verifying payment.');
+                    checkbox.checked = false;
+                    checkbox.disabled = false;
+                });
+        }
+
+        function showAlert(type, message) {
+            // Remove existing alerts
+            const existingAlerts = document.querySelectorAll('.verification-alert');
+            existingAlerts.forEach(alert => alert.remove());
+
+            // Create alert
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type} alert-dismissible fade show verification-alert`;
+            alertDiv.setAttribute('role', 'alert');
+            alertDiv.innerHTML = `
+            <i class="bi bi-${type === 'success' ? 'check-circle' : 'exclamation-triangle'} me-2"></i>${message}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        `;
+
+            // Insert at top of content
+            const content = document.querySelector('.container-fluid');
+            if (content) {
+                content.insertBefore(alertDiv, content.firstChild);
+            }
+        }
+    });
+</script>

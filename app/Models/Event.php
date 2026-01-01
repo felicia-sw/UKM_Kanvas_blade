@@ -107,6 +107,14 @@ class Event extends Model
             ->sum('amount_paid');
     }
 
+    // Get count of verified participants
+    public function getVerifiedParticipantsCount()
+    {
+        return $this->registrations()
+            ->where('payment_status', 'verified')
+            ->count();
+    }
+
     // Total from Budget Income items
     public function getTotalManualIncome()
     {

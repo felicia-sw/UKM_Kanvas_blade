@@ -12,7 +12,7 @@ class EventController extends Controller
     public function index()
     {
         $search = request('search');
-        
+
         $upcomingEvents = Event::query()
             ->when($search, function ($query, $search) {
                 return $query->where('title', 'like', "%{$search}%")
@@ -22,7 +22,7 @@ class EventController extends Controller
             ->where('start_date', '>=', now())
             ->orderBy('start_date', 'asc')
             ->paginate(10, ['*'], 'upcoming_page');
-            
+
         $pastEvents = Event::query()
             ->when($search, function ($query, $search) {
                 return $query->where('title', 'like', "%{$search}%")
@@ -43,7 +43,7 @@ class EventController extends Controller
 
     public function store(Request $request)
     {
-        
+
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -55,28 +55,28 @@ class EventController extends Controller
             'location' => 'nullable|string|max:255',
         ]);
 
-        
+
         $imagePath = $request->file('poster_image')->store('events/posters', 'public');
 
-    
+
         $data = $request->except(['_token', 'poster_image']);
         $data['poster_image'] = $imagePath;
         $data['is_active'] = $request->has('is_active');
 
         Event::create($data);
 
-        
+
         return redirect()->route('admin.events.index')->with('success', 'Event created successfully');
     }
 
-    public function edit(Event $event) 
+    public function edit(Event $event)
     {
         return view('admin.event.edit', compact('event'));
     }
 
     public function update(Request $request, Event $event)
-    { 
-       
+    {
+
         $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
@@ -88,17 +88,17 @@ class EventController extends Controller
             'location' => 'nullable|string|max:255',
         ]);
 
-        
+
         $data = $request->except(['_token', '_method', 'poster_image']);
         $data['is_active'] = $request->has('is_active');
 
-      
-        if($request->hasFile('poster_image')) {
+
+        if ($request->hasFile('poster_image')) {
             if ($event->poster_image) {
                 Storage::disk('public')->delete($event->poster_image);
             }
 
-           
+
             $imagePath = $request->file('poster_image')->store('events/posters', 'public');
             $data['poster_image'] = $imagePath;
         }
@@ -108,10 +108,9 @@ class EventController extends Controller
 
         // 5. redirect with success
         return redirect()->route('admin.events.index')->with('success', 'Event updated successfully');
-        
     }
 
-    public function destroy(Event $event) 
+    public function destroy(Event $event)
     {
         // 1. deleteassociated image file 
         if ($event->poster_image) { // checks if a poster image exists to safely attampt deletion 
@@ -119,7 +118,7 @@ class EventController extends Controller
         }
 
         // 2. delete the database record
-        $event->delete(); 
+        $event->delete();
 
         // 3. redirecct
         return redirect()->route('admin.events.index')->with('success', 'Event deleted successfully');
@@ -127,7 +126,7 @@ class EventController extends Controller
 
     public function registrations(Event $event)
     {
-        $event->load(['registrations.user']);
+        $event->load(['registrations.user.profile']);
         return view('admin.event.registrations', compact('event'));
     }
 }
