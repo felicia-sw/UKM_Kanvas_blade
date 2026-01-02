@@ -198,3 +198,27 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 //         'Is Admin?' => $user->hasRole('Admin') ? 'YES' : 'NO',
 //     ];
 // });
+
+// to test whatsapp service, uncomment the code below
+
+// use App\Services\WhatsAppService;
+
+// Route::get('/test-wa', function (WhatsAppService $service) {
+//     // 1. Check if Config is loaded
+//     $token = config('fonnte.token');
+//     if (empty($token)) {
+//         return "ERROR: Laravel cannot see your FONNTE_TOKEN. Did you run 'php artisan config:clear'?";
+//     }
+
+//     // 2. Try to send a real message
+//     // Replace '08...' with your own REAL WhatsApp number to test
+//     $targetNumber = '089531195638'; 
+    
+//     $success = $service->sendMessage($targetNumber, "Hello! This is a test message from Laravel. Token is loaded.");
+
+//     if ($success) {
+//         return "SUCCESS! Message sent to $targetNumber. Check your WhatsApp.";
+//     } else {
+//         return "FAILED. Check storage/logs/laravel.log for details.";
+//     }
+// });
