@@ -1,5 +1,3 @@
-<?php
-
 namespace App\Channels;
 
 use App\Services\WhatsAppService;
@@ -17,18 +15,49 @@ class WhatsAppChannel
 
     /**
      * Send the given notification.
-     *
-     * @param  mixed  $notifiable
-     * @param  \Illuminate\Notifications\Notification  $notification
-     * @return void
      */
     public function send($notifiable, Notification $notification)
     {
+        // Check if notification has toWhatsApp method
         if (!method_exists($notification, 'toWhatsApp')) {
+            Log::warning('Notification does not have toWhatsApp method', [
+                'notification_class' => get_class($notification)
+            ]);
             return;
         }
 
+        // Get phone number from user's profile
+        $phoneNumber = $notifiable->profile->no_telp ?? null;
+
+        if (!$phoneNumber) {
+            Log::warning('User has no phone number', [
+                'user_id' => $notifiable->id,
+                'user_name' => $notifiable->name
+            ]);
+            return;
+        }
+
+        // Get message from notification
         $message = $notification->toWhatsApp($notifiable);
-        $this->whatsAppService->sendMessage($notifiable->nomor_telp, $message);
+
+        Log::info('Sending WhatsApp notification', [
+            'user_id' => $notifiable->id,
+            'phone' => $phoneNumber,
+            'notification_type' => get_class($notification)
+        ]);
+
+        // Send message
+        $result = $this->whatsAppService->sendMessage($phoneNumber, $message);
+
+        if ($result) {
+            Log::info('WhatsApp notification sent successfully', [
+                'user_id' => $notifiable->id
+            ]);
+        } else {
+            Log::error('WhatsApp notification failed', [
+                'user_id' => $notifiable->id,
+                'phone' => $phoneNumber
+            ]);
+        }
     }
 }
