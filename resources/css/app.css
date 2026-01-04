@@ -258,55 +258,73 @@ h6 {
 }
 
 .merch-card {
-    background: #ffffff;
-    border-radius: 20px;
-    border: 3px solid transparent;
-    /* Gradient border simulation */
-    background-image: linear-gradient(white, white),
-        linear-gradient(135deg, #ff6b6b, #4a00e0);
-    /* Pink to Purple gradient */
-    background-origin: border-box;
-    background-clip: padding-box, border-box;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+    background: rgba(42, 10, 86, 0.6);
+    backdrop-filter: blur(10px);
+    border-radius: 1rem;
+    border: 2px solid rgba(255, 236, 119, 0.3);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
     overflow: hidden;
-    /* To keep rounded corners on image */
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 .merch-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(74, 0, 224, 0.2);
+    box-shadow: 0 15px 30px rgba(74, 0, 224, 0.3);
+    border-color: rgba(255, 236, 119, 0.6);
 }
 
 .merch-card-image-container {
-    padding: 15px;
+    position: relative;
+    height: 300px;
+    overflow: hidden;
 }
 
 .merch-card-image {
     width: 100%;
-    height: 250px;
+    height: 100%;
     object-fit: cover;
-    border-radius: 15px;
-    /* Rounded corners for the image */
+    transition: transform 0.5s ease;
+}
+
+.merch-card:hover .merch-card-image {
+    transform: scale(1.05);
 }
 
 .merch-card-body {
-    padding: 15px 25px 25px 25px;
+    padding: 20px;
     text-align: center;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .merch-card-title {
     font-weight: 700;
-    font-size: 1.5rem;
-    color: #4a00e0;
-    margin-bottom: 5px;
+    font-size: 1.3rem;
+    color: #ffffff;
+    margin-bottom: 10px;
 }
 
 .merch-card-price {
-    font-weight: 600;
-    font-size: 1.2rem;
-    color: #4a00e0;
-    /* Gradient color */
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: #FFEC77;
+    margin-bottom: 10px;
+}
+
+.merch-card-description {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    line-height: 1.5;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 /* Decorative elements */
