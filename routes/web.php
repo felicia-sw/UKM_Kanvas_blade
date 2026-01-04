@@ -215,10 +215,3 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 //         return "FAILED. Check storage/logs/laravel.log for details.";
 //     }
 // });
-
-// Temporary route to clear cache
-Route::get('/fix-config', function() {
-    \Illuminate\Support\Facades\Artisan::call('config:clear');
-    \Illuminate\Support\Facades\Artisan::call('cache:clear');
-    return 'Config and Cache Cleared! You can now delete this route.';
-});
