@@ -67,11 +67,11 @@
                 </div>
                 {{-- Image upload field --}}
                 <div class="mb-4">
-                    <label for="image_path" class="form-label">Artwork Image <span class="text-danger">*</span></label>
-                    <input type="file" class="form-control @error('image_path') is-invalid @enderror" id="image_path"
-                        name="image_path" required>
+                    <label for="image_file" class="form-label">Artwork Image <span class="text-danger">*</span></label>
+                    <input type="file" class="form-control @error('image_file') is-invalid @enderror" id="image_file"
+                        name="image_file" required>
                     <div class="form-text">Accepted formats: JPG, PNG, GIF. Max size: 2MB.</div>
-                    @error('image_path')
+                    @error('image_file')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
