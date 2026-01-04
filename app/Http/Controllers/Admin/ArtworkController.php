@@ -15,8 +15,8 @@ class ArtworkController extends Controller
     {
         $search = $request->input('search');
         $categoryFilter = $request->input('category');
-        
-        
+
+
         $query = Artwork::with('category')
             ->when($search, function ($q, $search) {
                 return $q->where('title', 'like', "%{$search}%")
@@ -28,29 +28,29 @@ class ArtworkController extends Controller
             })
             ->latest();
 
-     
+
         $artworks = $query->paginate(10);
-        
+
 
         $categories = ArtworkCategory::all();
-        
-      
+
+
         return view('admin.artworks.index', compact('artworks', 'categories'));
     }
-    
-    
+
+
     public function create()
     {
 
         $categories = ArtworkCategory::all();
-        
+
         return view('admin.artworks.create', compact('categories'));
     }
-    
+
 
     public function store(Request $request)
     {
-        
+
         $request->validate([
             'title' => 'required|string|max:255',
             'artist_name' => 'required|string|max:255',
@@ -59,11 +59,12 @@ class ArtworkController extends Controller
             'image_file' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        
+
         $imagePath = $request->file('image_file')->store('artworks', 'public');
-        
-       
+
+
         Artwork::create([
+            'user_id' => auth()->id(), // Add the authenticated user's ID
             'title' => $request->title,
             'artist_name' => $request->artist_name,
             'category_id' => $request->category_id,
@@ -76,17 +77,17 @@ class ArtworkController extends Controller
             ->with('success', 'Artwork created successfully!');
     }
 
-    
+
     public function edit(Artwork $artwork)
     {
-       
+
         $categories = ArtworkCategory::all();
 
 
         return view('admin.artworks.edit', compact('artwork', 'categories'));
     }
 
-    
+
     public function update(Request $request, Artwork $artwork)
     {
         $request->validate([
@@ -100,16 +101,16 @@ class ArtworkController extends Controller
         $data = $request->only('title', 'artist_name', 'category_id', 'description');
 
 
-        if ($request->hasFile('image_file')) { 
-            
-            
-            if ($artwork->image_path) { 
-                $oldPath = str_replace('storage/', '', $artwork->image_path); 
-                Storage::disk('public')->delete($oldPath); 
+        if ($request->hasFile('image_file')) {
+
+
+            if ($artwork->image_path) {
+                $oldPath = str_replace('storage/', '', $artwork->image_path);
+                Storage::disk('public')->delete($oldPath);
             }
 
             $imagePath = $request->file('image_file')->store('artworks', 'public');
-            $data['image_path'] = 'storage/' . $imagePath; 
+            $data['image_path'] = 'storage/' . $imagePath;
         }
 
         $artwork->update($data);
