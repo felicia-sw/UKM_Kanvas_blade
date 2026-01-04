@@ -78,11 +78,6 @@ class User extends Authenticatable
         return $this->hasMany(DuesPayment::class);
     }
 
-    public function contactSubmissions()
-    {
-        return $this->hasMany(ContactUs::class);
-    }
-
     public function customNotifications()
     {
         return $this->hasMany(Notification::class);

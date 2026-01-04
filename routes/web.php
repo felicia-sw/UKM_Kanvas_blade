@@ -19,7 +19,6 @@ use App\Http\Controllers\Admin\MerchandiseController as AdminMerchandiseControll
 use App\Http\Controllers\CloudinaryTestController;
 
 use App\Http\Controllers\Admin\IncomeExpenseController;
-use App\Http\Controllers\ContactUsController;
 use App\Http\Controllers\DuesPaymentController;
 use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\MerchandiseOrderController;
@@ -58,12 +57,6 @@ Route::get('/merchandise', [MerchandiseController::class, 'index'])->name('merch
 Route::get('/about', function () {
     return view('about');
 })->name('about');
-
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
-
-Route::post('/contact', [ContactUsController::class, 'store'])->name('contact.store');
 
 // ===============================================
 // AUTHENTICATION ROUTES (User Login/Register/Logout)
