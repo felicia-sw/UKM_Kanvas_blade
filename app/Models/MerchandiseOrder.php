@@ -36,6 +36,6 @@ class MerchandiseOrder extends Model
 
     public function items()
     {
-        return $this->hasMany(MerchandiseOrderItem::class);
+        return $this->hasMany(MerchandiseOrderItem::class, 'merchandise_order_id');
     }
 }

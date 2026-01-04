@@ -100,7 +100,7 @@ class MerchandiseOrderController extends Controller
         // Create order items
         foreach ($cartItems as $cartItem) {
             MerchandiseOrderItem::create([
-                'order_id' => $order->id,
+                'merchandise_order_id' => $order->id,
                 'merchandise_id' => $cartItem->merchandise_id,
                 'quantity' => $cartItem->quantity,
                 'price_at_purchase' => $cartItem->merchandise->price,
