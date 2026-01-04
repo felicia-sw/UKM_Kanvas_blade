@@ -1,3 +1,7 @@
+<?php
+
+namespace App\Notifications;
+
 use App\Models\EventRegistration;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
