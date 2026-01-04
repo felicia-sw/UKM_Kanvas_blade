@@ -56,11 +56,11 @@
 
                 {{-- Media File Upload Field --}}
                 <div class="mb-4">
-                    <label for="media_file" class="form-label">Select Media File <span class="text-danger">*</span></label>
-                    <input type="file" class="form-control @error('media_file') is-invalid @enderror" id="media_file"
-                        name="media_file" accept="image/*,video/*" required>
+                    <label for="file_path" class="form-label">Select Media File <span class="text-danger">*</span></label>
+                    <input type="file" class="form-control @error('file_path') is-invalid @enderror" id="file_path"
+                        name="file_path" accept="image/*,video/*" required>
                     <div class="form-text">Accepted formats: JPG, PNG (images) or MP4, MOV, AVI (videos). Max size: 10MB.</div>
-                    @error('media_file')
+                    @error('file_path')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

@@ -43,7 +43,7 @@
                  data-aos-delay="{{ ($index % 3) * 100 }}">
                 <div class="artwork-card">
                     <div class="artwork-image-container">
-                        <img src="{{ asset('storage/' . $artwork->image_path) }}" 
+                        <img src="{{ $artwork->image_path }}" 
                              alt="{{ $artwork->title }}" 
                              class="artwork-image">
                         <div class="artwork-overlay">
@@ -104,7 +104,7 @@
             <!-- Image Box -->
             <div class="col-lg-7">
                 <div class="modal-image-box">
-                    <img src="{{ asset('storage/' . $artwork->image_path) }}" 
+                    <img src="{{ $artwork->image_path }}" 
                          alt="{{ $artwork->title }}" 
                          class="modal-artwork-image">
                 </div>

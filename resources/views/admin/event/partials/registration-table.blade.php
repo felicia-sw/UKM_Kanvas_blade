@@ -87,7 +87,7 @@
                                     <div class="btn-group btn-group-sm" role="group">
                                         @if ($registration->payment_proof)
                                             <button type="button" class="btn btn-outline-primary"
-                                                onclick="viewPaymentProof('{{ Storage::url($registration->payment_proof) }}')"
+                                                onclick="viewPaymentProof('{{ $registration->payment_proof }}')"
                                                 title="View Payment Proof">
                                                 <i class="bi bi-image"></i>
                                             </button>

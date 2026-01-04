@@ -71,18 +71,18 @@
                 {{-- Current Image Preview --}}
                 <div class="mb-3">
                     <label class="form-label">Current Artwork Image</label>
-                    <img src="{{ asset('storage/' . $artwork->image_path) }}" alt="Current Image" class="img-thumbnail"
+                    <img src="{{ $artwork->image_path }}" alt="Current Image" class="img-thumbnail"
                         style="max-height: 150px;">
                 </div>
 
                 {{-- New Image Upload Field (Optional) --}}
                 <div class="mb-4">
-                    <label for="image_file" class="form-label">Upload New Artwork Image (Optional)</label>
-                    <input type="file" class="form-control @error('image_file') is-invalid @enderror" id="image_file"
-                        name="image_file">
+                    <label for="image_path" class="form-label">Upload New Artwork Image (Optional)</label>
+                    <input type="file" class="form-control @error('image_path') is-invalid @enderror" id="image_path"
+                        name="image_path">
                     <div class="form-text">Accepted formats: JPG, PNG, GIF. Max size: 20MB. Leave blank to keep current
                         image.</div>
-                    @error('image_file')
+                    @error('image_path')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

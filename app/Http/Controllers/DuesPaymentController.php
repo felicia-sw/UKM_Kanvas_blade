@@ -7,7 +7,6 @@ use App\Models\DuesPayment;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
 
 class DuesPaymentController extends Controller
 {
@@ -65,12 +64,10 @@ class DuesPaymentController extends Controller
                 ->with('error', 'You have already submitted payment for this period.');
         }
 
-        $paymentProofPath = $request->file('payment_proof')->store('dues-payments', 'public');
-
         $payment = DuesPayment::create([
             'user_id' => Auth::id(),
             'dues_period_id' => $duesPeriod->id,
-            'payment_proof' => $paymentProofPath,
+            'payment_proof' => $request->file('payment_proof'),
             'payment_status' => 'pending',
         ]);
 

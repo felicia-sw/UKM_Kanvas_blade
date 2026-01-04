@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\CloudinaryUpload;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class MerchandiseOrder extends Model
 {
-    use HasFactory;
+    use HasFactory, CloudinaryUpload;
 
     protected $fillable = [
         'user_id',
@@ -17,6 +18,11 @@ class MerchandiseOrder extends Model
         'verified_at',
         'pickup_status', // pending, ready, picked_up
     ];
+
+    protected function getFileAttributes(): array
+    {
+        return ['payment_proof'];
+    }
 
     protected $casts = [
         'grand_total' => 'decimal:2',
