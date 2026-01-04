@@ -6,10 +6,9 @@ use App\Models\MerchandiseOrder;
 use App\Models\MerchandiseOrderItem;
 use App\Models\ShoppingCart;
 use App\Models\Notification;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-use App\Models\User;
 
 class MerchandiseOrderController extends Controller
 {
@@ -18,7 +17,7 @@ class MerchandiseOrderController extends Controller
      */
     public function index()
     {
-        $orders = Auth::user()->merchandiseOrders()
+        $orders = Auth::user()->merchandiseOrders
             ->with('items.merchandise')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
@@ -90,12 +89,10 @@ class MerchandiseOrderController extends Controller
             }
         }
 
-        $paymentProofPath = $request->file('payment_proof')->store('merchandise-payments', 'public');
-
         $order = MerchandiseOrder::create([
             'user_id' => Auth::id(),
             'grand_total' => $grandTotal,
-            'payment_proof' => $paymentProofPath,
+            'payment_proof' => $request->file('payment_proof'),
             'payment_status' => 'pending',
             'pickup_status' => 'pending',
         ]);

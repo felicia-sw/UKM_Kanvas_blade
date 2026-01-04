@@ -27,7 +27,7 @@
         <div class="col-12 col-md-3 col-lg-3 col-xl-2 d-flex justify-content-center justify-content-md-start align-items-center mb-4 mb-md-0">
             <div class="event-rect border-3 border-white position-relative d-flex align-items-center justify-content-center overflow-hidden rounded-3 shadow-sm">
                 @if($event->poster_image)
-                    <img src="{{ asset('storage/' . $event->poster_image) }}" 
+                    <img src="{{ $event->poster_image }}" 
                          alt="{{ $event->title }}" 
                          class="event-img">
                 @else

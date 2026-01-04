@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Documentation;
 use App\Models\Event;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class DocumentationController extends Controller
 {
@@ -54,25 +53,15 @@ class DocumentationController extends Controller
             'title' => 'required|string|max:255',
             'file_type' => 'required|in:image,video',
             'caption' => 'nullable|string',
-            'media_file' => 'required|file|mimes:jpeg,png,jpg,mp4,mov,avi|max:10240', // 10MB max
+            'file_path' => 'required|file|mimes:jpeg,png,jpg,mp4,mov,avi|max:10240', // 10MB max
         ]);
-        
-        $file = $request->file('media_file');
-        $filePath = $file->store('documentation', 'public');
-        
-        // Determine file type from mime type if not explicitly provided
-        $fileType = $request->file_type;
-        if (!$fileType) {
-            $mimeType = $file->getMimeType();
-            $fileType = str_starts_with($mimeType, 'video/') ? 'video' : 'image';
-        }
         
         Documentation::create([
             'event_id' => $event->id,
             'title' => $request->title,
-            'file_type' => $fileType,
+            'file_type' => $request->file_type,
             'caption' => $request->caption,
-            'file_path' => $filePath, 
+            'file_path' => $request->file('file_path'), 
         ]);
 
         return redirect()->route('admin.events.documentation.index', $event->id)
@@ -86,27 +75,15 @@ class DocumentationController extends Controller
             'title' => 'required|string|max:255',
             'file_type' => 'required|in:image,video',
             'caption' => 'nullable|string',
-            'media_file' => 'required|file|mimes:jpeg,png,jpg,mp4,mov,avi|max:10240', // 10MB max
+            'file_path' => 'required|file|mimes:jpeg,png,jpg,mp4,mov,avi|max:10240', // 10MB max
         ]);
-        
-        $event = Event::findOrFail($request->event_id);
-        
-        $file = $request->file('media_file');
-        $filePath = $file->store('documentation', 'public');
-        
-        // Determine file type from mime type if not explicitly provided
-        $fileType = $request->file_type;
-        if (!$fileType) {
-            $mimeType = $file->getMimeType();
-            $fileType = str_starts_with($mimeType, 'video/') ? 'video' : 'image';
-        }
         
         Documentation::create([
             'event_id' => $request->event_id, 
             'title' => $request->title,
-            'file_type' => $fileType,
+            'file_type' => $request->file_type,
             'caption' => $request->caption,
-            'file_path' => $filePath,
+            'file_path' => $request->file('file_path'),
         ]);
 
         return redirect()->route('admin.events.documentation.index', $request->event_id)
@@ -124,25 +101,13 @@ class DocumentationController extends Controller
             'title' => 'required|string|max:255',
             'file_type' => 'required|in:image,video',
             'caption' => 'nullable|string',
-            'media_file' => 'nullable|file|mimes:jpeg,png,jpg,mp4,mov,avi|max:10240',
+            'file_path' => 'nullable|file|mimes:jpeg,png,jpg,mp4,mov,avi|max:10240',
         ]);
 
         $data = $request->only(['title', 'file_type', 'caption']);
 
-        if ($request->hasFile('media_file')) {
-            if ($documentation->file_path) {
-                Storage::disk('public')->delete($documentation->file_path);
-            }
-            
-            $file = $request->file('media_file');
-            $filePath = $file->store('documentation', 'public');
-            $data['file_path'] = $filePath;
-            
-            // Update file_type if not explicitly set
-            if (!isset($data['file_type'])) {
-                $mimeType = $file->getMimeType();
-                $data['file_type'] = str_starts_with($mimeType, 'video/') ? 'video' : 'image';
-            }
+        if ($request->hasFile('file_path')) {
+            $data['file_path'] = $request->file('file_path');
         }
 
         $documentation->update($data);
@@ -153,10 +118,6 @@ class DocumentationController extends Controller
 
       public function destroy(Event $event, Documentation $documentation)
     {
-        if ($documentation->file_path) {
-            Storage::disk('public')->delete($documentation->file_path);
-        }
-
         $documentation->delete();
 
         return redirect()->route('admin.events.documentation.index', $event->id)

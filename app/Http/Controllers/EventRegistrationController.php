@@ -11,7 +11,6 @@ use App\Services\WhatsAppService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Storage;
 
 class EventRegistrationController extends Controller
 {
@@ -46,13 +45,10 @@ class EventRegistrationController extends Controller
         // Calculate amount - use event price
         $amount = $event->price ?? 0;
 
-        // Store payment proof
-        $paymentProofPath = $request->file('payment_proof')->store('payment-proofs', 'public');
-
         $registration = EventRegistration::create([
             'event_id' => $event->id,
             'user_id' => $user->id,
-            'payment_proof' => $paymentProofPath,
+            'payment_proof' => $request->file('payment_proof'),
             'payment_status' => 'pending',
             'amount_paid' => $amount,
         ]);
