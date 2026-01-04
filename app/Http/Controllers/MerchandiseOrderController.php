@@ -17,7 +17,7 @@ class MerchandiseOrderController extends Controller
      */
     public function index()
     {
-        $orders = Auth::user()->merchandiseOrders
+        $orders = Auth::user()->merchandiseOrders()
             ->with('items.merchandise')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
@@ -69,7 +69,7 @@ class MerchandiseOrderController extends Controller
 
         if (!$cart || $cart->items()->count() === 0) {
             return redirect()->route('cart.index')
-                ->with('error', 'Your cart is empty.');
+                ->with('error', 'Continue Shopping.');
         }
 
         $validated = $request->validate([
