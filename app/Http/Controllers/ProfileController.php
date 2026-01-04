@@ -7,11 +7,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\Profile;
 use App\Models\DuesPeriod;
+use App\Models\User;
 
 class ProfileController extends Controller
 {
     public function show()
     {
+        /** @var User $user */
         $user = Auth::user();
         $profile = $user->profile;
 
@@ -34,12 +36,13 @@ class ProfileController extends Controller
 
     public function update(Request $request)
     {
+        /** @var User $user */
         $user = Auth::user();
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users,email,' . $user->id,
-            'nim' => 'nullable|string|max:255',
+            'nim' => 'nullable|string|max:255|unique:profiles,nim,' . ($user->profile->id ?? 'NULL') . ',id',
             'jurusan' => 'nullable|string|max:255',
             'asal_universitas' => 'nullable|string|max:255',
             'no_telp' => 'nullable|string|max:20',
@@ -72,6 +75,7 @@ class ProfileController extends Controller
             'new_password' => 'required|min:8|confirmed',
         ]);
 
+        /** @var User $user */
         $user = Auth::user();
 
         if (!Hash::check($validated['current_password'], $user->password)) {

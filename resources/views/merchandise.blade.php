@@ -66,6 +66,4 @@
         </div>
 
     </div>
-
-    <x-merchandise-cart-bootstrap />
 @endsection

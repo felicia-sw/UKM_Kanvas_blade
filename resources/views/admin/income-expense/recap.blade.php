@@ -21,7 +21,11 @@
                         <h1 class="h3 mb-2">{{ $event->title }}</h1>
                         <p class="text-muted mb-0">
                             <i class="bi bi-calendar-event me-2"></i>
-                            {{ $event->start_date->format('M d, Y') }} - {{ $event->end_date->format('M d, Y') }}
+                            @if($event->start_date && $event->end_date)
+                                {{ $event->start_date->format('M d, Y') }} - {{ $event->end_date->format('M d, Y') }}
+                            @else
+                                Date not set
+                            @endif
                         </p>
                     </div>
                     <div>
