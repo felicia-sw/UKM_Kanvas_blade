@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Documentation;
 use App\Models\Event;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class DocumentationController extends Controller
 {

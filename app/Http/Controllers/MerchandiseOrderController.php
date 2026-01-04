@@ -6,6 +6,7 @@ use App\Models\MerchandiseOrder;
 use App\Models\MerchandiseOrderItem;
 use App\Models\ShoppingCart;
 use App\Models\Notification;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +17,7 @@ class MerchandiseOrderController extends Controller
      */
     public function index()
     {
-        $orders = Auth::user()->merchandiseOrders()
+        $orders = Auth::user()->merchandiseOrders
             ->with('items.merchandise')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
