@@ -34,7 +34,7 @@
                                         <tr>
                                             <td>
                                                 <div class="d-flex align-items-center">
-                                                    <img src="{{ Storage::url($item->merchandise->image_path) }}" 
+                                                    <img src="{{ $item->merchandise->image_path }}" 
                                                         alt="{{ $item->merchandise->name }}" 
                                                         class="img-thumbnail me-3" style="width: 80px; height: 80px; object-fit: cover;">
                                                     <div>

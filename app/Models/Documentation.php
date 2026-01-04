@@ -2,22 +2,29 @@
 
 namespace App\Models;
 
+use App\Traits\CloudinaryUpload;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Documentation extends Model
 {
-    use HasFactory;
-    
-    protected $table = 'documentations'; 
+    use HasFactory, SoftDeletes, CloudinaryUpload;
+
+    protected $table = 'documentations';
 
     protected $fillable = [
         'event_id',
         'title',
-        'file_type', // New
-        'caption',   // New
-        'file_path', // Renamed from image_path
+        'file_type',
+        'caption',
+        'file_path',
     ];
+
+    protected function getFileAttributes(): array
+    {
+        return ['file_path'];
+    }
 
     public function event()
     {

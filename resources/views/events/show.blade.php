@@ -13,7 +13,7 @@
                         <div class="row">
                             <div class="col-md-4 mb-4 mb-md-0">
                                 @if ($event->poster_image)
-                                    <img src="{{ Storage::url($event->poster_image) }}" alt="{{ $event->title }}"
+                                    <img src="{{ $event->poster_image }}" alt="{{ $event->title }}"
                                         class="img-fluid rounded-3 shadow-lg w-100">
                                 @else
                                     <div class="bg-secondary rounded-3 d-flex align-items-center justify-content-center"

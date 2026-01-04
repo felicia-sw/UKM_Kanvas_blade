@@ -39,11 +39,8 @@ class MerchandiseController extends Controller
             'price' => 'required|numeric|min:0',
             'description' => 'nullable|string',
             'stock' => 'required|integer|min:0',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'image_path' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
-
-        $path = $request->file('image')->store('public/merchandise');
-        $storagePath = Storage::url($path);
 
         Merchandise::create([
             'name' => $request->name,
@@ -51,7 +48,7 @@ class MerchandiseController extends Controller
             'price' => $request->price,
             'description' => $request->description,
             'stock' => $request->stock,
-            'image_path' => $storagePath,
+            'image_path' => $request->file('image_path'),
         ]);
 
         return redirect()->route('admin.merchandise.index')->with('success', 'Merchandise item created successfully.');
@@ -77,28 +74,16 @@ class MerchandiseController extends Controller
             'price' => 'required|numeric|min:0',
             'description' => 'nullable|string',
             'stock' => 'required|integer|min:0',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
 
-        $storagePath = $merchandise->image_path;
+        $data = $request->only('name', 'category_id', 'price', 'description', 'stock');
 
-        if ($request->hasFile('image')) {
-            // Delete old image
-            Storage::delete(str_replace('/storage', 'public', $merchandise->image_path));
-
-            // Store new image
-            $path = $request->file('image')->store('public/merchandise');
-            $storagePath = Storage::url($path);
+        if ($request->hasFile('image_path')) {
+            $data['image_path'] = $request->file('image_path');
         }
 
-        $merchandise->update([
-            'name' => $request->name,
-            'category_id' => $request->category_id,
-            'price' => $request->price,
-            'description' => $request->description,
-            'stock' => $request->stock,
-            'image_path' => $storagePath,
-        ]);
+        $merchandise->update($data);
 
         return redirect()->route('admin.merchandise.index')->with('success', 'Merchandise item updated successfully.');
     }
@@ -108,7 +93,6 @@ class MerchandiseController extends Controller
      */
     public function destroy(Merchandise $merchandise)
     {
-        Storage::delete(str_replace('/storage', 'public', $merchandise->image_path));
         $merchandise->delete();
         return redirect()->route('admin.merchandise.index')->with('success', 'Merchandise item deleted successfully.');
     }

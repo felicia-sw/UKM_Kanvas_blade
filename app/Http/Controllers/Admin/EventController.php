@@ -55,12 +55,8 @@ class EventController extends Controller
             'location' => 'nullable|string|max:255',
         ]);
 
-
-        $imagePath = $request->file('poster_image')->store('events/posters', 'public');
-
-
-        $data = $request->except(['_token', 'poster_image']);
-        $data['poster_image'] = $imagePath;
+        $data = $request->except(['_token']);
+        $data['poster_image'] = $request->file('poster_image');
         $data['is_active'] = $request->has('is_active');
 
         Event::create($data);
@@ -94,13 +90,7 @@ class EventController extends Controller
 
 
         if ($request->hasFile('poster_image')) {
-            if ($event->poster_image) {
-                Storage::disk('public')->delete($event->poster_image);
-            }
-
-
-            $imagePath = $request->file('poster_image')->store('events/posters', 'public');
-            $data['poster_image'] = $imagePath;
+            $data['poster_image'] = $request->file('poster_image');
         }
 
         // 4. update database record
@@ -112,11 +102,6 @@ class EventController extends Controller
 
     public function destroy(Event $event)
     {
-        // 1. deleteassociated image file 
-        if ($event->poster_image) { // checks if a poster image exists to safely attampt deletion 
-            Storage::disk('public')->delete($event->poster_image); // deletes the record from database; the deletion must happen before the database record is removed
-        }
-
         // 2. delete the database record
         $event->delete();
 

@@ -65,11 +65,11 @@
                     @enderror
                 </div>
                 <div class="mb-4">
-                    <label for="image" class="form-label">Merchandise Image <span class="text-danger">*</span></label>
-                    <input type="file" class="form-control @error('image') is-invalid @enderror" id="image"
-                        name="image" accept="image/*" required>
+                    <label for="image_path" class="form-label">Merchandise Image <span class="text-danger">*</span></label>
+                    <input type="file" class="form-control @error('image_path') is-invalid @enderror" id="image_path"
+                        name="image_path" accept="image/*" required>
                     <small class="form-text text-muted">Accepted formats: JPG, PNG, GIF (Max: 2MB)</small>
-                    @error('image')
+                    @error('image_path')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

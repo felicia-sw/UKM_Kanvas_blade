@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\CloudinaryUpload;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Event extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, CloudinaryUpload;
 
     protected $fillable = [
         'title',
@@ -29,6 +30,11 @@ class Event extends Model
         'price' => 'decimal:2',
         'is_active' => 'boolean',
     ];
+
+    protected function getFileAttributes(): array
+    {
+        return ['poster_image'];
+    }
 
     // ==========================
     // RELATIONSHIPS
