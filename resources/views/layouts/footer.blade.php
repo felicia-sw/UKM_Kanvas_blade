@@ -1,25 +1,25 @@
-<footer class="footer-section mt-5 py-5" style="background: rgba(42, 10, 86, 0.9); backdrop-filter: blur(12px); border-top: 1px solid rgba(255, 255, 255, 0.1);">
+<footer class="footer-section mt-5 py-5"
+    style="background: rgba(42, 10, 86, 0.9); backdrop-filter: blur(12px); border-top: 1px solid rgba(255, 255, 255, 0.1);">
     <div class="container">
         <div class="row g-5">
 
             <div class="col-lg-4 col-md-6">
                 <h4 class="fw-bold mb-3 text-gradient">UKM KANVAS</h4>
                 <p class="text-white-50 mb-4">
-                    Kanvas is a Unit Kegiatan Mahasiswa﻿ (Student Activity Unit) dedicated to nurturing artistic creativity and design. We are a home for young artists eager to express themselves through various art mediums.
+                    Kanvas is a Unit Kegiatan Mahasiswa﻿ (Student Activity Unit) dedicated to nurturing artistic
+                    creativity and design. We are a home for young artists eager to express themselves through various
+                    art mediums.
                 </p>
                 <div class="social-links d-flex gap-3">
-                    <a href="https://www.instagram.com/uc_kanvas?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" 
-                       target="_blank" rel="noopener noreferrer" 
-                       class="social-icon instagram" title="Instagram">
+                    <a href="https://www.instagram.com/uc_kanvas?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw=="
+                        target="_blank" rel="noopener noreferrer" class="social-icon instagram" title="Instagram">
                         <i class="bi bi-instagram"></i>
                     </a>
-                    <a href="mailto:ukm.kanvas@ciputra.ac.id" 
-                       class="social-icon gmail" title="Email">
+                    <a href="mailto:ukm.kanvas@ciputra.ac.id" class="social-icon gmail" title="Email">
                         <i class="bi bi-envelope-fill"></i>
                     </a>
-                    <a href="https://wa.me/6281337241083" 
-                       target="_blank" rel="noopener noreferrer" 
-                       class="social-icon whatsapp" title="WhatsApp">
+                    <a href="https://wa.me/6281337241083" target="_blank" rel="noopener noreferrer"
+                        class="social-icon whatsapp" title="WhatsApp">
                         <i class="bi bi-whatsapp"></i>
                     </a>
                 </div>
@@ -29,11 +29,14 @@
             <div class="col-lg-2 col-md-6">
                 <h5 class="text-white fw-bold mb-4">Quick Links</h5>
                 <ul class="list-unstyled">
-                    <li><a href="{{ route('home') }}" class="footer-link"><i class="bi bi-chevron-right me-2"></i>Home</a></li>
-                    <li><a href="{{ route('events') }}" class="footer-link"><i class="bi bi-chevron-right me-2"></i>Events</a></li>
-                    <li><a href="{{ route('art_gallery') }}" class="footer-link"><i class="bi bi-chevron-right me-2"></i>Art Gallery</a></li>
-                    <li><a href="{{ route('about') }}" class="footer-link"><i class="bi bi-chevron-right me-2"></i>About Us</a></li>
-                    <li><a href="{{ route('contact') }}" class="footer-link"><i class="bi bi-chevron-right me-2"></i>Contact</a></li>
+                    <li><a href="{{ route('home') }}" class="footer-link"><i
+                                class="bi bi-chevron-right me-2"></i>Home</a></li>
+                    <li><a href="{{ route('events') }}" class="footer-link"><i
+                                class="bi bi-chevron-right me-2"></i>Events</a></li>
+                    <li><a href="{{ route('art_gallery') }}" class="footer-link"><i
+                                class="bi bi-chevron-right me-2"></i>Art Gallery</a></li>
+                    <li><a href="{{ route('about') }}" class="footer-link"><i class="bi bi-chevron-right me-2"></i>About
+                            Us</a></li>
                 </ul>
             </div>
 
@@ -43,7 +46,8 @@
                 <ul class="list-unstyled">
                     <li class="mb-3 d-flex align-items-center">
                         <i class="bi bi-geo-alt text-warning me-3 fs-5"></i>
-                        <span class="text-white-50">CitraLand CBD Boulevard, Made, Kec. Sambikerep, Surabaya, Jawa Timur 60219</span>
+                        <span class="text-white-50">CitraLand CBD Boulevard, Made, Kec. Sambikerep, Surabaya, Jawa Timur
+                            60219</span>
                     </li>
                     <li class="mb-3 d-flex align-items-center">
                         <i class="bi bi-envelope text-warning me-3 fs-5"></i>
@@ -70,7 +74,8 @@
             </div>
             <div class="col-md-6 text-center text-md-end">
                 <p class="text-white-50 mb-0">
-                    Made with <i class="bi bi-heart-fill text-danger"></i> by <span class="text-warning">Kanvas Team</span>
+                    Made with <i class="bi bi-heart-fill text-danger"></i> by <span class="text-warning">Kanvas
+                        Team</span>
                 </p>
             </div>
         </div>

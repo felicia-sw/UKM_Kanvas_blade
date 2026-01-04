@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\Role; // <--- ADDED THIS IMPORT
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -14,13 +14,14 @@ class AuthController extends Controller
     protected function redirectTo()
     {
         // FIX 1: Check Role instead of 'is_admin' column
-        if (Auth::check() && Auth::user()->hasRole('Admin')) {
+        $user = Auth::user();
+        if (Auth::check() && $user instanceof User && $user->hasRole('Admin')) {
             return route('admin.dashboard');
         }
         return route('home');
     }
 
-    public function login(Request $request) 
+    public function login(Request $request)
     {
         try {
             $credentials = $request->validate([
@@ -33,17 +34,18 @@ class AuthController extends Controller
                 ->withInput($request->only('email'));
         }
 
-       if (Auth::attempt($credentials, $request->boolean('remember'))) {
+        if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
 
             // FIX 2: Check Role instead of 'is_admin' column
-            if (Auth::user()->hasRole('Admin')) {
+            $user = Auth::user();
+            if ($user instanceof User && $user->hasRole('Admin')) {
                 return redirect()->route('admin.dashboard')
                     ->with('success', 'Welcome back, Admin');
             }
 
             return redirect()->intended(route('home'))
-                ->with('success', 'Welcome back, ' . Auth::user()->name);
+                ->with('success', 'Welcome back, ' . ($user ? $user->name : 'Guest'));
         }
 
         return redirect()->route('home')
@@ -96,7 +98,7 @@ class AuthController extends Controller
         }
     }
 
-    public function logout(Request $request) 
+    public function logout(Request $request)
     {
         Auth::logout();
 

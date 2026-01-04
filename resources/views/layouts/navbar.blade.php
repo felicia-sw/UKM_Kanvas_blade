@@ -25,7 +25,7 @@
 
             <!-- nav  links -->
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto gap-2 gap-lg-3 mt-3 mt-lg-0">
+                <ul class="navbar-nav ms-auto gap-1 gap-lg-1 mt-3 mt-lg-0">
                     <li class="nav-item">
                         <a class="nav-link text-white px-3 py-2 rounded-3 {{ request()->routeIs('home') ? 'active' : '' }}"
                             href="{{ route('home') }}">
@@ -72,12 +72,6 @@
                             </a>
                         </li>
                     @endauth
-                    <li class="nav-item">
-                        <a class="nav-link text-white px-3 py-2 rounded-3 {{ request()->routeIs('contact') ? 'active' : '' }}"
-                            href="{{ route('contact') }}">
-                            <i class="bi bi-envelope me-2"></i>Contact
-                        </a>
-                    </li>
                 </ul>
                 {{-- login and register here --}}
                 <div class="d-flex flex-column flex-lg-row ms-auto ms-lg-0 gap-2 mt-3 mt-lg-0">
@@ -209,7 +203,9 @@
         border-radius: 0;
         box-sizing: border-box;
         padding: 1rem 1.5rem;
-        overflow-x: hidden;
+        /* allow dropdowns and other absolutely-positioned children to overflow
+           the navbar instead of being clipped */
+        overflow: visible;
     }
 
     .nav-link {
@@ -291,6 +287,7 @@
         -webkit-backdrop-filter: blur(15px);
         border: 1px solid rgba(255, 255, 255, 0.3);
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        z-index: 2000;
     }
 
     .dropdown-item {
