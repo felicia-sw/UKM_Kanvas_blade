@@ -72,12 +72,6 @@
                             </a>
                         </li>
                     @endauth
-                    <li class="nav-item">
-                        <a class="nav-link text-white px-3 py-2 rounded-3 {{ request()->routeIs('contact') ? 'active' : '' }}"
-                            href="{{ route('contact') }}">
-                            <i class="bi bi-envelope me-2"></i>Contact
-                        </a>
-                    </li>
                 </ul>
                 {{-- login and register here --}}
                 <div class="d-flex flex-column flex-lg-row ms-auto ms-lg-0 gap-2 mt-3 mt-lg-0">
