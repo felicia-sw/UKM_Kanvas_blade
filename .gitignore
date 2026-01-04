@@ -29,6 +29,7 @@
 /storage/framework/cache
 /storage/framework/views
 .env
+env
 config/services.php
 
 # Bootstrap cache files
