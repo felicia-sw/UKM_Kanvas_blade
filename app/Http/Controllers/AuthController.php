@@ -110,11 +110,31 @@ class AuthController extends Controller
 
     public function showLoginForm()
     {
+        // If user is already authenticated, redirect them to home or admin dashboard
+        if (Auth::check()) {
+            $user = Auth::user();
+            if ($user instanceof User && $user->hasRole('Admin')) {
+                return redirect()->route('admin.dashboard');
+            }
+            return redirect()->route('home');
+        }
+
+        // Not authenticated, redirect to home (which has the login modal)
         return redirect()->route('home');
     }
 
     public function showRegistrationForm()
     {
+        // If user is already authenticated, redirect them to home or admin dashboard
+        if (Auth::check()) {
+            $user = Auth::user();
+            if ($user instanceof User && $user->hasRole('Admin')) {
+                return redirect()->route('admin.dashboard');
+            }
+            return redirect()->route('home');
+        }
+
+        // Not authenticated, redirect to home (which has the registration modal)
         return redirect()->route('home');
     }
 }
