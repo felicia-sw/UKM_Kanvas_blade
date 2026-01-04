@@ -20,10 +20,10 @@ class ArtworkController extends Controller
 
         // Get distinct categories that actually have artworks
         $categories = ArtworkCategory::has('artworks')
-            ->select('id', 'name', 'description')
-            ->groupBy('name', 'id', 'description')
+            ->distinct()
             ->orderBy('name')
-            ->get();
+            ->get()
+            ->unique('name'); // Remove duplicates by name
 
         return view('art_gallery', compact('artworks', 'categories'));
     }
