@@ -176,9 +176,7 @@
                         <a href="{{ route('events') }}" class="btn btn-gradient btn-lg px-4 py-3">
                             <i class="bi bi-calendar-event me-2"></i>See Events
                         </a>
-                        <a href="{{ route('contact') }}" class="btn btn-outline-light btn-lg px-4 py-3">
-                            <i class="bi bi-envelope me-2"></i>Contact Us
-                        </a>
+                        
                     </div>
                 </div>
             </div>
