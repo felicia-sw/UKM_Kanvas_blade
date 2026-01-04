@@ -65,7 +65,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Payment Proof</h5>
                     @if($order->payment_proof)
-                        <img src="{{ Storage::url($order->payment_proof) }}" alt="Payment Proof" class="img-fluid rounded mb-3">
+                        <img src="{{ $order->payment_proof }}" alt="Payment Proof" class="img-fluid rounded mb-3">
                     @else
                         <p class="text-muted mb-0">No payment proof uploaded.</p>
                     @endif
@@ -113,7 +113,7 @@
                             <tr>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <img src="{{ Storage::url($item->merchandise->image_path) }}" 
+                                        <img src="{{ $item->merchandise->image_path }}" 
                                             alt="{{ $item->merchandise->name }}" 
                                             class="img-thumbnail me-3" style="width: 60px; height: 60px; object-fit: cover;">
                                         <div>

@@ -2,25 +2,31 @@
 
 namespace App\Models;
 
+use App\Traits\CloudinaryUpload;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes; // Add SoftDeletes
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Merchandise extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, CloudinaryUpload;
 
     protected $fillable = [
-        'category_id', // Add category_id
+        'category_id',
         'name',
         'description',
         'price',
         'image_path',
-        'stock',       // Add stock
+        'stock',
     ];
+
+    protected function getFileAttributes(): array
+    {
+        return ['image_path'];
+    }
 
     public function category()
     {
-        return $this->belongsTo(MerchandiseCategory::class);
+        return $this->belongsTo(MerchandiseCategory::class, 'category_id');
     }
 }

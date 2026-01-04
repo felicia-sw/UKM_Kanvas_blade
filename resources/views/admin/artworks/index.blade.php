@@ -76,7 +76,7 @@
                     @forelse($artworks as $artwork)
                     <tr>
                         <td>
-                            <img src="{{ asset('storage/' . $artwork->image_path) }}" alt="{{ $artwork->title }}" width="60" height="40" style="object-fit: cover; border-radius: 4px;">
+                            <img src="{{ $artwork->image_path }}" alt="{{ $artwork->title }}" width="60" height="40" style="object-fit: cover; border-radius: 4px;">
                         </td>
                         <td>{{ $artwork->title }}</td>
                         <td>{{ $artwork->artist_name }}</td>

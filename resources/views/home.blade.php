@@ -780,7 +780,7 @@
                     <div class="col-6 col-md-3" data-aos="zoom-in" data-aos-delay="{{ ($index + 1) * 50 }}">
                         <div class="artwork-card-home" style="cursor: pointer; position: relative;">
                             <div class="artwork-image-container-home">
-                                <img src="{{ asset('storage/' . $artwork->image_path) }}" alt="{{ $artwork->title }}"
+                                <img src="{{ $artwork->image_path }}" alt="{{ $artwork->title }}"
                                     class="artwork-image-home">
                                 <div class="artwork-overlay-home">
                                     <div class="artwork-info-home">

@@ -4,8 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\CloudinaryUpload;
+
 class DuesPayment extends Model
 {
+    use HasFactory, CloudinaryUpload;
+
     protected $fillable = [
         'user_id',
         'dues_period_id',
@@ -14,6 +19,11 @@ class DuesPayment extends Model
         'verified_by',
         'verified_at',
     ];
+
+    protected function getFileAttributes(): array
+    {
+        return ['payment_proof'];
+    }
 
     protected $casts = [
         'verified_at' => 'datetime',

@@ -2,40 +2,69 @@
 
 namespace App\Traits;
 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\UploadedFile;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Illuminate\Support\Str;
 
 trait CloudinaryUpload
 {
-    /**
-     * Upload an image to Cloudinary.
-     * the use of this is to not repeat urself 
-     * @param UploadedFile $file The file to upload.
-     * @param string|null $folder The folder to store the image in.
-     * @param array $transformation Transformation options.
-     * @return string|null The secure URL of the uploaded file.
-     */
-    public function uploadToCloudinary(UploadedFile $file, ?string $folder = null, array $options = []): ?string
+    public static function bootCloudinaryUpload()
     {
-        try {
-            $defaultOptions = [
-                'folder' => $folder,
-                'transformation' => [
-                    'width' => 500,
-                    'crop' => 'limit',
-                    'quality' => 'auto',
-                    'fetch_format' => 'auto'
-                ]
-            ];
+        static::saving(function (Model $model) {
+            foreach ($model->getFileAttributes() as $attribute) {
+                if ($model->getAttribute($attribute) instanceof UploadedFile) {
+                    if ($model->exists && $model->getOriginal($attribute)) {
+                        $model->deleteImage($model->getOriginal($attribute));
+                    }
 
-            // Merge default options with provided options
-            $uploadOptions = array_merge_recursive($defaultOptions, $options);
+                    $uploadedFile = $model->getAttribute($attribute);
 
-            return Cloudinary::upload($file->getRealPath(), $uploadOptions)->getSecurePath();
-        } catch (\Exception $e) {
-            // Optionally log the error
-            // Log::error('Cloudinary upload failed: ' . $e->getMessage());
-            return null;
+                    $uploadedFileUrl = Cloudinary::upload($uploadedFile->getRealPath(), [
+                        'folder' => $model->getCloudinaryFolder(),
+                    ])->getSecurePath();
+
+                    $model->setAttribute($attribute, $uploadedFileUrl);
+                }
+            }
+        });
+
+        static::deleting(function (Model $model) {
+            if (method_exists($model, 'isForceDeleting') && !$model->isForceDeleting()) {
+                return;
+            }
+            foreach ($model->getFileAttributes() as $attribute) {
+                $model->deleteImage($model->getAttribute($attribute));
+            }
+        });
+    }
+
+    protected function deleteImage($imageUrl)
+    {
+        if (!$imageUrl) {
+            return;
         }
+        $publicId = $this->getPublicIdFromUrl($imageUrl);
+        if ($publicId) {
+            Cloudinary::destroy($publicId);
+        }
+    }
+
+    protected function getPublicIdFromUrl($imageUrl)
+    {
+        if (preg_match('/\/upload\/(?:v\d+\/)?(.+?)(?:\.\w+)?$/', $imageUrl, $matches)) {
+            return $matches[1];
+        }
+        return null;
+    }
+
+    protected function getFileAttributes(): array
+    {
+        return ['image'];
+    }
+
+    protected function getCloudinaryFolder(): string
+    {
+        return Str::lower(Str::plural(class_basename($this)));
     }
 }

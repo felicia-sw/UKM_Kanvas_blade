@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Artwork;
 use App\Models\ArtworkCategory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class ArtworkController extends Controller
 {
@@ -56,19 +55,16 @@ class ArtworkController extends Controller
             'artist_name' => 'required|string|max:255',
             'category_id' => 'required|exists:artwork_categories,id',
             'description' => 'nullable|string',
-            'image_file' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        
-        $imagePath = $request->file('image_file')->store('artworks', 'public');
-        
-       
         Artwork::create([
+            'user_id' => auth()->id(),
             'title' => $request->title,
             'artist_name' => $request->artist_name,
             'category_id' => $request->category_id,
             'description' => $request->description,
-            'image_path' => $imagePath,
+            'image_path' => $request->file('image_path'),
             'created_date' => now(),
         ]);
 
@@ -94,22 +90,14 @@ class ArtworkController extends Controller
             'artist_name' => 'required|string|max:255',
             'category_id' => 'required|exists:artwork_categories,id',
             'description' => 'nullable|string',
-            'image_file' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $data = $request->only('title', 'artist_name', 'category_id', 'description');
 
 
-        if ($request->hasFile('image_file')) { 
-            
-            
-            if ($artwork->image_path) { 
-                $oldPath = str_replace('storage/', '', $artwork->image_path); 
-                Storage::disk('public')->delete($oldPath); 
-            }
-
-            $imagePath = $request->file('image_file')->store('artworks', 'public');
-            $data['image_path'] = 'storage/' . $imagePath; 
+        if ($request->hasFile('image_path')) {
+            $data['image_path'] = $request->file('image_path');
         }
 
         $artwork->update($data);
@@ -120,10 +108,6 @@ class ArtworkController extends Controller
 
     public function destroy(Artwork $artwork)
     {
-        if ($artwork->image_path) {
-            Storage::disk('public')->delete($artwork->image_path);
-        }
-
         $artwork->delete();
 
         return redirect()->route('admin.artworks.index')
