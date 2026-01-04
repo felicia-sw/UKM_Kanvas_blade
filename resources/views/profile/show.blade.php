@@ -179,8 +179,8 @@
                                     </div>
                                 @endforeach
                             </div>
-                            <div class="mt-3">
-                                {{ $notifications->appends(['dues_page' => request('dues_page')])->links() }}
+                            <div class="mt-3 d-flex justify-content-center">
+                                {{ $notifications->appends(['dues_page' => request('dues_page')])->links('pagination::bootstrap-5') }}
                             </div>
                         @else
                             <div class="text-center py-5">

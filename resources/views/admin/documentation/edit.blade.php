@@ -59,20 +59,20 @@
                 <div class="mb-3">
                     <label class="form-label">Current Media</label>
                     @if($documentation->file_type == 'video')
-                        <video src="{{ asset('storage/' . $documentation->file_path) }}" controls class="img-thumbnail" style="max-height: 200px;"></video>
+                        <video src="{{ $documentation->file_path }}" controls class="img-thumbnail" style="max-height: 200px;"></video>
                     @else
-                        <img src="{{ asset('storage/' . $documentation->file_path) }}" alt="Current Media" class="img-thumbnail"
+                        <img src="{{ $documentation->file_path }}" alt="Current Media" class="img-thumbnail"
                             style="max-height: 200px;">
                     @endif
                 </div>
 
                 {{-- Media File Upload Field (Optional) --}}
                 <div class="mb-4">
-                    <label for="media_file" class="form-label">Replace Media (Optional)</label>
-                    <input type="file" class="form-control @error('media_file') is-invalid @enderror" id="media_file"
-                        name="media_file" accept="image/*,video/*">
+                    <label for="file_path" class="form-label">Replace Media (Optional)</label>
+                    <input type="file" class="form-control @error('file_path') is-invalid @enderror" id="file_path"
+                        name="file_path" accept="image/*,video/*">
                     <div class="form-text">Leave blank to keep current file. Accepted formats: JPG, PNG (images) or MP4, MOV, AVI (videos). Max 10MB.</div>
-                    @error('media_file')
+                    @error('file_path')
                         <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>

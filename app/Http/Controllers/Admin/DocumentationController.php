@@ -44,7 +44,9 @@ class DocumentationController extends Controller
 
     public function createAll()
     {
-         $events = Event::orderBy('start_date', 'desc')->get();
+         $events = Event::where('end_date', '<', now())
+                       ->orderBy('start_date', 'desc')
+                       ->get();
         return view('admin.documentation.create-all', compact('events'));
     }
     public function store(Request $request, Event $event)
