@@ -20,7 +20,7 @@ class MerchandiseOrderController extends Controller
             ->with('items.merchandise')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
-        
+
         return view('orders.index', compact('orders'));
     }
 
@@ -32,7 +32,7 @@ class MerchandiseOrderController extends Controller
         $orders = MerchandiseOrder::with(['user', 'items.merchandise'])
             ->orderBy('created_at', 'desc')
             ->paginate(15);
-        
+
         return view('admin.orders.index', compact('orders'));
     }
 
@@ -42,17 +42,20 @@ class MerchandiseOrderController extends Controller
     public function show(MerchandiseOrder $order)
     {
         // Ensure order belongs to current user (unless admin)
-        if ($order->user_id !== Auth::id() && !Auth::user()->hasRole('Admin')) {
+        $user = Auth::user();
+        $isAdmin = $user instanceof User && $user->hasRole('Admin');
+
+        if ($order->user_id !== Auth::id() && !$isAdmin) {
             abort(403);
         }
-        
+
         $order->load('items.merchandise', 'user');
-        
+
         // Use admin view if admin, otherwise user view
-        if (Auth::user()->hasRole('Admin')) {
+        if ($isAdmin) {
             return view('admin.orders.show', compact('order'));
         }
-        
+
         return view('orders.show', compact('order'));
     }
 
@@ -62,7 +65,7 @@ class MerchandiseOrderController extends Controller
     public function store(Request $request)
     {
         $cart = Auth::user()->shoppingCart;
-        
+
         if (!$cart || $cart->items()->count() === 0) {
             return redirect()->route('cart.index')
                 ->with('error', 'Your cart is empty.');
@@ -73,7 +76,7 @@ class MerchandiseOrderController extends Controller
         ]);
 
         $cartItems = $cart->items()->with('merchandise')->get();
-        $grandTotal = $cartItems->sum(function($item) {
+        $grandTotal = $cartItems->sum(function ($item) {
             return $item->quantity * $item->merchandise->price;
         });
 
