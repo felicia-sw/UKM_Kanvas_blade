@@ -69,37 +69,6 @@
         @yield('content')
     </div>
 
-    <!-- Notification Toast Container (Right Side) -->
-    @auth
-        @if (Auth::user()->unreadCustomNotifications()->count() > 0)
-            <div class="position-fixed top-0 end-0 p-3" style="z-index: 1050; margin-top: 100px;">
-                <div id="notificationToast" class="toast show" role="alert"
-                    style="background: #2A0A56; border: 1px solid #8F4898; max-width: 350px;">
-                    <div class="toast-header" style="background: #8F4898; border-bottom: 1px solid rgba(255,255,255,0.1);">
-                        <i class="bi bi-bell-fill text-warning me-2"></i>
-                        <strong class="me-auto text-white">Notifications</strong>
-                        <small class="text-white-50">{{ Auth::user()->unreadCustomNotifications()->count() }} new</small>
-                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast"></button>
-                    </div>
-                    <div class="toast-body text-white" style="max-height: 400px; overflow-y: auto;">
-                        @foreach (Auth::user()->unreadCustomNotifications()->latest()->take(3)->get() as $notification)
-                            <div class="mb-2 pb-2 border-bottom border-secondary">
-                                <small
-                                    class="text-warning">{{ ucfirst(str_replace('_', ' ', $notification->type)) }}</small>
-                                <p class="mb-1 small">{{ Str::limit($notification->message, 80) }}</p>
-                                <small class="text-white-50">{{ $notification->created_at->diffForHumans() }}</small>
-                            </div>
-                        @endforeach
-                        <a href="{{ route('profile.show') }}#notifications"
-                            class="btn btn-sm btn-warning text-dark w-100 mt-2">
-                            <i class="bi bi-eye me-1"></i>View All
-                        </a>
-                    </div>
-                </div>
-            </div>
-        @endif
-    @endauth
-
     {{-- 💡 LOGIN MODAL (POP-UP) --}}
     <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -192,8 +161,7 @@
 
                         <div class="mb-3">
                             <label for="registerName" class="form-label text-white-50">Full Name</label>
-                            <input type="text"
-                                class="form-control contact-input @error('name') is-invalid @enderror"
+                            <input type="text" class="form-control contact-input @error('name') is-invalid @enderror"
                                 id="registerName" name="name" value="{{ old('name') }}" required autofocus>
                             @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>

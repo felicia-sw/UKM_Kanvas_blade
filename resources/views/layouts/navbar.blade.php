@@ -86,15 +86,6 @@
                                 <li>
                                     <a class="dropdown-item" href="{{ route('profile.show') }}">
                                         <i class="bi bi-person me-2"></i>My Profile
-                                        @php
-                                            $unreadCount = Auth::user()
-                                                ->customNotifications()
-                                                ->where('is_read', false)
-                                                ->count();
-                                        @endphp
-                                        @if ($unreadCount > 0)
-                                            <span class="badge bg-danger ms-2">{{ $unreadCount }}</span>
-                                        @endif
                                     </a>
                                 </li>
                                 <li>

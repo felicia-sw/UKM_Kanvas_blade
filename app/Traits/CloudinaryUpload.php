@@ -20,8 +20,11 @@ trait CloudinaryUpload
 
                     $uploadedFile = $model->getAttribute($attribute);
 
+                    // TEMPORARY FIX for SSL certificate issue on Windows
+                    // TODO: Configure CA bundle in php.ini for production
                     $uploadedFileUrl = Cloudinary::upload($uploadedFile->getRealPath(), [
                         'folder' => $model->getCloudinaryFolder(),
+                        'context' => ['ssl_verify_peer' => false], // Disable SSL verification for development
                     ])->getSecurePath();
 
                     $model->setAttribute($attribute, $uploadedFileUrl);

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Artwork;
 use App\Models\ArtworkCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class ArtworkController extends Controller
 {
@@ -55,20 +57,17 @@ class ArtworkController extends Controller
             'artist_name' => 'required|string|max:255',
             'category_id' => 'required|exists:artwork_categories,id',
             'description' => 'nullable|string',
-            'image_path' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image_file' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-
-        $imagePath = $request->file('image_file')->store('artworks', 'public');
-
-
+        // Pass the UploadedFile directly - CloudinaryUpload trait will handle it
         Artwork::create([
-            'user_id' => auth()->id(), // Add the authenticated user's ID
+            'user_id' => Auth::id(),
             'title' => $request->title,
             'artist_name' => $request->artist_name,
             'category_id' => $request->category_id,
             'description' => $request->description,
-            'image_path' => $request->file('image_path'),
+            'image_path' => $request->file('image_file'), // Pass the file object
             'created_date' => now(),
         ]);
 
@@ -94,22 +93,14 @@ class ArtworkController extends Controller
             'artist_name' => 'required|string|max:255',
             'category_id' => 'required|exists:artwork_categories,id',
             'description' => 'nullable|string',
-            'image_path' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image_file' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $data = $request->only('title', 'artist_name', 'category_id', 'description');
 
-
+        // If new file uploaded, pass the UploadedFile object - CloudinaryUpload trait will handle it
         if ($request->hasFile('image_file')) {
-
-
-            if ($artwork->image_path) {
-                $oldPath = str_replace('storage/', '', $artwork->image_path);
-                Storage::disk('public')->delete($oldPath);
-            }
-
-            $imagePath = $request->file('image_file')->store('artworks', 'public');
-            $data['image_path'] = 'storage/' . $imagePath;
+            $data['image_path'] = $request->file('image_file');
         }
 
         $artwork->update($data);
