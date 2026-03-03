@@ -135,6 +135,13 @@ class MerchandiseOrderController extends Controller
             'payment_status' => 'required|in:verified,rejected',
         ]);
 
+        // If payment is rejected, restore stock
+        if ($validated['payment_status'] === 'rejected' && $order->payment_status === 'pending') {
+            foreach ($order->items as $item) {
+                $item->merchandise->increment('stock', $item->quantity);
+            }
+        }
+
         $order->update([
             'payment_status' => $validated['payment_status'],
             'verified_at' => $validated['payment_status'] === 'verified' ? now() : null,
@@ -142,16 +149,21 @@ class MerchandiseOrderController extends Controller
 
         // Notify user
         $status = $validated['payment_status'] === 'verified' ? 'verified' : 'rejected';
+        $message = $validated['payment_status'] === 'verified'
+            ? "Your order #{$order->id} payment has been verified. You'll be notified when ready for pickup."
+            : "Your order #{$order->id} payment has been rejected. Stock has been restored.";
+
         Notification::create([
             'user_id' => $order->user_id,
             'type' => 'merchandise_order',
-            'message' => "Your order #{$order->id} payment has been {$status}.",
+            'message' => $message,
             'is_read' => false,
             'link_url' => route('orders.show', $order->id),
         ]);
 
         return redirect()->back()
-            ->with('success', "Payment {$validated['payment_status']} successfully.");
+            ->with('success', "Payment {$validated['payment_status']} successfully." .
+                ($validated['payment_status'] === 'rejected' ? ' Stock has been restored.' : ''));
     }
 
     /**
