@@ -8,6 +8,11 @@
 
     <title>{{ config('app.name', 'UKM Kanvas') }} - @yield('title', 'Welcome')</title>
 
+    <!-- Favicon / App Icon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/logo.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/logo.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('images/logo.png') }}">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Judson:ital,wght@0,400;0,700;1,400&display=swap"
@@ -161,7 +166,8 @@
 
                         <div class="mb-3">
                             <label for="registerName" class="form-label text-white-50">Full Name</label>
-                            <input type="text" class="form-control contact-input @error('name') is-invalid @enderror"
+                            <input type="text"
+                                class="form-control contact-input @error('name') is-invalid @enderror"
                                 id="registerName" name="name" value="{{ old('name') }}" required autofocus>
                             @error('name')
                                 <div class="invalid-feedback">{{ $message }}</div>

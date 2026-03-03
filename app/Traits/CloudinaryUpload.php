@@ -19,13 +19,22 @@ trait CloudinaryUpload
                     }
 
                     $uploadedFile = $model->getAttribute($attribute);
-
-                    // TEMPORARY FIX for SSL certificate issue on Windows
-                    // TODO: Configure CA bundle in php.ini for production
-                    $uploadedFileUrl = Cloudinary::upload($uploadedFile->getRealPath(), [
-                        'folder' => $model->getCloudinaryFolder(),
-                        'context' => ['ssl_verify_peer' => false], // Disable SSL verification for development
-                    ])->getSecurePath();
+                    
+                    // Determine if file is a video or image
+                    $mimeType = $uploadedFile->getMimeType();
+                    $isVideo = Str::startsWith($mimeType, 'video/');
+                    
+                    // Upload to Cloudinary with proper folder organization
+                    if ($isVideo) {
+                        $uploadedFileUrl = Cloudinary::uploadVideo($uploadedFile->getRealPath(), [
+                            'folder' => $model->getCloudinaryFolder(),
+                            'resource_type' => 'video',
+                        ])->getSecurePath();
+                    } else {
+                        $uploadedFileUrl = Cloudinary::upload($uploadedFile->getRealPath(), [
+                            'folder' => $model->getCloudinaryFolder(),
+                        ])->getSecurePath();
+                    }
 
                     $model->setAttribute($attribute, $uploadedFileUrl);
                 }
@@ -49,7 +58,14 @@ trait CloudinaryUpload
         }
         $publicId = $this->getPublicIdFromUrl($imageUrl);
         if ($publicId) {
-            Cloudinary::destroy($publicId);
+            // Try to determine if it's a video based on URL or file extension
+            $isVideo = Str::contains($imageUrl, ['/video/', '.mp4', '.mov', '.avi']);
+            
+            if ($isVideo) {
+                Cloudinary::destroy($publicId, ['resource_type' => 'video']);
+            } else {
+                Cloudinary::destroy($publicId);
+            }
         }
     }
 
