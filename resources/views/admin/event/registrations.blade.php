@@ -188,11 +188,5 @@
         </div>
     </div>
 
-    <script>
-        function viewPaymentProof(imageUrl) {
-            document.getElementById('paymentProofImage').src = imageUrl;
-            const modal = new bootstrap.Modal(document.getElementById('paymentProofModal'));
-            modal.show();
-        }
-    </script>
+    <script src="{{ asset('js/pages/admin-registrations.js') }}"></script>
 @endsection
