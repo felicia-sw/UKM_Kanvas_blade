@@ -39,13 +39,13 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 
 Route::get('/events', [EventController::class, 'index'])->name('events');
 
-Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show');
+Route::get('/events/{event}', [EventController::class, 'show'])->name('events.show');
 
-Route::get('/events/{id}/documentation', [EventController::class, 'showDocumentation'])->name('events.documentation');
+Route::get('/events/{event}/documentation', [EventController::class, 'showDocumentation'])->name('events.documentation');
 
 Route::get('/art-gallery', [ArtworkController::class, 'index'])->name('art_gallery');
 
-Route::get('/artworks/{id}', [ArtworkController::class, 'show'])->name('artworks.show');
+Route::get('/artworks/{artwork}', [ArtworkController::class, 'show'])->name('artworks.show');
 
 // Merchandise Page
 Route::get('/merchandise', [MerchandiseController::class, 'index'])->name('merchandise');

@@ -33,9 +33,9 @@ class EventController extends Controller
         return view('events', compact('events', 'filter'));
     }
 
-    public function show($id)
+    public function show(Event $event)
     {
-        $event = Event::with('registrations')->findOrFail($id);
+        $event->load('registrations');
 
         // Check if current user already registered
         $userRegistration = null;
@@ -48,9 +48,9 @@ class EventController extends Controller
         return view('events.show', compact('event', 'userRegistration'));
     }
 
-    public function showDocumentation($id)
+    public function showDocumentation(Event $event)
     {
-        $event = Event::with('documentations')->findOrFail($id);
+        $event->load('documentations');
 
         return view('event_documentation', compact('event'));
     }
