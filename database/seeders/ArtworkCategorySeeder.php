@@ -21,7 +21,7 @@ class ArtworkCategorySeeder extends Seeder
         ];
 
         foreach ($categories as $category) {
-            ArtworkCategory::create(['name' => $category]);
+            ArtworkCategory::firstOrCreate(['name' => $category]);
         }
     }
 }
