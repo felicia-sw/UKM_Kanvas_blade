@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Models\Role;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -18,6 +18,7 @@ class AuthController extends Controller
         if (Auth::check() && $user instanceof User && $user->hasRole('Admin')) {
             return route('admin.dashboard');
         }
+
         return route('home');
     }
 
@@ -45,7 +46,7 @@ class AuthController extends Controller
             }
 
             return redirect()->intended(route('home'))
-                ->with('success', 'Welcome back, ' . ($user ? $user->name : 'Guest'));
+                ->with('success', 'Welcome back, '.($user ? $user->name : 'Guest'));
         }
 
         return redirect()->route('home')
@@ -86,14 +87,14 @@ class AuthController extends Controller
 
             Auth::login($user);
 
-            return redirect()->route('home')->with('success', 'Registration successful! Welcome to UKM Kanvas, ' . $user->name . '!');
+            return redirect()->route('home')->with('success', 'Registration successful! Welcome to UKM Kanvas, '.$user->name.'!');
         } catch (\Illuminate\Validation\ValidationException $e) {
             return back()
                 ->withErrors($e->errors())
                 ->withInput($request->except('password', 'password_confirmation'));
         } catch (\Exception $e) {
             return back()
-                ->with('error', 'Registration failed: ' . $e->getMessage())
+                ->with('error', 'Registration failed: '.$e->getMessage())
                 ->withInput($request->except('password', 'password_confirmation'));
         }
     }
@@ -116,6 +117,7 @@ class AuthController extends Controller
             if ($user instanceof User && $user->hasRole('Admin')) {
                 return redirect()->route('admin.dashboard');
             }
+
             return redirect()->route('home');
         }
 
@@ -131,6 +133,7 @@ class AuthController extends Controller
             if ($user instanceof User && $user->hasRole('Admin')) {
                 return redirect()->route('admin.dashboard');
             }
+
             return redirect()->route('home');
         }
 

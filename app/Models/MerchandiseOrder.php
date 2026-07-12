@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class MerchandiseOrder extends Model
 {
-    use HasFactory, CloudinaryUpload;
+    use CloudinaryUpload, HasFactory;
 
     protected $fillable = [
         'user_id',

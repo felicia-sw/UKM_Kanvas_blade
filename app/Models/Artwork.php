@@ -1,5 +1,7 @@
 <?php
+
 // Declare the namespace for the current file, indicating its location within the application's structure.
+
 namespace App\Models;
 
 // Import the CloudinaryUpload trait, which handles logic for uploading files to Cloudinary.
@@ -15,7 +17,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class Artwork extends Model
 {
     // Use the HasFactory, SoftDeletes, and CloudinaryUpload traits within this model.
-    use HasFactory, SoftDeletes, CloudinaryUpload;
+    use CloudinaryUpload, HasFactory, SoftDeletes;
 
     // Define the fillable properties, which can be mass-assigned using Eloquent's create or update methods.
     protected $fillable = [

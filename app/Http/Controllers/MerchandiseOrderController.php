@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\MerchandiseOrder;
 use App\Models\MerchandiseOrderItem;
-use App\Models\ShoppingCart;
 use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -46,7 +45,7 @@ class MerchandiseOrderController extends Controller
         $user = Auth::user();
         $isAdmin = $user instanceof User && $user->hasRole('Admin');
 
-        if ($order->user_id !== Auth::id() && !$isAdmin) {
+        if ($order->user_id !== Auth::id() && ! $isAdmin) {
             abort(403);
         }
 
@@ -67,7 +66,7 @@ class MerchandiseOrderController extends Controller
     {
         $cart = Auth::user()->shoppingCart;
 
-        if (!$cart || $cart->items()->count() === 0) {
+        if (! $cart || $cart->items()->count() === 0) {
             return redirect()->route('cart.index')
                 ->with('error', 'Continue Shopping.');
         }
@@ -162,7 +161,7 @@ class MerchandiseOrderController extends Controller
         ]);
 
         return redirect()->back()
-            ->with('success', "Payment {$validated['payment_status']} successfully." .
+            ->with('success', "Payment {$validated['payment_status']} successfully.".
                 ($validated['payment_status'] === 'rejected' ? ' Stock has been restored.' : ''));
     }
 

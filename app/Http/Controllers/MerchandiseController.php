@@ -13,6 +13,7 @@ class MerchandiseController extends Controller
     public function index(Request $request)
     {
         $merchandises = Merchandise::all();
+
         return view('merchandise', compact('merchandises'));
     }
 }

@@ -1,24 +1,18 @@
 <?php
 
 // Declare the namespace for the current file, indicating its location within the application's Traits.
+
 namespace App\Traits;
 
 // Import the UploadedFile class for type hinting file uploads.
-use Illuminate\Http\UploadedFile;
-// Import the Cloudinary facade for interacting with the Cloudinary service.
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+// Import the Cloudinary facade for interacting with the Cloudinary service.
+use Illuminate\Http\UploadedFile;
 // Import the Log facade for logging messages and errors.
 use Illuminate\Support\Facades\Log;
 
 /**
  * Trait CloudinaryUpload
- *
- * @package App\Traits
- *
- * This trait provides functionality for Laravel Eloquent models to seamlessly upload
- * and manage files (typically images) with Cloudinary. When applied to a model,
- * it automates the process of uploading new files, deleting old files on update,
- * and storing Cloudinary public IDs for future reference.
  */
 trait CloudinaryUpload
 {
@@ -52,7 +46,7 @@ trait CloudinaryUpload
                     // Check if the model already exists (meaning it's an update operation)
                     // and if it has a `image_public_id` associated with a previously uploaded image.
                     if ($model->exists && $model->image_public_id) {
-                        Log::info("Attempting to delete old Cloudinary image. Model: " . class_basename($model) . ", Old Public ID: {$model->image_public_id}");
+                        Log::info('Attempting to delete old Cloudinary image. Model: '.class_basename($model).", Old Public ID: {$model->image_public_id}");
                         try {
                             // Attempt to destroy (delete) the old image from Cloudinary using its public ID.
                             Cloudinary::destroy($model->image_public_id);
@@ -72,19 +66,19 @@ trait CloudinaryUpload
                         $model->{$attribute} = $uploadResult['secure_url'];
                         // Store the public ID of the newly uploaded image. This is crucial for future updates/deletions.
                         $model->image_public_id = $uploadResult['public_id'];
-                        Log::info("Cloudinary upload successful. Model: " . class_basename($model) . ", New Secure URL: {$uploadResult['secure_url']}, New Public ID: {$uploadResult['public_id']}");
+                        Log::info('Cloudinary upload successful. Model: '.class_basename($model).", New Secure URL: {$uploadResult['secure_url']}, New Public ID: {$uploadResult['public_id']}");
                     } else {
                         // If the upload failed.
                         if ($model->exists) {
                             // If it's an update, retain the old image reference if the new upload failed.
-                            Log::error("Cloudinary upload failed for {$attribute} on model " . class_basename($model) . ". Retaining old image reference.");
+                            Log::error("Cloudinary upload failed for {$attribute} on model ".class_basename($model).'. Retaining old image reference.');
                             // The model's existing attribute value remains unchanged.
                         } else {
                             // If it's a new record (create operation), set the image path and public ID to null
                             // since the upload failed and there's no old image to fall back on.
                             $model->{$attribute} = null;
                             $model->image_public_id = null;
-                            Log::error("Cloudinary upload failed for {$attribute} on model " . class_basename($model) . ". Setting to null for new record.");
+                            Log::error("Cloudinary upload failed for {$attribute} on model ".class_basename($model).'. Setting to null for new record.');
                         }
                     }
                 }
@@ -105,9 +99,9 @@ trait CloudinaryUpload
      * This method centralizes the Cloudinary upload logic, applying default transformations
      * and handling the API interaction.
      *
-     * @param UploadedFile $file The file to upload.
-     * @param string|null $folder The target folder on Cloudinary (e.g., 'events', 'artworks').
-     * @param array $options Additional transformation or upload options to merge with defaults.
+     * @param  UploadedFile  $file  The file to upload.
+     * @param  string|null  $folder  The target folder on Cloudinary (e.g., 'events', 'artworks').
+     * @param  array  $options  Additional transformation or upload options to merge with defaults.
      * @return array|null An array containing 'secure_url' and 'public_id' on success, or null on failure.
      */
     public function uploadToCloudinary(UploadedFile $file, ?string $folder = null, array $options = [])
@@ -120,8 +114,8 @@ trait CloudinaryUpload
                     'width' => 500,           // Resize image to a maximum width of 500 pixels.
                     'crop' => 'limit',        // Crop method to ensure image fits within dimensions without stretching.
                     'quality' => 'auto',      // Optimize image quality automatically.
-                    'fetch_format' => 'auto'  // Deliver image in the most optimal format (e.g., WebP).
-                ]
+                    'fetch_format' => 'auto',  // Deliver image in the most optimal format (e.g., WebP).
+                ],
             ];
 
             // Recursively merge default options with any provided custom options, allowing overrides.
@@ -137,7 +131,8 @@ trait CloudinaryUpload
             ];
         } catch (\Exception $e) {
             // Catch any exceptions that occur during the Cloudinary upload process (e.g., API errors, network issues).
-            Log::error('Cloudinary upload failed: ' . $e->getMessage(), ['trace' => $e->getTraceAsString()]);
+            Log::error('Cloudinary upload failed: '.$e->getMessage(), ['trace' => $e->getTraceAsString()]);
+
             return null; // Return null to indicate that the upload operation failed.
         }
     }

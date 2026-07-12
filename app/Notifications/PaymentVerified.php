@@ -4,19 +4,12 @@ namespace App\Notifications;
 
 use App\Models\EventRegistration;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Log;
 
 /**
  * Class PaymentVerified
- *
- * @package App\Notifications
- *
- * This notification is dispatched when a user's payment for an event registration has been
- * successfully verified by an administrator. It is responsible for generating the content
- * for various notification channels, including in-app database notifications and WhatsApp messages.
  */
 class PaymentVerified extends Notification
 {
@@ -27,7 +20,7 @@ class PaymentVerified extends Notification
     /**
      * Create a new notification instance.
      *
-     * @param \App\Models\EventRegistration $registration The event registration associated with the verified payment.
+     * @param  \App\Models\EventRegistration  $registration  The event registration associated with the verified payment.
      */
     public function __construct(EventRegistration $registration)
     {
@@ -39,7 +32,7 @@ class PaymentVerified extends Notification
      * Defines which channels this notification can be sent through.
      * The WhatsApp channel is conditionally added if the recipient (notifiable user) has a phone number.
      *
-     * @param object $notifiable The entity receiving the notification (typically a User model).
+     * @param  object  $notifiable  The entity receiving the notification (typically a User model).
      * @return array<int, string> An array of channel names or classes.
      */
     public function via(object $notifiable): array
@@ -61,7 +54,7 @@ class PaymentVerified extends Notification
      * This method is called by the WhatsAppChannel (or directly by EventRegistrationController)
      * to get the text that will be sent via WhatsApp.
      *
-     * @param object $notifiable The entity receiving the notification (User model).
+     * @param  object  $notifiable  The entity receiving the notification (User model).
      * @return string The formatted WhatsApp message.
      */
     public function toWhatsApp($notifiable)
@@ -79,19 +72,19 @@ class PaymentVerified extends Notification
             $message .= "📅 Tanggal: {$eventDate}\n";
             $message .= "📍 Lokasi: {$eventLocation}\n\n";
             $message .= "Terima kasih telah mendaftar! Sampai jumpa di acara.\n\n";
-            $message .= "_Pesan otomatis - Jangan balas_";
+            $message .= '_Pesan otomatis - Jangan balas_';
 
             return $message;
         } catch (\Exception $e) {
             // Log any errors that occur during message creation and return a generic message.
             Log::error('Error creating WhatsApp message', [
                 'error' => $e->getMessage(),
-                'registration_id' => $this->registration->id
+                'registration_id' => $this->registration->id,
             ]);
-            return "Pembayaran Anda telah diverifikasi.";
+
+            return 'Pembayaran Anda telah diverifikasi.';
         }
     }
-
 
     /**
      * Get the mail representation of the notification.
@@ -99,9 +92,9 @@ class PaymentVerified extends Notification
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->line('The introduction to the notification.')
+            ->action('Notification Action', url('/'))
+            ->line('Thank you for using our application!');
     }
 
     /**

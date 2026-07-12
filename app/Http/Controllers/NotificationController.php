@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Notification;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class NotificationController extends Controller
@@ -11,6 +10,7 @@ class NotificationController extends Controller
     public function index()
     {
         $notifications = Auth::user()->customNotifications()->latest()->paginate(20);
+
         return view('notifications.index', compact('notifications'));
     }
 

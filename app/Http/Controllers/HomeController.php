@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Event;
 use App\Models\Artwork;
+use App\Models\Event;
 
 class HomeController extends Controller
 {
@@ -11,16 +11,16 @@ class HomeController extends Controller
     {
         // get upcoming events (maks 3)
         $upcomingEvents = Event::active()
-                               ->upcoming()
-                               ->limit(3)
-                               ->get();
-        
+            ->upcoming()
+            ->limit(3)
+            ->get();
+
         // get featured artworks for home gallery (maks 4 spy bisa square)
         $featuredArtworks = Artwork::with('category')
-                                   ->orderBy('created_date', 'desc')
-                                   ->limit(4)
-                                   ->get();
-        
+            ->orderBy('created_date', 'desc')
+            ->limit(4)
+            ->get();
+
         return view('home', compact('upcomingEvents', 'featuredArtworks'));
     }
 }

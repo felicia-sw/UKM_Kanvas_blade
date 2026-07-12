@@ -9,15 +9,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Event
- *
- * @package App\Models
- *
- * Represents an event with details such as title, description, dates, location, and price.
- * Utilizes the CloudinaryUpload trait for handling the 'poster_image'.
  */
 class Event extends Model
 {
-    use HasFactory, SoftDeletes, CloudinaryUpload;
+    use CloudinaryUpload, HasFactory, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -52,8 +47,6 @@ class Event extends Model
     /**
      * Defines the attributes that should be treated as files for Cloudinary uploads.
      * This method is part of the CloudinaryUpload trait.
-     *
-     * @return array
      */
     protected function getFileAttributes(): array
     {
@@ -126,12 +119,13 @@ class Event extends Model
     public function isPastEvent()
     {
         $dateToCheck = $this->end_date ?? $this->start_date;
+
         return $dateToCheck < now();
     }
 
     public function canRegister()
     {
-        return !$this->isPastEvent() &&
+        return ! $this->isPastEvent() &&
             ($this->registration_deadline ? $this->registration_deadline >= now() : true) &&
             $this->is_active;
     }

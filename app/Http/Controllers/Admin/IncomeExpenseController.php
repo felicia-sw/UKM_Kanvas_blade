@@ -34,7 +34,7 @@ class IncomeExpenseController extends Controller
     {
         return view('admin.income-expense.create', [
             'event' => $event,
-            'type' => 'income'
+            'type' => 'income',
         ]);
     }
 
@@ -43,7 +43,7 @@ class IncomeExpenseController extends Controller
     {
         return view('admin.income-expense.create', [
             'event' => $event,
-            'type' => 'expense'
+            'type' => 'expense',
         ]);
     }
 
@@ -84,7 +84,7 @@ class IncomeExpenseController extends Controller
 
         return view('admin.income-expense.edit', [
             'event' => $event,
-            'incomeExpense' => $incomeExpense
+            'incomeExpense' => $incomeExpense,
         ]);
     }
 

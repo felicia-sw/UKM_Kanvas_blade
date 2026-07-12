@@ -5,8 +5,8 @@ namespace App\Console\Commands;
 use App\Models\Event;
 use App\Models\EventRegistration;
 use App\Models\Notification;
-use Illuminate\Console\Command;
 use Carbon\Carbon;
+use Illuminate\Console\Command;
 
 class SendEventReminders extends Command
 {
@@ -50,7 +50,7 @@ class SendEventReminders extends Command
                     ->where('type', 'reminder_1day')
                     ->exists();
 
-                if (!$exists) {
+                if (! $exists) {
                     Notification::create([
                         'user_id' => $registration->user_id,
                         'type' => 'reminder_1day',
@@ -80,7 +80,7 @@ class SendEventReminders extends Command
                     ->where('type', 'reminder_today')
                     ->exists();
 
-                if (!$exists) {
+                if (! $exists) {
                     Notification::create([
                         'user_id' => $registration->user_id,
                         'type' => 'reminder_today',
@@ -93,6 +93,7 @@ class SendEventReminders extends Command
         }
 
         $this->info('Event reminders sent successfully!');
+
         return 0;
     }
 }

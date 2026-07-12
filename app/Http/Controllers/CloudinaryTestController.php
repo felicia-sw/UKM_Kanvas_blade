@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Traits\CloudinaryUpload;
+use Illuminate\Http\Request;
 
 class CloudinaryTestController extends Controller
 {

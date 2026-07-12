@@ -2,9 +2,9 @@
 
 namespace App\Console\Commands;
 
-use Illuminate\Console\Command;
 use App\Models\Event;
 use App\Models\EventBudgetItem;
+use Illuminate\Console\Command;
 
 class SyncRegistrationIncome extends Command
 {
@@ -58,7 +58,7 @@ class SyncRegistrationIncome extends Command
                         'price' => $averagePrice,
                         'quantity' => $totalCount,
                     ]);
-                    $this->info("Updated: {$event->title} - {$totalCount} registrations, Rp " . number_format($totalAmount, 0, ',', '.'));
+                    $this->info("Updated: {$event->title} - {$totalCount} registrations, Rp ".number_format($totalAmount, 0, ',', '.'));
                 } else {
                     // Create new entry
                     EventBudgetItem::create([
@@ -68,7 +68,7 @@ class SyncRegistrationIncome extends Command
                         'price' => $averagePrice,
                         'quantity' => $totalCount,
                     ]);
-                    $this->info("Created: {$event->title} - {$totalCount} registrations, Rp " . number_format($totalAmount, 0, ',', '.'));
+                    $this->info("Created: {$event->title} - {$totalCount} registrations, Rp ".number_format($totalAmount, 0, ',', '.'));
                 }
                 $synced++;
             } else {
@@ -78,11 +78,10 @@ class SyncRegistrationIncome extends Command
         }
 
         $this->newLine();
-        $this->info("✅ Sync completed!");
+        $this->info('✅ Sync completed!');
         $this->info("Synced: {$synced} events");
         $this->info("Skipped: {$skipped} events (no verified registrations)");
 
         return Command::SUCCESS;
     }
 }
-

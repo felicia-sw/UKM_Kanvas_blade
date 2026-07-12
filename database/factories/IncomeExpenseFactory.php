@@ -2,8 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\IncomeExpense;
 use App\Models\Event;
+use App\Models\IncomeExpense;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class IncomeExpenseFactory extends Factory
@@ -19,7 +19,7 @@ class IncomeExpenseFactory extends Factory
             'Donation',
             'Registration Fees (Manual)',
             'Partnership Revenue',
-            'Vendor Booth Fee'
+            'Vendor Booth Fee',
         ];
 
         $expenseItems = [
@@ -32,7 +32,7 @@ class IncomeExpenseFactory extends Factory
             'Staff Payment',
             'Marketing Materials',
             'Sound System',
-            'Security Services'
+            'Security Services',
         ];
 
         $type = $this->faker->randomElement(['income', 'expense']);

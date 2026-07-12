@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\Profile;
 use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class ProfileSeeder extends Seeder
 {
@@ -20,10 +19,10 @@ class ProfileSeeder extends Seeder
             $i++;
             Profile::create([
                 'user_id' => $user->id,
-                'nim' => '123456789' . $i,
+                'nim' => '123456789'.$i,
                 'jurusan' => 'Informatics',
                 'asal_universitas' => 'University of Example',
-                'no_telp' => '08123456789' . $i,
+                'no_telp' => '08123456789'.$i,
             ]);
         }
     }

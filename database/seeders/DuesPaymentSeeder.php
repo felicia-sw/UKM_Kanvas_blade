@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\DuesPayment;
-use App\Models\User;
 use App\Models\DuesPeriod;
+use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class DuesPaymentSeeder extends Seeder
 {
@@ -18,7 +17,6 @@ class DuesPaymentSeeder extends Seeder
         $user = User::first();
         $duesPeriod = DuesPeriod::first();
         $admin = User::where('email', 'admin@example.com')->first();
-
 
         DuesPayment::create([
             'user_id' => $user->id,

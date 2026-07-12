@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\CartItem;
 use App\Models\Merchandise;
 use App\Models\ShoppingCart;
-use App\Models\CartItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,16 +16,16 @@ class ShoppingCartController extends Controller
     public function index()
     {
         $cart = Auth::user()->shoppingCart;
-        
-        if (!$cart) {
+
+        if (! $cart) {
             $cart = ShoppingCart::create(['user_id' => Auth::id()]);
         }
-        
+
         $cartItems = $cart->items()->with('merchandise')->get();
-        $total = $cartItems->sum(function($item) {
+        $total = $cartItems->sum(function ($item) {
             return $item->quantity * $item->merchandise->price;
         });
-        
+
         return view('cart.index', compact('cartItems', 'total'));
     }
 
@@ -35,26 +35,26 @@ class ShoppingCartController extends Controller
     public function add(Request $request, Merchandise $merchandise)
     {
         $validated = $request->validate([
-            'quantity' => 'required|integer|min:1|max:' . $merchandise->stock,
+            'quantity' => 'required|integer|min:1|max:'.$merchandise->stock,
         ]);
 
         $cart = Auth::user()->shoppingCart;
-        
-        if (!$cart) {
+
+        if (! $cart) {
             $cart = ShoppingCart::create(['user_id' => Auth::id()]);
         }
 
         // Check if item already in cart
         $cartItem = $cart->items()->where('merchandise_id', $merchandise->id)->first();
-        
+
         if ($cartItem) {
             $newQuantity = $cartItem->quantity + $validated['quantity'];
-            
+
             if ($newQuantity > $merchandise->stock) {
                 return redirect()->back()
                     ->with('error', 'Not enough stock available.');
             }
-            
+
             $cartItem->update(['quantity' => $newQuantity]);
         } else {
             $cart->items()->create([
@@ -78,7 +78,7 @@ class ShoppingCartController extends Controller
         }
 
         $validated = $request->validate([
-            'quantity' => 'required|integer|min:1|max:' . $cartItem->merchandise->stock,
+            'quantity' => 'required|integer|min:1|max:'.$cartItem->merchandise->stock,
         ]);
 
         $cartItem->update(['quantity' => $validated['quantity']]);
@@ -109,7 +109,7 @@ class ShoppingCartController extends Controller
     public function clear()
     {
         $cart = Auth::user()->shoppingCart;
-        
+
         if ($cart) {
             $cart->items()->delete();
         }

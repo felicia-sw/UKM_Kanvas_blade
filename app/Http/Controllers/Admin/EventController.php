@@ -61,7 +61,6 @@ class EventController extends Controller
 
         Event::create($data);
 
-
         return redirect()->route('admin.events.index')->with('success', 'Event created successfully');
     }
 
@@ -84,10 +83,8 @@ class EventController extends Controller
             'location' => 'nullable|string|max:255',
         ]);
 
-
         $data = $request->except(['_token', '_method', 'poster_image']);
         $data['is_active'] = $request->has('is_active');
-
 
         if ($request->hasFile('poster_image')) {
             $data['poster_image'] = $request->file('poster_image');
@@ -112,6 +109,7 @@ class EventController extends Controller
     public function registrations(Event $event)
     {
         $event->load(['registrations.user.profile']);
+
         return view('admin.event.registrations', compact('event'));
     }
 }

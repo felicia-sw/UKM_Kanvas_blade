@@ -3,12 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 use App\Models\Artwork;
-use App\Models\Event;
 use App\Models\Documentation;
+use App\Models\Event;
 use App\Models\User;
-use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -20,7 +18,7 @@ class DashboardController extends Controller
         $upcomingEvents = Event::where('start_date', '>=', now())->count();
         $totalDocumentation = Documentation::count();
         $userRegistrations = User::count();
-        
+
         // Calculate monthly growth (artworks added this month vs last month)
         $currentMonthArtworks = Artwork::whereMonth('created_date', now()->month)
             ->whereYear('created_date', now()->year)
@@ -28,7 +26,7 @@ class DashboardController extends Controller
         $lastMonthArtworks = Artwork::whereMonth('created_date', now()->subMonth()->month)
             ->whereYear('created_date', now()->subMonth()->year)
             ->count();
-        
+
         if ($lastMonthArtworks > 0) {
             $monthlyGrowth = round((($currentMonthArtworks - $lastMonthArtworks) / $lastMonthArtworks) * 100);
         } else {
@@ -62,31 +60,31 @@ class DashboardController extends Controller
 
         // Build recent activity from actual data
         $recentActivity = [];
-        
+
         // Add recent artworks to activity
         foreach ($recentArtworks as $artwork) {
             $recentActivity[] = [
                 'type' => 'Artwork',
                 'icon' => 'bi-palette',
                 'color' => 'primary',
-                'details' => 'Artwork added: "' . $artwork->title . '"',
+                'details' => 'Artwork added: "'.$artwork->title.'"',
                 'user' => $artwork->artist_name,
-                'time' => $artwork->created_date ? $artwork->created_date->diffForHumans() : 'Recently'
+                'time' => $artwork->created_date ? $artwork->created_date->diffForHumans() : 'Recently',
             ];
         }
-        
+
         // Add recent events to activity
         foreach ($recentEvents as $event) {
             $recentActivity[] = [
                 'type' => 'Event',
                 'icon' => 'bi-calendar-event',
                 'color' => 'warning',
-                'details' => 'Event created: "' . $event->title . '"',
+                'details' => 'Event created: "'.$event->title.'"',
                 'user' => 'Admin',
-                'time' => $event->created_at ? $event->created_at->diffForHumans() : 'Recently'
+                'time' => $event->created_at ? $event->created_at->diffForHumans() : 'Recently',
             ];
         }
-        
+
         // Sort activity by most recent (we'll approximate using array order)
         // In a real app, you'd sort by actual timestamps
         $recentActivity = array_slice($recentActivity, 0, 8);

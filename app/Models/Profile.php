@@ -7,12 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Profile
- *
- * @package App\Models
- *
- * Represents a user's profile information. This model stores additional details
- * about a user that are not part of the core User authentication model,
- * including academic information and contact details like phone number.
  */
 class Profile extends Model
 {

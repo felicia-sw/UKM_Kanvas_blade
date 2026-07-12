@@ -27,7 +27,7 @@ class MerchandiseOrderItem extends Model
 
     public function merchandise()
     {
-        // We use withTrashed() in case the product is deleted later, 
+        // We use withTrashed() in case the product is deleted later,
         // we still want to see what it was in history.
         return $this->belongsTo(Merchandise::class)->withTrashed();
     }

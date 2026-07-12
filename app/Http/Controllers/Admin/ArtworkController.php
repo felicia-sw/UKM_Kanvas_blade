@@ -6,17 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Artwork;
 use App\Models\ArtworkCategory;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 
 class ArtworkController extends Controller
 {
-
     public function index(Request $request)
     {
         $search = $request->input('search');
         $categoryFilter = $request->input('category');
-
 
         $query = Artwork::with('category')
             ->when($search, function ($q, $search) {
@@ -29,17 +26,13 @@ class ArtworkController extends Controller
             })
             ->latest();
 
-
         $artworks = $query->paginate(10);
-
 
         // De-duplicate categories by name so duplicate rows in the DB don't clutter the dropdown
         $categories = ArtworkCategory::orderBy('name')->get()->unique('name')->values();
 
-
         return view('admin.artworks.index', compact('artworks', 'categories'));
     }
-
 
     public function create()
     {
@@ -49,7 +42,6 @@ class ArtworkController extends Controller
 
         return view('admin.artworks.create', compact('categories'));
     }
-
 
     public function store(Request $request)
     {
@@ -77,17 +69,14 @@ class ArtworkController extends Controller
             ->with('success', 'Artwork created successfully!');
     }
 
-
     public function edit(Artwork $artwork)
     {
 
         // De-duplicate categories by name so duplicate rows in the DB don't clutter the dropdown
         $categories = ArtworkCategory::orderBy('name')->get()->unique('name')->values();
 
-
         return view('admin.artworks.edit', compact('artwork', 'categories'));
     }
-
 
     public function update(Request $request, Artwork $artwork)
     {

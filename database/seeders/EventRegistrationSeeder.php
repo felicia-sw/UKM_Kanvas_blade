@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
+use App\Models\Event;
 use App\Models\EventRegistration;
 use App\Models\User;
-use App\Models\Event;
+use Illuminate\Database\Seeder;
 
 class EventRegistrationSeeder extends Seeder
 {

@@ -1,16 +1,17 @@
 <?php
 
 // Declare the namespace for the current file, indicating its location within the application's Models.
+
 namespace App\Models;
 
 // Import the HasFactory trait, which provides a convenient way to create model factories.
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 // Import the Authenticatable class, which provides Laravel's authentication features.
-use Illuminate\Foundation\Auth\User as Authenticatable;
-// Import the Notifiable trait, which enables sending notifications via various channels.
-use Illuminate\Notifications\Notifiable;
-// Import the SoftDeletes trait, which enables "soft deleting" records instead of permanent deletion.
 use Illuminate\Database\Eloquent\SoftDeletes;
+// Import the Notifiable trait, which enables sending notifications via various channels.
+use Illuminate\Foundation\Auth\User as Authenticatable;
+// Import the SoftDeletes trait, which enables "soft deleting" records instead of permanent deletion.
+use Illuminate\Notifications\Notifiable;
 
 // Declare the User class, extending Laravel's Authenticatable class.
 class User extends Authenticatable

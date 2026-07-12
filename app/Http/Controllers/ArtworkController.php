@@ -28,6 +28,7 @@ class ArtworkController extends Controller
 
         return view('art_gallery', compact('artworks', 'categories'));
     }
+
     public function show($id)
     {
         $artwork = Artwork::with('category')->findOrFail($id);

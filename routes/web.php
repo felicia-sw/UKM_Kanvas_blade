@@ -1,32 +1,28 @@
 <?php
 
 // Import necessary Controller classes
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\EventController;
-use App\Http\Controllers\ArtworkController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\MerchandiseController;
-use App\Http\Controllers\EventRegistrationController;
-use App\Http\Controllers\NotificationController;
-// Admin Controllers are aliased to avoid naming conflicts with public controllers
-use App\Http\Controllers\Admin\AdminAuthController;
-use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\ArtworkController as AdminArtworkController;
-use App\Http\Controllers\Admin\EventController as AdminEventController;
+use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\DocumentationController as AdminDocumentationController;
-use App\Http\Controllers\Admin\MerchandiseController as AdminMerchandiseController;
-use App\Http\Controllers\CloudinaryTestController;
-
-use App\Http\Controllers\Admin\IncomeExpenseController;
-use App\Http\Controllers\DuesPaymentController;
-use App\Http\Controllers\ShoppingCartController;
-use App\Http\Controllers\MerchandiseOrderController;
 use App\Http\Controllers\Admin\DuesPeriodController;
+use App\Http\Controllers\Admin\EventController as AdminEventController;
+use App\Http\Controllers\Admin\IncomeExpenseController;
+use App\Http\Controllers\Admin\MerchandiseController as AdminMerchandiseController;
 use App\Http\Controllers\Admin\RundownController;
-
-
+// Admin Controllers are aliased to avoid naming conflicts with public controllers
+use App\Http\Controllers\ArtworkController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CloudinaryTestController;
+use App\Http\Controllers\DuesPaymentController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\EventRegistrationController;
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MerchandiseController;
+use App\Http\Controllers\MerchandiseOrderController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ShoppingCartController;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/export/{eventId}', [ExportController::class, 'export'])->name('export.event')->middleware(['auth', 'admin']);
 
@@ -37,7 +33,6 @@ Route::middleware(['auth', 'admin'])->group(function () {
     Route::post('/upload', [CloudinaryTestController::class, 'upload'])->name('upload.post');
 });
 
-
 // ===============================================
 // PUBLIC ROUTES
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -47,7 +42,6 @@ Route::get('/events', [EventController::class, 'index'])->name('events');
 Route::get('/events/{id}', [EventController::class, 'show'])->name('events.show');
 
 Route::get('/events/{id}/documentation', [EventController::class, 'showDocumentation'])->name('events.documentation');
-
 
 Route::get('/art-gallery', [ArtworkController::class, 'index'])->name('art_gallery');
 
@@ -63,20 +57,15 @@ Route::get('/about', function () {
 // ===============================================
 // AUTHENTICATION ROUTES (User Login/Register/Logout)
 
-
-
 Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login.form');
 
 Route::get('/register', [AuthController::class, 'showRegistrationForm'])->name('register.form');
-
 
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
-
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
-
 
 // ===============================================
 // AUTHENTICATED USER ROUTES
@@ -114,12 +103,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/orders', [MerchandiseOrderController::class, 'store'])->name('orders.store');
 });
 
-
 // ===============================================
 // ADMIN ROUTES
 
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
-
 
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
@@ -141,11 +128,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::put('events/{event}/finances/{incomeExpense}', [IncomeExpenseController::class, 'update'])->name('events.finances.update');
     Route::delete('events/{event}/finances/{incomeExpense}', [IncomeExpenseController::class, 'destroy'])->name('events.finances.destroy');
 
-
     Route::get('documentation/all', [AdminDocumentationController::class, 'indexAll'])->name('documentation.index.all');
 
     Route::get('documentation/create', [AdminDocumentationController::class, 'createAll'])->name('documentation.create.all');
-
 
     Route::post('documentation/store-all', [AdminDocumentationController::class, 'storeAll'])->name('documentation.store.all');
 
@@ -169,7 +154,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 
     // Dues Period Management
     Route::resource('dues', DuesPeriodController::class)->parameters([
-        'dues' => 'duesPeriod'
+        'dues' => 'duesPeriod',
     ]);
     Route::get('dues/{duesPeriod}/payments', [DuesPeriodController::class, 'show'])->name('dues.show');
 
@@ -183,10 +168,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::patch('orders/{order}/pickup-status', [MerchandiseOrderController::class, 'updatePickupStatus'])->name('orders.update-pickup-status');
 });
 
-    // --- TEMPORARY DEBUG ROUTE --- for "hasRole" issue
+// --- TEMPORARY DEBUG ROUTE --- for "hasRole" issue
 // Route::get('/debug-role', function () {
 //     $user = \Illuminate\Support\Facades\Auth::user();
-    
+
 //     if (!$user) {
 //         return "Not logged in! Please login first.";
 //     }
@@ -212,8 +197,8 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 
 //     // 2. Try to send a real message
 //     // Replace '08...' with your own REAL WhatsApp number to test
-//     $targetNumber = '089531195638'; 
-    
+//     $targetNumber = '089531195638';
+
 //     $success = $service->sendMessage($targetNumber, "Hello! This is a test message from Laravel. Token is loaded.");
 
 //     if ($success) {

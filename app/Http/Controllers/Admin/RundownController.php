@@ -15,6 +15,7 @@ class RundownController extends Controller
     public function index(Event $event)
     {
         $rundowns = $event->rundowns()->orderBy('start_time', 'asc')->get();
+
         return view('admin.rundown.index', compact('event', 'rundowns'));
     }
 

@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DuesPeriod;
+use App\Models\Profile;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\Profile;
-use App\Models\DuesPeriod;
-use App\Models\User;
 
 class ProfileController extends Controller
 {
@@ -41,8 +41,8 @@ class ProfileController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|max:255|unique:users,email,' . $user->id,
-            'nim' => 'nullable|string|max:255|unique:profiles,nim,' . ($user->profile->id ?? 'NULL') . ',id',
+            'email' => 'required|email|max:255|unique:users,email,'.$user->id,
+            'nim' => 'nullable|string|max:255|unique:profiles,nim,'.($user->profile->id ?? 'NULL').',id',
             'jurusan' => 'nullable|string|max:255',
             'asal_universitas' => 'nullable|string|max:255',
             'no_telp' => 'nullable|string|max:20',
@@ -78,7 +78,7 @@ class ProfileController extends Controller
         /** @var User $user */
         $user = Auth::user();
 
-        if (!Hash::check($validated['current_password'], $user->password)) {
+        if (! Hash::check($validated['current_password'], $user->password)) {
             return back()->withErrors(['current_password' => 'Current password is incorrect.']);
         }
 

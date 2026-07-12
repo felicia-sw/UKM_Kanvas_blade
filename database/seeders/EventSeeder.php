@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Event;
-use App\Models\Rundown;
 use App\Models\EventBudgetItem;
+use App\Models\Rundown;
+use Illuminate\Database\Seeder;
 
 class EventSeeder extends Seeder
 {

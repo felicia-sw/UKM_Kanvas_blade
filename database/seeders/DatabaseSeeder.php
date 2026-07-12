@@ -30,7 +30,7 @@ class DatabaseSeeder extends Seeder
             DuesPaymentSeeder::class,
             NotificationSeeder::class,
             ContactUsSeeder::class,
-            IncomeExpenseSeeder::class
+            IncomeExpenseSeeder::class,
         ]);
     }
 }

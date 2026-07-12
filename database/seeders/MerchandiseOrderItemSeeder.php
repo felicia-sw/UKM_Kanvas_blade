@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-use App\Models\MerchandiseOrderItem;
-use App\Models\MerchandiseOrder;
 use App\Models\Merchandise;
+use App\Models\MerchandiseOrder;
+use App\Models\MerchandiseOrderItem;
+use Illuminate\Database\Seeder;
 
 class MerchandiseOrderItemSeeder extends Seeder
 {
@@ -33,7 +32,6 @@ class MerchandiseOrderItemSeeder extends Seeder
                 'price_at_purchase' => 15000,
             ]);
         }
-
 
         $order2 = MerchandiseOrder::skip(1)->first();
         $merchandise3 = Merchandise::skip(2)->first();

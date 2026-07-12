@@ -8,10 +8,6 @@ class WhatsAppService
 {
     /**
      * Send a WhatsApp message.
-     *
-     * @param string $to
-     * @param string $message
-     * @return bool
      */
     public function sendMessage(string $to, string $message): bool
     {

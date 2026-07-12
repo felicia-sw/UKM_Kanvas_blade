@@ -11,12 +11,12 @@ class DocumentationSeeder extends Seeder
     public function run(): void
     {
         $events = Event::all();
-        
+
         foreach ($events as $event) {
-            //create 3-8 documentation photos per event
+            // create 3-8 documentation photos per event
             Documentation::factory()
-                        ->count(rand(3, 8))
-                        ->create(['event_id' => $event->id]);
+                ->count(rand(3, 8))
+                ->create(['event_id' => $event->id]);
         }
     }
 }

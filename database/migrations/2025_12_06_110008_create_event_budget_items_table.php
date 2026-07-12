@@ -12,14 +12,14 @@ return new class extends Migration
             $table->id();
             // Connects to the events table
             $table->foreignId('event_id')->constrained('events')->onDelete('cascade');
-            
+
             // "Income or Expense"
-            $table->enum('type', ['income', 'expense']); 
-            
+            $table->enum('type', ['income', 'expense']);
+
             $table->string('item_name');
             $table->integer('quantity')->default(1);
             $table->decimal('price', 10, 2); // This matches "price" in your ERD
-            
+
             $table->timestamps();
             $table->softDeletes();
         });

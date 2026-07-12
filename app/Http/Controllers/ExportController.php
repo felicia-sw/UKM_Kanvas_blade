@@ -2,15 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-use PhpOffice\PhpSpreadsheet\IOFactory;
-use PhpOffice\PhpSpreadsheet\Style\Fill;
-use PhpOffice\PhpSpreadsheet\Style\Alignment;
-use PhpOffice\PhpSpreadsheet\Style\Border;
-use App\Models\EventBudgetItem;
 use App\Models\Event;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class ExportController extends Controller
 {
@@ -27,7 +21,7 @@ class ExportController extends Controller
         $templatePath = storage_path('app/templates/UKMKanvas_ProposalTemplate.xlsx');
 
         // Load template yang sudah ada
-        if (!file_exists($templatePath)) {
+        if (! file_exists($templatePath)) {
             return response()->json(['error' => 'Template file not found. Please place UKMKanvas_ProposalTemplate.xlsx in storage/app/templates/'], 404);
         }
 
@@ -53,15 +47,15 @@ class ExportController extends Controller
             $itemTotal = $item->price * $item->quantity;
             $totalPemasukan += $itemTotal;
 
-            $sheet->setCellValue('C' . $row, $no);
-            $sheet->setCellValue('D' . $row, $item->item_name);
-            $sheet->setCellValue('E' . $row, 'Rp' . number_format($item->price, 0, ',', '.'));
-            $sheet->mergeCells('E' . $row . ':F' . $row);
-            $sheet->setCellValueExplicit('G' . $row, $item->quantity, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC);
-            $sheet->setCellValue('H' . $row, 'Rp' . number_format($itemTotal, 0, ',', '.'));
+            $sheet->setCellValue('C'.$row, $no);
+            $sheet->setCellValue('D'.$row, $item->item_name);
+            $sheet->setCellValue('E'.$row, 'Rp'.number_format($item->price, 0, ',', '.'));
+            $sheet->mergeCells('E'.$row.':F'.$row);
+            $sheet->setCellValueExplicit('G'.$row, $item->quantity, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC);
+            $sheet->setCellValue('H'.$row, 'Rp'.number_format($itemTotal, 0, ',', '.'));
 
             // Apply font styling: Calibri 12, black color
-            $sheet->getStyle('C' . $row . ':H' . $row)->getFont()->setName('Calibri')->setSize(12)->getColor()->setARGB('FF000000');
+            $sheet->getStyle('C'.$row.':H'.$row)->getFont()->setName('Calibri')->setSize(12)->getColor()->setARGB('FF000000');
 
             $row++;
             $no++;
@@ -69,7 +63,7 @@ class ExportController extends Controller
 
         // Calculate dynamic row for total pemasukan (row after last data)
         $totalPemasukanRow = $row;
-        $sheet->setCellValue('H' . $totalPemasukanRow, 'Rp' . number_format($totalPemasukan, 0, ',', '.'));
+        $sheet->setCellValue('H'.$totalPemasukanRow, 'Rp'.number_format($totalPemasukan, 0, ',', '.'));
 
         // ============ SECTION PENGELUARAN ============
         // Pengeluaran starts 4 rows after total pemasukan (accounting for spacing and headers)
@@ -87,15 +81,15 @@ class ExportController extends Controller
             $itemTotal = $item->price * $item->quantity;
             $totalPengeluaran += $itemTotal;
 
-            $sheet->setCellValue('C' . $row, $no);
-            $sheet->setCellValue('D' . $row, $item->item_name);
-            $sheet->setCellValue('E' . $row, 'Rp' . number_format($item->price, 0, ',', '.'));
-            $sheet->mergeCells('E' . $row . ':F' . $row);
-            $sheet->setCellValueExplicit('G' . $row, $item->quantity, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC);
-            $sheet->setCellValue('H' . $row, 'Rp' . number_format($itemTotal, 0, ',', '.'));
+            $sheet->setCellValue('C'.$row, $no);
+            $sheet->setCellValue('D'.$row, $item->item_name);
+            $sheet->setCellValue('E'.$row, 'Rp'.number_format($item->price, 0, ',', '.'));
+            $sheet->mergeCells('E'.$row.':F'.$row);
+            $sheet->setCellValueExplicit('G'.$row, $item->quantity, \PhpOffice\PhpSpreadsheet\Cell\DataType::TYPE_NUMERIC);
+            $sheet->setCellValue('H'.$row, 'Rp'.number_format($itemTotal, 0, ',', '.'));
 
             // Apply font styling: Calibri 12, black color
-            $sheet->getStyle('C' . $row . ':H' . $row)->getFont()->setName('Calibri')->setSize(12)->getColor()->setARGB('FF000000');
+            $sheet->getStyle('C'.$row.':H'.$row)->getFont()->setName('Calibri')->setSize(12)->getColor()->setARGB('FF000000');
 
             $row++;
             $no++;
@@ -103,26 +97,25 @@ class ExportController extends Controller
 
         // Calculate dynamic row for total pengeluaran
         $totalPengeluaranRow = $row;
-        $sheet->setCellValue('H' . $totalPengeluaranRow, 'Rp' . number_format($totalPengeluaran, 0, ',', '.'));
+        $sheet->setCellValue('H'.$totalPengeluaranRow, 'Rp'.number_format($totalPengeluaran, 0, ',', '.'));
 
         // ============ GRAND TOTALS ============
         // Grand totals start 2 rows after total pengeluaran
         $grandTotalStartRow = $totalPengeluaranRow + 2;
 
         // TOTAL PEMASUKAN
-        $sheet->setCellValue('H' . $grandTotalStartRow, 'Rp' . number_format($totalPemasukan, 0, ',', '.'));
+        $sheet->setCellValue('H'.$grandTotalStartRow, 'Rp'.number_format($totalPemasukan, 0, ',', '.'));
 
         // TOTAL PENGELUARAN
-        $sheet->setCellValue('H' . ($grandTotalStartRow + 1), 'Rp' . number_format($totalPengeluaran, 0, ',', '.'));
+        $sheet->setCellValue('H'.($grandTotalStartRow + 1), 'Rp'.number_format($totalPengeluaran, 0, ',', '.'));
 
         // GRAND TOTAL
         $grandTotal = $totalPemasukan - $totalPengeluaran;
-        $sheet->setCellValue('H' . ($grandTotalStartRow + 2), 'Rp' . number_format($grandTotal, 0, ',', '.'));
-
+        $sheet->setCellValue('H'.($grandTotalStartRow + 2), 'Rp'.number_format($grandTotal, 0, ',', '.'));
 
         // Buat writer untuk menulis file Excel
         $writer = new Xlsx($spreadsheet);
-        $fileName = 'Event_Budget_' . $event->title . '_' . date('Y-m-d') . '.xlsx';
+        $fileName = 'Event_Budget_'.$event->title.'_'.date('Y-m-d').'.xlsx';
         $temp_file = tempnam(sys_get_temp_dir(), $fileName);
 
         // Tulis file ke lokasi sementara

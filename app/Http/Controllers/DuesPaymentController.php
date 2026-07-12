@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\DuesPeriod;
 use App\Models\DuesPayment;
+use App\Models\DuesPeriod;
 use App\Models\Notification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,11 +19,11 @@ class DuesPaymentController extends Controller
             ->with('duesPeriod')
             ->orderBy('created_at', 'desc')
             ->paginate(10);
-        
+
         $currentDues = DuesPeriod::where('due_date', '>=', now())
             ->orderBy('due_date', 'asc')
             ->get();
-        
+
         return view('dues.index', compact('payments', 'currentDues'));
     }
 
@@ -36,12 +36,12 @@ class DuesPaymentController extends Controller
         $existingPayment = DuesPayment::where('user_id', Auth::id())
             ->where('dues_period_id', $duesPeriod->id)
             ->first();
-        
+
         if ($existingPayment) {
             return redirect()->route('dues.index')
                 ->with('info', 'You have already submitted payment for this period.');
         }
-        
+
         return view('dues.create', compact('duesPeriod'));
     }
 
@@ -58,7 +58,7 @@ class DuesPaymentController extends Controller
         $existingPayment = DuesPayment::where('user_id', Auth::id())
             ->where('dues_period_id', $duesPeriod->id)
             ->first();
-        
+
         if ($existingPayment) {
             return redirect()->back()
                 ->with('error', 'You have already submitted payment for this period.');

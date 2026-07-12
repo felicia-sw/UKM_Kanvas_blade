@@ -2,10 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
-use App\Models\Rundown;
 use App\Models\Event;
+use App\Models\Rundown;
+use Illuminate\Database\Seeder;
 
 class RundownSeeder extends Seeder
 {

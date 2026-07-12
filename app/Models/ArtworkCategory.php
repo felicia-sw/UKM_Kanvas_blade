@@ -1,6 +1,7 @@
 <?php
 
 // Declare the namespace for the current file, indicating its location within the application's Models.
+
 namespace App\Models;
 
 // Import the HasFactory trait, which provides a convenient way to create model factories.
@@ -13,9 +14,9 @@ class ArtworkCategory extends Model
 {
     // Use the HasFactory trait within this model.
     use HasFactory;
-    
+
     // REMOVED: public $timestamps = false; // This comment indicates that timestamps were previously disabled but are now implicitly enabled (Laravel default).
-    
+
     // Define the fillable properties, which can be mass-assigned.
     protected $fillable = ['name', 'description']; // The 'name' of the category and its 'description'.
 

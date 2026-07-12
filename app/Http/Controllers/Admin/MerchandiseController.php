@@ -16,6 +16,7 @@ class MerchandiseController extends Controller
     public function index()
     {
         $merchandiseItems = Merchandise::with('category')->latest()->paginate(10);
+
         return view('admin.merchandise.index', compact('merchandiseItems'));
     }
 
@@ -25,6 +26,7 @@ class MerchandiseController extends Controller
     public function create()
     {
         $categories = MerchandiseCategory::all();
+
         return view('admin.merchandise.create', compact('categories'));
     }
 
@@ -60,6 +62,7 @@ class MerchandiseController extends Controller
     public function edit(Merchandise $merchandise)
     {
         $categories = MerchandiseCategory::all();
+
         return view('admin.merchandise.edit', compact('merchandise', 'categories'));
     }
 
@@ -94,6 +97,7 @@ class MerchandiseController extends Controller
     public function destroy(Merchandise $merchandise)
     {
         $merchandise->delete();
+
         return redirect()->route('admin.merchandise.index')->with('success', 'Merchandise item deleted successfully.');
     }
 }

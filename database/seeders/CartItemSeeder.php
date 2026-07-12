@@ -2,11 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
-use Illuminate\Database\Seeder;
 use App\Models\CartItem;
-use App\Models\ShoppingCart;
 use App\Models\Merchandise;
+use App\Models\ShoppingCart;
+use Illuminate\Database\Seeder;
 
 class CartItemSeeder extends Seeder
 {
@@ -26,7 +25,7 @@ class CartItemSeeder extends Seeder
                 'quantity' => 2,
             ]);
         }
-        
+
         if ($shoppingCart && $merchandise2) {
             CartItem::create([
                 'shopping_cart_id' => $shoppingCart->id,

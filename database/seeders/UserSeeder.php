@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
-use App\Models\User;
-use App\Models\Role;
 use App\Models\Profile;
+use App\Models\Role;
+use App\Models\User;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
 class UserSeeder extends Seeder
@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
         );
 
         // 3. Assign Role & Create Profile (if not exists)
-        if (!$admin->roles()->where('role_id', $adminRole->id)->exists()) {
+        if (! $admin->roles()->where('role_id', $adminRole->id)->exists()) {
             $admin->roles()->attach($adminRole);
         }
 
@@ -62,7 +62,7 @@ class UserSeeder extends Seeder
             ]
         );
 
-        if (!$student->roles()->where('role_id', $memberRole->id)->exists()) {
+        if (! $student->roles()->where('role_id', $memberRole->id)->exists()) {
             $student->roles()->attach($memberRole);
         }
 

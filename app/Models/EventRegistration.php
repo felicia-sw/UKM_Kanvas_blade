@@ -3,20 +3,15 @@
 namespace App\Models;
 
 use App\Traits\CloudinaryUpload;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class EventRegistration
- *
- * @package App\Models
- *
- * Represents a user's registration for a specific event.
- * Handles the storage of registration details, payment proof, and payment status.
  */
 class EventRegistration extends Model
 {
-    use HasFactory, CloudinaryUpload; // Utilizes CloudinaryUpload trait for handling file uploads (e.g., payment proof).
+    use CloudinaryUpload, HasFactory; // Utilizes CloudinaryUpload trait for handling file uploads (e.g., payment proof).
 
     /**
      * The attributes that are mass assignable.
@@ -35,8 +30,6 @@ class EventRegistration extends Model
     /**
      * Defines the attributes that should be treated as files for Cloudinary uploads.
      * This method is part of the CloudinaryUpload trait.
-     *
-     * @return array
      */
     protected function getFileAttributes(): array
     {

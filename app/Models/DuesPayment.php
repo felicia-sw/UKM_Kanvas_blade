@@ -2,14 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Traits\CloudinaryUpload;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 class DuesPayment extends Model
 {
-    use HasFactory, CloudinaryUpload;
+    use CloudinaryUpload, HasFactory;
 
     protected $fillable = [
         'user_id',

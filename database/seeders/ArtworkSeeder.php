@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Seeder;
 use App\Models\Artwork;
 use App\Models\ArtworkCategory;
+use Illuminate\Database\Seeder;
 
 class ArtworkSeeder extends Seeder
 {

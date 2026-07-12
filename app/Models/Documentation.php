@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Documentation extends Model
 {
-    use HasFactory, SoftDeletes, CloudinaryUpload;
+    use CloudinaryUpload, HasFactory, SoftDeletes;
 
     protected $table = 'documentations';
 

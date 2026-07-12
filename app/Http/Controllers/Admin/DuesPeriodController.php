@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\DuesPeriod;
-use App\Models\User;
 use App\Models\Notification;
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class DuesPeriodController extends Controller
 {
@@ -54,7 +53,7 @@ class DuesPeriodController extends Controller
             Notification::create([
                 'user_id' => $member->id,
                 'type' => 'dues_notification',
-                'message' => "New dues period: {$duesPeriod->name} - Rp " . number_format($duesPeriod->amount, 0, ',', '.') . " (Due: " . $duesPeriod->due_date->format('d M Y') . ")",
+                'message' => "New dues period: {$duesPeriod->name} - Rp ".number_format($duesPeriod->amount, 0, ',', '.').' (Due: '.$duesPeriod->due_date->format('d M Y').')',
                 'is_read' => false,
                 'link_url' => route('dues.payment.create', $duesPeriod->id),
             ]);
