@@ -28,6 +28,7 @@ class ArtworkFactory extends Factory // extends the factory base
                  $this->faker->randomElement($artworkSubjects);
 
         return [
+            'user_id' => \App\Models\User::factory(),
             'title' => $title,
             'description' => $this->faker->optional(0.7)->paragraph(),
             'image_path' => 'images/gallery/artwork'.$this->faker->numberBetween(1, 9).'.jpg',

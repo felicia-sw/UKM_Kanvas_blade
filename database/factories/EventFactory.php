@@ -26,8 +26,8 @@ class EventFactory extends Factory
             'start_date' => $startDate,
             'end_date' => $endDate,
             'registration_deadline' => $registrationDeadline,
-            'price' => $this->faker->optional(0.6)->randomElement([
-                100000, 150000, 200000, 250000, null,
+            'price' => $this->faker->randomElement([
+                0, 100000, 150000, 200000, 250000,
             ]),
             'location' => $this->faker->optional()->randomElement([
                 'Jakarta Convention Center',
@@ -35,9 +35,6 @@ class EventFactory extends Factory
                 'Bandung Tech Hub',
                 'Surabaya Creative Space',
                 'Yogyakarta Convention Hall',
-            ]),
-            'max_participants' => $this->faker->optional()->randomElement([
-                50, 80, 100, 150, 200, 500,
             ]),
             'is_active' => $this->faker->boolean(90), // 90% active
         ];
