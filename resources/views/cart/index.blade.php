@@ -84,7 +84,7 @@
                             </div>
                             <div class="col-md-6 text-end">
                                 <div class="card bg-dark bg-opacity-75 border-warning d-inline-block p-3">
-                                    <h5 class="mb-0">Total: <strong>Rp {{ number_format($total, 0, ',', '.') }}</strong></h5>
+                                    <h5 class="mb-0 text-white">Total: <strong>Rp {{ number_format($total, 0, ',', '.') }}</strong></h5>
                                     <form action="{{ route('orders.store') }}" method="POST" enctype="multipart/form-data" class="mt-3">
                                         @csrf
                                         <div class="mb-3">

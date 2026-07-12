@@ -35,8 +35,12 @@
                                 class="bi bi-chevron-right me-2"></i>Events</a></li>
                     <li><a href="{{ route('art_gallery') }}" class="footer-link"><i
                                 class="bi bi-chevron-right me-2"></i>Art Gallery</a></li>
-                    <li><a href="{{ route('about') }}" class="footer-link"><i class="bi bi-chevron-right me-2"></i>About
+                   <li><a href="{{ route('about') }}" class="footer-link"><i class="bi bi-chevron-right me-2"></i>About
                             Us</a></li>
+                             <li><a href="{{ route('merchandise') }}" class="footer-link"><i
+                                class="bi bi-chevron-right me-2"></i>Merchandise</a></li>
+                   
+                            
                 </ul>
             </div>
 

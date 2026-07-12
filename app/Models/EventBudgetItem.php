@@ -27,4 +27,10 @@ class EventBudgetItem extends Model
     {
         return $this->quantity * $this->price;
     }
+
+    // Accessor: Create 'amount' as an alias for 'price' for better semantics in views
+    public function getAmountAttribute()
+    {
+        return $this->price;
+    }
 }

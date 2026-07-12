@@ -23,7 +23,8 @@ class ArtworkController extends Controller
             ->select('id', 'name')
             ->groupBy('name', 'id')
             ->orderBy('name')
-            ->get();
+            ->get()
+            ->unique('name'); // Remove duplicates by name
 
         return view('art_gallery', compact('artworks', 'categories'));
     }
