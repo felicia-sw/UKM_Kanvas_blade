@@ -22,47 +22,7 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-
-
-        html {
-            min-height: 100%;
-            width: 100%;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Judson', serif;
-            /* spy gradient spans entire page height */
-            background: linear-gradient(to bottom, #FFEC77 0%, #F7D86A 15%, #D88FC6 40%, #9A4CA0 60%, #5B2066 80%, #2A0A56 100%);
-            background-attachment: scroll;
-            background-repeat: no-repeat;
-            background-size: 100% 100%;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        h1,
-        h2,
-        h3,
-        h4,
-        h5,
-        h6 {
-            font-weight: 700;
-        }
-
-
-        .page-header {
-            background: rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
-        }
-    </style>
+    <link href="{{ asset('css/layout.css') }}" rel="stylesheet">
 
     @stack('styles')
 </head>
@@ -221,52 +181,16 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        // Auto-dismiss alerts after 5 seconds
-        document.addEventListener('DOMContentLoaded', function() {
-            const alerts = document.querySelectorAll('.alert');
-            alerts.forEach(function(alert) {
-                setTimeout(function() {
-                    const bsAlert = new bootstrap.Alert(alert);
-                    bsAlert.close();
-                }, 5000);
-            });
-
-            // Automatically show modal if there are validation errors
-            @if ($errors->any())
+    <script src="{{ asset('js/layout.js') }}"></script>
+    @if ($errors->any())
+        <script>
+            // Automatically show the register modal when validation failed
+            document.addEventListener('DOMContentLoaded', function() {
                 var registerModal = new bootstrap.Modal(document.getElementById('registerModal'));
                 registerModal.show();
-            @endif
-        });
-
-        AOS.init({
-            duration: 800,
-            easing: 'ease-in-out',
-            once: true,
-            offset: 100
-        });
-
-        // spy bisa gradient span entire page height
-        function updateGradientHeight() {
-            const body = document.body;
-            const html = document.documentElement;
-            const height = Math.max(
-                body.scrollHeight,
-                body.offsetHeight,
-                html.clientHeight,
-                html.scrollHeight,
-                html.offsetHeight
-            );
-            body.style.backgroundSize = `100% ${height}px`;
-        }
-
-        // update on load and resize
-        window.addEventListener('load', updateGradientHeight);
-        window.addEventListener('resize', updateGradientHeight);
-
-        // kasih short delayto update 
-        setTimeout(updateGradientHeight, 100);
-    </script>
+            });
+        </script>
+    @endif
 
     @stack('scripts')
 </body>
