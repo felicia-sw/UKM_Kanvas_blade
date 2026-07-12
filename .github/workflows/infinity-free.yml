@@ -9,15 +9,40 @@ on:
 
 jobs:
   deploy:
-    name: Deploy via FTP
+    name: Build and deploy via FTP
     runs-on: ubuntu-latest
 
     steps:
-      # Step 1: Clone the latest code from GitHub
       - name: Get latest code
         uses: actions/checkout@v4
 
-      # Step 2: Upload code via FTP
+      # vendor/ is no longer committed, so production dependencies are
+      # built here. PHP version must match the InfinityFree account's
+      # PHP version (Control Panel -> PHP Version).
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: mbstring, bcmath, gd, intl, zip
+
+      - name: Install PHP dependencies (production only)
+        run: composer install --no-dev --prefer-dist --optimize-autoloader --no-interaction --no-progress
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Build frontend assets
+        run: |
+          npm ci
+          npm run build
+
+      # The server keeps its own .env (edit it via the InfinityFree file
+      # manager). It is excluded below so a deploy can never overwrite or
+      # delete it. node_modules is not needed at runtime (Vite output goes
+      # to public/build) so it is never uploaded.
       - name: Deploy to InfinityFree via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -27,3 +52,17 @@ jobs:
           server-dir: /htdocs/  # For addon domains
           timeout: 86400000
           log-level: standard
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            .env
+            .env.example
+            .vscode/**
+            tests/**
+            storage/logs/**
+            storage/framework/cache/**
+            storage/framework/sessions/**
+            storage/framework/views/**
+            TEST_FINDINGS.md
+            phpunit.xml
