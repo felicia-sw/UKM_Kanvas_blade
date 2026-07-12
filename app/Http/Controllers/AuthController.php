@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
@@ -97,8 +98,10 @@ class AuthController extends Controller
                 ->withErrors($e->errors())
                 ->withInput($request->except('password', 'password_confirmation'));
         } catch (\Exception $e) {
+            Log::error('Registration failed', ['error' => $e->getMessage()]);
+
             return back()
-                ->with('error', 'Registration failed: '.$e->getMessage())
+                ->with('error', 'Registration failed. Please try again.')
                 ->withInput($request->except('password', 'password_confirmation'));
         }
     }

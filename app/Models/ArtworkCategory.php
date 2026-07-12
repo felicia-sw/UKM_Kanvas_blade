@@ -26,4 +26,16 @@ class ArtworkCategory extends Model
         // An artwork category can have many artworks, linked by 'category_id'.
         return $this->hasMany(Artwork::class, 'category_id');
     }
+
+    /**
+     * All categories ordered by name, de-duplicated by name.
+     * The table contains duplicate rows in production, so dropdowns use
+     * this instead of all() until the data is cleaned up.
+     *
+     * @return \Illuminate\Support\Collection<int, self>
+     */
+    public static function orderedUniqueByName()
+    {
+        return static::orderBy('name')->get()->unique('name')->values();
+    }
 }

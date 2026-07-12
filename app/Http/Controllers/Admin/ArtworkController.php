@@ -31,7 +31,7 @@ class ArtworkController extends Controller
         $artworks = $query->paginate(10);
 
         // De-duplicate categories by name so duplicate rows in the DB don't clutter the dropdown
-        $categories = ArtworkCategory::orderBy('name')->get()->unique('name')->values();
+        $categories = ArtworkCategory::orderedUniqueByName();
 
         return view('admin.artworks.index', compact('artworks', 'categories'));
     }
@@ -40,7 +40,7 @@ class ArtworkController extends Controller
     {
 
         // De-duplicate categories by name so duplicate rows in the DB don't clutter the dropdown
-        $categories = ArtworkCategory::orderBy('name')->get()->unique('name')->values();
+        $categories = ArtworkCategory::orderedUniqueByName();
 
         return view('admin.artworks.create', compact('categories'));
     }
@@ -67,7 +67,7 @@ class ArtworkController extends Controller
     {
 
         // De-duplicate categories by name so duplicate rows in the DB don't clutter the dropdown
-        $categories = ArtworkCategory::orderBy('name')->get()->unique('name')->values();
+        $categories = ArtworkCategory::orderedUniqueByName();
 
         return view('admin.artworks.edit', compact('artwork', 'categories'));
     }
