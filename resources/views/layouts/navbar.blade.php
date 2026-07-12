@@ -1,6 +1,9 @@
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    {{-- Deliberate duplicate of the layout's app.css link: loading it again
+         here (after layout.css) makes app.css win the conflicting body
+         background/overflow rules. Removing it changes the site background. --}}
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
