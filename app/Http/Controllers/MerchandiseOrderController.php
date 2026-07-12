@@ -8,6 +8,7 @@ use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class MerchandiseOrderController extends Controller
 {
@@ -88,38 +89,45 @@ class MerchandiseOrderController extends Controller
             }
         }
 
-        $order = MerchandiseOrder::create([
-            'user_id' => Auth::id(),
-            'grand_total' => $grandTotal,
-            'payment_proof' => $request->file('payment_proof'),
-            'payment_status' => 'pending',
-            'pickup_status' => 'pending',
-        ]);
-
-        // Create order items
-        foreach ($cartItems as $cartItem) {
-            MerchandiseOrderItem::create([
-                'merchandise_order_id' => $order->id,
-                'merchandise_id' => $cartItem->merchandise_id,
-                'quantity' => $cartItem->quantity,
-                'price_at_purchase' => $cartItem->merchandise->price,
+        // Order, items, stock decrements, and cart clear must succeed or
+        // fail together, otherwise a mid-sequence error leaves a partial
+        // order and wrong stock counts.
+        $order = DB::transaction(function () use ($request, $cart, $cartItems, $grandTotal) {
+            $order = MerchandiseOrder::create([
+                'user_id' => Auth::id(),
+                'grand_total' => $grandTotal,
+                'payment_proof' => $request->file('payment_proof'),
+                'payment_status' => 'pending',
+                'pickup_status' => 'pending',
             ]);
 
-            // Reduce stock
-            $cartItem->merchandise->decrement('stock', $cartItem->quantity);
-        }
+            // Create order items
+            foreach ($cartItems as $cartItem) {
+                MerchandiseOrderItem::create([
+                    'merchandise_order_id' => $order->id,
+                    'merchandise_id' => $cartItem->merchandise_id,
+                    'quantity' => $cartItem->quantity,
+                    'price_at_purchase' => $cartItem->merchandise->price,
+                ]);
 
-        // Clear cart
-        $cart->items()->delete();
+                // Reduce stock
+                $cartItem->merchandise->decrement('stock', $cartItem->quantity);
+            }
 
-        // Notify user
-        Notification::create([
-            'user_id' => Auth::id(),
-            'type' => 'merchandise_order',
-            'message' => "Your order #{$order->id} has been placed. Payment verification pending.",
-            'is_read' => false,
-            'link_url' => route('orders.show', $order->id),
-        ]);
+            // Clear cart
+            $cart->items()->delete();
+
+            // Notify user
+            Notification::create([
+                'user_id' => Auth::id(),
+                'type' => 'merchandise_order',
+                'message' => "Your order #{$order->id} has been placed. Payment verification pending.",
+                'is_read' => false,
+                'link_url' => route('orders.show', $order->id),
+            ]);
+
+            return $order;
+        });
 
         return redirect()->route('orders.show', $order->id)
             ->with('success', 'Order placed successfully! Please wait for payment verification.');
