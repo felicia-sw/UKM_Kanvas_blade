@@ -24,6 +24,11 @@ class MerchandiseOrder extends Model
         return ['payment_proof'];
     }
 
+    protected function getPublicIdColumn(): string
+    {
+        return 'payment_proof_public_id';
+    }
+
     protected $casts = [
         'grand_total' => 'decimal:2',
         'verified_at' => 'datetime',

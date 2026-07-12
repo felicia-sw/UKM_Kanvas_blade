@@ -36,6 +36,11 @@ class EventRegistration extends Model
         return ['payment_proof'];
     }
 
+    protected function getPublicIdColumn(): string
+    {
+        return 'payment_proof_public_id';
+    }
+
     /**
      * The attributes that should be cast.
      *

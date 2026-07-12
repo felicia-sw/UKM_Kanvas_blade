@@ -53,6 +53,11 @@ class Event extends Model
         return ['poster_image'];
     }
 
+    protected function getPublicIdColumn(): string
+    {
+        return 'poster_image_public_id';
+    }
+
     // ==========================
     // RELATIONSHIPS
     // ==========================

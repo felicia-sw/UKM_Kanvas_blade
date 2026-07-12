@@ -24,6 +24,11 @@ class DuesPayment extends Model
         return ['payment_proof'];
     }
 
+    protected function getPublicIdColumn(): string
+    {
+        return 'payment_proof_public_id';
+    }
+
     protected $casts = [
         'verified_at' => 'datetime',
     ];

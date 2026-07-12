@@ -26,6 +26,11 @@ class Documentation extends Model
         return ['file_path'];
     }
 
+    protected function getPublicIdColumn(): string
+    {
+        return 'file_public_id';
+    }
+
     public function event()
     {
         return $this->belongsTo(Event::class);

@@ -43,17 +43,22 @@ trait CloudinaryUpload
                     if ($model instanceof \App\Models\Artwork) {
                         $folder = 'artworks';
                     }
+                    // The column that stores the Cloudinary public ID differs
+                    // per table (image_public_id, poster_image_public_id,
+                    // payment_proof_public_id, ...), so ask the model.
+                    $publicIdColumn = $model->getPublicIdColumn();
+
                     // Check if the model already exists (meaning it's an update operation)
-                    // and if it has a `image_public_id` associated with a previously uploaded image.
-                    if ($model->exists && $model->image_public_id) {
-                        Log::info('Attempting to delete old Cloudinary image. Model: '.class_basename($model).", Old Public ID: {$model->image_public_id}");
+                    // and if it has a public ID associated with a previously uploaded image.
+                    if ($model->exists && $model->{$publicIdColumn}) {
+                        Log::info('Attempting to delete old Cloudinary image. Model: '.class_basename($model).", Old Public ID: {$model->{$publicIdColumn}}");
                         try {
                             // Attempt to destroy (delete) the old image from Cloudinary using its public ID.
-                            Cloudinary::destroy($model->image_public_id);
-                            Log::info("Successfully deleted old Cloudinary image: {$model->image_public_id}");
+                            Cloudinary::destroy($model->{$publicIdColumn});
+                            Log::info("Successfully deleted old Cloudinary image: {$model->{$publicIdColumn}}");
                         } catch (\Exception $e) {
                             // Log a warning if deletion fails, but do not prevent the save operation.
-                            Log::warning("Failed to delete old Cloudinary image with public ID: {$model->image_public_id}. Error: {$e->getMessage()}");
+                            Log::warning("Failed to delete old Cloudinary image with public ID: {$model->{$publicIdColumn}}. Error: {$e->getMessage()}");
                         }
                     }
 
@@ -65,7 +70,7 @@ trait CloudinaryUpload
                         // Update the model's file attribute (e.g., 'payment_proof') with the secure URL from Cloudinary.
                         $model->{$attribute} = $uploadResult['secure_url'];
                         // Store the public ID of the newly uploaded image. This is crucial for future updates/deletions.
-                        $model->image_public_id = $uploadResult['public_id'];
+                        $model->{$publicIdColumn} = $uploadResult['public_id'];
                         Log::info('Cloudinary upload successful. Model: '.class_basename($model).", New Secure URL: {$uploadResult['secure_url']}, New Public ID: {$uploadResult['public_id']}");
                     } else {
                         // If the upload failed.
@@ -77,7 +82,7 @@ trait CloudinaryUpload
                             // If it's a new record (create operation), set the image path and public ID to null
                             // since the upload failed and there's no old image to fall back on.
                             $model->{$attribute} = null;
-                            $model->image_public_id = null;
+                            $model->{$publicIdColumn} = null;
                             Log::error("Cloudinary upload failed for {$attribute} on model ".class_basename($model).'. Setting to null for new record.');
                         }
                     }
@@ -93,6 +98,16 @@ trait CloudinaryUpload
      * @return array<string> An array of model attribute names that hold file data.
      */
     abstract protected function getFileAttributes(): array;
+
+    /**
+     * The column that stores the Cloudinary public ID for this model.
+     * Override in models whose table names the column differently
+     * (e.g. poster_image_public_id, payment_proof_public_id).
+     */
+    protected function getPublicIdColumn(): string
+    {
+        return 'image_public_id';
+    }
 
     /**
      * Upload an image to Cloudinary.
