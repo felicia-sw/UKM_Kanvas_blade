@@ -78,11 +78,15 @@ class AuthController extends Controller
                 $user->roles()->attach($memberRole);
             }
 
-            // FIX 5: Create an empty Profile to prevent future errors
+            // Create a starter Profile so profile lookups never null out.
+            // Every profile column is NOT NULL (nim is also unique), so use
+            // the same placeholder convention as event registration; the
+            // user fills in real data on the profile page.
             $user->profile()->create([
-                'nim' => null,
-                'jurusan' => null,
-                'no_telp' => null,
+                'nim' => 'REG-'.$user->id.'-'.now()->timestamp,
+                'jurusan' => 'Belum diisi',
+                'asal_universitas' => 'Belum diisi',
+                'no_telp' => '',
             ]);
 
             Auth::login($user);
