@@ -9,6 +9,15 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * Class PaymentVerified
+ *
+ * @package App\Notifications
+ *
+ * This notification is dispatched when a user's payment for an event registration has been
+ * successfully verified by an administrator. It is responsible for generating the content
+ * for various notification channels, including in-app database notifications and WhatsApp messages.
+ */
 class PaymentVerified extends Notification
 {
     use Queueable;
@@ -17,6 +26,8 @@ class PaymentVerified extends Notification
 
     /**
      * Create a new notification instance.
+     *
+     * @param \App\Models\EventRegistration $registration The event registration associated with the verified payment.
      */
     public function __construct(EventRegistration $registration)
     {
@@ -25,14 +36,19 @@ class PaymentVerified extends Notification
 
     /**
      * Get the notification's delivery channels.
+     * Defines which channels this notification can be sent through.
+     * The WhatsApp channel is conditionally added if the recipient (notifiable user) has a phone number.
      *
-     * @return array<int, string>
+     * @param object $notifiable The entity receiving the notification (typically a User model).
+     * @return array<int, string> An array of channel names or classes.
      */
     public function via(object $notifiable): array
     {
-        $channels = ['database'];
+        $channels = ['database']; // Always send a database (in-app) notification.
 
-        // Only add WhatsApp if user has phone number
+        // Conditionally add the WhatsApp channel if the user has a phone number in their profile.
+        // Although EventRegistrationController directly uses WhatsAppService, this `via` method
+        // demonstrates how the Laravel Notification system would integrate WhatsAppChannel if used.
         if ($notifiable->profile && $notifiable->profile->no_telp) {
             $channels[] = \App\Channels\WhatsAppChannel::class;
         }
@@ -41,7 +57,12 @@ class PaymentVerified extends Notification
     }
 
     /**
-     * Format WhatsApp message
+     * Formats the message content specifically for WhatsApp.
+     * This method is called by the WhatsAppChannel (or directly by EventRegistrationController)
+     * to get the text that will be sent via WhatsApp.
+     *
+     * @param object $notifiable The entity receiving the notification (User model).
+     * @return string The formatted WhatsApp message.
      */
     public function toWhatsApp($notifiable)
     {
@@ -62,6 +83,7 @@ class PaymentVerified extends Notification
 
             return $message;
         } catch (\Exception $e) {
+            // Log any errors that occur during message creation and return a generic message.
             Log::error('Error creating WhatsApp message', [
                 'error' => $e->getMessage(),
                 'registration_id' => $this->registration->id

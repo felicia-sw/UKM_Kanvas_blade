@@ -77,12 +77,12 @@
                     <i class="bi bi-people fs-4"></i>
                 </div>
                 <div>
-                    <div class="fs-2 fw-bold">{{ $userRegistrations }}  </div>
-                    <div class="text-muted">User Regist</div>
+                    <div class="fs-2 fw-bold">{{ $userRegistrations }}</div>
+                    <div class="text-muted">User Registrations</div>
                 </div>
             </div>
-              <div class="card-footer bg-transparent border-top-0">
-            <i class="bi bi-dash"></i> -
+            <div class="card-footer bg-transparent border-top-0">
+                <small class="text-muted">Across all events</small>
             </div>
         </div>
     </div>

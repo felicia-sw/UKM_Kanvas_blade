@@ -28,12 +28,14 @@ use App\Http\Controllers\Admin\RundownController;
 
 use App\Http\Controllers\ExportController;
 
-Route::get('/export/{eventId}', [ExportController::class, 'export'])->name('export.event');
+Route::get('/export/{eventId}', [ExportController::class, 'export'])->name('export.event')->middleware(['auth', 'admin']);
 
 // ===============================================
-// CLOUDINARY TEST ROUTES
-Route::get('/upload', [CloudinaryTestController::class, 'showUploadForm'])->name('upload.form');
-Route::post('/upload', [CloudinaryTestController::class, 'upload'])->name('upload.post');
+// CLOUDINARY TEST ROUTES (admin-only; debug utility)
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/upload', [CloudinaryTestController::class, 'showUploadForm'])->name('upload.form');
+    Route::post('/upload', [CloudinaryTestController::class, 'upload'])->name('upload.post');
+});
 
 
 // ===============================================
@@ -84,7 +86,9 @@ Route::middleware('auth')->group(function () {
     Route::put('/profile', [App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
     Route::put('/profile/password', [App\Http\Controllers\ProfileController::class, 'updatePassword'])->name('profile.update-password');
 
-    // Event Registration
+    // Event Registration: Allows authenticated users to register for a specific event.
+    // Handled by `EventRegistrationController@store`, this route processes the initial registration details,
+    // including payment proof, and creates a new event registration record.
     Route::post('/events/{event}/register', [EventRegistrationController::class, 'store'])->name('events.register');
 
     // Notification routes
@@ -149,7 +153,10 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
 
     Route::resource('merchandise', AdminMerchandiseController::class);
 
-    // Event Registration Management
+    // Event Registration Management: This route allows administrators to update the status of an event registration,
+    // such as marking a payment as verified. This action is crucial for triggering WhatsApp notifications
+    // to the user.
+    // Handled by `EventRegistrationController@updateStatus`.
     Route::patch('/registrations/{registration}/status', [EventRegistrationController::class, 'updateStatus'])->name('registrations.update-status');
 
     // Event Rundown Management

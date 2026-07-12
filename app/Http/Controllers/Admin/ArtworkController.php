@@ -33,7 +33,8 @@ class ArtworkController extends Controller
         $artworks = $query->paginate(10);
 
 
-        $categories = ArtworkCategory::all();
+        // De-duplicate categories by name so duplicate rows in the DB don't clutter the dropdown
+        $categories = ArtworkCategory::orderBy('name')->get()->unique('name')->values();
 
 
         return view('admin.artworks.index', compact('artworks', 'categories'));
@@ -43,7 +44,8 @@ class ArtworkController extends Controller
     public function create()
     {
 
-        $categories = ArtworkCategory::all();
+        // De-duplicate categories by name so duplicate rows in the DB don't clutter the dropdown
+        $categories = ArtworkCategory::orderBy('name')->get()->unique('name')->values();
 
         return view('admin.artworks.create', compact('categories'));
     }
@@ -79,7 +81,8 @@ class ArtworkController extends Controller
     public function edit(Artwork $artwork)
     {
 
-        $categories = ArtworkCategory::all();
+        // De-duplicate categories by name so duplicate rows in the DB don't clutter the dropdown
+        $categories = ArtworkCategory::orderBy('name')->get()->unique('name')->values();
 
 
         return view('admin.artworks.edit', compact('artwork', 'categories'));
@@ -98,9 +101,14 @@ class ArtworkController extends Controller
 
         $data = $request->only('title', 'artist_name', 'category_id', 'description');
 
-        // If new file uploaded, pass the UploadedFile object - CloudinaryUpload trait will handle it
+        // Handle image upload if a new file is provided
         if ($request->hasFile('image_file')) {
             $data['image_path'] = $request->file('image_file');
+        } else {
+            // If no new image is uploaded, retain the existing image_path and image_public_id
+            // This ensures they are not inadvertently set to null during an update
+            $data['image_path'] = $artwork->image_path;
+            $data['image_public_id'] = $artwork->image_public_id;
         }
 
         $artwork->update($data);

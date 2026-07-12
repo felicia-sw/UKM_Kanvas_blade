@@ -7,22 +7,40 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * Class Event
+ *
+ * @package App\Models
+ *
+ * Represents an event with details such as title, description, dates, location, and price.
+ * Utilizes the CloudinaryUpload trait for handling the 'poster_image'.
+ */
 class Event extends Model
 {
     use HasFactory, SoftDeletes, CloudinaryUpload;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
     protected $fillable = [
         'title',
         'description',
-        'poster_image',
+        'poster_image',         // Stores the public ID of the event poster image uploaded to Cloudinary.
         'start_date',
         'end_date',
         'registration_deadline',
-        'price',
+        'price',                // The cost of registration for the event, used in EventRegistration.
         'location',
         'is_active',
     ];
 
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array<string, string>
+     */
     protected $casts = [
         'start_date' => 'datetime',
         'end_date' => 'datetime',
@@ -31,6 +49,12 @@ class Event extends Model
         'is_active' => 'boolean',
     ];
 
+    /**
+     * Defines the attributes that should be treated as files for Cloudinary uploads.
+     * This method is part of the CloudinaryUpload trait.
+     *
+     * @return array
+     */
     protected function getFileAttributes(): array
     {
         return ['poster_image'];
@@ -40,6 +64,13 @@ class Event extends Model
     // RELATIONSHIPS
     // ==========================
 
+    /**
+     * Get the registrations for the event.
+     * This relationship is crucial for linking event registrations to the event,
+     * and for calculations like total income from registrations.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function registrations()
     {
         return $this->hasMany(EventRegistration::class);

@@ -85,3 +85,4 @@ class SyncRegistrationIncome extends Command
         return Command::SUCCESS;
     }
 }
+

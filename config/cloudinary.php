@@ -7,11 +7,12 @@
  * file that was distributed with this source code.
  */
 
+// Return an array representing the Cloudinary configuration settings.
 return [
 
     /*
     |--------------------------------------------------------------------------
-    | Cloudinary Configuration
+    | Cloudinary Configuration - Notification URL
     |--------------------------------------------------------------------------
     |
     | An HTTP or HTTPS URL to notify your application (a webhook) when the process of uploads, deletes, and any API
@@ -19,11 +20,12 @@ return [
     |
     |
     */
+    // Define the notification URL for Cloudinary webhooks, retrieved from the environment variables.
     'notification_url' => env('CLOUDINARY_NOTIFICATION_URL'),
 
     /*
     |--------------------------------------------------------------------------
-    | Cloudinary Configuration
+    | Cloudinary Configuration - Cloud URL
     |--------------------------------------------------------------------------
     |
     | Here you may configure your Cloudinary settings. Cloudinary is a cloud hosted
@@ -31,20 +33,24 @@ return [
     |
     |
     */
+    // Define the main Cloudinary URL, typically containing credentials, retrieved from environment variables.
     'cloud_url' => env('CLOUDINARY_URL'),
 
     /**
      * Upload Preset From Cloudinary Dashboard
      */
+    // Define the upload preset to be used for Cloudinary uploads, retrieved from environment variables.
     'upload_preset' => env('CLOUDINARY_UPLOAD_PRESET'),
 
     /**
      * Route to get cloud_image_url from Blade Upload Widget
      */
+    // Define a specific route for handling Cloudinary image uploads, retrieved from environment variables.
     'upload_route' => env('CLOUDINARY_UPLOAD_ROUTE'),
 
     /**
      * Controller action to get cloud_image_url from Blade Upload Widget
      */
+    // Define a specific controller action for handling Cloudinary image uploads, retrieved from environment variables.
     'upload_action' => env('CLOUDINARY_UPLOAD_ACTION'),
 ];

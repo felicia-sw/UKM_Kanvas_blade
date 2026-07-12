@@ -82,23 +82,33 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach($order->items as $item)
+                                        @forelse($order->items as $item)
                                             <tr>
                                                 <td>
                                                     <div class="d-flex align-items-center">
-                                                        <img src="{{ $item->merchandise->image_path }}" 
-                                                            alt="{{ $item->merchandise->name }}" 
-                                                            class="img-thumbnail me-3" style="width: 60px; height: 60px; object-fit: cover;">
-                                                        <div>
-                                                            <strong>{{ $item->merchandise->name }}</strong>
-                                                        </div>
+                                                        @if($item->merchandise)
+                                                            <img src="{{ $item->merchandise->image_path }}"
+                                                                alt="{{ $item->merchandise->name }}"
+                                                                class="img-thumbnail me-3" style="width: 60px; height: 60px; object-fit: cover;">
+                                                            <div>
+                                                                <strong>{{ $item->merchandise->name }}</strong>
+                                                            </div>
+                                                        @else
+                                                            <div>
+                                                                <strong class="text-muted">[Product no longer available]</strong>
+                                                            </div>
+                                                        @endif
                                                     </div>
                                                 </td>
                                                 <td>{{ $item->quantity }}</td>
                                                 <td>Rp {{ number_format($item->price_at_purchase, 0, ',', '.') }}</td>
                                                 <td>Rp {{ number_format($item->quantity * $item->price_at_purchase, 0, ',', '.') }}</td>
                                             </tr>
-                                        @endforeach
+                                        @empty
+                                            <tr>
+                                                <td colspan="4" class="text-center text-muted py-3">No item details recorded for this order.</td>
+                                            </tr>
+                                        @endforelse
                                     </tbody>
                                     <tfoot>
                                         <tr>

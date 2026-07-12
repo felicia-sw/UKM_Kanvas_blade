@@ -14,6 +14,15 @@ use Illuminate\Support\Facades\Log;
 
 class EventRegistrationController extends Controller
 {
+    /**
+     * Handles the initial registration of a user for an event.
+     * Processes payment proof upload via Cloudinary, creates an EventRegistration record,
+     * and sends an initial in-app notification to the user.
+     *
+     * @param \Illuminate\Http\Request $request The HTTP request containing registration data.
+     * @param \App\Models\Event $event The event being registered for.
+     * @return \Illuminate\Http\RedirectResponse Redirects back with a success message.
+     */
     public function store(Request $request, Event $event)
     {
         $validated = $request->validate([
@@ -48,6 +57,8 @@ class EventRegistrationController extends Controller
         $registration = EventRegistration::create([
             'event_id' => $event->id,
             'user_id' => $user->id,
+            // The 'payment_proof' field automatically uses the CloudinaryUpload trait
+            // to handle the file upload and store the public ID.
             'payment_proof' => $request->file('payment_proof'),
             'payment_status' => 'pending',
             'amount_paid' => $amount,
@@ -72,6 +83,16 @@ class EventRegistrationController extends Controller
         return redirect()->back()->with('success', $message);
     }
 
+    /**
+     * Updates the payment status of an event registration.
+     * This method is typically called by an administrator to verify or reject a payment.
+     * Upon verification, it sends both an in-app notification and a WhatsApp message to the user.
+     *
+     * @param \Illuminate\Http\Request $request The HTTP request containing the new payment status.
+     * @param \App\Models\EventRegistration $registration The event registration to update.
+     * @param \App\Services\WhatsAppService $whatsAppService The WhatsApp service for sending messages.
+     * @return \Illuminate\Http\JsonResponse|\Illuminate\Http\RedirectResponse
+     */
     public function updateStatus(Request $request, EventRegistration $registration, WhatsAppService $whatsAppService)
     {
         try {
@@ -89,7 +110,7 @@ class EventRegistrationController extends Controller
             if ($validated['payment_status'] === 'verified') {
                 $user = $registration->user;
 
-                // 1. Create the in-app notification manually for consistency with original code.
+                // 1. Create an in-app notification for the user to confirm payment verification.
                 Notification::create([
                     'user_id' => $user->id,
                     'type' => 'payment_verified',
@@ -98,25 +119,33 @@ class EventRegistrationController extends Controller
                     'link_url' => route('events.show', $registration->event_id),
                 ]);
 
-                // 2. Handle WhatsApp sending to get synchronous feedback for the AJAX response.
+                // 2. Handle WhatsApp message sending to the user upon successful payment verification.
+                // This section directly calls the WhatsAppService for granular control and immediate feedback,
+                // rather than going through the generic Laravel Notification system's channel.
                 if (empty(config('fonnte.token'))) {
+                    // Fallback message if FONNTE_TOKEN is not configured in the environment.
                     $whatsappMessage = 'Registration verified, but WhatsApp not sent (FONNTE_TOKEN not configured).';
                 } elseif (!$user->profile || !$user->profile->no_telp) {
+                    // Fallback message if the user does not have a phone number in their profile.
                     $whatsappMessage = 'Registration verified, but WhatsApp not sent (no phone number in profile).';
                 } else {
                     try {
-                        // Reuse the message formatting from the notification class to avoid duplicating logic.
+                        // Reuse the message formatting logic from the PaymentVerified notification class
+                        // to ensure consistency in message content without duplicating code.
                         $notification = new PaymentVerified($registration);
                         $message = $notification->toWhatsApp($user);
                         
+                        // Attempt to send the WhatsApp message using the WhatsAppService.
                         $whatsappSent = $whatsAppService->sendMessage($user->profile->no_telp, $message);
                         
                         if ($whatsappSent) {
                             $whatsappMessage = 'Registration verified successfully! WhatsApp confirmation sent.';
                         } else {
+                            // Log and provide feedback if WhatsApp message sending fails.
                             $whatsappMessage = 'Registration verified, but WhatsApp message failed to send (check logs).';
                         }
                     } catch (\Exception $e) {
+                         // Catch and log any exceptions during WhatsApp sending.
                          Log::error('Error sending WhatsApp from controller', ['error' => $e->getMessage(), 'registration_id' => $registration->id]);
                          $whatsappMessage = 'Registration verified, but an error occurred while sending WhatsApp.';
                     }

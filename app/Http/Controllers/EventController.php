@@ -23,7 +23,9 @@ class EventController extends Controller
                             ->where('start_date', '<', now())
                             ->orderBy('start_date', 'desc')
                             ->get();
-                    } elseif ($filter === 'all') {
+                    } else {
+                        // 'all' (and any unrecognised filter) falls back to every active event
+                        $filter = 'all';
                         $events = Event::active()
                             ->orderBy('start_date', 'asc')
                             ->get();

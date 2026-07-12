@@ -20,8 +20,8 @@ class ArtworkController extends Controller
 
         // Get distinct categories that actually have artworks
         $categories = ArtworkCategory::has('artworks')
-            ->select('id', 'name', 'description')
-            ->groupBy('name', 'id', 'description')
+            ->select('id', 'name')
+            ->groupBy('name', 'id')
             ->orderBy('name')
             ->get();
 
