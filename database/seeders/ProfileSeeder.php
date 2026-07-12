@@ -13,7 +13,10 @@ class ProfileSeeder extends Seeder
      */
     public function run(): void
     {
-        $users = User::all();
+        // UserSeeder already creates profiles for the accounts it seeds.
+        // Only fill in users that still lack one, so re-running db:seed
+        // neither fails on the unique nim nor gives users a second profile.
+        $users = User::doesntHave('profile')->get();
         $i = 0;
         foreach ($users as $user) {
             $i++;
