@@ -1,0 +1,23 @@
+        .list-group-item {
+            background: #3d1a5c;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .list-group-item.active {
+            background: #8F4898;
+            border-color: #8F4898;
+        }
+
+        .list-group-item:hover {
+            background: #4d2a6c;
+        }
+
+        .list-group-item.active:hover {
+            background: #9f58a8;
+        }
+
+        .table-dark {
+            --bs-table-bg: transparent;
+            --bs-table-border-color: rgba(255, 255, 255, 0.1);
+        }

@@ -280,51 +280,7 @@
         </div>
     </div>
 
-    <style>
-        .list-group-item {
-            background: #3d1a5c;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: #fff;
-        }
+    <link rel="stylesheet" href="{{ asset('css/pages/profile.css') }}">
 
-        .list-group-item.active {
-            background: #8F4898;
-            border-color: #8F4898;
-        }
-
-        .list-group-item:hover {
-            background: #4d2a6c;
-        }
-
-        .list-group-item.active:hover {
-            background: #9f58a8;
-        }
-
-        .table-dark {
-            --bs-table-bg: transparent;
-            --bs-table-border-color: rgba(255, 255, 255, 0.1);
-        }
-    </style>
-
-    <script>
-        // Smooth scroll for sidebar links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-
-                    // Update active state
-                    document.querySelectorAll('.list-group-item').forEach(item => {
-                        item.classList.remove('active');
-                    });
-                    this.classList.add('active');
-                }
-            });
-        });
-    </script>
+    <script src="{{ asset('js/pages/profile.js') }}"></script>
 @endsection
