@@ -6,7 +6,6 @@ use App\Models\Event;
 use App\Models\EventBudgetItem;
 use App\Models\EventRegistration;
 use App\Models\Notification;
-use App\Notifications\PaymentVerified;
 use App\Services\WhatsAppService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -119,37 +118,11 @@ class EventRegistrationController extends Controller
                     'link_url' => route('events.show', $registration->event_id),
                 ]);
 
-                // 2. Handle WhatsApp message sending to the user upon successful payment verification.
-                // This section directly calls the WhatsAppService for granular control and immediate feedback,
-                // rather than going through the generic Laravel Notification system's channel.
-                if (empty(config('fonnte.token'))) {
-                    // Fallback message if FONNTE_TOKEN is not configured in the environment.
-                    $whatsappMessage = 'Registration verified, but WhatsApp not sent (FONNTE_TOKEN not configured).';
-                } elseif (! $user->profile || ! $user->profile->no_telp) {
-                    // Fallback message if the user does not have a phone number in their profile.
-                    $whatsappMessage = 'Registration verified, but WhatsApp not sent (no phone number in profile).';
-                } else {
-                    try {
-                        // Reuse the message formatting logic from the PaymentVerified notification class
-                        // to ensure consistency in message content without duplicating code.
-                        $notification = new PaymentVerified($registration);
-                        $message = $notification->toWhatsApp($user);
-
-                        // Attempt to send the WhatsApp message using the WhatsAppService.
-                        $whatsappSent = $whatsAppService->sendMessage($user->profile->no_telp, $message);
-
-                        if ($whatsappSent) {
-                            $whatsappMessage = 'Registration verified successfully! WhatsApp confirmation sent.';
-                        } else {
-                            // Log and provide feedback if WhatsApp message sending fails.
-                            $whatsappMessage = 'Registration verified, but WhatsApp message failed to send (check logs).';
-                        }
-                    } catch (\Exception $e) {
-                        // Catch and log any exceptions during WhatsApp sending.
-                        Log::error('Error sending WhatsApp from controller', ['error' => $e->getMessage(), 'registration_id' => $registration->id]);
-                        $whatsappMessage = 'Registration verified, but an error occurred while sending WhatsApp.';
-                    }
-                }
+                // 2. Send the WhatsApp confirmation; the service owns the
+                // preconditions (token, phone number) and error handling.
+                $whatsApp = $whatsAppService->sendPaymentVerifiedMessage($registration);
+                $whatsappSent = $whatsApp['sent'];
+                $whatsappMessage = $whatsApp['feedback'];
             }
 
             try {

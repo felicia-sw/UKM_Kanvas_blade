@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use App\Models\EventRegistration;
+use App\Notifications\PaymentVerified;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -24,6 +26,45 @@ class WhatsAppService
         $this->token = config('fonnte.token');
         // Retrieve the Fonnte API URL from configuration, with a fallback default.
         $this->url = config('fonnte.url', 'https://api.fonnte.com/send');
+    }
+
+    /**
+     * Sends the payment-verified confirmation for an event registration.
+     * Owns the token/phone-number preconditions and error handling so
+     * callers only need the outcome and the user-facing feedback line.
+     *
+     * @return array{sent: bool, feedback: string}
+     */
+    public function sendPaymentVerifiedMessage(EventRegistration $registration): array
+    {
+        $user = $registration->user;
+
+        if (empty($this->token)) {
+            return ['sent' => false, 'feedback' => 'Registration verified, but WhatsApp not sent (FONNTE_TOKEN not configured).'];
+        }
+
+        if (! $user->profile || ! $user->profile->no_telp) {
+            return ['sent' => false, 'feedback' => 'Registration verified, but WhatsApp not sent (no phone number in profile).'];
+        }
+
+        try {
+            // Reuse the message formatting from the PaymentVerified
+            // notification so the content stays consistent.
+            $message = (new PaymentVerified($registration))->toWhatsApp($user);
+
+            if ($this->sendMessage($user->profile->no_telp, $message)) {
+                return ['sent' => true, 'feedback' => 'Registration verified successfully! WhatsApp confirmation sent.'];
+            }
+
+            return ['sent' => false, 'feedback' => 'Registration verified, but WhatsApp message failed to send (check logs).'];
+        } catch (\Exception $e) {
+            Log::error('Error sending payment-verified WhatsApp message', [
+                'error' => $e->getMessage(),
+                'registration_id' => $registration->id,
+            ]);
+
+            return ['sent' => false, 'feedback' => 'Registration verified, but an error occurred while sending WhatsApp.'];
+        }
     }
 
     /**
