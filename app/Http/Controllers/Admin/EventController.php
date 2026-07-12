@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreEventRequest;
+use App\Http\Requests\UpdateEventRequest;
 use App\Models\Event;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage; // 💡 NEW: Import Storage for file operations
 
 class EventController extends Controller
@@ -41,19 +42,8 @@ class EventController extends Controller
         return view('admin.event.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreEventRequest $request)
     {
-
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'poster_image' => 'required|image|mimes:jpeg,png,jpg|max:20480', // Max 20MB
-            'start_date' => 'required|date_format:Y-m-d\TH:i',
-            'end_date' => 'nullable|date_format:Y-m-d\TH:i|after:start_date',
-            'registration_deadline' => 'nullable|date|before:start_date',
-            'price' => 'nullable|numeric|min:0',
-            'location' => 'nullable|string|max:255',
-        ]);
 
         $data = $request->except(['_token']);
         $data['poster_image'] = $request->file('poster_image');
@@ -69,19 +59,8 @@ class EventController extends Controller
         return view('admin.event.edit', compact('event'));
     }
 
-    public function update(Request $request, Event $event)
+    public function update(UpdateEventRequest $request, Event $event)
     {
-
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'poster_image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
-            'start_date' => 'required|date_format:Y-m-d\TH:i',
-            'end_date' => 'nullable|date_format:Y-m-d\TH:i|after:start_date',
-            'registration_deadline' => 'nullable|date|before:start_date',
-            'price' => 'nullable|numeric|min:0',
-            'location' => 'nullable|string|max:255',
-        ]);
 
         $data = $request->except(['_token', '_method', 'poster_image']);
         $data['is_active'] = $request->has('is_active');

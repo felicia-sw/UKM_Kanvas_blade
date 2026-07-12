@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreEventRegistrationRequest;
 use App\Models\Event;
 use App\Models\EventBudgetItem;
 use App\Models\EventRegistration;
@@ -22,13 +23,8 @@ class EventRegistrationController extends Controller
      * @param  \App\Models\Event  $event  The event being registered for.
      * @return \Illuminate\Http\RedirectResponse Redirects back with a success message.
      */
-    public function store(Request $request, Event $event)
+    public function store(StoreEventRegistrationRequest $request, Event $event)
     {
-        $validated = $request->validate([
-            'payment_proof' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'phone_number' => 'nullable|string|max:20',
-        ]);
-
         $user = Auth::user();
 
         // Update or create phone number in profile if provided

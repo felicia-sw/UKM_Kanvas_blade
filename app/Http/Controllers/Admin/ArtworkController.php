@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreArtworkRequest;
+use App\Http\Requests\UpdateArtworkRequest;
 use App\Models\Artwork;
 use App\Models\ArtworkCategory;
 use Illuminate\Http\Request;
@@ -43,16 +45,8 @@ class ArtworkController extends Controller
         return view('admin.artworks.create', compact('categories'));
     }
 
-    public function store(Request $request)
+    public function store(StoreArtworkRequest $request)
     {
-
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'artist_name' => 'required|string|max:255',
-            'category_id' => 'required|exists:artwork_categories,id',
-            'description' => 'nullable|string',
-            'image_file' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
 
         // Pass the UploadedFile directly - CloudinaryUpload trait will handle it
         Artwork::create([
@@ -78,16 +72,8 @@ class ArtworkController extends Controller
         return view('admin.artworks.edit', compact('artwork', 'categories'));
     }
 
-    public function update(Request $request, Artwork $artwork)
+    public function update(UpdateArtworkRequest $request, Artwork $artwork)
     {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'artist_name' => 'required|string|max:255',
-            'category_id' => 'required|exists:artwork_categories,id',
-            'description' => 'nullable|string',
-            'image_file' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
-
         $data = $request->only('title', 'artist_name', 'category_id', 'description');
 
         // Handle image upload if a new file is provided
