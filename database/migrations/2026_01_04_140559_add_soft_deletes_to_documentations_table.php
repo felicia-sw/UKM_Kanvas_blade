@@ -11,6 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
+        // The create_documentation_table migration was later edited to add
+        // softDeletes() itself, so guard for installs where the column
+        // already exists.
+        if (Schema::hasColumn('documentations', 'deleted_at')) {
+            return;
+        }
+
         Schema::table('documentations', function (Blueprint $table) {
             $table->softDeletes();
         });
@@ -21,6 +28,10 @@ return new class extends Migration
      */
     public function down(): void
     {
+        if (! Schema::hasColumn('documentations', 'deleted_at')) {
+            return;
+        }
+
         Schema::table('documentations', function (Blueprint $table) {
             $table->dropSoftDeletes();
         });

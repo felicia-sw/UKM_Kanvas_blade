@@ -22,7 +22,9 @@ return new class extends Migration
         
         // Change type from enum to string in a separate statement
         // This allows for more notification types (events, dues, orders, etc.)
-        \DB::statement("ALTER TABLE notifications MODIFY COLUMN type VARCHAR(255) NOT NULL");
+        Schema::table('notifications', function (Blueprint $table) {
+            $table->string('type')->change();
+        });
     }
 
     /**
@@ -35,7 +37,9 @@ return new class extends Migration
             $table->foreignId('event_id')->nullable()->constrained('events')->onDelete('cascade');
         });
         
-        // Revert type back to enum
-        \DB::statement("ALTER TABLE notifications MODIFY COLUMN type ENUM('registration', 'reminder_1day', 'reminder_today') NOT NULL");
+        // Revert type back to enum (MySQL only; the enum type never existed on other drivers)
+        if (Schema::getConnection()->getDriverName() === 'mysql') {
+            \DB::statement("ALTER TABLE notifications MODIFY COLUMN type ENUM('registration', 'reminder_1day', 'reminder_today') NOT NULL");
+        }
     }
 };
